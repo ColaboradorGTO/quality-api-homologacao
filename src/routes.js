@@ -34,6 +34,7 @@ import LinkRelatorioBiController from './Informatica/relatorio/linkRelatorioBI/c
 // import ConsultaNFceController  from './Informatica/ConsultaNFCE/controllers/index.js'
 // import ConsultaNFeController from './Informatica/ConsultaNFCE/controllers/nfe.js'
 
+
 // import ConsultaStatusNfeController from './Informatica/ConsultaNFCE/controllers/statusNfce.js'
 import ConsultaNfeController from './Informatica/ConsultaNFCE/controllers/consulta.js'
 // Financeiro Início
