@@ -1,0 +1,309 @@
+import axios from "axios";
+import { dataFormatada } from "../../../utils/dataFormatada.js";
+import 'dotenv/config';
+const url = process.env.API_URL;
+import alterarVendaPagamentoSchema from '../schema/alteracaoPagamento.js';
+import { VendasClient } from "../client/index.js";
+import { VendasServices } from "../services/index.js";
+const vendaPagementoClient = new VendasClient(process.env.API_URL);
+const vendaPagamentoService = new VendasServices(vendaPagementoClient)
+
+class AdmVendasControllers {
+    async getRecebimentosFormaPagamento(req, res) {
+        let { idMarca, idEmpresa, dataPesquisaInicio, dataPesquisaFim, idFuncionario, dsFormaPagamento, dsParcela, page, pageSize } = req.query; 
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        idFuncionario = idFuncionario ? idFuncionario : '';
+        dsFormaPagamento = dsFormaPagamento ? dsFormaPagamento : '';
+        dsParcela = dsParcela ? dsParcela : '';
+        idMarca = idMarca ? idMarca : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/administrativo/venda-total-forma-pag.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idFunc=${idFuncionario}&dSFormaPag=${dsFormaPagamento}&dSParc=${dsParcela}&idEmpGrupo=${idMarca}`;
+            const response = await axios.get(apiUrl)
+            
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            return res.status(500).json({ error: error.message });
+     
+        }  
+    }
+
+    async getListaVendaTotalRecebido(req, res) {
+        let { idMarca, idEmpresa, dataPesquisaInicio, dataPesquisaFim, idFuncionario, dsFormaPagamento, dsParcela, page, pageSize} = req.query; 
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        idFuncionario = idFuncionario ? idFuncionario : '';
+        dsFormaPagamento = dsFormaPagamento ? dsFormaPagamento : '';
+        dsParcela = dsParcela ? dsParcela : '';
+        idMarca = idMarca ? idMarca : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+
+            const apiUrl = `${url}/api/administrativo/venda-total-recebido-periodo.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idFunc=${idFuncionario}&dSFormaPag=${dsFormaPagamento}&dSParc=${dsParcela}&idEmpGrupo=${idMarca}`;
+            const response = await axios.get(apiUrl)
+ 
+            return res.json(response.data); // Retorna
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            return res.status(500).json({ error: error.message });
+        }  
+    }
+
+
+    async getVendaVendedorAction(req, res) {
+        let { idEmpresa, idGrupo, dataPesquisaInicio, dataPesquisaFim, page, pageSize, uf, byId } = req.query;
+
+        idEmpresa = idEmpresa ? Number(idEmpresa) : '';
+        idGrupo = idGrupo ? Number(idGrupo) : '';
+        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        byId = byId ? byId : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        uf = uf ? uf : '';
+
+        try {
+            const apiUrl = `${url}/api/administrativo/venda-vendedor.xsjs?idGrupo=${idGrupo}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&uf=${uf}`
+            const response = await axios.get(apiUrl)
+            
+            return res.json(response.data); // Retorna
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+        
+    }
+
+    async getListaVendaAtiva(req, res) {
+
+        let { statusCancelado, statusContingencia, statusCanceladoWeb, stCanceladoPDVEmitida, stCanceladoPDVEmTela, statusCanceladoDepois30Minutos, cpfCliente, ufVenda, idGrupo, idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        statusCancelado = statusCancelado ? statusCancelado : '';
+        statusCanceladoWeb = statusCanceladoWeb ? statusCanceladoWeb : '';
+        stCanceladoPDVEmitida = stCanceladoPDVEmitida ? stCanceladoPDVEmitida : '';
+        stCanceladoPDVEmTela = stCanceladoPDVEmTela ? stCanceladoPDVEmTela : '';
+        statusCanceladoDepois30Minutos = statusCanceladoDepois30Minutos ? statusCanceladoDepois30Minutos : '';
+        statusContingencia = statusContingencia ? statusContingencia : '';
+        cpfCliente = cpfCliente ? cpfCliente : '';
+        ufVenda = ufVenda ? ufVenda : '';
+        idGrupo = idGrupo ? idGrupo : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+
+            const apiUrl = `${url}/api/administrativo/venda-ativa.xsjs?cpfCliente=${cpfCliente}&ufVenda=${ufVenda}&idMarca=${idGrupo}&idEmpresa=${idEmpresa}&dataFechamento=${dataPesquisaInicio}&dataFechamentoFim=${dataPesquisaFim}&statusContingencia=${statusContingencia}&status=${statusCancelado}&stCanceladoWeb=${statusCanceladoWeb}&stCanceladoPDVEmitida=${stCanceladoPDVEmitida}&stCanceladoApos30Min=${statusCanceladoDepois30Minutos}&stCanceladoPDVEmTela=${stCanceladoPDVEmTela}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl) 
+
+      
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+    }
+
+    // async getListaAlterarVendasPagamento(req, res) {
+
+    //     let { idVenda, byId, page, pageSize  } = req.query;
+      
+    //     idVenda = idVenda ? idVenda : '';
+    //     byId = byId ? byId : '';
+    //     page = page ? page : '';
+    //     pageSize = pageSize ? pageSize : '';
+                
+    //     try {
+    //         const response = getAlterarVendaPagamento(idVenda, byId, page, pageSize)
+    //         return res.json(response); 
+    //     } catch (error) {
+    //         console.error("Unable to connect to the database:", error);
+    //         throw error;
+    //     }
+        
+    // }
+    
+    async getListaVendasById(req, res) {
+        let {nnf, serie, idVenda, idEmpresa, page, pageSize  } = req.query;
+        nnf = nnf ? nnf : '';
+        serie = serie ? serie : '';
+        idVenda = idVenda ? idVenda : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+            
+        // if(idVenda == '') {
+        //     return res.status(400).json({ error: "idVenda is required" });
+        // }
+
+        try {
+            const apiUrl = `${url}/api/venda/lista-venda.xsjs?nnf=${nnf}&serie=${serie}&idEmpresa=${idEmpresa}&id=${idVenda}&pageSize=${pageSize}&page=${page}`;
+            const response = await axios.get(apiUrl)
+           
+     
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+        
+    }
+
+    async getListaVendaCliente(req, res) {
+        let {nnf, serie, idEmpresa, idVenda, idSubGrupoEmpresarial, cpfOUidVenda, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        nnf = nnf ? nnf : '';
+        serie = serie ? serie : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idVenda = idVenda ? idVenda : '';
+        idSubGrupoEmpresarial = idSubGrupoEmpresarial ? idSubGrupoEmpresarial : '';
+        cpfOUidVenda = cpfOUidVenda ? cpfOUidVenda : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+                
+        try {
+
+            // const apiUrl = `${url}/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
+            const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Error no AdmVendasControllers.getListaVendaCliente:", error);
+            throw error;
+        }
+        
+    }
+
+    async putAlterarVendasPagamento(req, res) {
+        try {
+            const { error, value } = alterarVendaPagamentoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+      
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await vendaPagamentoService.updateVendaPagamento(
+                value.STCANCELADO,
+                value.DTULTIMAALTERACAO,
+                value.IDFUNCIONARIOCANCELA,
+                value.TXTMOTIVOCANCELA,
+                value.IDVENDA
+            )
+            
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("Erro no AdmVendasControllers.putAlterarVendasPagamento:", error);
+            return res.status(500).json({ error: 'Erro no servidor' });
+        }
+    }
+
+    
+    async putAlterarVendaRecebimento(req, res) {
+        try {
+            let { IDVENDA,  VRRECDINHEIRO, VRRECCONVENIO, VRRECCARTAO, VRRECPOS, VRRECVOUCHER } = req.body; 
+            const response = await axios.put(`${url}/api/administrativo/atualiza-recebimento-venda.xsjs`, {
+                IDVENDA,  VRRECDINHEIRO, VRRECCONVENIO, VRRECCARTAO, VRRECPOS, VRRECVOUCHER
+            });
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async putVendaVendedor(req, res) {
+        try {
+            let { IDVENDADETALHE, IDVENDEDOR} = req.body; 
+            if(!IDVENDADETALHE || !IDVENDEDOR) {
+                return res.status(400).json({ error: "IDVENDADETALHE and IDVENDEDOR are required" });
+            }
+            const response = await  axios.put(`${url}/api/administrativo/venda-vendedor.xsjs`, {
+                IDVENDADETALHE,
+                IDVENDEDOR
+            });
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Error no AdmVendasControllers.putVendaVendedor:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async putVendaCancelamento(req, res) {
+        try {
+            let { IDVENDA, IDUSUARIOCANCELAMENTO, TXTMOTIVOCANCELAMENTO} = req.body; 
+            
+            if(!IDVENDA || !IDUSUARIOCANCELAMENTO) {
+                return res.status(400).json({ error: "IDVENDA and IDUSUARIOCANCELAMENTO are required" });
+            }
+            const response = await  axios.put(`${url}/api/venda/venda-cancelamento.xsjs`, [{
+                IDVENDA,
+                IDUSUARIOCANCELAMENTO,
+                TXTMOTIVOCANCELAMENTO
+            }]);
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Error no AdmVendasControllers.putVendaCancelamento:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    
+
+    async postAlterarVendasPagamento(req, res) {
+        try {
+            let {
+                DSTIPOPAGAMENTO,
+                DTPROCESSAMENTO,
+                IDFUNCIONARIO,
+                IDVENDA,
+                IDVENDAPAGAMENTO,
+                NITEM,
+                STCANCELADO,
+                TPAG,
+                VALORDEDUZIDO,
+                VALORLIQUIDO,
+                VALORRECEBIDO
+            } = req.body; 
+            const response = await axios.post(`${url}/api/administrativo/altera-venda-pagamento.xsjs`, {
+                DSTIPOPAGAMENTO,
+                DTPROCESSAMENTO,
+                IDFUNCIONARIO,
+                IDVENDA,
+                IDVENDAPAGAMENTO,
+                NITEM,
+                STCANCELADO,
+                TPAG,
+                VALORDEDUZIDO,
+                VALORLIQUIDO,
+                VALORRECEBIDO
+            });
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+export default new AdmVendasControllers();

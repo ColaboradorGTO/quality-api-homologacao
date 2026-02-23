@@ -1,0 +1,44 @@
+
+import axios from "axios";
+import 'dotenv/config';
+const url = process.env.API_URL;
+
+class LogsControllers {
+    async getListaLogsUsuario(req, res) {
+        let { byId, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+    
+        byId = byId ? byId : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';    
+
+        try {
+    
+          const apiUrl = `${url}/api/log-web.xsjs`;
+          const response = await axios.get(apiUrl)
+
+          return res.json(response.data);
+        } catch (error) {
+          console.error("Unable to connect to the database:", error);
+          throw error;
+        }
+    }
+
+    async createLogsUsuario(req, res) {
+        
+        try {
+            const logs = Array.isArray(req.body) ? req.body : [req.body]; 
+            
+            const response = await axios.post(`${url}/api/log-web.xsjs`, logs);
+            
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+    }
+
+}
+
+export default new LogsControllers();
