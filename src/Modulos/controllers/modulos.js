@@ -205,6 +205,25 @@ class ModulosControllers  {
         }
     }
 
+    async putFuncionarioDepartamento(req, res) {
+        try {
+            let {
+                ID,
+                DEPARTAMENTO,
+            } = req.body 
+         
+            const response = await axios.put(`${url}/api/perfilUsuario/funcionario-departamento.xsjs`, [{
+                ID,
+                DEPARTAMENTO,
+            }]);
+            return res.json(response.data);
+        }catch (error) {
+            console.error("Erro no ModulosControllers.putFuncionarioDepartamento: ", error);
+            throw error;
+        }
+
+    }
+
     async postPerfilUsuarioMenu(req, res) {
         try {
             let {

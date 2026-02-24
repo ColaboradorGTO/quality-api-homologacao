@@ -111,6 +111,7 @@ routes.get('/menus', ModulosControllers.getListaSubMenusUsuario)
 
 
 routes.put('/perfil-usuario/:id', ModulosControllers.putPerfilUsuarioMenu)
+routes.put('/funcionario-departamento/:id', ModulosControllers.putFuncionarioDepartamento)
 routes.post('/criar-perfil-usuario', ModulosControllers.postPerfilUsuarioMenu)
 
 // routes.get('/listaCaixasMovimento', AdministrativoControllers.getListaCaixasMovimento);

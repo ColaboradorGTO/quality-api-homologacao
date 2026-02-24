@@ -2,8 +2,8 @@
 import axios from "axios";
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = 'http://164.152.245.77:8000/quality/concentrador';
+const url = process.env.API_URL;
+
 
 
 class ComercialProdutoControllers {
