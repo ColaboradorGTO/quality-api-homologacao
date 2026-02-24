@@ -38,6 +38,8 @@ class App {
             preflightContinue: true,
         }));
 
+        this.server.use(express.json({ limit: '100mb' }));
+        this.server.use(express.urlencoded({ limit: '100mb', extended: true }));
         this.server.use(express.json());
         this.server.use(corsMiddleware);
         this.server.use(bodyParser.json({ limit: '100mb', extended: true }));
