@@ -1,8 +1,8 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = "http://164.152.245.77:8000/quality/concentrador";
+const url = process.env.API_URL;
+
 
 class ContabilidadeControllers {
   async getListaVendasContigencia(req, res) {
@@ -132,11 +132,12 @@ class ContabilidadeControllers {
     try {
 
       const apiUrl = `${url}/api/contabilidade/venda-produto.xsjs?dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&idGrupoEmpresarial=${idGrupoEmpresarial}&idEmpresa=${idEmpresa}&descricaoProduto=${produtoPesquisado}&uf=${ufPesquisa}&idFornecedor=${idFornecedor}&idGrupoGrade=${idGrupoGrade}&idGrade=${idGrade}&page=${page}&pageSize=${pageSize}`
+     
       const response = await axios.get(apiUrl)
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no ContabilidadeControllers.getListaVendasPeriodo:", error);
       throw error;
     }
 
@@ -164,7 +165,7 @@ class ContabilidadeControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no ContabilidadeControllers.getListaVendasPeriodoConsolidado:", error);
       throw error;
     }
 

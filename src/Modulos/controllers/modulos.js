@@ -244,7 +244,7 @@ class ModulosControllers  {
                 IDMENUFILHO,
             } = req.body 
          
-            // const response = await axios.post(`http://164.152.245.77:8000/quality/concentrador/api/perfilUsuario/perfilUsuarioMenu.xsjs`, {
+            
             const response = await axios.post(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, {
                 IDUSUARIO,
                 CRIAR,

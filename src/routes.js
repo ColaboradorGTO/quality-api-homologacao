@@ -554,7 +554,7 @@ routes.get('/venda-marca-periodo-comercial', ComercialControllers.getListaVendas
 routes.get('/vendas-estoque-grupo-subGrupo', ComercialControllers.getListaVendasEstoqueGrupoSubGrupoComercial)
 routes.get('/produtosPrecosEstoquesLojas', ComercialControllers.getListaProdutosEstoquePrecoLoja)
 routes.get('/vendasEstoqueProduto', ComercialControllers.getListaVendasPosicionamentoEstoquePeriodos)
-routes.get('/funcionarioRelatorio', ComercialControllers.getListaColaboradorRelatorio)
+routes.get('/funcionario-relatorio', ComercialControllers.getListaColaboradorRelatorio)
 routes.get('/custoPorLoja', ComercialControllers.getListaVendasCustoLojas)
 routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPosicionamentoEstoque)
 routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)

@@ -76,8 +76,8 @@ class VendasControllers {
     async getListaVendasSaldo(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim, idGrupoEmpresarial, idEmpresa, produtoPesquisado, ufPesquisa, idFornecedor, idGrupoGrade, idGrade, page, pageSize  } = req.query;
 
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         idGrupoEmpresarial = idGrupoEmpresarial ? idGrupoEmpresarial : '';
         produtoPesquisado = produtoPesquisado ? produtoPesquisado : '';
         idFornecedor = idFornecedor ? idFornecedor : '';
@@ -94,7 +94,7 @@ class VendasControllers {
     
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no VendasControllers.getListaVendasSaldo:", error);
             throw error;
         }
         
@@ -103,8 +103,8 @@ class VendasControllers {
     async getListaRotatividade(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim, idGrupoEmpresarial, idEmpresa, produtoPesquisado, ufPesquisa, idFornecedor, idGrupoGrade, idGrade, page, pageSize  } = req.query;
 
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         idGrupoEmpresarial = idGrupoEmpresarial ? idGrupoEmpresarial : '';
         produtoPesquisado = produtoPesquisado ? produtoPesquisado : '';
         idFornecedor = idFornecedor ? idFornecedor : '';
@@ -116,13 +116,13 @@ class VendasControllers {
         try {
            
             
-            const apiUrl = `${url}/api/venda/rotatividade.xsjs?page=&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&idGrupoEmpresarial=${idGrupoEmpresarial}&idEmpresa=${idEmpresa}&descricaoProduto=${produtoPesquisado}&uf=${ufPesquisa}&idFornecedor=${idFornecedor}&idGrupoGrade=${idGrupoGrade}&idGrade=${idGrade}`
+            const apiUrl = `${url}/api/venda/rotatividade.xsjs?page=${page}&pageSize=${pageSize}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&idGrupoEmpresarial=${idGrupoEmpresarial}&idEmpresa=${idEmpresa}&descricaoProduto=${produtoPesquisado}&uf=${ufPesquisa}&idFornecedor=${idFornecedor}&idGrupoGrade=${idGrupoGrade}&idGrade=${idGrade}`
            
             const response = await axios.get(apiUrl)
     
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no VendasControllers.getListaRotatividade:", error);
             throw error;
         }
         

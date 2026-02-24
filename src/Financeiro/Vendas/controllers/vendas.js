@@ -46,12 +46,12 @@ class FinanceiroVendasControllers {
   async getListaVendasDigitalMarca(req, res) {
     let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
     idEmpresa = idEmpresa ? idEmpresa : '';
-    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
-    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
     page = page ? page : '';
     pageSize = pageSize ? pageSize : '';
     try {
-      const apiUrl = `${url}/api/financeiro/venda-digital-marca.xsjs?pageSize=500&page=1&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
+      const apiUrl = `${url}/api/financeiro/venda-digital-marca.xsjs?pageSize=${pageSize}&page=${page}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
       const response = await axios.get(apiUrl)
 
       return res.json(response.data);
