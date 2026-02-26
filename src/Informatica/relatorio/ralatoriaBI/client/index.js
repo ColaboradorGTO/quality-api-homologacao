@@ -15,10 +15,10 @@ export class RelatorioBiClient {
             DSRELATORIOBI,
             STATIVO
         ) {
-            const response = await this.api.post(`${url}/api/informatica/relatoriobi.xsjs`, {
+            const response = await this.api.post(`${url}/api/informatica/relatoriobi.xsjs`, [{
                 DSRELATORIOBI,
                 STATIVO
-            })
+            }])
             return response.data;
         }
 
@@ -28,11 +28,11 @@ export class RelatorioBiClient {
             STATIVO,
             IDRELATORIOBI
         ) {
-            const response = await this.api.put(`${url}/api/informatica/relatoriobi.xsjs`, {
+            const response = await this.api.put(`${url}/api/informatica/relatoriobi.xsjs`, [{
                 DSRELATORIOBI,
                 STATIVO,
                 IDRELATORIOBI
-            })
+            }])
             return response.data;
 
         }

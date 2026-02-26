@@ -37,7 +37,7 @@ class ModulosControllers  {
             
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no ModulosControllers.getListaMenusPorUsuario:", error);
             throw error;
         }
     }
