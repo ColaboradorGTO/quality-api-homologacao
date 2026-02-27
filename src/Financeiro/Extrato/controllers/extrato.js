@@ -51,7 +51,7 @@ class ExtratosControllers {
         IDOPERADOR,
         DATACADASTRO,
       } = req.body;
-      const response = await axios.post(`${url}/api/financeiro/ajuste-extrato.xsjs`, {
+      const response = await axios.post(`${url}/api/financeiro/ajuste-extrato.xsjs`, [{
         IDEMPRESA,
         HISTORICO,
         VRDEBITO,
@@ -60,7 +60,7 @@ class ExtratosControllers {
         STCANCELADO,
         IDOPERADOR,
         DATACADASTRO,
-      });
+      }]);
       return res.status(201).json(response.data);
     } catch (error) {
       console.error("Erroor no servidor", error);

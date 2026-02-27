@@ -31,13 +31,13 @@ export class SaldosClient {
     OBSERVACAO,
     IDFUNCIONARIORESP
   ) {
-    const response = await this.api.post(`${url}/api/financeiro/movimento-saldo-bonificacao.xsjs`, {
+    const response = await this.api.post(`${url}/api/financeiro/movimento-saldo-bonificacao.xsjs`, [{
       IDFUNCIONARIO,
       TIPOMOVIMENTO,
       VRMOVIMENTO,
       OBSERVACAO,
       IDFUNCIONARIORESP
-    });
+    }]);
     return response.data;
   }
 }

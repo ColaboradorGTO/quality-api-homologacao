@@ -25,7 +25,7 @@ export class DepositoClient {
         IDUSRCACELAMENTO,
         DSMOTIVOCANCELAMENTO,
     ) {
-        const response = await this.client.post(`${url}/api/deposito-loja/todos.xsjs`, {
+        const response = await this.client.post(`${url}/api/deposito-loja/todos.xsjs`, [{
             DTDEPOSITO,
             DTMOVIMENTOCAIXA,
             IDEMPRESA,
@@ -39,7 +39,7 @@ export class DepositoClient {
             STCANCELADO,
             IDUSRCACELAMENTO,
             DSMOTIVOCANCELAMENTO,
-        });
+        }]);
 
         return response.data;
     }
@@ -57,7 +57,7 @@ export class DepositoClient {
         STATIVO,
         STCANCELADO
     ) {
-        const response = await this.client.put(`${url}/api/deposito-loja/todos.xsjs`, {
+        const response = await this.client.put(`${url}/api/deposito-loja/todos.xsjs`, [{
             IDDEPOSITOLOJA,
             IDEMPRESA,
             IDUSR,
@@ -69,7 +69,7 @@ export class DepositoClient {
             VRDEPOSITO,
             STATIVO,
             STCANCELADO
-        });
+        }]);
 
         return response.data;
     }

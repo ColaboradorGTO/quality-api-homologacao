@@ -54,8 +54,8 @@ class CaixasControllers {
     let { idEmpresa, idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
     idEmpresa = idEmpresa ? idEmpresa : '';
     idMarca = idMarca ? idMarca : '';
-    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
-    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
     page = page ? page : ''
     pageSize = pageSize ? pageSize : ''
     try {
