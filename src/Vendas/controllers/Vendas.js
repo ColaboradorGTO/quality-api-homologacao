@@ -140,8 +140,7 @@ class VendasControllers {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-            const apiUrl = `${url}/api/venda/venda-xml.xsjs?id=${idVenda}&idGrupoEmpresarial=${idMarca}&idEmpresa=${idEmpresa}&stContigencia=${stContigencia}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}`
-
+            const apiUrl = `${url}/api/venda/venda-xml.xsjs?id=${idVenda}&idGrupoEmpresarial=${idMarca}&idEmpresa=${idEmpresa}&stContingencia=${stContigencia}&stCancelado=${stCancelado}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}`
             const response = await axios.get(apiUrl)
       
             return res.json(response.data); 
