@@ -38,7 +38,7 @@ export class OTClient {
         QTDTOTALITENSAJUSTE,
         dadosdetalheot,
     ) {
-        const response = await this.api.post(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, {
+        const response = await this.api.post(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
             IDRESUMOOT,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
@@ -66,7 +66,7 @@ export class OTClient {
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
             dadosdetalheot,
-        });
+        }]);
         return response.data;
     }
     async atualizarOT(
@@ -99,7 +99,7 @@ export class OTClient {
         dadosdetalheot,
     ) {
 
-        const response = await this.api.put(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, {
+        const response = await this.api.put(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
             IDSTATUSOT,
             IDRESUMOOT,
             IDEMPRESAORIGEM,
@@ -127,7 +127,7 @@ export class OTClient {
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
             dadosdetalheot,
-        });
+        }]);
         return response.data;
     }
 }

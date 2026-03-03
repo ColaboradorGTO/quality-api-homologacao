@@ -136,7 +136,7 @@ class DespesasLojaControllers {
             if (!DSHISTORIO) {
                 return res.status(400).json({ message: 'DSHISTORIO é obrigatório!' });
             }
-            const response = await axios.post(`${url}/api/despesa-loja/todos.xsjs`, {
+            const response = await axios.post(`${url}/api/despesa-loja/todos.xsjs`, [{
                 IDEMPRESA,
                 IDUSR,
                 DTDESPESA,
@@ -149,7 +149,7 @@ class DespesasLojaControllers {
                 VRDESPESA,
                 STATIVO,
                 STCANCELADO
-            })
+            }])
 
             return res.status(200).json({ message: 'Despesa cadastrada com sucesso!' })
         } catch (error) {

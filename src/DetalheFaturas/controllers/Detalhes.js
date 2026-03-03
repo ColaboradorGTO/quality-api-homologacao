@@ -140,7 +140,8 @@ class DetalheFaturasControllers {
         TXTMOTIVOCANCELAMENTO,
         STCANCELADO,
         IDUSRCACELAMENTO,
-      });
+      }
+    );
       return res.status(200).json({ message: "Detalhe Fatura atualizada com sucesso", data: response.data });
     } catch (error) {
       console.error("Erro no DetalheFaturasControllers.putDetalheFatura:", error);
