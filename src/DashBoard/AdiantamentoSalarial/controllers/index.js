@@ -137,7 +137,7 @@ class DashBoardAdiantamentoSalarialControllers {
                 return res.status(400).json({ error: "IDUSR is required."});
             }
 
-            const response = await axios.post(`${url}/api/adiantamento-salarial.xsjs`, {
+            const response = await axios.post(`${url}/api/adiantamento-salarial.xsjs`, [{
                 IDEMPRESA,
                 IDFUNCIONARIO,
                 DTLANCAMENTO,
@@ -145,7 +145,7 @@ class DashBoardAdiantamentoSalarialControllers {
                 VRVALORDESCONTO,
                 STATIVO,
                 IDUSR
-            });
+            }]);
         
             return res.json(response.data);
         } catch (error) {
