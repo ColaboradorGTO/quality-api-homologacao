@@ -19,7 +19,8 @@ class EmpresaControllers {
         pageSize = pageSize ? pageSize : '';
 
         try {
-            const response = await axios.get(`${url}/api/empresa.xsjs?id=${idEmpresa}`)
+            // const response = await axios.get(`${url}/api/empresa.xsjs?id=${idEmpresa}`)
+            const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador/api/empresa.xsjs?id=${idEmpresa}`)
 
             return res.json(response.data);
         } catch (error) {
