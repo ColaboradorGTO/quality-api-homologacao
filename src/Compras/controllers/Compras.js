@@ -929,7 +929,7 @@ class ComprasControllers {
         }
     }
 
-    async updateSubGrupoEstrutura(req, res) {
+    async putSubGrupoEstrutura(req, res) {
         let {
             IDGRUPOESTRUTURAANTIGA,
             IDGRUPOESTRUTURA,
@@ -942,8 +942,8 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/subgrupoestrutura.xsjs`
-            // return console.log(req.body, 'request.body');
-            const response = await axios.put(apiUrl, {
+         
+            const response = await axios.put(apiUrl, [{
                 IDGRUPOESTRUTURAANTIGA,
                 IDGRUPOESTRUTURA,
                 DSSUBGRUPOESTRUTURA,
@@ -951,10 +951,10 @@ class ComprasControllers {
                 CODSUBGRUPOESTRUTURA,
                 IDSUBGRUPOESTRUTURA,
                 STATIVO
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("error no ComprasControllers.putSubGrupoEstrutura:", error);
             throw error;
         }
     }
@@ -1084,12 +1084,12 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/categoriapedidos.xsjs`
-            const response = await axios.put(apiUrl, {
+            const response = await axios.put(apiUrl, [{
                 IDCATEGORIAPEDIDO,
                 DSCATEGORIAPEDIDO,
                 TIPOPEDIDO,
                 STATIVO
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putCategoriaPedidos:", error);
@@ -1429,7 +1429,7 @@ class ComprasControllers {
     }
 
     // CREATE
-    async createSubGrupoEstrutura(req, res) {
+    async postSubGrupoEstrutura(req, res) {
         let {
             IDGRUPOESTRUTURAANTIGA,
             IDGRUPOESTRUTURA,
@@ -1442,7 +1442,7 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/subgrupoestrutura.xsjs`
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDGRUPOESTRUTURAANTIGA,
                 IDGRUPOESTRUTURA,
                 DSSUBGRUPOESTRUTURA,
@@ -1450,7 +1450,7 @@ class ComprasControllers {
                 CODSUBGRUPOESTRUTURA,
                 IDSUBGRUPOESTRUTURA,
                 STATIVO
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasController.postGrupoEstrutura:", error);
@@ -1626,7 +1626,7 @@ class ComprasControllers {
         }
     }
 
-    async createCategoriaPedidos(req, res) {
+    async postCategoriaPedidos(req, res) {
         let {
             IDCATEGORIAPEDIDO,
             DSCATEGORIAPEDIDO,
@@ -1636,15 +1636,15 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/categoriapedidos.xsjs`
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDCATEGORIAPEDIDO,
                 DSCATEGORIAPEDIDO,
                 TIPOPEDIDO,
                 STATIVO
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
-            console.error("error ComprasController.createCategoriaPedidos:", error);
+            console.error("error ComprasController.postCategoriaPedidos:", error);
             throw error;
         }
     }
