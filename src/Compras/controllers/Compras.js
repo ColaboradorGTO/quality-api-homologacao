@@ -896,9 +896,25 @@ class ComprasControllers {
             IDTPDOCUMENTO
         } = req.body;
 
+        if(!IDCONDICAOPAGAMENTO) {
+            return res.status(400).json({ error: "IDCONDICAOPAGAMENTO is required" });
+        }
+
+        if(DSCONDICAOPAG == '') {
+            return res.status(400).json({ error: "O campo 'DSCONDICAOPAG' é obrigatório e não pode estar vazio." });
+        }
+
+        if(STPARCELADO == '') {
+            return res.status(400).json({ error: "O campo 'STPARCELADO' é obrigatório e não pode estar vazio." });
+        }
+
+        if(NUPARCELAS == '') {
+            return res.status(400).json({ error: "O campo 'NUPARCELAS' é obrigatório e não pode estar vazio." });
+        }
+        
         try {
             const apiUrl = `${url}/api/compras/condicaopagamento.xsjs`
-            const response = await axios.put(apiUrl, {
+            const response = await axios.put(apiUrl, [{
                 IDCONDICAOPAGAMENTO,
                 IDGRUPOEMPRESARIAL,
                 DSCONDICAOPAG,
@@ -921,10 +937,10 @@ class ComprasControllers {
                 DSTPDOCUMENTO,
                 STATIVO,
                 IDTPDOCUMENTO
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("Error no ComprasControllers.putCondicaoPagamento:", error);
             throw error;
         }
     }
@@ -1505,9 +1521,21 @@ class ComprasControllers {
             IDTPDOCUMENTO
         } = req.body;
 
+        if(DSCONDICAOPAG == '') {
+            return res.status(400).json({ error: "O campo 'DSCONDICAOPAG' é obrigatório e não pode estar vazio." });
+        }
+
+        if(STPARCELADO == '') {
+            return res.status(400).json({ error: "O campo 'STPARCELADO' é obrigatório e não pode estar vazio." });
+        }
+
+        if(NUPARCELAS == '') {
+            return res.status(400).json({ error: "O campo 'NUPARCELAS' é obrigatório e não pode estar vazio." });
+        }
+
         try {
             const apiUrl = `${url}/api/compras/condicaopagamento.xsjs`
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDCONDICAOPAGAMENTO,
                 IDGRUPOEMPRESARIAL,
                 DSCONDICAOPAG,
@@ -1530,7 +1558,7 @@ class ComprasControllers {
                 DSTPDOCUMENTO,
                 STATIVO,
                 IDTPDOCUMENTO
-            });
+            }]);
         
             return res.json(response.data);
         } catch (error) {
