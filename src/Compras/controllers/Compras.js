@@ -1887,7 +1887,7 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/fornecedor.xsjs`
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDFORNECEDOR,
                 IDGRUPOEMPRESARIAL,
                 IDSUBGRUPOEMPRESARIAL,
@@ -1921,7 +1921,7 @@ class ComprasControllers {
                 TPARQUIVOPADRAO,
                 TPFISCALPADRAO,
                 EMAILVENDEDORPADRAO,
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.postFornecedor:", error);
