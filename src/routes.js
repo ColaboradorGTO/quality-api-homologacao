@@ -643,6 +643,7 @@ routes.put('/fabricante/:id', ComprasControllers.putFabricante)
 routes.put('/fabricante-fornecedor/:id', ComprasControllers.putFabricanteFornecedor)
 routes.put('/fornecedor-fabricante/:id', ComprasControllers.putFornecedorFabricante)
 routes.put('/excluir-vinculo-fornecedor', ComprasControllers.putExcluirVinculoFornecedorFabricante)
+routes.put('/migrar-fornecedor-sap', ComprasControllers.putMigrarFornecedorSAP)
 
 routes.put('/deletar-vinculo-tamanho-categoria', ComprasControllers.updateVinculoTamanhoCategoria)
 routes.put('/fornecedor/:id', ComprasControllers.putFornecedor)

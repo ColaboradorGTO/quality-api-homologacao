@@ -1253,6 +1253,10 @@ class ComprasControllers {
             EMAILVENDEDORPADRAO,
         } = req.body;
 
+        if(!IDFORNECEDOR) {
+            return res.status(400).json({ error: "IDFORNECEDOR is required" });
+        }
+
         try {
             const apiUrl = `${url}/api/compras/fornecedor.xsjs`
         
@@ -1301,13 +1305,37 @@ class ComprasControllers {
     async putExcluirVinculoFornecedorFabricante(req, res) {
         let {  IDFABRICANTEFORNOCEDOR    } = req.query;
 
+        if(!IDFABRICANTEFORNOCEDOR) {
+            return res.status(400).json({ error: "IDFABRICANTEFORNOCEDOR is required" });
+        }
+
         try {
+                                    
             const apiUrl = `${url}/api/compras/del_vincfabforn.xsjs?IDFABRICANTEFORN=${IDFABRICANTEFORNOCEDOR}`
         
             const response = await axios.put(apiUrl);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putExcluirVinculoFornecedor:", error);
+            throw error;
+        }
+    }
+   
+    async putMigrarFornecedorSAP(req, res) {
+        let {  IDFORNECEDOR    } = req.query;
+
+        try {
+
+            if(!IDFORNECEDOR) {
+                return res.status(400).json({ error: "IDFORNECEDOR is required" });
+            }
+
+            const apiUrl = `${url}/api/service-layer/pedido-compra/por-codigo/fornecedor.xsjs?codFornecedor=${IDFORNECEDOR}`
+        
+            const response = await axios.put(apiUrl);
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putMigrarFornecedorSAP:", error);
             throw error;
         }
     }
