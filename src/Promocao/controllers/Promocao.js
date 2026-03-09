@@ -371,6 +371,22 @@ class PromocaoControllers  {
         }
     }
 
+    async postPromocaoSubGrupo(req, res) {
+        try {
+            const dados = Array.isArray(req.body) ? req.body : [req.body];
+                  
+            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, dados);
+            
+            return res.status(200).json({
+                message: "Promoção(s) criada(s) com sucesso",
+                data: response.data
+            });
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+    }
+
     async postMecanicaAtivas(req, res) {
        
         try {   
