@@ -663,6 +663,7 @@ routes.post('/cadastro-vinculo-tamanho-categoria', ComprasControllers.postVincul
 routes.post('/cadastrar-transportador', ComprasControllers.postCadastroTransportador)
 routes.post('/cadastrar-fabricante', ComprasControllers.postFabricante)
 routes.post('/cadastrar-fabricante-fornecedor', ComprasControllers.postFabricanteFornecedor)
+routes.post('/cadastrar-fornecedor-fabricante', ComprasControllers.postFornecedorFabricante)
 routes.post('/migrar-fabricante', ComprasControllers.postMigrarFabricanteSap)
 routes.post('/cadastrar-fornecedor', ComprasControllers.postFornecedor)
 routes.post('/cadastrar-imagem-produto', ComprasControllers.postImagemProduto)

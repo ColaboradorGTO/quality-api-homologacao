@@ -1216,6 +1216,31 @@ class ComprasControllers {
         }
     }
 
+    async postFornecedorFabricante(req, res) {
+        let {
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO,
+        } = req.body;
+
+        if(!IDFABRICANTE) {
+            return res.status(400).json({ error: "IDFABRICANTE is required" });
+        }
+
+        try {
+            const apiUrl = `${url}/api/compras/fornecedor-fabricante.xsjs`
+            const response = await axios.post(apiUrl, [{
+                IDFABRICANTE,
+                IDFORNECEDOR,
+                STATIVO,
+            }]);
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.postFornecedorFabricante:", error);
+            throw error;
+        }
+    }
+
     async putFornecedor(req, res) {
         let {
             IDFORNECEDOR,
