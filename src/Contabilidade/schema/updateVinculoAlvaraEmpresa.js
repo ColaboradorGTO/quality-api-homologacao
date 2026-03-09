@@ -50,7 +50,7 @@ const updateVinculoAlvaraEmpresaSchema = Joi.object({
             "any.required": "IDFUNCIONARIO is required field"
         }),
 
-    NUMEROPROJETOAPROVADO: Joi.string().allow(null ,"")
+    NUMEROPROJETOAPROVADO: Joi.string().allow(null, "")
         .messages({
             "string.base": "NUMEROPROJETOAPROVADO must be a string",
         }),
@@ -66,15 +66,6 @@ const updateVinculoAlvaraEmpresaSchema = Joi.object({
         .messages({
             "array.base": "ARQUIVOSALVARA must be an array"
         })
-
-    /* ARQUIVOSALVARA: Joi.array()
-        .items(
-            Joi.object({
-                NOMEARQUIVO: Joi.string().required(),
-                BASE64: Joi.string().required()
-            })
-        )
-        .optional() */
 });
 
 export default updateVinculoAlvaraEmpresaSchema;

@@ -76,7 +76,7 @@ export class ContabilidadeServices {
         ARQUIVOSALVARA,
         cancelar
     }) {
-        
+
         if (!IDARQUIVOSALVARA) {
             throw new Error("ID do Arquivo Alvara é Obrigatorio")
         }
