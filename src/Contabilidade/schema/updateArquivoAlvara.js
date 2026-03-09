@@ -64,7 +64,7 @@ import Joi from "joi";
 
 const updateArquivosAlvaraSchema = Joi.object({
 
-    IDVINCULOALVARAEMPRESA: Joi.number().required()
+    IDVINCULOALVARAEMPRESA: Joi.number().allow()
         .messages({
             "number.base": "IDVINCULOALVARAEMPRESA must be a number",
             "any.required": "IDVINCULOALVARAEMPRESA is required field"

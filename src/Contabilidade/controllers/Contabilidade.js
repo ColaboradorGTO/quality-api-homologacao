@@ -32,7 +32,6 @@ class ContabilidadeControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getListaDetalheVendasContigencia(req, res) {
@@ -52,7 +51,6 @@ class ContabilidadeControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getListaPagamentoVendasContigencia(req, res) {
@@ -70,7 +68,6 @@ class ContabilidadeControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getListaVendasEstoqueComercial(req, res) {
@@ -94,7 +91,6 @@ class ContabilidadeControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getBuscarProdutos(req, res) {
@@ -117,7 +113,6 @@ class ContabilidadeControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getListaVendasPeriodo(req, res) {
@@ -148,7 +143,6 @@ class ContabilidadeControllers {
       console.error("Erro no ContabilidadeControllers.getListaVendasPeriodo:", error);
       throw error;
     }
-
   }
 
   async getListaVendasPeriodoConsolidado(req, res) {
@@ -167,7 +161,6 @@ class ContabilidadeControllers {
 
     try {
 
-
       const apiUrl = `${url}/api/contabilidade/venda-produto-consolidado.xsjs?page=${page}&pageSize=${pageSize}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&idGrupoEmpresarial=${idGrupoEmpresarial}&idEmpresa=${idEmpresa}&descricaoProduto=${produtoPesquisado}&uf=${ufPesquisa}&idFornecedor=${idFornecedor}&idGrupoGrade=${idGrupoGrade}&idGrade=${idGrade}`
       const response = await axios.get(apiUrl)
 
@@ -176,10 +169,7 @@ class ContabilidadeControllers {
       console.error("Erro no ContabilidadeControllers.getListaVendasPeriodoConsolidado:", error);
       throw error;
     }
-
   }
-
-  ////ALVARA EMPRESAS///
 
   async getTodasEmpresas(req, res) {
     let { idEmpresa, idSubGrupoEmpresa, page, pageSize, uf, nuCnpj, stAtivo } = req.query;
@@ -275,8 +265,6 @@ class ContabilidadeControllers {
   async getVisualizarAnexoAlvara(req, res) {
     let { idArquivoAlvara } = req.query;
 
-    idArquivoAlvara = idArquivoAlvara ? idArquivoAlvara : '';
-
     try {
       const response = await axios.get(
         `http://164.152.245.77:8000/quality/concentrador_homologacao/api/contabilidade/arquivos-anexos-alvaras-empresa.xsjs?id=${idArquivoAlvara}`,
@@ -285,15 +273,19 @@ class ContabilidadeControllers {
         }
       );
 
+      res.set({
+        "Content-Type": response.headers["content-type"] || "application/pdf",
+        "Content-Length": response.data.length,
+        "Content-Disposition": "inline"
+      });
 
-      return res.send(response.data);
+      return res.end(response.data);
 
     } catch (error) {
       console.error("Erro no getVisualizarAnexoAlvara:", error);
       return res.status(500).json({ error: "Erro ao visualizar arquivo" });
     }
   }
-
 
   async getStatusAlvara(req, res) {
     let { page, pageSize } = req.query;
@@ -434,7 +426,6 @@ class ContabilidadeControllers {
 
 
   async postArquivosAnexosAlvara(req, res) {
-
     try {
 
       const { error, value } = createArquivosAlvaraSchema.validate(req.body, {

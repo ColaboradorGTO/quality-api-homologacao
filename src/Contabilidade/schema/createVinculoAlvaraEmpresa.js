@@ -50,7 +50,7 @@ const createVinculoAlvaraEmpresaSchema = Joi.object({
             "any.required": "METRAGEMEMPRESA is required field"
         }),
 
-    NUMEROPROJETOAPROVADO: Joi.string().allow("")
+    NUMEROPROJETOAPROVADO: Joi.string().allow(null ,"")
         .messages({
             "string.base": "NUMEROPROJETOAPROVADO must be a string",
         }),

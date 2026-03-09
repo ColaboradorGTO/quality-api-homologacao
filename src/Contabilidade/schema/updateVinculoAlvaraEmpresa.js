@@ -49,8 +49,8 @@ const updateVinculoAlvaraEmpresaSchema = Joi.object({
             "number.base": "IDFUNCIONARIO must be a number",
             "any.required": "IDFUNCIONARIO is required field"
         }),
-        
-    NUMEROPROJETOAPROVADO: Joi.string().allow("")
+
+    NUMEROPROJETOAPROVADO: Joi.string().allow(null ,"")
         .messages({
             "string.base": "NUMEROPROJETOAPROVADO must be a string",
         }),
