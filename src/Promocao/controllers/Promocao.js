@@ -401,6 +401,11 @@ class PromocaoControllers  {
             IDPRODUTODESTINO,
             IDPRODUTOORIGEM,
         } = req.body;
+
+        if(!IDSUBGRUPOEMDESTINO || !IDSUBGRUPOEMORIGEM) {
+            return res.status(400).json({ error: "IDSUBGRUPOEMDESTINO e IDSUBGRUPOEMORIGEM são obrigatórios." });
+        }
+        
         try {
                   
             const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
