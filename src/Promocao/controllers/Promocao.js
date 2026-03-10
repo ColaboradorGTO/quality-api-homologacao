@@ -372,10 +372,66 @@ class PromocaoControllers  {
     }
 
     async postPromocaoSubGrupo(req, res) {
+        let  {
+            TPAPARTIRDE,
+            TPAPLICADOA,
+            TPFATORPROMO,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            VLPRECOPRODUTO,
+            DTHORAINICIO,
+            DTHORAFIM,
+            DSPROMOCAOMARKETING,
+            IDEMPRESA,
+            STATIVO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO,
+            IDGRUPOEMDESTINO,
+            IDSUBGRUPOEMDESTINO,
+            IDMARCAEMDESTINO,
+            IDFORNECEDOREMDESTINO,
+            IDGRUPOEMORIGEM,
+            IDSUBGRUPOEMORIGEM,
+            IDMARCAEMORIGEM,
+            IDFORNECEDOREMORIGEM,
+            IDPRODUTO,
+            IDPRODUTODESTINO,
+            IDPRODUTOORIGEM,
+        } = req.body;
         try {
-            const dados = Array.isArray(req.body) ? req.body : [req.body];
                   
-            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, dados);
+            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
+                TPAPARTIRDE,
+                TPAPLICADOA,
+                TPFATORPROMO,
+                APARTIRDEQTD,
+                APARTIRDOVLR,
+                FATORPROMOVLR,
+                FATORPROMOPERC,
+                VLPRECOPRODUTO,
+                DTHORAINICIO,
+                DTHORAFIM,
+                DSPROMOCAOMARKETING,
+                IDEMPRESA,
+                STATIVO,
+                STEMPRESAPROMO,
+                STDETPROMOORIGEM,
+                STDETPROMODESTINO,
+                IDGRUPOEMDESTINO,
+                IDSUBGRUPOEMDESTINO,
+                IDMARCAEMDESTINO,
+                IDFORNECEDOREMDESTINO,
+                IDGRUPOEMORIGEM,
+                IDSUBGRUPOEMORIGEM,
+                IDMARCAEMORIGEM,
+                IDFORNECEDOREMORIGEM,
+                IDPRODUTO,
+                IDPRODUTODESTINO,
+                IDPRODUTOORIGEM,
+            }]);
             
             return res.status(200).json({
                 message: "Promoção(s) criada(s) com sucesso",
