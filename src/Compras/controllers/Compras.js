@@ -2007,6 +2007,7 @@ class ComprasControllers {
             throw error;
         }
     }
+    
 
     async postFinalizarPedido(req, res) {
         let {  
