@@ -1993,14 +1993,14 @@ class ComprasControllers {
 
         try {
             const apiUrl = `${url}/api/compras/imagemproduto.xsjs`
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDRESUMOPEDIDO,
                 NUREF,
                 IMAGEM,
                 STATIVO,
                 IDPRODIMAGEM
                 
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.postImagemProduto:", error);
