@@ -360,17 +360,10 @@ class PromocaoControllers  {
             STEMPRESAPROMO,
             STDETPROMOORIGEM,
             STDETPROMODESTINO,
-            IDGRUPOEMDESTINO,
             IDSUBGRUPOEMDESTINO,
-            IDMARCAEMDESTINO,
-            IDFORNECEDOREMDESTINO,
-            IDGRUPOEMORIGEM,
             IDSUBGRUPOEMORIGEM,
-            IDMARCAEMORIGEM,
-            IDFORNECEDOREMORIGEM,
-            IDPRODUTO,
-            IDPRODUTODESTINO,
-            IDPRODUTOORIGEM,
+
+    
         } = req.body;
 
         if(!IDRESUMOPROMOCAOMARKETING) {
@@ -380,7 +373,7 @@ class PromocaoControllers  {
         try {
                   
             const response = await axios.put(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
-                
+                IDRESUMOPROMOCAOMARKETING,
                 IDMECANICARESUMOPROMOCAOMARKETING,
                 TPAPARTIRDE,
                 TPAPLICADOA,
@@ -388,7 +381,7 @@ class PromocaoControllers  {
                 APARTIRDEQTD,
                 APARTIRDOVLR,
                 FATORPROMOVLR,
-                FATORPROMOPERC,
+                FATORPROMOPERC, 
                 VLPRECOPRODUTO,
                 DTHORAINICIO,
                 DTHORAFIM,
@@ -398,17 +391,8 @@ class PromocaoControllers  {
                 STEMPRESAPROMO,
                 STDETPROMOORIGEM,
                 STDETPROMODESTINO,
-                IDGRUPOEMDESTINO,
                 IDSUBGRUPOEMDESTINO,
-                IDMARCAEMDESTINO,
-                IDFORNECEDOREMDESTINO,
-                IDGRUPOEMORIGEM,
                 IDSUBGRUPOEMORIGEM,
-                IDMARCAEMORIGEM,
-                IDFORNECEDOREMORIGEM,
-                IDPRODUTO,
-                IDPRODUTODESTINO,
-                IDPRODUTOORIGEM,
             }]);
             
             return res.status(200).json({
