@@ -606,7 +606,7 @@ routes.get('/listaCores', ComprasControllers.getListaCores)
 routes.get('/grupoCores', ComprasControllers.getListaGrupoCores)
 routes.get('/listaEstilos', ComprasControllers.getListaEstilos)
 routes.get('/tipoTecidos', ComprasControllers.getListaTipoTecidos)
-routes.get('/tipo-tecido', ComprasControllers.getListaTipoTecidoSelect)
+routes.get('/tipo-tecido', ComprasControllers.getListaTipoTecido)
 routes.get('/categoriaPedidos', ComprasControllers.getListaCategoriaPedidos)
 routes.get('/categoria-pedido', ComprasControllers.getListaCategoriaPedido)
 routes.get('/tamanhosPedidos', ComprasControllers.getListaTamanhosPedidos)
@@ -649,6 +649,7 @@ routes.put('/deletar-vinculo-tamanho-categoria', ComprasControllers.updateVincul
 routes.put('/fornecedor/:id', ComprasControllers.putFornecedor)
 routes.put('/finalizar-pedido/:id', ComprasControllers.putFinalizarPedido)
 routes.put('/atualizar-pedido/:id', ComprasControllers.putPedido)
+routes.put('/atualizacao-status-pedido/:id', ComprasControllers.putAtualizarStatusPedido)
 
 // POST
 routes.post('/cadastrarCondicaoPagamento', ComprasControllers.postCondicaoPagamento)
@@ -815,6 +816,7 @@ routes.put('/desativar-produto-promocao-destino', PromocaoControllers.putProduto
 routes.put('/desativar-produto-promocao-origem', PromocaoControllers.putProdutoOrigemPromocao)
 routes.put('/desativar-empresa-promocao', PromocaoControllers.putEmpresaPromocao)
 routes.put('/desativar-status-promocao', PromocaoControllers.putStatusPromocao)
+routes.put('/promocoes-ativas-subGrupo/:id', PromocaoControllers.putPromocaoSubGrupo)
 routes.post('/criar-produto-promocao-ativa', PromocaoControllers.postListaProdutosPromocoesAtiva)
 // routes.post('/criar-mecanica', PromocaoControllers.postMecanicaAtivas)
 

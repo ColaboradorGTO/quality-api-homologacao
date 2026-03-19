@@ -339,6 +339,71 @@ class PromocaoControllers  {
             return res.status(500).json({ error: "Erro ao atualizar Empresa da Promoção." });
         }
     }
+
+     async putPromocaoSubGrupo(req, res) {
+        let  {
+            IDRESUMOPROMOCAOMARKETING,
+            IDMECANICARESUMOPROMOCAOMARKETING,
+            TPAPARTIRDE,
+            TPAPLICADOA,
+            TPFATORPROMO,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            VLPRECOPRODUTO,
+            DTHORAINICIO,
+            DTHORAFIM,
+            DSPROMOCAOMARKETING,
+            IDEMPRESA,
+            STATIVO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO,
+            IDSUBGRUPOEMDESTINO,
+            IDSUBGRUPOEMORIGEM,
+        } = req.body;
+
+        if(!IDRESUMOPROMOCAOMARKETING) {
+            return res.status(400).json({ error: "IDRESUMOPROMOCAOMARKETING é obrigatório." });
+        }
+
+        try {
+                  
+            const response = await axios.put(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
+                IDRESUMOPROMOCAOMARKETING,
+                IDMECANICARESUMOPROMOCAOMARKETING,
+                TPAPARTIRDE,
+                TPAPLICADOA,
+                TPFATORPROMO,
+                APARTIRDEQTD,
+                APARTIRDOVLR,
+                FATORPROMOVLR,
+                FATORPROMOPERC,
+                VLPRECOPRODUTO,
+                DTHORAINICIO,
+                DTHORAFIM,
+                DSPROMOCAOMARKETING,
+                IDEMPRESA,
+                STATIVO,
+                STEMPRESAPROMO,
+                STDETPROMOORIGEM,
+                STDETPROMODESTINO,
+                IDSUBGRUPOEMDESTINO,
+                IDSUBGRUPOEMORIGEM
+
+            }]);
+            
+            return res.status(200).json({
+                message: "Promoção(s) criada(s) com sucesso",
+                data: response.data
+            });
+        } catch (error) {
+            console.error("Erro no PromocaoControllers putPromocaoSubGrupo:", error);
+            throw error;
+        }
+    }
+
     async postListaProdutosPromocoesAtiva(req, res) {
     
         try {   
@@ -448,6 +513,8 @@ class PromocaoControllers  {
             throw error;
         }
     }
+
+   
 
     async postMecanicaAtivas(req, res) {
        

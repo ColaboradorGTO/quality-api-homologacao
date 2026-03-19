@@ -4,6 +4,7 @@ import 'dotenv/config';
 // const url = process.env.API_URL;
 const url = process.env.API_URL_HML;
 
+
 class ComprasControllers {
 
     async getListaTodosPedidos(req, res) {
@@ -22,8 +23,8 @@ class ComprasControllers {
 
     async getListaPedidosDetalhado(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim, idFornecedor, idMarca, idPedido } = req.query;
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         idFornecedor = idFornecedor ? idFornecedor : '';
         idMarca = idMarca ? idMarca : '';
         idPedido = idPedido ? idPedido : '';
@@ -152,8 +153,8 @@ class ComprasControllers {
         let {idPedido, idDetalhePedido, dataPesquisaInicio, dataPesquisaFim,  page, pageSize } = req.query;
         idPedido = idPedido ? idPedido : '';
         idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
-        dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : '';
-        dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
@@ -525,7 +526,7 @@ class ComprasControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("erro no ComprasControllers.getListaCores:", error);
             throw error;
         }
     }
@@ -620,7 +621,7 @@ class ComprasControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("erro no ComprasController.getListaTamanhosPedidos:", error);
             throw error;
         }
     }
@@ -636,7 +637,7 @@ class ComprasControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("erro no ComprasController.getListaTamanhosCategoriaPedidos:", error);
             throw error;
         }
     }
@@ -656,7 +657,7 @@ class ComprasControllers {
         }
     }
 
-    async getListaTipoTecidoSelect(req, res) {
+    async getListaTipoTecido(req, res) {
         let { idTecido, descricao} = req.query;
         idTecido = idTecido ? idTecido : '';
         descricao = descricao ? descricao : '';
@@ -1366,6 +1367,32 @@ class ComprasControllers {
         }
     }
 
+    async putAtualizarStatusPedido(req, res) {
+        let { IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO } = req.query;
+
+        try {
+
+            if(!IDRESUMOPEDIDO) {
+                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            }
+
+            const response = axios.put(`${url}/api/compras/atualizacao-status-pedido.xsjs`, {
+                IDRESUMOPEDIDO,
+                IDANDAMENTO,
+                IDRESPCANCELAMENTO,
+                DSMOTIVOCANCELAMENTO,
+                DTCANCELAMENTO,
+                STCANCELADO
+            })
+        
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putAtualizarStatusPedido:", error);
+            throw error;
+        }
+    }
+
     async putFinalizarPedido(req, res) {
         let {  
             IDRESUMOPEDIDO,
@@ -1474,7 +1501,7 @@ class ComprasControllers {
         } = req.body;
 
         try {
-            const apiUrl = `${url}/api/compras/atualizar-pedidos.xsjs`
+            const apiUrl = `${url}/api/compras/atualizar-pedido.xsjs`
         
             const response = await axios.post(apiUrl, {
                 IDRESUMOPEDIDO,
@@ -2120,7 +2147,7 @@ class ComprasControllers {
         try {
             const apiUrl = `${url}/api/compras/lista_pedidos.xsjs`
         
-            const response = await axios.post(apiUrl, {
+            const response = await axios.post(apiUrl, [{
                 IDRESUMOPEDIDO,
                 IDGRUPOEMPRESARIAL,
                 IDSUBGRUPOEMPRESARIAL,
@@ -2150,7 +2177,9 @@ class ComprasControllers {
                 STCANCELADO,
                 TPFISCAL,
                 STRASCUNHO,
-            });
+            }]);
+     
+          
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.postFinalizarPedido:", error);
