@@ -360,18 +360,27 @@ class PromocaoControllers  {
             STEMPRESAPROMO,
             STDETPROMOORIGEM,
             STDETPROMODESTINO,
+            IDGRUPOEMDESTINO,
             IDSUBGRUPOEMDESTINO,
+            IDMARCAEMDESTINO,
+            IDFORNECEDOREMDESTINO,
+            IDGRUPOEMORIGEM,
             IDSUBGRUPOEMORIGEM,
+            IDMARCAEMORIGEM,
+            IDFORNECEDOREMORIGEM,
+            IDPRODUTO,
+            IDPRODUTODESTINO,
+            IDPRODUTOORIGEM,
         } = req.body;
 
         if(!IDRESUMOPROMOCAOMARKETING) {
-            return res.status(400).json({ error: "IDRESUMOPROMOCAOMARKETING é obrigatório." });
+            return res.status(400).json({ error: "IDSUBGRUPOEMDESTINO e IDSUBGRUPOEMORIGEM são obrigatórios." });
         }
 
         try {
                   
             const response = await axios.put(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
-                IDRESUMOPROMOCAOMARKETING,
+                
                 IDMECANICARESUMOPROMOCAOMARKETING,
                 TPAPARTIRDE,
                 TPAPLICADOA,
@@ -389,9 +398,17 @@ class PromocaoControllers  {
                 STEMPRESAPROMO,
                 STDETPROMOORIGEM,
                 STDETPROMODESTINO,
+                IDGRUPOEMDESTINO,
                 IDSUBGRUPOEMDESTINO,
-                IDSUBGRUPOEMORIGEM
-
+                IDMARCAEMDESTINO,
+                IDFORNECEDOREMDESTINO,
+                IDGRUPOEMORIGEM,
+                IDSUBGRUPOEMORIGEM,
+                IDMARCAEMORIGEM,
+                IDFORNECEDOREMORIGEM,
+                IDPRODUTO,
+                IDPRODUTODESTINO,
+                IDPRODUTOORIGEM,
             }]);
             
             return res.status(200).json({
