@@ -8,9 +8,9 @@ const updateResumoOTSchema = Joi.object({
             "any.required": "IDRESUMOOT is required field"
         }),
 
-    IDPRODUTO: Joi.number()
+    IDPRODUTO: Joi.string()
         .messages({
-            "number.base": "IDPRODUTO must be a number",
+            "string.base": "IDPRODUTO must be a string",
         }),
 
     IDEMPRESAORIGEM: Joi.number()
