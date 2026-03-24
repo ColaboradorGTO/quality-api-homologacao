@@ -340,7 +340,7 @@ class PromocaoControllers  {
         }
     }
 
-     async putPromocaoSubGrupo(req, res) {
+    async putPromocaoSubGrupo(req, res) {
         let  {
             IDRESUMOPROMOCAOMARKETING,
             IDMECANICARESUMOPROMOCAOMARKETING,

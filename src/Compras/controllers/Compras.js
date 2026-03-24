@@ -1393,6 +1393,31 @@ class ComprasControllers {
         }
     }
 
+    async putAtualizarStatusProdutoPedido(req, res) {
+        let { IDDETALHEPEDIDO, STCANCELADO, IDRESPCANCELAMENTO, TXTOBSCANCELAMENTO, IDRESUMOPEDIDO } = req.query;
+
+        try {
+
+            if(!IDRESUMOPEDIDO) {
+                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            }
+
+            const response = axios.put(`${url}/api/compras/atualizacao-status-produto-pedido.xsjs`, {
+                IDDETALHEPEDIDO, 
+                STCANCELADO, 
+                IDRESPCANCELAMENTO, 
+                TXTOBSCANCELAMENTO,
+                IDRESUMOPEDIDO,    
+            })
+        
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putAtualizarStatusProdutoPedido:", error);
+            throw error;
+        }
+    }
+
     async putFinalizarPedido(req, res) {
         let {  
             IDRESUMOPEDIDO,
@@ -1426,7 +1451,11 @@ class ComprasControllers {
             STRASCUNHO,
         } = req.body;
 
+        if(!IDRESUMOPEDIDO) {
+            return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+        }
         try {
+
             const apiUrl = `${url}/api/compras/finalizar-pedido.xsjs`
         
             const response = await axios.put(apiUrl, {
