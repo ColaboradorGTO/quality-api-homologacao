@@ -5,7 +5,6 @@ import { EmpresaClient } from "../client/index.js";
 import updateEmpresaSchema from "../schema/useUpdateEmpresa.js";
 const url = process.env.API_URL;
 
-
 const atualizarEmpresaClient = new EmpresaClient(url)
 const updateEmpresaService = new EmpresaServices(atualizarEmpresaClient);
 
@@ -95,8 +94,6 @@ class EmpresaControllers {
                     }))
                 });
             }
-
-
 
             const response = await updateEmpresaService.updateEmpresa({
 
