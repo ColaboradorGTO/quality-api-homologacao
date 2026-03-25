@@ -619,6 +619,7 @@ routes.get('/unidades-de-Medidas', ComprasControllers.getListaUnidadesMedidas)
 
 routes.get('/localExposicao', ComprasControllers.getListaLocalExposicao)
 routes.get('/distribuicaoComprasHistorico', ComprasControllers.getListaDistribuicaoHistorico)
+routes.get('/vinculo-estilo-grupo', ComprasControllers.getListaVinculoEstiloGrupo)
 routes.get('/detalheDistribuicaoCompras', ComprasControllers.getListaDetalheDistribuicao)
 routes.get('/distribuicaoSugestoesHistorico', ComprasControllers.getListaDistribuicaoSugestoesHistorico)
 routes.get('/produtos-entre-filiais', ComprasControllers.getListaProdutosEntreFiliais)

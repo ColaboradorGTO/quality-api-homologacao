@@ -733,6 +733,21 @@ class ComprasControllers {
             throw error;
         }
     }
+    
+    async getListaVinculoEstiloGrupo(req, res) {
+        let {idVinculoEstilo } = req.query;
+        
+        idVinculoEstilo = idVinculoEstilo ? idVinculoEstilo : '';
+        try {
+            const apiUrl = `${url}/api/compras/vincestilogrupo.xsjs?idEstGrupo=${idVinculoEstilo}`
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro nos campos do banco:", error);
+            throw error;
+        }
+    }
 
     async getListaProdutosEntreFiliais(req, res) {
         let {idFilialOrigem, idFilialDestino, idProduto, descricaoProduto, codBarras, page, pageSize} = req.query;
