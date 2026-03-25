@@ -27,7 +27,7 @@ class CadastroControllers  {
         } 
     }
     
-    async getListaCategoriasProduto(req, res) {
+    async getListaCategorias(req, res) {
         let { idTipoPedido } = req.query;
         idTipoPedido = idTipoPedido ? idTipoPedido : '';
         
