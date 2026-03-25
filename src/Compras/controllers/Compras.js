@@ -39,13 +39,15 @@ class ComprasControllers {
         }
     }
     async getListaDetalhePedidos(req, res) {
-        let { idPedido } = req.query;
+        let { idPedido, idDetalhePedido } = req.query;
         idPedido = idPedido ? idPedido : '';
+        idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
 
         try {
 
-            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs?idpedido=${idPedido}`;
+            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs?idpedido=${idPedido}&id=${idDetalhePedido}`;
             const response = await axios.get(apiUrl)
+       
             return res.json(response.data); 
         } catch (error) {
             console.error("Unable to connect to the database:", error);
