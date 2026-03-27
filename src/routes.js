@@ -314,6 +314,7 @@ routes.post('/criar-movimento-saldo-bonificacao', SaldosControllers.createMovime
 
 //  Pedidos
 routes.get('/pedido-compras', PedidosControllers.getListaPedidosCompras)
+routes.get('/financeiro-lista-pedidos', PedidosControllers.getListaPedidosFinanceiro)
 
 
 // Faturas
@@ -649,6 +650,7 @@ routes.put('/migrar-fornecedor-sap', ComprasControllers.putMigrarFornecedorSAP)
 routes.put('/deletar-vinculo-tamanho-categoria', ComprasControllers.updateVinculoTamanhoCategoria)
 routes.put('/fornecedor/:id', ComprasControllers.putFornecedor)
 routes.put('/reativar-pedido/:id', ComprasControllers.putReativarPedido)
+routes.put('/cancelar-pedido/:id', ComprasControllers.putCancelarPedido)
 routes.put('/finalizar-pedido/:id', ComprasControllers.putFinalizarPedido)
 routes.put('/atualizar-pedido/:id', ComprasControllers.putPedido)
 routes.put('/atualizacao-status-pedido/:id', ComprasControllers.putAtualizarStatusPedido)

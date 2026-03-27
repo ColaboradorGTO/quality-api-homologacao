@@ -1458,6 +1458,32 @@ class ComprasControllers {
         }
     }
 
+    async putCancelarPedido(req, res) {
+        let { IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO } = req.query;
+
+        try {
+
+            if(!IDRESUMOPEDIDO) {
+                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            }
+
+            const response = axios.put(`${url}/api/compras/cancelamento-pedido.xsjs`, {
+                IDRESUMOPEDIDO,   
+                IDANDAMENTO, 
+                IDRESPCANCELAMENTO, 
+                DSMOTIVOCANCELAMENTO, 
+                DTCANCELAMENTO, 
+                STCANCELADO
+            })
+        
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putCancelarPedido:", error);
+            throw error;
+        }
+    }
+
     async putFinalizarPedido(req, res) {
         let {  
             IDRESUMOPEDIDO,

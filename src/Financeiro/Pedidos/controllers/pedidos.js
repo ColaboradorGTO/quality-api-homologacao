@@ -26,6 +26,23 @@ class PedidosControllers {
       throw error;
     }
   }
+  async getListaPedidosFinanceiro(req, res) {
+    let { idPedido, page, pageSize } = req.query;
+      idPedido = idPedido ? idPedido : '';
+      page = page ? page : '';
+      pageSize = pageSize ? pageSize : '';
+  
+    try {
+
+      const apiUrl = `${url}/api/financeiro/lista_pedidos.xsjs?idpedido=${idPedido}&pageSize=${pageSize}&page=${page}`
+      const response = await axios.get(apiUrl);
+
+      return res.json(response.data);
+    } catch (error) {
+      console.error("Erro no PedidosControllers.getListaPedidosFinanceiro:", error);
+      throw error;
+    }
+  }
 }
 
 export default new PedidosControllers();
