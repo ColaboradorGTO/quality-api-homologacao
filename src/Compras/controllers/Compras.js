@@ -1435,6 +1435,29 @@ class ComprasControllers {
         }
     }
 
+    async putReativarPedido(req, res) {
+        let { IDRESUMOPEDIDO, IDRESPREATIVACAO, TXTMOTIVOREATIVACAO } = req.query;
+
+        try {
+
+            if(!IDRESUMOPEDIDO) {
+                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            }
+
+            const response = axios.put(`${url}/api/compras/ativar-pedido.xsjs`, {
+                IDRESUMOPEDIDO,   
+                IDRESPREATIVACAO, 
+                TXTMOTIVOREATIVACAO
+            })
+        
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putReativarPedido:", error);
+            throw error;
+        }
+    }
+
     async putFinalizarPedido(req, res) {
         let {  
             IDRESUMOPEDIDO,
