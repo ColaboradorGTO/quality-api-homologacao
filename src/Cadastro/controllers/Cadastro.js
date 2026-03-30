@@ -11,14 +11,24 @@ class CadastroControllers  {
             NuPedidoPesquisa,
             dataPesquisaInicio, 
             dataPesquisaFim,
+            idFornecedorPesquisa,
+            idMarcaPesquisa,
+            idFabPesquisa,
+            page,
+            pageSize
         } = req.query;
     
-        dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : ''; 
-        dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : ''; 
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         NuPedidoPesquisa = NuPedidoPesquisa ? NuPedidoPesquisa : '';
+        idFornecedorPesquisa = idFornecedorPesquisa ? idFornecedorPesquisa : '';
+        idMarcaPesquisa = idMarcaPesquisa ? idMarcaPesquisa : '';
+        idFabPesquisa = idFabPesquisa ? idFabPesquisa : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
 
         try {
-            const apiUrl = `${url}/api/cadastro/cadastrar-produto-pedido.xsjs?iResPedido=${NuPedidoPesquisa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`;
+            const apiUrl = `${url}/api/cadastro/cadastrar-produto-pedido.xsjs?iResPedido=${NuPedidoPesquisa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idFabPesquisa=${idFabPesquisa}&idMarcaPesquisa=${idMarcaPesquisa}&idFornecedorPesquisa=${idFornecedorPesquisa}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
         } catch(error) {

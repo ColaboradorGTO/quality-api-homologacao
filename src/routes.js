@@ -678,7 +678,7 @@ routes.post('/pedido', ComprasControllers.postPedido)
 
 
 // Cadastro
-routes.get('/listaProdutoCriadoPedidoCompra', CadastroControllers.getListaProdutoCriadoPedidoCompra)
+routes.get('/cadastrar-produto-Pedido', CadastroControllers.getListaProdutoCriadoPedidoCompra)
 routes.get('/categoriasProdutos', CadastroControllers.getListaCategorias)
 routes.get('/tipoProduto', CadastroControllers.getListaTipoProdutos)
 routes.get('/tipoFiscalProduto', CadastroControllers.getListaTipoFiscalProdutos)
