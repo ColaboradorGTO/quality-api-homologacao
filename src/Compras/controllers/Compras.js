@@ -409,21 +409,23 @@ class ComprasControllers {
     }
 
     async getListaImagemProduto(req, res) {
-        let { numPage, numeroRefProduto, idFabricante, idSubEstrutura, idPedido } = req.query;
+        let { numPage, numeroRefProduto, idFabricante, idSubEstrutura, idPedido, idNomeCodBarrasProd } = req.query;
         numPage = numPage ? numPage : '';
         numeroRefProduto = numeroRefProduto ? numeroRefProduto : '';
         idFabricante = idFabricante ? idFabricante : '';
         idSubEstrutura = idSubEstrutura ? idSubEstrutura : '';
         idPedido = idPedido ? idPedido : '';
+        idNomeCodBarrasProd = idNomeCodBarrasProd ? idNomeCodBarrasProd : '';
 
 
         try {
-            const apiUrl = `${url}/api/compras/imagemproduto.xsjs?page=${numPage}&NuRefImgProd=${numeroRefProduto}&IDFabImagem=${idFabricante}&IDSubEstImagem=${idSubEstrutura}&idPedido=${idPedido}`
-            const response = await axios.get(apiUrl)
+            const apiUrl = `${url}/api/compras/imagemproduto.xsjs?NuRefImgProd=${numeroRefProduto}&IDFabImagem=${idFabricante}&IDSubEstImagem=${idSubEstrutura}&idPedido=${idPedido}&idNomeCodBarrasProd=${idNomeCodBarrasProd}`
 
+            const response = await axios.get(apiUrl)
+            
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no ComprasControllers.getListaImagemProduto:", error);
             throw error;
         }
     }
@@ -689,13 +691,15 @@ class ComprasControllers {
     }
 
     async getListaDistribuicaoHistorico(req, res) {
-        let {idFornecedor, dataPesquisaInicio, dataPesquisaFim } = req.query;
+        let {idFornecedor, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
         
         idFornecedor = idFornecedor ? idFornecedor : '';
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
         try {
-            const apiUrl = `${url}/api/compras/distribuicao-compras-historico.xsjs?page=&idfornecedorpedido=${idFornecedor}&datainicial=${dataPesquisaInicio}&datafinal=${dataPesquisaFim}`
+            const apiUrl = `${url}/api/compras/distribuicao-compras-historico.xsjs?idfornecedorpedido=${idFornecedor}&datainicial=${dataPesquisaInicio}&datafinal=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);
@@ -706,11 +710,12 @@ class ComprasControllers {
     }
 
     async getListaDetalheDistribuicao(req, res) {
-        let {idPedido } = req.query;
+        let {idPedido, idResumoPedido } = req.query;
         
         idPedido = idPedido ? idPedido : '';
+        idResumoPedido = idResumoPedido ? idResumoPedido : '';
         try {
-            const apiUrl = `${url}/api/compras/detalhe-distribuicao-compras.xsjs?page=&id=${idPedido}`
+            const apiUrl = `${url}/api/compras/detalhe-distribuicao-compras.xsjs?id=${idPedido}`
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);
@@ -825,7 +830,24 @@ class ComprasControllers {
 
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no ComprasControllers.updateProdutoImagem:", error);
+            throw error;
+        }
+    }
+
+    async putImagem(req, res) {
+        let { IDIMAGEMPRODUTO, STATIVO } = req.body;
+
+        try {
+            const apiUrl = `${url}/api/compras/atualiza_imagem.xsjs`
+            const response = await axios.put(apiUrl, {
+                IDIMAGEMPRODUTO,
+                STATIVO
+            })
+
+            return res.json(response.data); // Retorna
+        } catch (error) {
+            console.error("Erro no ComprasControllers.putImagem:", error);
             throw error;
         }
     }
