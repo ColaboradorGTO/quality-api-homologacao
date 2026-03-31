@@ -72,8 +72,8 @@ class ComprasControllers {
 
     async getListaPromocoes(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim } = req.query;
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         try {
             const apiUrl = `${url}/api/compras/lista_promocoes.xsjs?pageSize=1000&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`;
             const response = await axios.get(apiUrl)
