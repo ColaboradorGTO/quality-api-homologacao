@@ -42,6 +42,7 @@ class PromocaoControllers  {
             throw error;
         } 
     }
+    
     async getListaDetalhesPromocoesAtivas(req, res) {
         let { idResumoPromocao, dataPesquisaInicio, dataPesquisaFim, page, pageSize} = req.query; 
             idResumoPromocao = idResumoPromocao ? idResumoPromocao : '';    
