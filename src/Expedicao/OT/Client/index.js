@@ -36,9 +36,12 @@ export class OTClient {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
+        CONFEREITENS,
+        IDROTINA,
+        DATAENTREGA,
         dadosdetalheot,
     ) {
-        const response = await this.api.post(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
+        const response = await this.api.post(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
             IDRESUMOOT,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
@@ -65,11 +68,82 @@ export class OTClient {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
+            CONFEREITENS,
+            IDROTINA,
+            DATAENTREGA,
             dadosdetalheot,
-        }]);
+        });
         return response.data;
     }
+
+
     async atualizarOT(
+
+        IDRESUMOOT,
+        IDPRODUTO,
+        IDEMPRESAORIGEM,
+        IDEMPRESADESTINO,
+        IDOPERADOREXPEDICAO,
+        NUTOTALITENS,
+        QTDTOTALITENS,
+        QTDTOTALITENSRECEPCIONADO,
+        QTDTOTALITENSDIVERGENCIA,
+        NUTOTALVOLUMES,
+        TPVOLUME,
+        VRTOTALCUSTO,
+        VRTOTALVENDA,
+        DTRECEPCAO,
+        IDOPERADORRECEPTOR,
+        DSOBSERVACAO,
+        IDUSRCANCELAMENTO,
+        IDSTDIVERGENCIA,
+        OBSDIVERGENCIA,
+        STEMISSAONFE,
+        NUMERONFE,
+        STENTRADAINVENTARIO,
+        QTDCONFERENCIA,
+        IDSTATUSOT,
+        IDUSRAJUSTE,
+        DTAJUSTE,
+        QTDTOTALITENSAJUSTE,
+        dadosdetalheot
+    ) {
+
+        const response = await this.api.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
+            IDRESUMOOT,
+            IDPRODUTO,
+            IDEMPRESAORIGEM,
+            IDEMPRESADESTINO,
+            IDOPERADOREXPEDICAO,
+            NUTOTALITENS,
+            QTDTOTALITENS,
+            QTDTOTALITENSRECEPCIONADO,
+            QTDTOTALITENSDIVERGENCIA,
+            NUTOTALVOLUMES,
+            TPVOLUME,
+            VRTOTALCUSTO,
+            VRTOTALVENDA,
+            DTRECEPCAO,
+            IDOPERADORRECEPTOR,
+            DSOBSERVACAO,
+            IDUSRCANCELAMENTO,
+            IDSTDIVERGENCIA,
+            OBSDIVERGENCIA,
+            STEMISSAONFE,
+            NUMERONFE,
+            STENTRADAINVENTARIO,
+            QTDCONFERENCIA,
+            IDSTATUSOT,
+            IDUSRAJUSTE,
+            DTAJUSTE,
+            QTDTOTALITENSAJUSTE,
+            dadosdetalheot
+        });
+        return response.data;
+    }
+
+
+    /*     async atualizarOT(
         IDRESUMOOT,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
@@ -96,10 +170,13 @@ export class OTClient {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
+        CONFEREITENS,
+        IDROTINA,
+        DATAENTREGA,
         dadosdetalheot,
     ) {
 
-        const response = await this.api.put(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
+        const response = await this.api.put(`api/expedicao/resumo-ordem-transferencia.xsjs`, [{
             IDSTATUSOT,
             IDRESUMOOT,
             IDEMPRESAORIGEM,
@@ -126,8 +203,11 @@ export class OTClient {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
+             CONFEREITENS,
+            IDROTINA,
+            DATAENTREGA,
             dadosdetalheot,
         }]);
         return response.data;
-    }
+    } */
 }

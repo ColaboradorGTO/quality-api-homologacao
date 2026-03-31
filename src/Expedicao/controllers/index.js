@@ -12,7 +12,7 @@ const otService = new OTService(otClient);
 class ExpedicaoControllers {
 
     async getListaProdutosExpedicao(req, res,) {
-        let {idEmpresa, codBarras, dsProduto, idProduto, page, pageSize, } = req.query;
+        let { idEmpresa, codBarras, dsProduto, idProduto, page, pageSize, } = req.query;
 
         idEmpresa = idEmpresa ? idEmpresa : '';
         codBarras = codBarras ? codBarras : '';
@@ -23,87 +23,87 @@ class ExpedicaoControllers {
         try {
             const apiUrl = `${url}/api/expedicao/produto.xsjs?idEmpresa=${idEmpresa}&id=${idProduto}&descProduto=${dsProduto}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
-            
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
-        
+
     }
 
     async getListaOrdemTransferencia(req, res,) {
-        let {idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim,  pageSize, page} = req.query;
-       
+        let { idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
+
         idEmpresaDestino = Number(idEmpresaDestino) ? Number(idEmpresaDestino) : Number(idEmpresaDestino);
         idEmpresaOrigem = Number(idEmpresaOrigem) ? Number(idEmpresaOrigem) : Number(idEmpresaOrigem);
         idTipoFiltro = Number(idTipoFiltro) ? Number(idTipoFiltro) : Number(idTipoFiltro)
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';    
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         pageSize = pageSize ? pageSize : '';
         page = page ? page : '';
 
         try {
-           
+
             const apiUrl = `${url}/api/expedicao/resumo-ordem-transferencia.xsjs?idtipofiltro=${Number(idTipoFiltro)}&idEmpresaOrigem=${Number(idEmpresaOrigem)}&idEmpresaDestino=${Number(idEmpresaDestino)}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}`
             const response = await axios.get(apiUrl)
-           
 
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Erro no ExpedicaoControllers getListaOrdemTransferencia:", error);
             return res.status(500).json({ error: 'Erro ao buscar lista de ordens de transferência.' });
-       
+
         }
-        
+
     }
 
     async getListaOrdemTransferenciaExpedicao(req, res,) {
-        let {idEmpresaLogin, idLojaDestino, dataPesquisaInicio, dataPesquisaFim} = req.query;
-       
-        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : ''; 
+        let { idEmpresaLogin, idLojaDestino, dataPesquisaInicio, dataPesquisaFim } = req.query;
+
+        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : '';
         idLojaDestino = idLojaDestino ? idLojaDestino : '';
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';    
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
 
         try {
-            
+
 
             const response = await axios.get(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs?idtipofiltro=1&idEmpresaOrigem=${idEmpresaLogin}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}`)
 
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
-        
+
     }
 
     async getListaDetalheOT(req, res,) {
-        let {idResumoOT, idTipoFiltro, pageSize, page} = req.query;
-       
-        idResumoOT = idResumoOT ? idResumoOT : ''; 
+        let { idResumoOT, idTipoFiltro, pageSize, page } = req.query;
+
+        idResumoOT = idResumoOT ? idResumoOT : '';
         idTipoFiltro = idTipoFiltro ? idTipoFiltro : '';
         pageSize = pageSize ? pageSize : '';
         page = page ? page : '';
         try {
-          
+
             const response = await axios.get(`${url}/api/expedicao/detalhe-ordem-transferencia.xsjs?id=${idResumoOT}`)
-     
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
-    
+
     async getListaOT(req, res,) {
-        let {idEmpresaLogin, idLojaDestino, dataPesquisaInicio, dataPesquisaFim} = req.query;
-       
-        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : ''; 
+        let { idEmpresaLogin, idLojaDestino, dataPesquisaInicio, dataPesquisaFim } = req.query;
+
+        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : '';
         idLojaDestino = idLojaDestino ? idLojaDestino : '';
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';    
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
 
         dataPesquisaInicio = dataFormatada(dataPesquisaInicio)
         dataPesquisaFim = dataFormatada(dataPesquisaFim)
@@ -113,28 +113,28 @@ class ExpedicaoControllers {
             const apiUrl = `${url}/api/expedicao/resumo-ordem-transferencia.xsjs?idtipofiltro=2&idEmpresaOrigem=${idEmpresaLogin}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}`
             const response = await axios.get(apiUrl)
 
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
     async getListaSD(req, res,) {
-        let {} = req.query;
-       
+        let { } = req.query;
+
         try {
             const response = await axios.get(`${url}/api/expedicao/status-divergencia.xsjs?page=1`)
 
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
-   
+
     async getListaFaturasOT(req, res,) {
-        let {idLojaDestino, idLojaOrigem, dataPesquisaInicio, dataPesquisaFim, dataInicioFatura, dataFimFatura, idStatusOt } = req.query;
-       
+        let { idLojaDestino, idLojaOrigem, dataPesquisaInicio, dataPesquisaFim, dataInicioFatura, dataFimFatura, idStatusOt } = req.query;
+
         idLojaDestino = idLojaDestino ? idLojaDestino : '';
         idLojaOrigem = idLojaOrigem ? idLojaOrigem : '';
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
@@ -144,16 +144,16 @@ class ExpedicaoControllers {
         idStatusOt = idStatusOt ? idStatusOt : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=1&idEmpresaOrigem=${idLojaOrigem}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idstatusot=${idStatusOt}&dtinifat=${dataInicioFatura}&dtfimfat=${dataFimFatura}`)
-           
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
     async getListaOTDepLoja(req, res,) {
-        let {idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim, idRotina, pageSize, page } = req.query;
-       
+        let { idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim, idRotina, pageSize, page } = req.query;
+
         idEmpresaDestino = idEmpresaDestino ? idEmpresaDestino : '';
         idEmpresaOrigem = idEmpresaOrigem ? idEmpresaOrigem : '';
         idTipoFiltro = idTipoFiltro ? idTipoFiltro : '';
@@ -166,72 +166,72 @@ class ExpedicaoControllers {
         page = page ? page : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=2&idEmpresaOrigem=${idEmpresaOrigem}&idEmpresaDestino=${idEmpresaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idrotina=${idRotina}&dtinient=${dataPesquisaInicio}&dtfiment=${dataPesquisaFim}`)
-            
-            
-            return res.json(response.data); 
+
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
 
     async getListaStatusOT(req, res,) {
-        let {} = req.query;
-       
+        let { } = req.query;
+
         try {
             const response = await axios.get(`${url}/api/expedicao/status-ordem-transferencia.xsjs`)
 
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
 
     async getListaRotinaMovimentacao(req, res,) {
         let { idRotina, page, pageSize } = req.query;
-        
+
         idRotina = idRotina ? idRotina : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/rotina-movimentacao.xsjs`)
-         
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
     async getListaImpressaoEtiquetaOT(req, res,) {
         let { idResumoOT, stAtivo, pageSize, page } = req.query;
-        
+
         idResumoOT = idResumoOT ? idResumoOT : '';
         stAtivo = stAtivo ? stAtivo : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/impressao-etiqueta-ot.xsjs?id=${idResumoOT}&stAtivo=${stAtivo}&pageSize=${pageSize}&page=${page}`)
-          
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
     async getListaNFESaidaTransferencia(req, res,) {
         let { idSapOrigem, page, pageSize } = req.query;
-        
+
         idSapOrigem = idSapOrigem ? idSapOrigem : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/service-layer/notas-transferencia/consulta-nfe-saida-tranferencia.xsjs?id=${idSapOrigem}&pageSize=${pageSize}&page=${page}`)
-            
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -252,15 +252,15 @@ class ExpedicaoControllers {
             IDRESUMOOT
         } = req.body;
 
-        if(isNaN(QTDAJUSTE)) {
+        if (isNaN(QTDAJUSTE)) {
             QTDAJUSTE = 0;
         }
 
-        if(QTDAJUSTE < 0) {
+        if (QTDAJUSTE < 0) {
             STSOBRA = "True"
         }
-        
-        if(QTDAJUSTE > 0) {
+
+        if (QTDAJUSTE > 0) {
             STFALTA = "True"
         }
 
@@ -279,8 +279,8 @@ class ExpedicaoControllers {
                 IDRESUMOOT
             })
 
-            return res.status(200).json({message: 'Ordem de transferência atualizada com sucesso!'});
-        } catch(error) {
+            return res.status(200).json({ message: 'Ordem de transferência atualizada com sucesso!' });
+        } catch (error) {
             console.log('Erro ao atualizar ordem de transferência:', error);
             throw error;
         }
@@ -292,7 +292,7 @@ class ExpedicaoControllers {
             DESCRICAODIVERGENCIA,
             STATIVO
         } = req.body;
-       
+
         try {
             const response = await axios.put(`${url}/api/expedicao/status-divergencia.xsjs`, {
                 IDSTATUSDIVERGENCIA,
@@ -300,10 +300,10 @@ class ExpedicaoControllers {
                 STATIVO,
             })
 
-            return res.status(200).json({message: 'Atualizado com sucesso'}); 
+            return res.status(200).json({ message: 'Atualizado com sucesso' });
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -313,7 +313,7 @@ class ExpedicaoControllers {
             IDUSRCRIACAO,
             STATIVO
         } = req.body;
-       
+
         try {
             const response = await axios.post(`${url}/api/expedicao/status-divergencia.xsjs`, {
                 DESCRICAODIVERGENCIA,
@@ -321,22 +321,83 @@ class ExpedicaoControllers {
                 STATIVO
             })
 
-            return res.status(200).json({message: 'Cadastrado com sucesso'}); 
+            return res.status(200).json({ message: 'Cadastrado com sucesso' });
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error; 
+            throw error;
         }
     }
 
-    async putResumoOrdemTransferencia(req, res) {
+    /*    async putResumoOrdemTransferencia(req, res) {
+           
+           try {
+               const {error, value} = atualizarOTSchema.validate(req.body, {
+                   abortEarly: false,
+                   stripUnknown: true
+               });
+       
+               if(error) {
+                   return res.status(400).json({
+                       message: 'Dados inválidos',
+                       errors: error.details.map(detail => ({
+                           field: detail.path.join('.'),
+                           message: detail.message
+                       }))
+                   });
+               }
+   
+               if(!value.IDRESUMOOT) {
+                   return res.status(400).json({message: 'IDRESUMOOT é obrigatório.'});
+               }
         
+   
+               const response = await otService.updateOT(
+                       value.IDRESUMOOT,
+                       value.IDEMPRESAORIGEM,
+                       value.IDEMPRESADESTINO,
+                       value.IDOPERADOREXPEDICAO,
+                       value.NUTOTALITENS,
+                       value.QTDTOTALITENS,
+                       value.QTDTOTALITENSRECEPCIONADO,
+                       value.QTDTOTALITENSDIVERGENCIA,
+                       value.NUTOTALVOLUMES,
+                       value.TPVOLUME,
+                       value.VRTOTALCUSTO,
+                       value.VRTOTALVENDA,
+                       value.DTRECEPCAO,
+                       value.IDOPERADORRECEPTOR,
+                       value.DSOBSERVACAO,
+                       value.IDUSRCANCELAMENTO,
+                       value.IDSTDIVERGENCIA,
+                       value.OBSDIVERGENCIA,
+                       value.STEMISSAONFE,
+                       value.NUMERONFE,
+                       value.STENTRADAINVENTARIO,
+                       value.QTDCONFERENCIA,
+                       value.IDSTATUSOT,
+                       value.IDUSRAJUSTE,
+                       value.DTAJUSTE,
+                       value.QTDTOTALITENSAJUSTE,
+                       value.dadosdetalheot,
+       
+               );
+              
+               return res.status(200).json(response);
+           } catch(error) {
+               console.log('Erro ao atualizar ordem de transferência:', error);
+               return res.status(500).json({message: 'Erro ao atualizar ordem de transferência.'});
+               
+           }
+       } */
+
+    async putResumoOrdemTransferencia(req, res) {
         try {
-            const {error, value} = atualizarOTSchema.validate(req.body, {
+            const { error, value } = atualizarOTSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true
             });
-    
-            if(error) {
+
+            if (error) {
                 return res.status(400).json({
                     message: 'Dados inválidos',
                     errors: error.details.map(detail => ({
@@ -345,60 +406,57 @@ class ExpedicaoControllers {
                     }))
                 });
             }
+            const dadosdetalheot = value.dadosdetalheot;
+            const response = await otService.updateOT({
 
-            if(!value.IDRESUMOOT) {
-                return res.status(400).json({message: 'IDRESUMOOT é obrigatório.'});
-            }
-     
+                IDRESUMOOT: value.IDRESUMOOT,
+                IDPRODUTO: value.IDPRODUTO,
+                IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
+                IDEMPRESADESTINO: value.IDEMPRESADESTINO,
+                IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
+                NUTOTALITENS: value.NUTOTALITENS,
+                QTDTOTALITENS: value.QTDTOTALITENS,
+                QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
+                QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
+                NUTOTALVOLUMES: value.NUTOTALVOLUMES,
+                TPVOLUME: value.TPVOLUME,
+                VRTOTALCUSTO: value.VRTOTALCUSTO,
+                VRTOTALVENDA: value.VRTOTALVENDA,
+                DTRECEPCAO: value.DTRECEPCAO,
+                IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
+                DSOBSERVACAO: value.DSOBSERVACAO,
+                IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
+                IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
+                OBSDIVERGENCIA: value.OBSDIVERGENCIA,
+                STEMISSAONFE: value.STEMISSAONFE,
+                NUMERONFE: value.NUMERONFE,
+                STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
+                QTDCONFERENCIA: value.QTDCONFERENCIA,
+                IDSTATUSOT: value.IDSTATUSOT,
+                IDUSRAJUSTE: value.IDUSRAJUSTE,
+                DTAJUSTE: value.DTAJUSTE,
+                QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
+                dadosdetalheot,
+            });
 
-            const response = await otService.updateOT(
-                    value.IDRESUMOOT,
-                    value.IDEMPRESAORIGEM,
-                    value.IDEMPRESADESTINO,
-                    value.IDOPERADOREXPEDICAO,
-                    value.NUTOTALITENS,
-                    value.QTDTOTALITENS,
-                    value.QTDTOTALITENSRECEPCIONADO,
-                    value.QTDTOTALITENSDIVERGENCIA,
-                    value.NUTOTALVOLUMES,
-                    value.TPVOLUME,
-                    value.VRTOTALCUSTO,
-                    value.VRTOTALVENDA,
-                    value.DTRECEPCAO,
-                    value.IDOPERADORRECEPTOR,
-                    value.DSOBSERVACAO,
-                    value.IDUSRCANCELAMENTO,
-                    value.IDSTDIVERGENCIA,
-                    value.OBSDIVERGENCIA,
-                    value.STEMISSAONFE,
-                    value.NUMERONFE,
-                    value.STENTRADAINVENTARIO,
-                    value.QTDCONFERENCIA,
-                    value.IDSTATUSOT,
-                    value.IDUSRAJUSTE,
-                    value.DTAJUSTE,
-                    value.QTDTOTALITENSAJUSTE,
-                    value.dadosdetalheot,
-    
-            );
-           
             return res.status(200).json(response);
-        } catch(error) {
-            console.log('Erro ao atualizar ordem de transferência:', error);
-            return res.status(500).json({message: 'Erro ao atualizar ordem de transferência.'});
-            
+        } catch (error) {
+
+            console.error("Erro no ConferenciaCegaController.putResumoOrdemTransferencia:", error);
+            res.status(500).json({ error: "Erro ao atualizar ot" });
+            throw error;
         }
     }
 
     async postResumoOrdemTransferencia(req, res) {
-        
+
         try {
-            const {error, value} = criarOTSchema.validate(req.body, {
+            const { error, value } = criarOTSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true
             });
-    
-            if(error) {
+
+            if (error) {
                 return res.status(400).json({
                     message: 'Dados inválidos',
                     errors: error.details.map(detail => ({
@@ -407,50 +465,52 @@ class ExpedicaoControllers {
                     }))
                 });
             }
-        
-            const response = await otService.createOT(
-                    value.IDRESUMOOT,
-                    value.IDEMPRESAORIGEM,
-                    value.IDEMPRESADESTINO,
-                    value.IDOPERADOREXPEDICAO,
-                    value.NUTOTALITENS,
-                    value.QTDTOTALITENS,
-                    value.QTDTOTALITENSRECEPCIONADO,
-                    value.QTDTOTALITENSDIVERGENCIA,
-                    value.NUTOTALVOLUMES,
-                    value.TPVOLUME,
-                    value.VRTOTALCUSTO,
-                    value.VRTOTALVENDA,
-                    value.DTRECEPCAO,
-                    value.IDOPERADORRECEPTOR,
-                    value.DSOBSERVACAO,
-                    value.IDUSRCANCELAMENTO,
-                    value.IDSTDIVERGENCIA,
-                    value.OBSDIVERGENCIA,
-                    value.STEMISSAONFE,
-                    value.NUMERONFE,
-                    value.STENTRADAINVENTARIO,
-                    value.QTDCONFERENCIA,
-                    value.IDSTATUSOT,
-                    value.IDUSRAJUSTE,
-                    value.DTAJUSTE,
-                    value.QTDTOTALITENSAJUSTE,
-                    value.dadosdetalheot,
 
+            const response = await otService.createOT(
+                value.IDRESUMOOT,
+                value.IDEMPRESAORIGEM,
+                value.IDEMPRESADESTINO,
+                value.IDOPERADOREXPEDICAO,
+                value.NUTOTALITENS,
+                value.QTDTOTALITENS,
+                value.QTDTOTALITENSRECEPCIONADO,
+                value.QTDTOTALITENSDIVERGENCIA,
+                value.NUTOTALVOLUMES,
+                value.TPVOLUME,
+                value.VRTOTALCUSTO,
+                value.VRTOTALVENDA,
+                value.DTRECEPCAO,
+                value.IDOPERADORRECEPTOR,
+                value.DSOBSERVACAO,
+                value.IDUSRCANCELAMENTO,
+                value.IDSTDIVERGENCIA,
+                value.OBSDIVERGENCIA,
+                value.STEMISSAONFE,
+                value.NUMERONFE,
+                value.STENTRADAINVENTARIO,
+                value.QTDCONFERENCIA,
+                value.IDSTATUSOT,
+                value.IDUSRAJUSTE,
+                value.DTAJUSTE,
+                value.QTDTOTALITENSAJUSTE,
+                value.CONFEREITENS,
+                value.IDROTINA,
+                value.DATAENTREGA,
+                value.dadosdetalheot,
             );
-    
-            if(!value.IDEMPRESADESTINO) {
-                return res.status(400).json({message: 'IDEMPRESADESTINO é obrigatório.'});
+
+            if (!value.IDEMPRESADESTINO) {
+                return res.status(400).json({ message: 'IDEMPRESADESTINO é obrigatório.' });
             }
-    
-            if(!value.IDEMPRESAORIGEM) {
-                return res.status(400).json({message: 'IDEMPRESAORIGEM é obrigatório.'});
+
+            if (!value.IDEMPRESAORIGEM) {
+                return res.status(400).json({ message: 'IDEMPRESAORIGEM é obrigatório.' });
             }
-           console.log('response', response);
+            console.log('response', response);
             return res.status(200).json(response);
-        } catch(error) {
+        } catch (error) {
             console.log('Erro ao criar ordem de transferência:', error);
-            return res.status(500).json({message: 'Erro ao criar ordem de transferência.'});
+            return res.status(500).json({ message: 'Erro ao criar ordem de transferência.' });
 
         }
     }

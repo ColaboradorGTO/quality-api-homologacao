@@ -68,7 +68,7 @@ const updateResumoOTSchema = Joi.object({
             "number.base": "VRTOTALVENDA must be a number",
         }),
 
-    DTRECEPCAO: Joi.date().allow(null)
+    DTRECEPCAO: Joi.date().allow(null || '')
         .messages({
             "date.base": "DTRECEPCAO must be a valid date",
         }),
@@ -128,7 +128,7 @@ const updateResumoOTSchema = Joi.object({
             "number.base": "IDUSRAJUSTE must be a number",
         }),
 
-    DTAJUSTE: Joi.date().allow(null)
+    DTAJUSTE: Joi.date().allow(null, '')
         .messages({
             "date.base": "DTAJUSTE must be a valid date",
         }),
