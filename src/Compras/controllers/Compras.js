@@ -1658,6 +1658,42 @@ class ComprasControllers {
         }
     }
 
+    async putDistribuicaoComprasHistorico(req, res) {
+        let { 
+            IDDISTRIBUICAOCOMPRASHISTORICO,
+            IDPEDIDOCOMPRA,
+            IDEMPRESA,
+            IDFILIAL,
+            CODBARRAS,
+            QTDSUGESTAOALTERACAOHISTORICO,
+            IDUSUARIOALTERACAO,
+            FINALIZAR
+         } = req.query;
+
+        try {
+
+            // if(!IDDISTRIBUICAOCOMPRASHISTORICO) {
+            //     return res.status(400).json({ error: "IDDISTRIBUICAOCOMPRASHISTORICO is required" });
+            // }
+
+            const response = axios.put(`${url}/api/compras/distribuicao-compras-historico.xsjs`, {
+                IDDISTRIBUICAOCOMPRASHISTORICO,
+                IDPEDIDOCOMPRA,
+                IDEMPRESA,
+                IDFILIAL,
+                CODBARRAS,
+                QTDSUGESTAOALTERACAOHISTORICO,
+                IDUSUARIOALTERACAO,
+                FINALIZAR
+            })
+        
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putDistribuicaoComprasHistorico:", error);
+            throw error;
+        }
+    }
     // CREATE
     async postSubGrupoEstrutura(req, res) {
         let {
