@@ -1673,9 +1673,9 @@ class ComprasControllers {
 
         try {
 
-            // if(!IDDISTRIBUICAOCOMPRASHISTORICO) {
-            //     return res.status(400).json({ error: "IDDISTRIBUICAOCOMPRASHISTORICO is required" });
-            // }
+            if(!IDDISTRIBUICAOCOMPRASHISTORICO) {
+                return res.status(400).json({ error: "IDDISTRIBUICAOCOMPRASHISTORICO is required" });
+            }
             
         
             const response = axios.put(`${url}/api/compras/distribuicao-compras-historico.xsjs`, [{

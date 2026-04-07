@@ -805,7 +805,7 @@ routes.put('/status-divergencia/:id', ConferenciaCegaControllers.putStatusDiverg
 routes.post('/inserir-status-divergencia', ConferenciaCegaControllers.postStatusDivergencia)
 
 // Lista de Preço
-routes.get('/listaPreco', ListaPrecoControllers.getListaPrecoPorMarca)
+routes.get('/lista-de-preco', ListaPrecoControllers.getListaPrecoPorMarca)
 
 
 routes.get('/promocoes-ativas', PromocaoControllers.getListaPromocoesAtivas)
