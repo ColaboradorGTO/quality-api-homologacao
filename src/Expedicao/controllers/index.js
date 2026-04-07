@@ -231,8 +231,8 @@ class ExpedicaoControllers {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-            //const response = await axios.get(`${url}/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
-            const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
+            const response = await axios.get(`${url}/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
+            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
 
             return res.json(response.data);
         } catch (error) {
