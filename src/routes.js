@@ -503,6 +503,7 @@ routes.get('/rotinaMovimentacao', ExpedicaoControllers.getListaRotinaMovimentaca
 routes.get('/otTransferencia', ExpedicaoControllers.getListaOTDepLoja)
 routes.get('/impressao-etiqueta-ot', ExpedicaoControllers.getListaImpressaoEtiquetaOT)
 routes.get('/consulta-nfe-saida-tranferencia', ExpedicaoControllers.getListaNFESaidaTransferencia)
+routes.get('/impressao-entrega', ExpedicaoControllers.getListaImpressaoEntrega)
 routes.put('/updateOrdemTransferencia', ExpedicaoControllers.updateOrdemTransferencia)
 routes.put('/updateStatusDivergencia', ExpedicaoControllers.updateAlterarSD)
 
@@ -511,6 +512,7 @@ routes.put('/inserirSD', ExpedicaoControllers.storeInserirSD)
 routes.get('/resumo-ordem-transferencia', ExpedicaoControllers.getListaOrdemTransferencia)
 routes.put('/resumo-ordem-transferencia/:id', ExpedicaoControllers.putResumoOrdemTransferencia)
 routes.post('/criar-resumo-ordem-transferencia', ExpedicaoControllers.postResumoOrdemTransferencia)
+routes.post('/consulta-nfe-saida-tranferencia-varias', ExpedicaoControllers.postConsultaNFESaidaTrasferenciaVarias)
 
 // Vendas
 // routes.get('/listaVendas', FinanceiroVendasControllers.getListaVendas)

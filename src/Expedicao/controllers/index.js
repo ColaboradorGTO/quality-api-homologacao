@@ -5,6 +5,7 @@ import { OTService } from "../OT/Services/index.js";
 import criarOTSchema from '../OT/Schema/criarOTSchema.js';
 import atualizarOTSchema from '../OT/Schema/atualizarOTSchema.js';
 import 'dotenv/config';
+import consultaNFESchema from "../OT/Schema/consultaNFESchema.js";
 const url = process.env.API_URL;
 const otClient = new OTClient(url);
 const otService = new OTService(otClient);
@@ -143,6 +144,7 @@ class ExpedicaoControllers {
         dataFimFatura = dataFimFatura ? dataFimFatura : '';
         idStatusOt = idStatusOt ? idStatusOt : '';
         try {
+            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=1&idEmpresaOrigem=${idLojaOrigem}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idstatusot=${idStatusOt}&dtinifat=${dataInicioFatura}&dtfimfat=${dataFimFatura}`)
             const response = await axios.get(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=1&idEmpresaOrigem=${idLojaOrigem}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idstatusot=${idStatusOt}&dtinifat=${dataInicioFatura}&dtfimfat=${dataFimFatura}`)
 
             return res.json(response.data);
@@ -212,6 +214,7 @@ class ExpedicaoControllers {
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/impressao-etiqueta-ot.xsjs?id=${idResumoOT}&stAtivo=${stAtivo}&pageSize=${pageSize}&page=${page}`)
+            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador/api/expedicao/impressao-etiqueta-ot.xsjs?id=${idResumoOT}&stAtivo=${stAtivo}&pageSize=${pageSize}&page=${page}`)
 
             return res.json(response.data);
         } catch (error) {
@@ -219,6 +222,26 @@ class ExpedicaoControllers {
             throw error;
         }
     }
+
+
+    async getListaImpressaoEntrega(req, res,) {
+        let { idResumoOT, pageSize, page } = req.query;
+
+        idResumoOT = idResumoOT ? idResumoOT : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+            //const response = await axios.get(`${url}/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
+            const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Unable to connect to the database getListaImpressaoEntrega:", error);
+            throw error;
+        }
+    }
+
+
     async getListaNFESaidaTransferencia(req, res,) {
         let { idSapOrigem, page, pageSize } = req.query;
 
@@ -390,9 +413,68 @@ class ExpedicaoControllers {
            }
        } */
 
+    /*     async putResumoOrdemTransferencia(req, res) {
+            try {
+                const { error, value } = atualizarOTSchema.validate(req.body, {
+                    abortEarly: false,
+                    stripUnknown: true
+                });
+    
+                if (error) {
+                    return res.status(400).json({
+                        message: 'Dados inválidos',
+                        errors: error.details.map(detail => ({
+                            field: detail.path.join('.'),
+                            message: detail.message
+                        }))
+                    });
+                }
+                const dadosdetalheot = value.dadosdetalheot;
+                const response = await otService.updateOT({
+    
+                    IDRESUMOOT: value.IDRESUMOOT,
+                    IDPRODUTO: value.IDPRODUTO,
+                    IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
+                    IDEMPRESADESTINO: value.IDEMPRESADESTINO,
+                    IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
+                    NUTOTALITENS: value.NUTOTALITENS,
+                    QTDTOTALITENS: value.QTDTOTALITENS,
+                    QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
+                    QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
+                    NUTOTALVOLUMES: value.NUTOTALVOLUMES,
+                    TPVOLUME: value.TPVOLUME,
+                    VRTOTALCUSTO: value.VRTOTALCUSTO,
+                    VRTOTALVENDA: value.VRTOTALVENDA,
+                    DTRECEPCAO: value.DTRECEPCAO,
+                    IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
+                    DSOBSERVACAO: value.DSOBSERVACAO,
+                    IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
+                    IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
+                    OBSDIVERGENCIA: value.OBSDIVERGENCIA,
+                    STEMISSAONFE: value.STEMISSAONFE,
+                    NUMERONFE: value.NUMERONFE,
+                    STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
+                    QTDCONFERENCIA: value.QTDCONFERENCIA,
+                    IDSTATUSOT: value.IDSTATUSOT,
+                    IDUSRAJUSTE: value.IDUSRAJUSTE,
+                    DTAJUSTE: value.DTAJUSTE,
+                    QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
+                    dadosdetalheot,
+                });
+    
+                return res.status(200).json(response);
+            } catch (error) {
+    
+                console.error("Erro no ConferenciaCegaController.putResumoOrdemTransferencia:", error);
+                res.status(500).json({ error: "Erro ao atualizar ot" });
+                throw error;
+            }
+        } */
+
     async putResumoOrdemTransferencia(req, res) {
         try {
-            const { error, value } = atualizarOTSchema.validate(req.body, {
+            const body = Array.isArray(req.body) ? req.body : [req.body];
+            const { error, value } = atualizarOTSchema.validate(body, {
                 abortEarly: false,
                 stripUnknown: true
             });
@@ -406,38 +488,41 @@ class ExpedicaoControllers {
                     }))
                 });
             }
-            const dadosdetalheot = value.dadosdetalheot;
-            const response = await otService.updateOT({
 
-                IDRESUMOOT: value.IDRESUMOOT,
-                IDPRODUTO: value.IDPRODUTO,
-                IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
-                IDEMPRESADESTINO: value.IDEMPRESADESTINO,
-                IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
-                NUTOTALITENS: value.NUTOTALITENS,
-                QTDTOTALITENS: value.QTDTOTALITENS,
-                QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
-                QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
-                NUTOTALVOLUMES: value.NUTOTALVOLUMES,
-                TPVOLUME: value.TPVOLUME,
-                VRTOTALCUSTO: value.VRTOTALCUSTO,
-                VRTOTALVENDA: value.VRTOTALVENDA,
-                DTRECEPCAO: value.DTRECEPCAO,
-                IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
-                DSOBSERVACAO: value.DSOBSERVACAO,
-                IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
-                IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
-                OBSDIVERGENCIA: value.OBSDIVERGENCIA,
-                STEMISSAONFE: value.STEMISSAONFE,
-                NUMERONFE: value.NUMERONFE,
-                STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
-                QTDCONFERENCIA: value.QTDCONFERENCIA,
-                IDSTATUSOT: value.IDSTATUSOT,
-                IDUSRAJUSTE: value.IDUSRAJUSTE,
-                DTAJUSTE: value.DTAJUSTE,
-                QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
-                dadosdetalheot,
-            });
+            const response = await Promise.all(
+                value.map(item => otService.updateOT(item))
+            );
+            /*             const response = await otService.updateOT({
+            
+                            IDRESUMOOT: value.IDRESUMOOT,
+                            IDPRODUTO: value.IDPRODUTO,
+                            IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
+                            IDEMPRESADESTINO: value.IDEMPRESADESTINO,
+                            IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
+                            NUTOTALITENS: value.NUTOTALITENS,
+                            QTDTOTALITENS: value.QTDTOTALITENS,
+                            QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
+                            QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
+                            NUTOTALVOLUMES: value.NUTOTALVOLUMES,
+                            TPVOLUME: value.TPVOLUME,
+                            VRTOTALCUSTO: value.VRTOTALCUSTO,
+                            VRTOTALVENDA: value.VRTOTALVENDA,
+                            DTRECEPCAO: value.DTRECEPCAO,
+                            IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
+                            DSOBSERVACAO: value.DSOBSERVACAO,
+                            IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
+                            IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
+                            OBSDIVERGENCIA: value.OBSDIVERGENCIA,
+                            STEMISSAONFE: value.STEMISSAONFE,
+                            NUMERONFE: value.NUMERONFE,
+                            STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
+                            QTDCONFERENCIA: value.QTDCONFERENCIA,
+                            IDSTATUSOT: value.IDSTATUSOT,
+                            IDUSRAJUSTE: value.IDUSRAJUSTE,
+                            DTAJUSTE: value.DTAJUSTE,
+                            QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
+                            dadosdetalheot,
+                        }); */
 
             return res.status(200).json(response);
         } catch (error) {
@@ -447,6 +532,7 @@ class ExpedicaoControllers {
             throw error;
         }
     }
+
 
     async postResumoOrdemTransferencia(req, res) {
 
@@ -514,6 +600,130 @@ class ExpedicaoControllers {
 
         }
     }
+
+    /*     async putProcessar(req, res) {
+            try {
+                const { error, value } = atualizarOTSchema.validate(req.body, {
+                    abortEarly: false,
+                    stripUnknown: true
+                });
+    
+                if (error) {
+                    return res.status(400).json({
+                        message: 'Dados inválidos',
+                        errors: error.details.map(detail => ({
+                            field: detail.path.join('.'),
+                            message: detail.message
+                        }))
+                    });
+                }
+                const dadosdetalheot = value.dadosdetalheot;
+                const response = await otService.updateOT({
+    
+                    IDRESUMOOT: value.IDRESUMOOT,
+                    IDPRODUTO: value.IDPRODUTO,
+                    IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
+                    IDEMPRESADESTINO: value.IDEMPRESADESTINO,
+                    IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
+                    NUTOTALITENS: value.NUTOTALITENS,
+                    QTDTOTALITENS: value.QTDTOTALITENS,
+                    QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
+                    QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
+                    NUTOTALVOLUMES: value.NUTOTALVOLUMES,
+                    TPVOLUME: value.TPVOLUME,
+                    VRTOTALCUSTO: value.VRTOTALCUSTO,
+                    VRTOTALVENDA: value.VRTOTALVENDA,
+                    DTRECEPCAO: value.DTRECEPCAO,
+                    IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
+                    DSOBSERVACAO: value.DSOBSERVACAO,
+                    IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
+                    IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
+                    OBSDIVERGENCIA: value.OBSDIVERGENCIA,
+                    STEMISSAONFE: value.STEMISSAONFE,
+                    NUMERONFE: value.NUMERONFE,
+                    STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
+                    QTDCONFERENCIA: value.QTDCONFERENCIA,
+                    IDSTATUSOT: value.IDSTATUSOT,
+                    IDUSRAJUSTE: value.IDUSRAJUSTE,
+                    DTAJUSTE: value.DTAJUSTE,
+                    QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
+                    dadosdetalheot,
+                });
+    
+                return res.status(200).json(response);
+            } catch (error) {
+    
+                console.error("Erro no ConferenciaCegaController.putResumoOrdemTransferencia:", error);
+                res.status(500).json({ error: "Erro ao atualizar ot" });
+                throw error;
+            }
+        }
+     */
+
+    /*     async postConsultaNFESaidaTrasferenciaVarias(req, res) {
+
+        try {
+            const { error, value } = consultaNFESchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await otService.consultaNFESaidaService(
+                value.IDSAPORIGEM
+            );
+
+            if (!value.IDSAPORIGEM) {
+                return res.status(400).json({ message: 'IDSAPORIGEM é obrigatório.' });
+            }
+
+            console.log('response', response);
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log('Erro ao criar Consulta de NFE Saida:', error);
+            return res.status(500).json({ message: 'Erro ao Consulta de NFE Saida' });
+
+        }
+    } */
+
+    async postConsultaNFESaidaTrasferenciaVarias(req, res) {
+        try {
+            const { error, value } = consultaNFESchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const responses = await Promise.all(
+                value.map(item => otService.consultaNFESaidaService(item))
+            );
+
+            return res.status(200).json(responses);
+
+        } catch (error) {
+            console.log('Erro ao criar Consulta de NFE Saida:', error);
+            return res.status(500).json({ message: 'Erro ao Consulta de NFE Saida' });
+        }
+    }
+
 }
 
 export default new ExpedicaoControllers();

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import 'dotenv/config';
 const url = process.env.API_URL;
+//const url = process.env.API_URL_HML;
 
 export class OTClient {
     constructor(baseURL) {
@@ -143,71 +144,13 @@ export class OTClient {
     }
 
 
-    /*     async atualizarOT(
-        IDRESUMOOT,
-        IDEMPRESAORIGEM,
-        IDEMPRESADESTINO,
-        IDOPERADOREXPEDICAO,
-        NUTOTALITENS,
-        QTDTOTALITENS,
-        QTDTOTALITENSRECEPCIONADO,
-        QTDTOTALITENSDIVERGENCIA,
-        NUTOTALVOLUMES,
-        TPVOLUME,
-        VRTOTALCUSTO,
-        VRTOTALVENDA,
-        DTRECEPCAO,
-        IDOPERADORRECEPTOR,
-        DSOBSERVACAO,
-        IDUSRCANCELAMENTO,
-        IDSTDIVERGENCIA,
-        OBSDIVERGENCIA,
-        STEMISSAONFE,
-        NUMERONFE,
-        STENTRADAINVENTARIO,
-        QTDCONFERENCIA,
-        IDSTATUSOT,
-        IDUSRAJUSTE,
-        DTAJUSTE,
-        QTDTOTALITENSAJUSTE,
-        CONFEREITENS,
-        IDROTINA,
-        DATAENTREGA,
-        dadosdetalheot,
+    async consultaNFESaida(
+        IDSAPORIGEM
     ) {
 
-        const response = await this.api.put(`api/expedicao/resumo-ordem-transferencia.xsjs`, [{
-            IDSTATUSOT,
-            IDRESUMOOT,
-            IDEMPRESAORIGEM,
-            IDEMPRESADESTINO,
-            IDOPERADOREXPEDICAO,
-            NUTOTALITENS,
-            QTDTOTALITENS,
-            QTDTOTALITENSRECEPCIONADO,
-            QTDTOTALITENSDIVERGENCIA,
-            NUTOTALVOLUMES,
-            TPVOLUME,
-            VRTOTALCUSTO,
-            VRTOTALVENDA,
-            DTRECEPCAO,
-            IDOPERADORRECEPTOR,
-            DSOBSERVACAO,
-            IDUSRCANCELAMENTO,
-            IDSTDIVERGENCIA,
-            OBSDIVERGENCIA,
-            STEMISSAONFE,
-            NUMERONFE,
-            STENTRADAINVENTARIO,
-            QTDCONFERENCIA,
-            IDUSRAJUSTE,
-            DTAJUSTE,
-            QTDTOTALITENSAJUSTE,
-             CONFEREITENS,
-            IDROTINA,
-            DATAENTREGA,
-            dadosdetalheot,
+        const response = await this.api.post(`${url}/api/service-layer/notas-transferencia/consulta-nfe-saida-tranferencia-varias.xsjs`, [{
+            IDSAPORIGEM
         }]);
         return response.data;
-    } */
+    }
 }

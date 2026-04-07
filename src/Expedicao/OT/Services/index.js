@@ -139,4 +139,18 @@ export class OTService {
         return result;
     }
 
+    async consultaNFESaidaService({
+        IDSAPORIGEM
+
+    }) {
+        if (!IDSAPORIGEM) {
+            throw new Error("ID SAP Origem é Obrigatorio.")
+        }
+
+        const result = await this.client.consultaNFESaida(
+            IDSAPORIGEM
+        );
+        return result;
+    }
+
 }
