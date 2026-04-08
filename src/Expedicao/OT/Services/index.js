@@ -30,6 +30,9 @@ export class OTService {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
+        CONFEREITENS,
+        IDROTINA,
+        DATAENTREGA,
         dadosdetalheot,
     ) {
 
@@ -60,13 +63,17 @@ export class OTService {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
+            CONFEREITENS,
+            IDROTINA,
+            DATAENTREGA,
             dadosdetalheot,
         )
         return result;
     }
 
-    async updateOT(
+    async updateOT({
         IDRESUMOOT,
+        IDPRODUTO,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
         IDOPERADOREXPEDICAO,
@@ -92,15 +99,16 @@ export class OTService {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
-        dadosdetalheot,
-    ) {
-        if (!IDRESUMOOT) {
-            throw new Error("IDRESUMOOT is required");
-        }
+        dadosdetalheot
 
+    }) {
+        if (!IDRESUMOOT) {
+            throw new Error("ID da Ordem de Transferência é Obrigatorio.")
+        }
 
         const result = await this.client.atualizarOT(
             IDRESUMOOT,
+            IDPRODUTO,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
             IDOPERADOREXPEDICAO,
@@ -126,8 +134,23 @@ export class OTService {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
-            dadosdetalheot,
-        )
+            dadosdetalheot
+        );
         return result;
     }
+
+    async consultaNFESaidaService({
+        IDSAPORIGEM
+
+    }) {
+        if (!IDSAPORIGEM) {
+            throw new Error("ID SAP Origem é Obrigatorio.")
+        }
+
+        const result = await this.client.consultaNFESaida(
+            IDSAPORIGEM
+        );
+        return result;
+    }
+
 }

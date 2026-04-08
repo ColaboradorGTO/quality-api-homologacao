@@ -1,6 +1,7 @@
 import axios from 'axios';
 import 'dotenv/config';
 const url = process.env.API_URL;
+//const url = process.env.API_URL_HML;
 
 export class OTClient {
     constructor(baseURL) {
@@ -36,9 +37,12 @@ export class OTClient {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
+        CONFEREITENS,
+        IDROTINA,
+        DATAENTREGA,
         dadosdetalheot,
     ) {
-        const response = await this.api.post(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
+        const response = await this.api.post(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
             IDRESUMOOT,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
@@ -65,12 +69,19 @@ export class OTClient {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
+            CONFEREITENS,
+            IDROTINA,
+            DATAENTREGA,
             dadosdetalheot,
-        }]);
+        });
         return response.data;
     }
+
+
     async atualizarOT(
+
         IDRESUMOOT,
+        IDPRODUTO,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
         IDOPERADOREXPEDICAO,
@@ -96,12 +107,12 @@ export class OTClient {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
-        dadosdetalheot,
+        dadosdetalheot
     ) {
 
-        const response = await this.api.put(`api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
-            IDSTATUSOT,
+        const response = await this.api.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
             IDRESUMOOT,
+            IDPRODUTO,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
             IDOPERADOREXPEDICAO,
@@ -123,10 +134,22 @@ export class OTClient {
             NUMERONFE,
             STENTRADAINVENTARIO,
             QTDCONFERENCIA,
+            IDSTATUSOT,
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
-            dadosdetalheot,
+            dadosdetalheot
+        });
+        return response.data;
+    }
+
+
+    async consultaNFESaida(
+        IDSAPORIGEM
+    ) {
+
+        const response = await this.api.post(`${url}/api/service-layer/notas-transferencia/consulta-nfe-saida-tranferencia-varias.xsjs`, [{
+            IDSAPORIGEM
         }]);
         return response.data;
     }
