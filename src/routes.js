@@ -216,6 +216,7 @@ routes.get('/pagamento-pos', AdmPagamentosControllers.getListaPagamentoPos)
 routes.get('/clientes', GerenciaControllers.getListaCliente)
 routes.get('/malotes-por-loja', GerenciaControllers.getListaMalortesPorLoja)
 routes.get('/detalhe-malotes-por-loja', GerenciaControllers.getListaDetalhesMalortesPorLoja)
+routes.get('/vendas-digitais', GerenciaControllers.getVendasDigitais)
 routes.post('/criar-malotes-por-loja', GerenciaControllers.postMalotesPorLoja)
 routes.put('/malotes-por-loja/:id', GerenciaControllers.putMalotesPorLoja)
 
@@ -489,7 +490,6 @@ routes.get('/gerar-pfx', ConsultaStatusNfeController.gerarPFX);
 
 // routes.put('/configuracao-todos/:id', InformaticaControllers.putCaixaLoja)
 // FIM Informática
-
 
 
 // Expedição
