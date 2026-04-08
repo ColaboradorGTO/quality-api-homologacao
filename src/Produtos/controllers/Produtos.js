@@ -276,6 +276,30 @@ class ProdutoControllers  {
         }
     }
 
+    async putAlteracoesPrecoProduto(req, res) {
+       
+        try {   
+            let { IDRESUMOALTERACAOPRECO, STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO, DTAGENDAMENTOPERSONALIZADO, STATIVO } = req.body; 
+           
+            if(!IDRESUMOALTERACAOPRECO) {
+                return res.status(400).json({ error: "Todos os parâmetros IDRESUMOALTERACAOPRECO são obrigatórios." });
+            }
+
+            const response = await axios.post(`${url}/api/produtos/alteracoes-de-precos-resumo.xsjs`, {
+                IDRESUMOALTERACAOPRECO, 
+                STAGENDAMENTOIMEDIATO, 
+                STAGENDAMENTOPERSONALIZADO, 
+                DTAGENDAMENTOPERSONALIZADO, 
+                STATIVO
+            },)
+            
+            return res.json(response.data);
+        } catch(error) {
+            console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
+            throw error;
+        } 
+    }
+
 }
 
 export default new ProdutoControllers();
