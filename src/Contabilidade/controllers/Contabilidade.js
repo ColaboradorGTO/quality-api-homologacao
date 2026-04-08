@@ -7,7 +7,9 @@ import updateVinculoAlvaraEmpresaSchema from "../schema/updateVinculoAlvaraEmpre
 import createVinculoAlvaraEmpresaSchema from "../schema/createVinculoAlvaraEmpresa.js";
 import updateArquivosAlvaraSchema from "../schema/updateArquivoAlvara.js";
 import createArquivosAlvaraSchema from "../schema/createArquivoAlvara.js";
-const url = process.env.API_URL;
+// const url = process.env.API_URL;
+const url = process.env.API_URL_HML;
+
 
 const contabilidadeClient = new ContabilidadeClient(url)
 const contabilidadeService = new ContabilidadeServices(contabilidadeClient);
