@@ -717,6 +717,8 @@ routes.get('/lista-produtos-etiqueta-sap', ProdutoControllers.ListaProdutosEtiqu
 routes.get('/alteracoes-de-precos-resumo', ProdutoControllers.getListaAlteracaoPrecoResumo)
 routes.get('/alteracoes-de-precos-detalhes', ProdutoControllers.getListaAlteracaoPrecoDetalhe)
 
+routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
+
 //  Depositos Loja
 routes.get('/depositosLoja', DepositosLojaControllers.getListaDepositosLojaEmpresa)
 routes.get('/deposito-loja-empresa', DepositosLojaControllers.getListaDepositosLojaEmpresa)
