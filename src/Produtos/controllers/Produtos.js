@@ -1,7 +1,8 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
+// const url = process.env.API_URL;
+const url = process.env.API_URL_HML;
 
 class ProdutoControllers  {
 
@@ -211,7 +212,7 @@ class ProdutoControllers  {
     }
     
     async getListaAlteracaoPrecoResumo(req, res) {
-        let { dataPesquisaInicio, dataPesquisaFim, id, idLista, idLoja, idUsuario, idProduto, descProduto, codBarras, page, pageSize } = req.query;
+        let {idResumoAlteracao, dataPesquisaInicio, dataPesquisaFim, id, idLista, idLoja, idUsuario, idProduto, descProduto, codBarras, page, pageSize } = req.query;
         idResumoAlteracao = idResumoAlteracao ? idResumoAlteracao : '';
         idLoja = idLoja ? idLoja : '';
         idLista = idLista ? idLista : '';
@@ -225,9 +226,9 @@ class ProdutoControllers  {
         pageSize = pageSize ? pageSize : '';
         try {
             
-            const apiUrl = `${url}/api/produtos/alteracoes-de-precos-resumo.xsjs?dtIinicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&id=${id}&idLista=${idLista}&idLoja=${idLoja}&idUser=${idUsuario}&idProd=${idProduto}&descProd=${descProduto}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/produtos/alteracoes-de-precos-resumo.xsjs?dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&id=${idResumoAlteracao}&idLista=${idLista}&idLoja=${idLoja}&idUser=${idUsuario}&idProd=${idProduto}&descProd=${descProduto}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-            
+           
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -273,6 +274,30 @@ class ProdutoControllers  {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
+    }
+
+    async putAlteracoesPrecoProduto(req, res) {
+       
+        try {   
+            let { IDRESUMOALTERACAOPRECO, STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO, DTAGENDAMENTOPERSONALIZADO, STATIVO } = req.body; 
+           
+            if(!IDRESUMOALTERACAOPRECO) {
+                return res.status(400).json({ error: "Todos os parâmetros IDRESUMOALTERACAOPRECO são obrigatórios." });
+            }
+
+            const response = await axios.post(`${url}/api/produtos/alteracoes-de-precos-resumo.xsjs`, {
+                IDRESUMOALTERACAOPRECO, 
+                STAGENDAMENTOIMEDIATO, 
+                STAGENDAMENTOPERSONALIZADO, 
+                DTAGENDAMENTOPERSONALIZADO, 
+                STATIVO
+            },)
+            
+            return res.json(response.data);
+        } catch(error) {
+            console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
+            throw error;
+        } 
     }
 
 }

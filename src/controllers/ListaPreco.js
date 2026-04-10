@@ -1,15 +1,16 @@
 import axios from "axios";
 import { dataFormatada } from "../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
+// const url = process.env.API_URL;
+const url = process.env.API_URL_HML;
 
 class ListaPrecoControllers {
 
     async getListaPrecoPorMarca(req, res) {
         let { idLoja, idLista, nomeLista, dataPesquisaInicio, dataPesquisaFim, page, pageSize} = req.query;
     
-        dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : ''; 
-        dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : ''; 
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         idLoja = idLoja ? idLoja : '';
         idLista = idLista ? idLista : '';
         nomeLista = nomeLista ? nomeLista : '';
