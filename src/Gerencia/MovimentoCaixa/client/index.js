@@ -10,11 +10,45 @@ export class MovimentoCaixaClient {
         });
     }
 
-    async atuaizarStatus(IDSUPERVISOR, STCONFERIDO, ID) {
+    async atuaizarStatus(
+        IDSUPERVISOR,
+        STCONFERIDO,
+        ID
+    ) {
         const response = await this.api.put(`${url}/api/movimento-caixa/atualizacao-status.xsjs`, {
             IDSUPERVISOR,
             STCONFERIDO,
             ID,
+        })
+
+        return response.data;
+    }
+
+    async atualizarListaAjusteRecebimento(
+        TXT_OBS,
+        VRAJUSTDINHEIRO,
+        VRAJUSTTEF,
+        VRAJUSTPOS,
+        VRAJUSTCONVENIO,
+        VRAJUSTVOUCHER,
+        VRAJUSTFATURA,
+        VRAJUSTPIX,
+        VRAJUSTPL,
+        VRQUEBRACAIXA,
+        ID
+    ) {
+        const response = await this.api.put(`${url}/api/movimento-caixa/ajuste-recebimento.xsjs`, {
+            TXT_OBS,
+            VRAJUSTDINHEIRO,
+            VRAJUSTTEF,
+            VRAJUSTPOS,
+            VRAJUSTCONVENIO,
+            VRAJUSTVOUCHER,
+            VRAJUSTFATURA,
+            VRAJUSTPIX,
+            VRAJUSTPL,
+            VRQUEBRACAIXA,
+            ID
         })
 
         return response.data;
