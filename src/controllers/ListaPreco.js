@@ -26,6 +26,55 @@ class ListaPrecoControllers {
             throw error;
         } 
     }
+
+    async putListasDePrecos(req, res) {   
+        try {   
+            let { IDRESUMOLISTAPRECO, IDUSERALTERACAO, IDUSERCRIACAO, NOMELISTA, STATIVO, lojas } = req.body; 
+           
+            if(!IDRESUMOLISTAPRECO) {
+                return res.status(400).json({ error: "Todos os parâmetros IDRESUMOLISTAPRECO são obrigatórios." });
+            }
+
+            const response = await axios.put(`${url}/api/listas-de-precos.xsjs`, [{
+                IDRESUMOLISTAPRECO, 
+                IDUSERALTERACAO,
+                IDUSERCRIACAO,
+                NOMELISTA,
+                STATIVO,
+                lojas
+            }])
+            
+            return res.json(response.data);
+        } catch(error) {
+            console.error("erro no ListaPrecoControllers  putListasDePrecos:", error);
+            throw error;
+        } 
+    }
+
+    async postListasDePrecos(req, res) {
+       
+        try {   
+            let { IDRESUMOLISTAPRECO, IDUSERALTERACAO, IDUSERCRIACAO, NOMELISTA, STATIVO, lojas } = req.body; 
+           
+            if(!IDUSERCRIACAO) {
+                return res.status(400).json({ error: "Todos os parâmetros IDUSERCRIACAO são obrigatórios." });
+            }
+
+            const response = await axios.post(`${url}/api/listas-de-precos.xsjs`, [{
+                IDRESUMOLISTAPRECO, 
+                IDUSERALTERACAO,
+                IDUSERCRIACAO,
+                NOMELISTA,
+                STATIVO,
+                lojas
+            }])
+            
+            return res.json(response.data);
+        } catch(error) {
+            console.error("erro no ListaPrecoControllers  postListasDePrecos:", error);
+            throw error;
+        } 
+    }
 }
 
 export default new ListaPrecoControllers()
