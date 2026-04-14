@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import GerenciaControllers from '../controllers/index.js';
 
-
 const routes = new Router();
-
 
 routes.get('/clientes', GerenciaControllers.getListaCliente)
 routes.post('/clientes', GerenciaControllers.postCliente)

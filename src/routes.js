@@ -66,6 +66,9 @@ import DashBoardFuncionariosControllers from './DashBoard/Funcionario/controller
 import DashBoardAdiantamentoSalarialControllers from './DashBoard/AdiantamentoSalarial/controllers/index.js';
 import GerenciaControllers from './Gerencia/controllers/index.js';
 import ServiceLayerControllers from './ServiceLayer/controllers/index.js'
+import MaloteControllers from './Gerencia//Malote/controller/maloteController.js';
+
+import ClienteControllers from './Gerencia/cliente/controller/clienteController.js'
 
 import GERAlteracaoPrecoControllers from './Gerencia/AlteracaoPreco/controllers/index.js'
 //  Comercial
@@ -213,11 +216,18 @@ routes.get('/pagamento-pos', AdmPagamentosControllers.getListaPagamentoPos)
 // Fim Administrativo
 
 // Início GERENCIA
-routes.get('/clientes', GerenciaControllers.getListaCliente)
-routes.get('/malotes-por-loja', GerenciaControllers.getListaMalortesPorLoja)
-routes.get('/detalhe-malotes-por-loja', GerenciaControllers.getListaDetalhesMalortesPorLoja)
-routes.post('/criar-malotes-por-loja', GerenciaControllers.postMalotesPorLoja)
-routes.put('/malotes-por-loja/:id', GerenciaControllers.putMalotesPorLoja)
+//routes.get('/clientes', GerenciaControllers.getListaCliente)
+routes.get('/clientes', ClienteControllers.getListaCliente)
+//routes.get('/malotes-por-loja', GerenciaControllers.getListaMalortesPorLoja)
+routes.get('/malotes-por-loja', MaloteControllers.getListaMalotesPorLoja)
+//routes.get('/detalhe-malotes-por-loja', GerenciaControllers.getListaDetalhesMalortesPorLoja)
+routes.get('/detalhe-malotes-por-loja', MaloteControllers.getListaDetalhesMalotesPorLoja)
+//routes.get('/vendas-digitais', GerenciaControllers.getVendasDigitais)
+routes.get('/vendas-digitais', GERAlteracaoPrecoControllers.getVendasDigitais)
+//routes.post('/criar-malotes-por-loja', GerenciaControllers.postMalotesPorLoja)
+routes.post('/criar-malotes-por-loja', MaloteControllers.postMalotesPorLoja)
+//routes.put('/malotes-por-loja/:id', GerenciaControllers.putMalotesPorLoja)
+routes.put('/malotes-por-loja/:id', MaloteControllers.putMalotesPorLoja)
 
 routes.get('/alteracaoPreco', GERAlteracaoPrecoControllers.getListaAlteracaoPreco)
 
@@ -491,7 +501,6 @@ routes.get('/gerar-pfx', ConsultaStatusNfeController.gerarPFX);
 // FIM Informática
 
 
-
 // Expedição
 routes.get('/listaProdutos', ExpedicaoControllers.getListaProdutosExpedicao)
 routes.get('/resumoOrdemTransferenciaExpedicao', ExpedicaoControllers.getListaOrdemTransferenciaExpedicao)
@@ -540,8 +549,10 @@ routes.get('/cliente-todos', ResumoVoucherControllers.getListaTodosClientes)
 routes.put('/todos-web/:id', ResumoVoucherControllers.putResumoVoucher)
 routes.post('/todos-web', ResumoVoucherControllers.postResumoVoucher)
 
-routes.put('/todos-cliente/:id', ResumoVoucherControllers.putCliente)
-routes.post('/criar-cliente', ResumoVoucherControllers.postCliente)
+//routes.put('/todos-cliente/:id', ResumoVoucherControllers.putCliente)
+//routes.post('/criar-cliente', ResumoVoucherControllers.postCliente)
+routes.post('/criar-cliente', ClienteControllers.postCliente)
+routes.put('/todos-cliente/:id', ClienteControllers.putCliente)
 
 routes.post('/auth-funcionario-status', ResumoVoucherControllers.autorizacaoEditarStatusVoucher)
 routes.post('/auth-funcionario-create-voucher', ResumoVoucherControllers.postAuthFuncionarioCreateVoucher)
@@ -696,10 +707,13 @@ routes.put('/produtoAvulso/:id', CadastroControllers.getListaTipoFiscalProdutos)
 
 // Movimento Caixa
 
-routes.get('/ajusteFisicoDinheiro', MovimentoCaixaControllers.listaCaixasMovimentojuste)
-routes.get('/movimento-caixa-gerencia', MovimentoCaixaControllers.listaCaixasMovimentoGerencia)
+routes.get('/ajusteFisicoDinheiro', MovimentoCaixaControllers.getlistaCaixasMovimentojuste)
+//routes.get('/ajusteFisicoDinheiro', MovimentoCaixaControllers.listaCaixasMovimentojuste)
+routes.get('/movimento-caixa-gerencia', MovimentoCaixaControllers.getlistaCaixasMovimentoGerencia)
+//routes.get('/movimento-caixa-gerencia', MovimentoCaixaControllers.listaCaixasMovimentoGerencia)
 routes.get('/fechamento-caixa', MovimentoCaixaControllers.getListaFechamentoCaixa)
-routes.get('/ajusteMovimento', MovimentoCaixaControllers.listaAjusteMovimentoCaixa)
+//routes.get('/ajusteMovimento', MovimentoCaixaControllers.listaAjusteMovimentoCaixa)
+routes.get('/ajusteMovimento', MovimentoCaixaControllers.getlistaAjusteMovimentoCaixa)
 routes.put('/atualizacao-status', MovimentoCaixaControllers.putListaAtualizacaoStatus)
 
 routes.put('/ajuste-recebimento', MovimentoCaixaControllers.putListaAjusteRecebimento)
