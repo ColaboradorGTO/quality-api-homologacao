@@ -66,8 +66,8 @@ import DashBoardFuncionariosControllers from './DashBoard/Funcionario/controller
 import DashBoardAdiantamentoSalarialControllers from './DashBoard/AdiantamentoSalarial/controllers/index.js';
 import GerenciaControllers from './Gerencia/controllers/index.js';
 import ServiceLayerControllers from './ServiceLayer/controllers/index.js'
+import RecursosHumanosControllers from './RecursosHumanos/controller/ControllerRecursosHumanos.js'
 import MaloteControllers from './Gerencia//Malote/controller/maloteController.js';
-
 import ClienteControllers from './Gerencia/cliente/controller/clienteController.js'
 
 import GERAlteracaoPrecoControllers from './Gerencia/AlteracaoPreco/controllers/index.js'
@@ -499,6 +499,14 @@ routes.get('/gerar-pfx', ConsultaStatusNfeController.gerarPFX);
 
 // routes.put('/configuracao-todos/:id', InformaticaControllers.putCaixaLoja)
 // FIM Informática
+
+
+//Recursos Humanos
+routes.post('/criarFuncionariosLojaRH', RecursosHumanosControllers.postFuncionarioLojaRH);
+
+routes.put('/funcionarioLojaRH/:id', RecursosHumanosControllers.putFuncionarioLojaRH);
+routes.put('/inativarFuncionarioRH', RecursosHumanosControllers.putInativarFuncionarioRH);
+routes.put('/funcionarioDescontoRH/:id', RecursosHumanosControllers.putFuncionarioDescontoRH);
 
 
 // Expedição
