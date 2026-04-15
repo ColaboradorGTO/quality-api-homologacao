@@ -30,7 +30,7 @@ class ListaPrecoControllers {
     async putListasDePrecos(req, res) {   
         try {   
             let { IDRESUMOLISTAPRECO, IDUSERALTERACAO, IDUSERCRIACAO, NOMELISTA, STATIVO, lojas } = req.body; 
-           
+   
             if(!IDRESUMOLISTAPRECO) {
                 return res.status(400).json({ error: "Todos os parâmetros IDRESUMOLISTAPRECO são obrigatórios." });
             }
