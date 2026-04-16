@@ -575,7 +575,7 @@ class PromocaoControllers  {
 
         try {
                   
-            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo.xsjs`, [{
+            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo-produto.xsjs`, [{
                 TPAPARTIRDE,
                 TPAPLICADOA,
                 TPFATORPROMO,
