@@ -46,6 +46,7 @@ class PromocaoControllers  {
     async getListaDetalhesPromocoesAtivas(req, res) {
         let { idResumoPromocao, dataPesquisaInicio, dataPesquisaFim, page, pageSize} = req.query; 
             idResumoPromocao = idResumoPromocao ? idResumoPromocao : '';    
+            dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
             page = page ? page : '';
             pageSize = pageSize ? pageSize : '';
         try {   
