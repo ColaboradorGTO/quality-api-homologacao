@@ -538,76 +538,60 @@ class PromocaoControllers  {
 
     async postPromocaoProdutoSubGrupo(req, res) {
         let  {
-            TPAPARTIRDE,
-            TPAPLICADOA,
-            TPFATORPROMO,
-            APARTIRDEQTD,
-            APARTIRDOVLR,
-            FATORPROMOVLR,
-            FATORPROMOPERC,
-            VLPRECOPRODUTO,
+            DSPROMOCAOMARKETING,
             DTHORAINICIO,
             DTHORAFIM,
-            DSPROMOCAOMARKETING,
-            IDEMPRESA,
-            STATIVO,
-            STESTRUTURA,
-            STPRODUTO,
-            STESTRUTURAPRODUTO,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
             STEMPRESAPROMO,
             STDETPROMOORIGEM,
             STDETPROMODESTINO,
-            IDGRUPOEMDESTINO,
-            IDSUBGRUPOEMDESTINO,
-            IDMARCAEMDESTINO,
-            IDFORNECEDOREMDESTINO,
-            IDGRUPOEMORIGEM,
-            IDSUBGRUPOEMORIGEM,
-            IDMARCAEMORIGEM,
-            IDFORNECEDOREMORIGEM,
+            STATIVO,
+            STPRODUTO,
+            STESTRUTURA,
+            STESTRUTURAPRODUTO,
+            IDEMPRESA,
             IDPRODUTO,
-            IDPRODUTODESTINO,
-            IDPRODUTOORIGEM,
+            detalhesDestino,
+            detalhesOrigem
         } = req.body;
 
-        if(!IDSUBGRUPOEMDESTINO || !IDSUBGRUPOEMORIGEM) {
-            return res.status(400).json({ error: "IDSUBGRUPOEMDESTINO e IDSUBGRUPOEMORIGEM são obrigatórios." });
-        }
+        // if(!IDSUBGRUPOEMDESTINO || !IDSUBGRUPOEMORIGEM) {
+        //     return res.status(400).json({ error: "IDSUBGRUPOEMDESTINO e IDSUBGRUPOEMORIGEM são obrigatórios." });
+        // }
 
         try {
                   
-            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo-produto.xsjs`, [{
-                TPAPARTIRDE,
-                TPAPLICADOA,
-                TPFATORPROMO,
-                APARTIRDEQTD,
-                APARTIRDOVLR,
-                FATORPROMOVLR,
-                FATORPROMOPERC,
-                VLPRECOPRODUTO,
+            const response = await axios.post(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo-produto.xsjs`, {
+                DSPROMOCAOMARKETING,
                 DTHORAINICIO,
                 DTHORAFIM,
-                DSPROMOCAOMARKETING,
-                IDEMPRESA,
-                STATIVO,
-                STESTRUTURA,
-                STPRODUTO,
-                STESTRUTURAPRODUTO,
+                TPAPLICADOA,
+                APARTIRDEQTD,
+                APARTIRDOVLR,
+                TPFATORPROMO,
+                FATORPROMOVLR,
+                FATORPROMOPERC,
+                TPAPARTIRDE,
+                VLPRECOPRODUTO,
                 STEMPRESAPROMO,
                 STDETPROMOORIGEM,
                 STDETPROMODESTINO,
-                IDGRUPOEMDESTINO,
-                IDSUBGRUPOEMDESTINO,
-                IDMARCAEMDESTINO,
-                IDFORNECEDOREMDESTINO,
-                IDGRUPOEMORIGEM,
-                IDSUBGRUPOEMORIGEM,
-                IDMARCAEMORIGEM,
-                IDFORNECEDOREMORIGEM,
+                STATIVO,
+                STPRODUTO,
+                STESTRUTURA,
+                STESTRUTURAPRODUTO,
+                IDEMPRESA,
                 IDPRODUTO,
-                IDPRODUTODESTINO,
-                IDPRODUTOORIGEM,
-            }]);
+                detalhesDestino,
+                detalhesOrigem
+            });
             
             return res.status(200).json({
                 message: "Promoção(s) criada(s) com sucesso",
