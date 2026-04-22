@@ -545,7 +545,21 @@ class ComprasControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("erro nos ComprasControllers.getListaGrupoCores:", error);
+            throw error;
+        }
+    }
+
+    async getListaTamanhos(req, res) {
+        let { } = req.query;
+     
+        try {
+            const apiUrl = `${url}/api/compras/tamanho.xsjs`
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro nos ComprasControllers.getListaTamanhos:", error);
             throw error;
         }
     }
