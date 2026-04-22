@@ -854,6 +854,7 @@ routes.put('/desativar-produto-promocao-origem', PromocaoControllers.putProdutoO
 routes.put('/desativar-empresa-promocao', PromocaoControllers.putEmpresaPromocao)
 routes.put('/desativar-status-promocao', PromocaoControllers.putStatusPromocao)
 routes.put('/promocoes-ativas-subGrupo/:id', PromocaoControllers.putPromocaoSubGrupo)
+routes.put('/criar-promocoes-ativas-subGrupo-produto/:id', PromocaoControllers.putPromocaoProdutoSubGrupo)
 routes.post('/criar-produto-promocao-ativa', PromocaoControllers.postListaProdutosPromocoesAtiva)
 // routes.post('/criar-mecanica', PromocaoControllers.postMecanicaAtivas)
 

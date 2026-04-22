@@ -388,7 +388,7 @@ class PromocaoControllers  {
         } = req.body;
 
         if(!IDRESUMOPROMOCAOMARKETING) {
-            return res.status(400).json({ error: "IDSUBGRUPOEMDESTINO e IDSUBGRUPOEMORIGEM são obrigatórios." });
+            return res.status(400).json({ error: "IDRESUMOPROMOCAOMARKETING é obrigatório." });
         }
 
         try {
@@ -422,6 +422,75 @@ class PromocaoControllers  {
             });
         } catch (error) {
             console.error("Erro no PromocaoControllers putPromocaoSubGrupo:", error);
+            throw error;
+        }
+    }
+
+    async putPromocaoProdutoSubGrupo(req, res) {
+        let  {
+            IDRESUMOPROMOCAOMARKETING,
+            DSPROMOCAOMARKETING,
+            DTHORAINICIO,
+            DTHORAFIM,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO,
+            STATIVO,
+            STPRODUTO,
+            STESTRUTURA,
+            STESTRUTURAPRODUTO,
+            IDEMPRESA,
+            IDPRODUTO,
+            detalhesDestino,
+            detalhesOrigem
+        } = req.body;
+
+        if(!IDRESUMOPROMOCAOMARKETING) {
+            return res.status(400).json({ error: "IDRESUMOPROMOCAOMARKETING é obrigatório." });
+        }
+
+        try {
+                  
+            const response = await axios.put(`${url}/api/promocoes-ativas/promocao-ativa-subgrupo-produto.xsjs`, {
+                IDRESUMOPROMOCAOMARKETING,
+                DSPROMOCAOMARKETING,
+                DTHORAINICIO,
+                DTHORAFIM,
+                TPAPLICADOA,
+                APARTIRDEQTD,
+                APARTIRDOVLR,
+                TPFATORPROMO,
+                FATORPROMOVLR,
+                FATORPROMOPERC,
+                TPAPARTIRDE,
+                VLPRECOPRODUTO,
+                STEMPRESAPROMO,
+                STDETPROMOORIGEM,
+                STDETPROMODESTINO,
+                STATIVO,
+                STPRODUTO,
+                STESTRUTURA,
+                STESTRUTURAPRODUTO,
+                IDEMPRESA,
+                IDPRODUTO,
+                detalhesDestino,
+                detalhesOrigem
+            });
+            
+            return res.status(200).json({
+                message: "Promoção(s) criada(s) com sucesso",
+                data: response.data
+            });
+        } catch (error) {
+            console.error("Erro no PromocaoControllers putPromocaoProdutoSubGrupo:", error);
             throw error;
         }
     }
@@ -602,6 +671,8 @@ class PromocaoControllers  {
             throw error;
         }
     }
+
+   
 
     async postMecanicaAtivas(req, res) {
        
