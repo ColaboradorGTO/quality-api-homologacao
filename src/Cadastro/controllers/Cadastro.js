@@ -161,17 +161,35 @@ class CadastroControllers  {
     }
 
     
-    // async putDetalheProdutoPedido(req, res) {
-    //     try {
-    //         const depositos = Array.isArray(req.body) ? req.body : [req.body]; 
-    //         const response = await  updateDetalheProdutoPedido(depositos);
-    //         return res.json(response);
-    //     } catch (error) {
-    //         console.error("Unable to connect to the database:", error);
-    //         return res.status(500).json({ error: error.message });
-    //     }
+    async putStatusProdutoAvulso(req, res) {
+        try {
+            const {
+                IDDETALHEPRODUTOPEDIDO,
+                IDRESPCANCELAMENTO,
+                DSMOTIVOCANCELAMENTO,
+                DTCANCELAMENTO,
+                STCANCELADO
+            } = req.body
+            
+            if(!IDDETALHEPRODUTOPEDIDO) {
+                return res.status(400).json({ error: "IDDETALHEPRODUTOPEDIDO é obrigatório" });
+            }
+            
+            const response = await axios.put(`${url}/api/cadastro/atualizacao-status-produto-avulso.xsjs`, {
+                IDDETALHEPRODUTOPEDIDO,
+                IDRESPCANCELAMENTO,
+                DSMOTIVOCANCELAMENTO,
+                DTCANCELAMENTO,
+                STCANCELADO
+            });
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putStatusProdutoAvulso:", error);
+            return res.status(500).json({ error: error.message });
+        }
        
-    // }
+    }
 
     // async postDetalheProdutoPedido(req, res) {
     //     try {
