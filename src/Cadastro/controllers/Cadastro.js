@@ -48,7 +48,21 @@ class CadastroControllers  {
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
         } catch(error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no CadastroControllers.getListaCategorias:", error);
+            throw error;
+        } 
+    }
+
+    async getListaNCM(req, res) {
+        let { } = req.query;
+        
+        
+        try {
+            const apiUrl = `${url}/api/cadastro/ncm.xsjs`;
+            const response = await axios.get(apiUrl)
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaNCM:", error);
             throw error;
         } 
     }
