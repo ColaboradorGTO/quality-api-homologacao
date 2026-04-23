@@ -708,6 +708,7 @@ routes.get('/tipoProduto', CadastroControllers.getListaTipoProdutos)
 routes.get('/tipoFiscalProduto', CadastroControllers.getListaTipoFiscalProdutos)
 routes.get('/consultaProdutos', CadastroControllers.getConsultaProdutos)
 routes.get('/nfPedido', CadastroControllers.getListaNFPedido)
+routes.get('/ncm', CadastroControllers.getListaNCM)
 
 
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)

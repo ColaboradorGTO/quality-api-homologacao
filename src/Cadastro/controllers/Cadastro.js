@@ -126,12 +126,12 @@ class CadastroControllers  {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-            const apiUrl = `${url}/api/cadastro/consulta_produtos.xsjs?`;
+            const apiUrl = `${url}/api/cadastro/consulta_produtos.xsjs?descProd=${descricaoProduto}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             
             return res.json(response.data); // Retorna
         } catch(error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no CadastroControllers.getConsultaProdutos:", error);
             throw error;
         } 
     }

@@ -763,7 +763,7 @@ class ComprasControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos campos do banco:", error);
+            console.error("Erro ComprasControllers.getListaVinculoEstiloGrupo:", error);
             throw error;
         }
     }
