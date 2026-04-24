@@ -744,6 +744,8 @@ routes.get('/responsaveisAlteracaoPrecos', ProdutoControllers.getListaResponsave
 routes.get('/lista-produtos-etiqueta-sap', ProdutoControllers.ListaProdutosEtiquetagem)
 routes.get('/alteracoes-de-precos-resumo', ProdutoControllers.getListaAlteracaoPrecoResumo)
 routes.get('/alteracoes-de-precos-detalhes', ProdutoControllers.getListaAlteracaoPrecoDetalhe)
+routes.get('/grupo-estrutura-mercadologica', ProdutoControllers.getProdutosEstruturaMercadologica)
+routes.get('/subgrupo-estrutura-mercadologica', ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica)
 
 routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
 

@@ -295,6 +295,25 @@ class ProdutoControllers  {
         }
     }
 
+    async getProdutosSubGrupoEstruturaMercadologica(req, res) {
+        let { idSubGrupo, page, pageSize } = req.query;
+
+        idSubGrupo = idSubGrupo ? idSubGrupo : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        
+        try {
+                           
+            const apiUrl = `${url}/api/produtos/subgrupo-estrutura-mercadologica.xsjs?idsGrpEstruturas=${idSubGrupo}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+            console.log(apiUrl, 'url')
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Erro no ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica:", error);
+            throw error;
+        }
+    }
+
     async putAlteracoesPrecoProduto(req, res) {
        
         try {   
