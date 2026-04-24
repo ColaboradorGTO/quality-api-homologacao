@@ -714,6 +714,7 @@ routes.get('/ncm', CadastroControllers.getListaNCM)
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
 // routes.put('/produtoAvulso/:id', CadastroControllers.getListaTipoFiscalProdutos)
 routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvulso)
+routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
 // routes.post('/produtoAvulso', CadastroControllers.postDetalheProdutoPedido)
 
 // Movimento Caixa
