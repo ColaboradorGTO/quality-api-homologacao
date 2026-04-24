@@ -190,6 +190,28 @@ class CadastroControllers  {
         }
        
     }
+  
+    async putIncluirProdutoAvulso(req, res) {
+        try {
+            const {
+                IDDETALHEPRODUTOPEDIDO,
+            } = req.body
+            
+            if(!IDDETALHEPRODUTOPEDIDO) {
+                return res.status(400).json({ error: "IDDETALHEPRODUTOPEDIDO é obrigatório" });
+            }
+
+            const response = await axios.put(`${url}/api/cadastro/incluir_produtos_avulso.xsjs`, {
+                IDDETALHEPRODUTOPEDIDO,
+            });
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putIncluirProdutoAvulso:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
 
     // async postDetalheProdutoPedido(req, res) {
     //     try {
