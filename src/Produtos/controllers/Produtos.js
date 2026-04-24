@@ -271,7 +271,26 @@ class ProdutoControllers  {
             console.log(apiUrl, 'url')
             return res.json(response.data); 
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no ProdutoControllers.ListaProdutosEtiquetagem:", error);
+            throw error;
+        }
+    }
+
+    async getProdutosEstruturaMercadologica(req, res) {
+        let { dsGrupoEstrutura, page, pageSize } = req.query;
+
+        dsGrupoEstrutura = dsGrupoEstrutura ? dsGrupoEstrutura : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        
+        try {
+                           
+            const apiUrl = `${url}/api/produtos/grupo-estrutura-mercadologica.xsjs?dsGrupoEstrutura=${dsGrupoEstrutura}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+            console.log(apiUrl, 'url')
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Erro no ProdutoControllers.getProdutosEstruturaMercadologica:", error);
             throw error;
         }
     }

@@ -8,6 +8,19 @@ import 'dotenv/config';
 const url = process.env.API_URL;
 
 class ServiceLayerControllers {
+    async postMigrarProdutoAvulso(req, res) {
+        try {
+          
+            let { IDDETALHEPRODUTOPEDIDO } = req.body;
+   
+            const response = await axios.post(`${url}/api/service-layer/pedido-compra/por-codigo/produtos-avulso.xsjs?codProdAvulso=${IDDETALHEPRODUTOPEDIDO}`)
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Erro no ServiceLayerControllers.postMigrarProdutoAvulso:", error);
+            return res.status(400).json({ error: error.message });
+        }
+    }
 
     async postDepositoIntegrarNoSAP(req, res) {
         
