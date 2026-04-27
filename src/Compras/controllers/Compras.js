@@ -128,8 +128,8 @@ class ComprasControllers {
     async getListaPedidos(req, res) {
         let {idPedido, dataPesquisaFim, dataPesquisaInicio, idMarca, idFornecedor, idFabricante, idComprador, stSituacaoSap, page, pageSize } = req.query;
         idPedido = idPedido ? idPedido : '';
-        dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : '';
-        dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         idMarca = idMarca ? idMarca : '';
         idFornecedor = idFornecedor ? idFornecedor : '';
         idFabricante = idFabricante ? idFabricante : '';
