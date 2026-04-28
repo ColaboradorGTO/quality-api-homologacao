@@ -155,7 +155,41 @@ class CadastroControllers  {
           
             return res.json(response.data); // Retorna
         } catch(error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no CadastroControllers.getListaNFPedido:", error);
+            throw error;
+        } 
+    }
+  
+    async getListaCadastroNFPedido(req, res) {
+        let { idPedido,  page, pageSize } = req.query;
+        idPedido = idPedido ? idPedido : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/cadastro_nfpedido.xsjs?id=${idPedido}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaCadastroNFPedido:", error);
+            throw error;
+        } 
+    }
+
+    async getListaUsoPrincipal(req, res) {
+        let { idPedido,  page, pageSize } = req.query;
+        idPedido = idPedido ? idPedido : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/uso_principal.xsjs`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaUsoPrincipal:", error);
             throw error;
         } 
     }
