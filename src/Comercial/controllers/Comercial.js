@@ -78,7 +78,11 @@ class CormercialControllers {
     async getListaEmpresaComercial(req, res) {
         let { idMarca, idEmpresa, ufProd, page, pageSize } = req.query;
        
-          
+            idMarca = idMarca ? idMarca : '';
+            idEmpresa = idEmpresa ? idEmpresa : '';
+            ufProd = ufProd ? ufProd : '';
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
             try {
                 const apiUrl = `http://164.152.245.77:8000/quality/concentrador/api/comercial/empresa.xsjs?idmarca=${idMarca}`;
                 const response = await axios.get(apiUrl)
