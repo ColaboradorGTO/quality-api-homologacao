@@ -710,6 +710,7 @@ routes.get('/consultaProdutos', CadastroControllers.getConsultaProdutos)
 routes.get('/nfPedido', CadastroControllers.getListaNFPedido)
 routes.get('/ncm', CadastroControllers.getListaNCM)
 routes.get('/cadastro-nfpedido', CadastroControllers.getListaCadastroNFPedido)
+routes.get('/uso-principal', CadastroControllers.getListaUsoPrincipal)
 
 
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
