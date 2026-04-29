@@ -43,10 +43,9 @@ class AdmVouchersControllers {
             return res.status(200).json(response);
 
         } catch (error) {
-            console.error("Erro no AdministativoControllers.putEditarVoucher:", error);
-            return res.status(500).json({ error: "Erro ao conectar ao servidor" });
+            console.error("Erro no AdmVouchersControllers.putEditarVoucher:", error);
+            return res.status(500).json({ message: 'Erro AdmVouchersControllers.putEditarVoucher', error });
         }
-
     }
 
 }

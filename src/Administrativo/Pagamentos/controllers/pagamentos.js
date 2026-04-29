@@ -13,8 +13,8 @@ class AdmPagamentosControllers {
         
             return res.json(response.data);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("Erro no AdmPagamentosControllers.getListaFormaPagamento:", error);
+            return res.status(500).json({ message: 'Erro AdmPagamentosControllers.getListaFormaPagamento', error });
         }  
     }
     async getListaPagamentoTef(req, res) {
@@ -30,8 +30,8 @@ class AdmPagamentosControllers {
         
             return res.json(response.data); 
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("Erro no AdmPagamentosControllers.getListaPagamentoTef:", error);
+            return res.status(500).json({ message: 'Erro AdmPagamentosControllers.getListaPagamentoTef', error });
         }  
     }
     async getListaPagamentoPos(req, res) {
@@ -45,8 +45,8 @@ class AdmPagamentosControllers {
         
             return res.json(response.data); 
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("Erro no AdmPagamentosControllers.getListaPagamentoPos:", error);
+            return res.status(500).json({ message: 'Erro AdmPagamentosControllers.getListaPagamentoPos', error });
         }  
     }
     

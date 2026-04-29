@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import AdmRecebimentosControllers from '../controllers/recebimentos.js';
 
+const AdministrativoRecebimentos = new Router();
 
-const admRecebimentosRoutes = new Router();
+AdministrativoRecebimentos.get('/recebimento', AdmRecebimentosControllers.getListaPagamentoVenda)
+AdministrativoRecebimentos.get('/funcionario-recebimento', AdmRecebimentosControllers.getListaFuncionarioRecebimento)
 
-admRecebimentosRoutes.get('/recebimento', AdmRecebimentosControllers.getListaPagamentoVenda)
-// admRecebimentosRoutes.get('/funcionario-recebimento', AdmRecebimentosControllers.getListaFuncionarioRecebimento)
-
-export default admRecebimentosRoutes;
+export default AdministrativoRecebimentos;
