@@ -5,8 +5,8 @@ const url = process.env.API_URL;
 
 class AdmDescontoControllers {
     async getListaDescontoMotivoVendas(req, res) {
-        let {idEmpresa, idGrupo, dataPesquisaInicio, dataPesquisaFim, dsMotivoDesc, page, pageSize } = req.query;
-      
+        let { idEmpresa, idGrupo, dataPesquisaInicio, dataPesquisaFim, dsMotivoDesc, page, pageSize } = req.query;
+
         idEmpresa = idEmpresa ? Number(idEmpresa) : '';
         idGrupo = idGrupo ? Number(idGrupo) : '';
         dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
@@ -15,20 +15,17 @@ class AdmDescontoControllers {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
-
         try {
-
-            const apiUrl = `http://164.152.245.77:8000/quality/concentrador/api/administrativo/desconto-motivo-vendas.xsjs?idMarca=${idGrupo}&idEmpresa=${idEmpresa}&dataInicial=${dataPesquisaInicio}&dataFinal=${dataPesquisaFim}&dsmotdesc=${dsMotivoDesc}&page=${page}&pageSize=${pageSize}`;
-        
+            const apiUrl = `${url}/api/administrativo/desconto-motivo-vendas.xsjs?idMarca=${idGrupo}&idEmpresa=${idEmpresa}&dataInicial=${dataPesquisaInicio}&dataFinal=${dataPesquisaFim}&dsmotdesc=${dsMotivoDesc}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("Erro no ADM Desconto Controllers getListaDescontoMotivoVendas:", error);
+            return res.status(500).json({ message: 'Erro AdmDescontoControllers.getListaDescontoMotivoVendas', error });
         }
-        
     }
+
 }
 
 export default new AdmDescontoControllers();
