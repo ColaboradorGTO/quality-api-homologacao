@@ -460,25 +460,6 @@ class AdmVendasControllers {
         }
     }
 
-    // async getListaAlterarVendasPagamento(req, res) {
-
-    //     let { idVenda, byId, page, pageSize  } = req.query;
-
-    //     idVenda = idVenda ? idVenda : '';
-    //     byId = byId ? byId : '';
-    //     page = page ? page : '';
-    //     pageSize = pageSize ? pageSize : '';
-
-    //     try {
-    //         const response = getAlterarVendaPagamento(idVenda, byId, page, pageSize)
-    //         return res.json(response); 
-    //     } catch (error) {
-    //         console.error("Unable to connect to the database:", error);
-    //         throw error;
-    //     }
-
-    // }
-
     async getListaVendasById(req, res) {
         let { nnf, serie, idVenda, idEmpresa, page, pageSize } = req.query;
         nnf = nnf ? nnf : '';
@@ -621,37 +602,6 @@ class AdmVendasControllers {
     }
 
 
-    /*     async putAlterarVendaRecebimento(req, res) {
-            try {
-                let { IDVENDA, VRRECDINHEIRO, VRRECCONVENIO, VRRECCARTAO, VRRECPOS, VRRECVOUCHER } = req.body;
-                const response = await axios.put(`${url}/api/administrativo/atualiza-recebimento-venda.xsjs`, {
-                    IDVENDA, VRRECDINHEIRO, VRRECCONVENIO, VRRECCARTAO, VRRECPOS, VRRECVOUCHER
-                });
-                return res.json(response.data);
-            } catch (error) {
-                console.error("Unable to connect to the database:", error);
-                return res.status(500).json({ error: error.message });
-            }
-        } */
-
-    /*   async putVendaVendedor(req, res) {
-          try {
-              let { IDVENDADETALHE, IDVENDEDOR } = req.body;
-              if (!IDVENDADETALHE || !IDVENDEDOR) {
-                  return res.status(400).json({ error: "IDVENDADETALHE and IDVENDEDOR are required" });
-              }
-              const response = await axios.put(`${url}/api/administrativo/venda-vendedor.xsjs`, {
-                  IDVENDADETALHE,
-                  IDVENDEDOR
-              });
-              return res.status(200).json(response.data);
-          } catch (error) {
-              console.error("Error no AdmVendasControllers.putVendaVendedor:", error);
-              return res.status(500).json({ error: error.message });
-          }
-      } */
-
-
     async putVendaVendedor(req, res) {
         try {
             const { error, value } = alterarVendaVendedorSchema.validate(req.body, {
@@ -681,24 +631,6 @@ class AdmVendasControllers {
         }
     }
 
-    /*     async putVendaCancelamento(req, res) {
-            try {
-                let { IDVENDA, IDUSUARIOCANCELAMENTO, TXTMOTIVOCANCELAMENTO } = req.body;
-    
-                if (!IDVENDA || !IDUSUARIOCANCELAMENTO) {
-                    return res.status(400).json({ error: "IDVENDA and IDUSUARIOCANCELAMENTO are required" });
-                }
-                const response = await axios.put(`${url}/api/venda/venda-cancelamento.xsjs`, [{
-                    IDVENDA,
-                    IDUSUARIOCANCELAMENTO,
-                    TXTMOTIVOCANCELAMENTO
-                }]);
-                return res.status(200).json(response.data);
-            } catch (error) {
-                console.error("Error no AdmVendasControllers.putVendaCancelamento:", error);
-                return res.status(500).json({ error: error.message });
-            }
-        } */
 
     async putVendaCancelamento(req, res) {
         try {
@@ -777,41 +709,6 @@ class AdmVendasControllers {
         }
     }
 
-
-    /*     async postAlterarVendasPagamento(req, res) {
-            try {
-                let {
-                    DSTIPOPAGAMENTO,
-                    DTPROCESSAMENTO,
-                    IDFUNCIONARIO,
-                    IDVENDA,
-                    IDVENDAPAGAMENTO,
-                    NITEM,
-                    STCANCELADO,
-                    TPAG,
-                    VALORDEDUZIDO,
-                    VALORLIQUIDO,
-                    VALORRECEBIDO
-                } = req.body;
-                const response = await axios.post(`${url}/api/administrativo/altera-venda-pagamento.xsjs`, {
-                    DSTIPOPAGAMENTO,
-                    DTPROCESSAMENTO,
-                    IDFUNCIONARIO,
-                    IDVENDA,
-                    IDVENDAPAGAMENTO,
-                    NITEM,
-                    STCANCELADO,
-                    TPAG,
-                    VALORDEDUZIDO,
-                    VALORLIQUIDO,
-                    VALORRECEBIDO
-                });
-                return res.json(response.data);
-            } catch (error) {
-                console.error("Unable to connect to the database:", error);
-                return res.status(500).json({ error: error.message });
-            }
-        } */
 }
 
 export default new AdmVendasControllers();
