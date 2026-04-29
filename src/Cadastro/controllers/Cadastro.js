@@ -245,6 +245,28 @@ class CadastroControllers  {
        
     }
 
+    async putNFAvulsa(req, res) {
+        try {
+            const {
+                IDRESUMOENTRADA,
+            } = req.body
+            
+            if(!IDRESUMOENTRADA) {
+                return res.status(400).json({ error: "IDRESUMOENTRADA é obrigatório" });
+            }
+
+            const response = await axios.put(`${url}/api/cadastro/cadastro_nfAvulsa.xsjs`, {
+                IDRESUMOENTRADA,
+            });
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putNFAvulsa:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
     // async postDetalheProdutoPedido(req, res) {
     //     try {
     //         const depositos = Array.isArray(req.body) ? req.body : [req.body]; 
