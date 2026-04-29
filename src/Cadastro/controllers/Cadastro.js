@@ -137,20 +137,18 @@ class CadastroControllers  {
     }
 
     async getListaNFPedido(req, res) {
-        let { idPedido, idResumoEntrada, idFonecedor, numSerie, numNFE, dataPesquisaInicio, dataPesquisaFim, stTransformado, page, pageSize } = req.query;
-        idPedido = idPedido ? idPedido : '';
-        idResumoEntrada = idResumoEntrada ? idResumoEntrada : '';
+        let { idNoata,  idFonecedor, numSerie, numNFE, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        idNoata = idNoata ? idNoata : '';
         idFonecedor = idFonecedor ? idFonecedor : '';
         numSerie = numSerie ? numSerie : '';
         numNFE = numNFE ? numNFE : '';
-        dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : '';
-        dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
-        stTransformado = stTransformado ? stTransformado : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
            
-            const apiUrl = `${url}/api/cadastro/cadastrar-nota-fiscal-entrada.xsjs?id=${idPedido}&idResumoEntrada=${idResumoEntrada}&idFonecedor=${idFonecedor}&numSerie=${numSerie}&numNFE=${numNFE}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&stTransformado=${stTransformado}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/cadastro/cadastrar-nota-fiscal-entrada.xsjs?id=${idNoata}&idFonecedor=${idFonecedor}&numSerie=${numSerie}&numNFE=${numNFE}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
           
             return res.json(response.data); // Retorna
