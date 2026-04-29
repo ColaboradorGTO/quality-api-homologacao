@@ -191,6 +191,23 @@ class CadastroControllers  {
             throw error;
         } 
     }
+    
+    async getListaPedidosSemVinculoNFE(req, res) {
+        let { idNota,  page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/pi/cadastro/lista_pedidos_sem_vinculo_nfe.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaPedidosSemVinculoNFE:", error);
+            throw error;
+        } 
+    }
 
     
     async putStatusProdutoAvulso(req, res) {
