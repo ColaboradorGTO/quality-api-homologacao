@@ -208,7 +208,7 @@ class CadastroControllers  {
             throw error;
         } 
     }
-    
+
     async getListaPedidosSemVinculoNFE(req, res) {
         let { idNota,  page, pageSize } = req.query;
         idNota = idNota ? idNota : '';
@@ -216,7 +216,7 @@ class CadastroControllers  {
         pageSize = pageSize ? pageSize : '';
         try {
            
-            const apiUrl = `${url}/api/cadastro/lista_pedidos_sem_vinculo_nfe.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/cadastro/vinculo_nfpedidos.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
           
             return res.json(response.data); // Retorna
