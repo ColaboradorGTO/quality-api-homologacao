@@ -209,7 +209,7 @@ class CadastroControllers  {
         } 
     }
 
-    async getListaPedidosSemVinculoNFE(req, res) {
+    async getListaDesVincularPedidosNFE(req, res) {
         let { idNota,  page, pageSize } = req.query;
         idNota = idNota ? idNota : '';
         page = page ? page : '';
@@ -221,7 +221,7 @@ class CadastroControllers  {
           
             return res.json(response.data); // Retorna
         } catch(error) {
-            console.error("Erro no CadastroControllers.getListaPedidosSemVinculoNFE:", error);
+            console.error("Erro no CadastroControllers.getListaDesVincularPedidosNFE:", error);
             throw error;
         } 
     }
