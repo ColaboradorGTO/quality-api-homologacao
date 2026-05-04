@@ -225,6 +225,23 @@ class CadastroControllers  {
             throw error;
         } 
     }
+ 
+    async getListaProdutoPedidosNFE(req, res) {
+        let { idNota,  page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/cadastro_produto_nfpedido.xsjs?id=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaProdutoPedidosNFE:", error);
+            throw error;
+        } 
+    }
 
     
     async putStatusProdutoAvulso(req, res) {
