@@ -340,6 +340,24 @@ class CadastroControllers  {
        
     }
 
+    async putCancelarNFEntrada(req, res) {
+        try {
+            const { 
+                IDRESUMOENTRADA,
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/cancelar_nf_entrada.xsjs`, [{
+                IDRESUMOENTRADA,
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putCancelarNFEntrada:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
     async postVincularNFPedido(req, res) {
         try {
             const { 
