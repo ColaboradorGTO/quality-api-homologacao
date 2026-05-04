@@ -748,6 +748,7 @@ routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvu
 routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
 routes.put('/nf-avulsa/:id', CadastroControllers.putNFAvulsa)
 routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
+routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
 routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
 
 // Movimento Caixa
