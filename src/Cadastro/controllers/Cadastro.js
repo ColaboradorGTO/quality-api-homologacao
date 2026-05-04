@@ -226,7 +226,7 @@ class CadastroControllers  {
         } 
     }
  
-    async getListaProdutoPedidosNFE(req, res) {
+    async getListaProdutoNFPedido(req, res) {
         let { idNota,  page, pageSize } = req.query;
         idNota = idNota ? idNota : '';
         page = page ? page : '';
@@ -238,7 +238,7 @@ class CadastroControllers  {
           
             return res.json(response.data); // Retorna
         } catch(error) {
-            console.error("Erro no CadastroControllers.getListaProdutoPedidosNFE:", error);
+            console.error("Erro no CadastroControllers.getListaProdutoNFPedido:", error);
             throw error;
         } 
     }

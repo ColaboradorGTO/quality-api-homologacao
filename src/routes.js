@@ -739,6 +739,7 @@ routes.get('/cadastro-nfpedido', CadastroControllers.getListaCadastroNFPedido)
 routes.get('/uso-principal', CadastroControllers.getListaUsoPrincipal)
 routes.get('/pedidos-sem-vinculo-nfe', CadastroControllers.getListaPedidosSemVinculoNFE)
 routes.get('/desvincular-pedidos-nfe', CadastroControllers.getListaDesVincularPedidosNFE)
+routes.get('/produto-nf-pedidos', CadastroControllers.getListaProdutoNFPedido)
 
 
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
