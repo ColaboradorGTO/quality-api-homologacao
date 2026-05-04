@@ -301,6 +301,28 @@ class CadastroControllers  {
        
     }
 
+    async putDesvincularNFPedido(req, res) {
+        try {
+            const { 
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA,
+                STATIVO
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA,
+                STATIVO
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putDesvincularNFPedido:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
     async postVincularNFPedido(req, res) {
         try {
             const { 
