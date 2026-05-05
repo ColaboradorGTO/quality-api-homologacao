@@ -77,7 +77,7 @@ class AdministrativoControllers {
             idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
             pageSize = pageSize ? pageSize : '';
             dataFechamento = dataFormatada(dataFechamento)
-            // ajaxGet('api/administrativo/lista-caixas-fechados.xsjs?idEmpresa=' + idemp + '&dataFechamento=' + dataFechamento)
+         
             try {
                 const apiUrl = `${url}/api/administrativo/lista-caixas-fechados.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataFechamento=${dataFechamento}`
                 const response = await axios.get(apiUrl)
@@ -503,10 +503,10 @@ class AdministrativoControllers {
         if (!isNaN(idEmpresa)) {
             idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
            
-            datapesq = dataFormatada(datapesq) ? datapesq : '';
+            datapesq = datapesq ? datapesq : '';
             page = page ? page : '';
             pageSize = pageSize ? pageSize : '';
-            // ajaxGet('api/administrativo/detalhe-voucher.xsjs?idEmpresa=' + idemp + '&dataPesquisa=' + datapesq)
+           
             try {
                 const apiUrl = `${url}/api/administrativo/detalhe-voucher.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataPesquisa=${datapesq}`
                 const response = await axios.get(apiUrl)

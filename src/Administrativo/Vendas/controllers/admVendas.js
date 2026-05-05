@@ -241,7 +241,7 @@ class AdmVendasControllers {
         if (!isNaN(idEmpresa)) {
             idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
             pageSize = pageSize ? pageSize : '';
-            dataPesquisa = dataFormatada(dataPesquisa) ? dataPesquisa : '';
+            dataPesquisa = dataPesquisa ? dataPesquisa : '';
 
             try {
                 const apiUrl = `${url}/api/administrativo/resumo-venda.xsjs?idEmpresa=${idEmpresa}&dataPesquisa=${dataPesquisa}`;

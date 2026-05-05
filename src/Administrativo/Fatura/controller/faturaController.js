@@ -1,6 +1,5 @@
 import axios from "axios";
 import 'dotenv/config';
-import { dataFormatada } from "../../../utils/dataFormatada.js";
 import { FaturaClient } from "../client/faturaClient.js";
 import { FaturaService } from "../service/faturaService.js";
 
@@ -15,8 +14,8 @@ class FaturaControllers {
         if (!isNaN(idEmpresa)) {
             idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
             pageSize = pageSize ? pageSize : '';
-            dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-            dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+            dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+            dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
 
             try {
                 const apiUrl = `${url}/api/administrativo/detalhe-fatura.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
@@ -24,8 +23,8 @@ class FaturaControllers {
 
                 return res.json(response.data); // Retorna
             } catch (error) {
-            console.error("Erro no FaturaControllers.getDetalheFatura:", error);
-            return res.status(500).json({ message: 'Erro FaturaControllers.getDetalheFatura', error });
+                console.error("Erro no FaturaControllers.getDetalheFatura:", error);
+                return res.status(500).json({ message: 'Erro FaturaControllers.getDetalheFatura', error });
             }
         }
     }
