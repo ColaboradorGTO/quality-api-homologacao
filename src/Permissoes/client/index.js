@@ -258,4 +258,20 @@ export class PermissaoClient {
             URL
         }])
     }
+
+        async atualizarMenuFilho(
+        ID,
+        DSNOME,
+        IDMENUPAI,
+        URL,
+    ) {
+        const response = await this.api.put(`${url}/api/perfilUsuario/menuPai.xsjs`,[{
+            ID,
+            DSNOME,
+            IDMENUPAI,
+            URL
+        }])
+    }
+
+    
 }
