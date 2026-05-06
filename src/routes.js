@@ -748,6 +748,7 @@ routes.get('/cadastro-nfpedido', CadastroControllers.getListaCadastroNFPedido)
 routes.get('/uso-principal', CadastroControllers.getListaUsoPrincipal)
 routes.get('/pedidos-sem-vinculo-nfe', CadastroControllers.getListaPedidosSemVinculoNFE)
 routes.get('/desvincular-pedidos-nfe', CadastroControllers.getListaDesVincularPedidosNFE)
+routes.get('/produto-nf-pedidos', CadastroControllers.getListaProdutoNFPedido)
 
 
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
@@ -755,6 +756,8 @@ routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
 routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvulso)
 routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
 routes.put('/nf-avulsa/:id', CadastroControllers.putNFAvulsa)
+routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
+routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
 routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
 
 // Movimento Caixa
