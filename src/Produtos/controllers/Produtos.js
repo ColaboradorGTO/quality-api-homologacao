@@ -268,7 +268,7 @@ class ProdutoControllers  {
                            
             const apiUrl = `${url}/api/produtos/lista-produtos-etiqueta-SAP.xsjs?idLista=${idLista}&id=${idProduto}&descProd=${descricao}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-            console.log(apiUrl, 'url')
+           
             return res.json(response.data); 
         } catch (error) {
             console.error("Erro no ProdutoControllers.ListaProdutosEtiquetagem:", error);

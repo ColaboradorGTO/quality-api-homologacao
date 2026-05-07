@@ -23,7 +23,7 @@ class DespesasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no DespesasControllers.getListaDespesasLoja:", error);
       throw error;
     }
 
@@ -52,7 +52,7 @@ class DespesasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no DespesasControllers.putStatusDespesasLoja:", error);
       return res.status(500).json({ error: error.message });
     }
 
