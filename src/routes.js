@@ -912,6 +912,7 @@ routes.post('/adiantamentos-salariais-integracao', ServiceLayerControllers.postI
 routes.post('/quebras-de-caixas-integracao', ServiceLayerControllers.postIntegrarQuebraCaixaSAP)
 routes.post('/pix-integracao', ServiceLayerControllers.postIntegrarPagamentoPixSAP)
 routes.post('/migrar-produto-avulso', ServiceLayerControllers.postMigrarProdutoAvulso)
+routes.post('/integrar-despesa', ServiceLayerControllers.postIntegrarDespesaSAP)
 
 
 // // Logs
