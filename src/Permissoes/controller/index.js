@@ -6,6 +6,7 @@ import atualizarPerfilUsuarioMenuSchema from "../schema/atualizarPerfilUsuarioMe
 import atualizarFuncionarioDepartamentoSchema from "../schema/atualizarFuncionarioDepartamentoSchema.js";
 import criarPerfilUsuarioMenuSchema from "../schema/criarPerfilUsuarioMenuSchema.js";
 import criarMenuFilhoSchema from "../schema/criarMenuFilhoSchema.js";
+import atualizarMenuFilhoSchema from "../schema/atualizarMenuFilhoSchema.js";
 
 const url = process.env.API_URL;
 const permissaoClient = new PermissaoClient(url);
@@ -32,18 +33,17 @@ class PermissaoControllers {
     }
 
     async getListaMenusFilhos(req, res) {
-        let { idMenuFilho, idUsuario, idPerfil } = req.query;
-        idPerfil = idPerfil ? idPerfil : '';
+        let { idMenuFilho, idMenuPai } = req.query;
         idMenuFilho = idMenuFilho ? idMenuFilho : '';
-        idUsuario = idUsuario ? idUsuario : '';
-        try {   
-            const response = await axios.get(`${url}/api/perfilUsuario/menuFilhos.xsjs` )
+        idMenuPai = idMenuPai ? idMenuPai : '';
+        try {
+            const response = await axios.get(`${url}/api/perfilUsuario/menuFilhos.xsjs?id=${idMenuFilho}&idMenuPai=${idMenuPai}`)
 
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
 
     async putPerfilUsuarioMenu(req, res) {
@@ -228,6 +228,38 @@ class PermissaoControllers {
         } catch (error) {
             console.log('Erro no PermissaoControllers.postCriarMenuFilho:', error);
             return res.status(500).json({ message: 'Erro no PermissaoControllers.postCriarMenuFilho' });
+
+        }
+    }
+
+    async putAtualizarMenuFilho(req, res) {
+        try {
+            const { error, value } = atualizarMenuFilhoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await permissaoService.updateMenuFilho(
+                value.ID,
+                value.DSNOME,
+                value.IDMENUPAI,
+                value.URL,
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log('Erro no PermissaoControllers.putAtualizarMenuFilho:', error);
+            return res.status(500).json({ message: 'Erro no PermissaoControllers.putAtualizarMenuFilho' });
 
         }
     }

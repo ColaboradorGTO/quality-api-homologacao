@@ -195,8 +195,33 @@ export class PermissaoService {
             throw new Error("IDMENUPAI is required, services");
         if (!URL)
             throw new Error("URL is required, services");
-        
+
         const result = await this.client.criarMenuFilho(
+            DSNOME,
+            IDMENUPAI,
+            URL,
+        )
+        return result;
+    }
+
+
+    async updateMenuFilho(
+        ID,
+        DSNOME,
+        IDMENUPAI,
+        URL,
+    ) {
+        if (!ID)
+            throw new Error("ID is required, services");
+        if (!DSNOME)
+            throw new Error("DSNOME is required, services");
+        if (!IDMENUPAI)
+            throw new Error("IDMENUPAI is required, services");
+        if (!URL)
+            throw new Error("URL is required, services");
+
+        const result = await this.client.atualizarMenuFilho(
+            ID,
             DSNOME,
             IDMENUPAI,
             URL,
