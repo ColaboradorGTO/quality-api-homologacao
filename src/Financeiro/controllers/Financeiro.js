@@ -620,28 +620,28 @@ class FinanceiroControllers {
   async getListaQuebraCaixaIntegracaoSAP(req, res) {
     let { idMarca, idEmpresa, cpfOperadorQuebra, uf, stQuebraPositivaNegativa, dataPesquisaInicio, dataPesquisaFim, stAtivo, stConferido, pageSize, page } = req.query;
 
-    idMarca = idMarca ? idMarca : '';
-    idEmpresa = idEmpresa ? idEmpresa : '';
-    cpfOperadorQuebra = cpfOperadorQuebra ? cpfOperadorQuebra : '';
-    uf = uf ? uf : '';
-    stQuebraPositivaNegativa = stQuebraPositivaNegativa ? stQuebraPositivaNegativa : '';
-    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
-    page = page ? page : '';
-    pageSize = pageSize ? pageSize : '';
-    stAtivo = stAtivo ? stAtivo : '';
-    stConferido = stConferido ? stConferido : '';
+      idMarca = idMarca ? idMarca : '';
+      idEmpresa = idEmpresa ? idEmpresa : '';
+      cpfOperadorQuebra = cpfOperadorQuebra ? cpfOperadorQuebra : '';
+      uf = uf ? uf : '';
+      stQuebraPositivaNegativa = stQuebraPositivaNegativa ? stQuebraPositivaNegativa : '';
+      dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+      dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+      page = page ? page : '';
+      pageSize = pageSize ? pageSize : '';
+      stAtivo = stAtivo ? stAtivo : '';
+      stConferido = stConferido ? stConferido : '';
     try {
 
-        // const apiUrl = `${url}/api/financeiro/quebra-caixa.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idMarca=${idMarca}&cpfOperadorQuebra=${cpfOperadorQuebra}&tpQuebra=${stQuebraPositivaNegativa}&uf=${uf}&stAtivo=${stAtivo}&stConferido=${stConferido}`;
-        const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/financeiro/quebra-caixa.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idMarca=${idMarca}&cpfOperadorQuebra=${cpfOperadorQuebra}&tpQuebra=${stQuebraPositivaNegativa}&uf=${uf}&stAtivo=${stAtivo}&stConferido=${stConferido}`;
+   
+      const apiUrl = `${url}/api/financeiro/quebra-caixa.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idMarca=${idMarca}&cpfOperadorQuebra=${cpfOperadorQuebra}&tpQuebra=${stQuebraPositivaNegativa}&uf=${uf}&stAtivo=${stAtivo}&stConferido=${stConferido}`;
 
-        const response = await axios.get(apiUrl);
+      const response = await axios.get(apiUrl);
 
-        return res.json(response.data);
+      return res.json(response.data);
     } catch (error) {
-        console.error("Erro no FinanceiroControllers.getListaQuebraCaixaIntegracaoSAP:", error);
-        throw error;
+      console.error("Erro no FinanceiroControllers.getListaQuebraCaixaIntegracaoSAP:", error);
+      throw error;
     }
 
   }

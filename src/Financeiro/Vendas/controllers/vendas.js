@@ -124,6 +124,10 @@ class FinanceiroVendasControllers {
   async getListaVendasPagamentos(req, res) {
     try {
       let { idEmpresa, dataPesquisa, page, pageSize } = req.query;
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dataPesquisa = dataPesquisa ? dataPesquisa : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
       const apiUrl = `${url}/api/financeiro/venda-pagamentos.xsjs?idEmpresa=${idEmpresa}&dataPesquisa=${dataPesquisa}`
       const response = await axios.get(apiUrl)
 

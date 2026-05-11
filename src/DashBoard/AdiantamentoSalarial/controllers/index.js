@@ -18,7 +18,7 @@ class DashBoardAdiantamentoSalarialControllers {
 
         try {
             
-            const apiUrl = `${url}/api/dashboard/adiantamento-salarial/adiantamentolojas.xsjs?idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idMarca=${idMarca}&pageSize=${pageSize}&page=${page}`;
+            const apiUrl = `${url}/api/dashboard/adiantamento-salarial/adiantamentolojas.xsjs?idEmpresa=${idEmpresa}&dataPesquisaIni=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idMarca=${idMarca}&pageSize=${pageSize}&page=${page}`;
            
             const response = await axios.get(apiUrl);
        
