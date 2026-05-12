@@ -25,7 +25,7 @@ export class ContabilidadeClient {
 
     ) {
 
-        const response = await this.api.put(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/contabilidade/vinculo-alvaras-empresa.xsjs`, [{
+        const response = await this.api.put(`${url}/api/contabilidade/vinculo-alvaras-empresa.xsjs`, [{
             IDVINCULO,
             STATIVO,
             DTINICIOCOMPETENCIA,
@@ -54,7 +54,7 @@ export class ContabilidadeClient {
         ARQUIVOSALVARA
     ) {
 
-        const response = await this.api.post(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/contabilidade/vinculo-alvaras-empresa.xsjs`, [{
+        const response = await this.api.post(`${url}/api/contabilidade/vinculo-alvaras-empresa.xsjs`, [{
             IDEMPRESA,
             IDALVARA,
             STATIVO,
@@ -78,7 +78,7 @@ export class ContabilidadeClient {
         cancelar
     ) {
 
-        const response = await this.api.put(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/contabilidade/arquivos-anexos-alvaras-empresa.xsjs?cancelar=${cancelar}`, [{
+        const response = await this.api.put(`${url}/api/contabilidade/arquivos-anexos-alvaras-empresa.xsjs?cancelar=${cancelar}`, [{
             IDVINCULOALVARAEMPRESA,
             IDARQUIVOSALVARA,
             IDFUNCIONARIO,
@@ -95,7 +95,7 @@ export class ContabilidadeClient {
 
     ) {
 
-        const response = await this.api.post(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/contabilidade/arquivos-anexos-alvaras-empresa.xsjs`, [{
+        const response = await this.api.post(`${url}/api/contabilidade/arquivos-anexos-alvaras-empresa.xsjs`, [{
             IDFUNCIONARIO,
             IDVINCULOALVARAEMPRESA,
             ARQUIVOSALVARA
@@ -103,5 +103,3 @@ export class ContabilidadeClient {
         return response.data;
     }
 }
-
-
