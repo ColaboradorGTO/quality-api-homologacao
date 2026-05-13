@@ -1,12 +1,12 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = process.env.API_URL_HML;
+const url = process.env.API_URL;
+//const url = process.env.API_URL_HML;
 
-class ProdutoControllers  {
+class ProdutoControllers {
 
-    async getListaPedidos(req,res) {
+    async getListaPedidos(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim, idFornPesquisa, idMarcaPesquisa, NuPedidoPesquisa, idFabPesquisa, idCompradorPesq, STSituacoPedidoPesq, page, pageSize } = req.query;
 
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
@@ -20,153 +20,153 @@ class ProdutoControllers  {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-          
+
             const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?&page=${page}&pageSize=${pageSize}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idFornPesquisa=${idFornPesquisa}&idMarcaPesquisa=${idMarcaPesquisa}&idpedido=${NuPedidoPesquisa}&idFabPesquisa=${idFabPesquisa}&idCompradorPesquisa=${idCompradorPesq}&stSituacaoSAP=${STSituacoPedidoPesq}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
-                throw error;
+            throw error;
         }
-        
+
     }
 
     async getListaParceiroNegocio(req, res) {
         let { page, pageSize } = req.query;
-    
+
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
-        try {   
+        try {
 
             const apiUrl = `${url}/api/produto-sap/parceiro-negocio.xsjs`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
 
     async getListaProdutosLojaQuality(req, res) {
         let { descricaoProduto, idEmpresa, idListaLoja, codBarrasOuNome, page, pageSize } = req.query;
-    
-    
-        descricaoProduto = descricaoProduto ? descricaoProduto : ''; 
-        idEmpresa = idEmpresa ? idEmpresa : ''; 
-        idListaLoja = idListaLoja ? idListaLoja : '';         
+
+
+        descricaoProduto = descricaoProduto ? descricaoProduto : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idListaLoja = idListaLoja ? idListaLoja : '';
         codBarrasOuNome = codBarrasOuNome ? codBarrasOuNome : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-        try {   
+        try {
 
             const apiUrl = `${url}/api/produto-sap/produto-quality.xsjs?codeBarsOuNome=${codBarrasOuNome}&IdEmpresaLoja=${idEmpresa}&IdListaLoja=${idListaLoja}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
 
     async getListaProdutosPrecoInformatica(req, res) {
         let { idEmpresa, dsProduto, page, pageSize } = req.query;
-    
-    
-        dsProduto = dsProduto ? dsProduto : ''; 
-        idEmpresa = idEmpresa ? idEmpresa : ''; 
+
+
+        dsProduto = dsProduto ? dsProduto : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-        try {   
+        try {
             const apiUrl = `${url}/api/informatica/produto-preco.xsjs?idEmpresa=${idEmpresa}&dsProduto=${dsProduto}`;
             const response = await axios.get(apiUrl)
-           
+
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
 
     async getListaProdutosInformaticaQuality(req, res) {
-        let { 
-        
-            descricaoProduto, 
+        let {
+
+            descricaoProduto,
             idEmpresa,
             idListaEmpresa,
         } = req.query;
-    
-    
-        descricaoProduto = descricaoProduto ? descricaoProduto : ''; 
-        idEmpresa = idEmpresa ? idEmpresa : ''; 
-        idListaEmpresa = idListaEmpresa ? idListaEmpresa : '';         
-    
-        try {   
+
+
+        descricaoProduto = descricaoProduto ? descricaoProduto : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idListaEmpresa = idListaEmpresa ? idListaEmpresa : '';
+
+        try {
             const apiUrl = `${url}/api/produto-sap/produto-quality.xsjs?codeBarsOuNome=${descricaoProduto}&IdEmpresaLoja=${idEmpresa}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
-    
+
     async getListaProdutosLojaSap(req, res) {
-        let { descricaoProduto, idEmpresaLogin, idListaLoja, page, pageSize  } = req.query;
-    
-    
-        descricaoProduto = descricaoProduto ? descricaoProduto : ''; 
-        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : ''; 
-        idListaLoja = idListaLoja ? idListaLoja : '';         
+        let { descricaoProduto, idEmpresaLogin, idListaLoja, page, pageSize } = req.query;
+
+
+        descricaoProduto = descricaoProduto ? descricaoProduto : '';
+        idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : '';
+        idListaLoja = idListaLoja ? idListaLoja : '';
         pageSize = pageSize ? pageSize : '';
         page = page ? page : '';
-    
-        try {   
-          
+
+        try {
+
             const apiUrl = `${url}/api/produto-sap/produto-sap.xsjs?page=${page}&pageSize=${pageSize}&codeBarsOuNome=${descricaoProduto}&IdEmpresaLoja=${idEmpresaLogin}&IdListaLoja=${idListaLoja}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
 
     async getListaProdutos(req, res) {
-        let { idEmpresa, idProduto, dsProduto, codBarras, page, pageSize  } = req.query; 
-        idEmpresa = idEmpresa ? idEmpresa : '';        
+        let { idEmpresa, idProduto, dsProduto, codBarras, page, pageSize } = req.query;
+        idEmpresa = idEmpresa ? idEmpresa : '';
         idProduto = idProduto ? idProduto : '';
         dsProduto = dsProduto ? dsProduto : '';
         codBarras = codBarras ? codBarras : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-    
-        try {   
+
+        try {
             const apiUrl = `${url}/api/produto.xsjs?idEmpresa=${idEmpresa}&byId=${idProduto}&dsProduto=${dsProduto}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Erro no ProdutoControllers getListaProdutos:", error);
             return res.status(500).json({ error: "Erro no servidor ao buscar produtos." });
-        } 
+        }
     }
 
     async getListaGrade(req, res) {
-        let { idGrupo  } = req.query; 
-        idGrupo = idGrupo ? idGrupo : '';        
-    
-        try {   
+        let { idGrupo } = req.query;
+        idGrupo = idGrupo ? idGrupo : '';
+
+        try {
             const apiUrl = `${url}/api/produto-sap/grade.xsjs?idgrupograde=${idGrupo}`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
-        } catch(error) {
+        } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
-        } 
+        }
     }
-    
+
     async getListaGrupoProdutoSap(req, res) {
         let { idEmpresa } = req.query;
 
@@ -195,24 +195,24 @@ class ProdutoControllers  {
             throw error;
         }
     }
-    
+
     async getListaResponsavelAlteracaoPreco(req, res) {
         let { idEmpresa } = req.query;
-        
+
         try {
-            
+
             const apiUrl = `${url}/api/produtos/responsaveis-alteracoes-de-precos.xsjs`;
             const response = await axios.get(apiUrl)
-            
+
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
     }
-    
+
     async getListaAlteracaoPrecoResumo(req, res) {
-        let {idResumoAlteracao, dataPesquisaInicio, dataPesquisaFim, id, idLista, idLoja, idUsuario, idProduto, descProduto, codBarras, page, pageSize } = req.query;
+        let { idResumoAlteracao, dataPesquisaInicio, dataPesquisaFim, id, idLista, idLoja, idUsuario, idProduto, descProduto, codBarras, page, pageSize } = req.query;
         idResumoAlteracao = idResumoAlteracao ? idResumoAlteracao : '';
         idLoja = idLoja ? idLoja : '';
         idLista = idLista ? idLista : '';
@@ -225,10 +225,10 @@ class ProdutoControllers  {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-            
+
             const apiUrl = `${url}/api/produtos/alteracoes-de-precos-resumo.xsjs?dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&id=${idResumoAlteracao}&idLista=${idLista}&idLoja=${idLoja}&idUser=${idUsuario}&idProd=${idProduto}&descProd=${descProduto}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-           
+
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -238,15 +238,15 @@ class ProdutoControllers  {
 
     async getListaAlteracaoPrecoDetalhe(req, res) {
         let { idAlteracaoPreco, page, pageSize } = req.query;
-        
+
         idAlteracaoPreco = idAlteracaoPreco ? idAlteracaoPreco : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-          
+
             const apiUrl = `${url}/api/produtos/alteracoes-de-precos-detalhes.xsjs?idAlteracao=${idAlteracaoPreco}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-            
+
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -263,13 +263,13 @@ class ProdutoControllers  {
         codBarras = codBarras ? codBarras : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-        
+
         try {
-                           
+
             const apiUrl = `${url}/api/produtos/lista-produtos-etiqueta-SAP.xsjs?idLista=${idLista}&id=${idProduto}&descProd=${descricao}&codeBars=${codBarras}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             console.log(apiUrl, 'url')
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Erro no ProdutoControllers.ListaProdutosEtiquetagem:", error);
             throw error;
@@ -282,13 +282,13 @@ class ProdutoControllers  {
         dsGrupoEstrutura = dsGrupoEstrutura ? dsGrupoEstrutura : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-        
+
         try {
-                           
+
             const apiUrl = `${url}/api/produtos/grupo-estrutura-mercadologica.xsjs?dsGrupoEstrutura=${dsGrupoEstrutura}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             console.log(apiUrl, 'url')
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Erro no ProdutoControllers.getProdutosEstruturaMercadologica:", error);
             throw error;
@@ -301,13 +301,13 @@ class ProdutoControllers  {
         idSubGrupo = idSubGrupo ? idSubGrupo : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
-        
+
         try {
-                           
+
             const apiUrl = `${url}/api/produtos/subgrupo-estrutura-mercadologica.xsjs?idsGrpEstruturas=${idSubGrupo}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             console.log(apiUrl, 'url')
-            return res.json(response.data); 
+            return res.json(response.data);
         } catch (error) {
             console.error("Erro no ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica:", error);
             throw error;
@@ -315,27 +315,27 @@ class ProdutoControllers  {
     }
 
     async putAlteracoesPrecoProduto(req, res) {
-       
-        try {   
-            let { IDRESUMOALTERACAOPRECO, STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO, DTAGENDAMENTOPERSONALIZADO, STATIVO } = req.body; 
-           
-            if(!IDRESUMOALTERACAOPRECO) {
+
+        try {
+            let { IDRESUMOALTERACAOPRECO, STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO, DTAGENDAMENTOPERSONALIZADO, STATIVO } = req.body;
+
+            if (!IDRESUMOALTERACAOPRECO) {
                 return res.status(400).json({ error: "Todos os parâmetros IDRESUMOALTERACAOPRECO são obrigatórios." });
             }
 
             const response = await axios.post(`${url}/api/produtos/alteracoes-de-precos-resumo.xsjs`, {
-                IDRESUMOALTERACAOPRECO, 
-                STAGENDAMENTOIMEDIATO, 
-                STAGENDAMENTOPERSONALIZADO, 
-                DTAGENDAMENTOPERSONALIZADO, 
+                IDRESUMOALTERACAOPRECO,
+                STAGENDAMENTOIMEDIATO,
+                STAGENDAMENTOPERSONALIZADO,
+                DTAGENDAMENTOPERSONALIZADO,
                 STATIVO
             },)
-            
+
             return res.json(response.data);
-        } catch(error) {
+        } catch (error) {
             console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
             throw error;
-        } 
+        }
     }
 
 }

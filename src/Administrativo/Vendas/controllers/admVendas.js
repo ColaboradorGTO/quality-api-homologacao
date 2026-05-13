@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import axios from "axios";
-
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import alterarVendaPagamentoSchema from '../schema/alteracaoPagamento.js';
 import atualizarVendaCancelamentoSchema from '../schema/atualizarVendaCancelamento.js';
@@ -38,7 +37,6 @@ class AdmVendasControllers {
         } catch (error) {
             console.error("Unable to connect to the database:", error);
             return res.status(500).json({ error: error.message });
-
         }
     }
 
@@ -216,15 +214,16 @@ class AdmVendasControllers {
 
     async getResumoVendaConvenio(req, res) {
 
-        let { idEmpresa, pageNumber, datapesq } = req.query;
+        let { idEmpresa, pageNumber, datapesq, statusCancelado } = req.query;
         if (!isNaN(idEmpresa)) {
 
             idEmpresa = Number(idEmpresa);
             const pageSize = 100;
             const offset = (pageNumber - 1) * pageSize;
-            datapesq = dataFormatada(datapesq)
+            datapesq = datapesq ? datapesq : '';
+            statusCancelado = statusCancelado ? statusCancelado : '';
             try {
-                const apiUrl = `${url}/api/dashboard/venda/resumo-venda-convenio.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&offset=${offset}dataFechamento=${datapesq}`
+                const apiUrl = `${url}/api/dashboard/venda/resumo-venda-convenio.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}dataFechamento=${datapesq}&status=${statusCancelado}`
                 const response = await axios.get(apiUrl)
 
                 return res.json(response.data); // Retorna
@@ -523,8 +522,8 @@ class AdmVendasControllers {
 
         try {
 
-            // const apiUrl = `${url}/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
-            const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
+             const apiUrl = `${url}/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
+            //const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);

@@ -120,9 +120,9 @@ routes.put('/perfil-usuario/:id', ModulosControllers.putPerfilUsuarioMenu)
 routes.put('/funcionario-departamento/:id', ModulosControllers.putFuncionarioDepartamento)
 routes.post('/criar-perfil-usuario', ModulosControllers.postPerfilUsuarioMenu)
 
-routes.get('/listaCaixasMovimento', ADMCaixasControllers.getListaCaixasMovimento);
+//routes.get('/listaCaixasMovimento', ADMCaixasControllers.getListaCaixasMovimento);
 //Início Administrativo
-//routes.get('/listaCaixasMovimento', AdministrativoControllers.retornoListaCaixasMovimento);
+routes.get('/listaCaixasMovimento', ADMCaixasControllers.getRetornoListaCaixasMovimento);
 
 routes.get('/listaCaixasFechados', AdministrativoControllers.retornoListaCaixasFechados);
 routes.get('/vendaVendedor', AdmVendasControllers.getVendaVendedor);

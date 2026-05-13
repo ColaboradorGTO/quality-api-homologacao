@@ -4,6 +4,25 @@ import { dataFormatada } from "../../../utils/dataFormatada.js";
 const url = process.env.API_URL;
 
 class ADMCaixasControllers {
+
+    async getRetornoListaCaixasMovimento(req, res) {
+        let { idEmpresa, dataFechamento } = req.query;
+      
+        idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
+        dataFechamento = dataFormatada(dataFechamento) ? dataFechamento : '';
+        // ajaxGet('api/administrativo/lista-caixas-movimento.xsjs?idEmpresa=' + idemp + '&dataFechamento=' + datapesq)
+        try {
+            const apiUrl = `${url}/api/administrativo/lista-caixas-movimento.xsjs?idEmpresa=${idEmpresa}&dataFechamento=${dataFechamento}`
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); // Retorna
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+        
+    }
+
     async getListaCaixasMovimento(req, res) {
         let { idEmpresa, dataFechamento, page, pageSize } = req.query;
 
