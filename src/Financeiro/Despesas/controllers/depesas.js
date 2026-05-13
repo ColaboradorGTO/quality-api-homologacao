@@ -9,10 +9,10 @@ class DespesasControllers {
 
   async getListaDespesasLoja(req, res) {
     let { idDespesaLoja, idEmpresa, dataPesquisaInicio, dataPesquisaFim, idCategoria, page, pageSize } = req.query;
-    idDespesaLoja = Number(idDespesaLoja) ? Number(idDespesaLoja) : '';
-    idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
-    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
-    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
+    idDespesaLoja = idDespesaLoja ? idDespesaLoja : '';
+    idEmpresa = idEmpresa ? idEmpresa : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
     idCategoria = idCategoria ? idCategoria : '';
     page = page ? page : '';
     pageSize = pageSize ? pageSize : '';
@@ -23,7 +23,7 @@ class DespesasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no DespesasControllers.getListaDespesasLoja:", error);
       throw error;
     }
 
@@ -52,7 +52,7 @@ class DespesasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("Erro no DespesasControllers.putStatusDespesasLoja:", error);
       return res.status(500).json({ error: error.message });
     }
 

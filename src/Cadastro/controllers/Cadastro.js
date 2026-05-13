@@ -191,6 +191,57 @@ class CadastroControllers  {
             throw error;
         } 
     }
+    
+    async getListaPedidosSemVinculoNFE(req, res) {
+        let { idNota,  page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/lista_pedidos_sem_vinculo_nfe.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaPedidosSemVinculoNFE:", error);
+            throw error;
+        } 
+    }
+
+    async getListaDesVincularPedidosNFE(req, res) {
+        let { idNota,  page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/vinculo_nfpedidos.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaDesVincularPedidosNFE:", error);
+            throw error;
+        } 
+    }
+ 
+    async getListaProdutoNFPedido(req, res) {
+        let { idNota,  page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/cadastro_produto_nfpedido.xsjs?id=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaProdutoNFPedido:", error);
+            throw error;
+        } 
+    }
 
     
     async putStatusProdutoAvulso(req, res) {
@@ -245,17 +296,87 @@ class CadastroControllers  {
        
     }
 
-    // async postDetalheProdutoPedido(req, res) {
-    //     try {
-    //         const depositos = Array.isArray(req.body) ? req.body : [req.body]; 
-    //         const response = await  createDetalheProdutoPedido(depositos);
-    //         return res.json(response);
-    //     } catch (error) {
-    //         console.error("Unable to connect to the database:", error);
-    //         return res.status(500).json({ error: error.message });
-    //     }
+    async putNFAvulsa(req, res) {
+        try {
+            const {
+                IDRESUMOENTRADA,
+            } = req.body
+            
+            if(!IDRESUMOENTRADA) {
+                return res.status(400).json({ error: "IDRESUMOENTRADA é obrigatório" });
+            }
+
+            const response = await axios.put(`${url}/api/cadastro/cadastro_nfAvulsa.xsjs`, {
+                IDRESUMOENTRADA,
+            });
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putNFAvulsa:", error);
+            return res.status(500).json({ error: error.message });
+        }
        
-    // }
+    }
+
+    async putDesvincularNFPedido(req, res) {
+        try {
+            const { 
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA,
+                STATIVO
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA,
+                STATIVO
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putDesvincularNFPedido:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
+    async putCancelarNFEntrada(req, res) {
+        try {
+            const { 
+                IDRESUMOENTRADA,
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/cancelar_nf_entrada.xsjs`, [{
+                IDRESUMOENTRADA,
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putCancelarNFEntrada:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
+    async postVincularNFPedido(req, res) {
+        try {
+            const { 
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDRESUMOENTRADA
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.postVincularNFPedido:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
 }
 
 export default new CadastroControllers();

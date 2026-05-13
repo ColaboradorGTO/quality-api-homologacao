@@ -1,8 +1,6 @@
 
 import axios from 'axios';
 import 'dotenv/config';
-//const url = 'http://164.152.245.77:8000/quality/concentrador_homologacao';
-
 const url = process.env.API_URL;
 
 class ResumoVoucherControllers {
@@ -67,6 +65,7 @@ class ResumoVoucherControllers {
         try {
             
             const apiUrl = `${url}/api/resumo-voucher/detalhe-voucher-dados.xsjs?id=${idVoucher}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&dadosVoucher=${dadosVoucher}&subgrupoEmpresa=${idSubGrupoEmpresa}&idEmpresa=${idEmpresa}&stStatus=${stStatus}&page=${page}&pageSize=${pageSize}`
+           console.log(apiUrl, 'apiUrl')
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
@@ -109,11 +108,10 @@ class ResumoVoucherControllers {
         pageSize = pageSize ? pageSize : '';
 
         try {
-            // const apiUrl = `${url}/api/resumo-voucher/empresa.xsjs?idEmpresa=${idEmpresa}&idSubGrupoEmpresa=${idSubGrupoEmpresa}&page=${page}&pageSize=${pageSize}`;
-            const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/resumo-voucher/empresa.xsjs?idEmpresa=${idEmpresa}&idSubGrupoEmpresa=${idSubGrupoEmpresa}&page=${page}&pageSize=${pageSize}`;
+            
+            const apiUrl = `${url}/api/resumo-voucher/empresa.xsjs?idEmpresa=${idEmpresa}&idSubGrupoEmpresa=${idSubGrupoEmpresa}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl);
          
-            
             return res.json(response.data); // Retorna
         } catch (error) {
 
@@ -427,7 +425,7 @@ class ResumoVoucherControllers {
                 return res.status(400).json({ error: 'NUCPFCNPJ é obrigatório.' });
             }
 
-            // const response = await axios.put(`http://164.152.245.77:8000/quality/concentrador/api/gerencia/cliente.xsjs`, [{
+            
             const response = await axios.put(`${url}/api/gerencia/cliente.xsjs`, [{
                 IDCLIENTE,
                 IDEMPRESA,

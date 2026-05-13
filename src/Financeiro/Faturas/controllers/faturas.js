@@ -63,7 +63,7 @@ class FaturasControllers {
       
       const apiUrl = `${url}/api/detalhe-fatura.xsjs?idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&nuCodigoAutorizacao=${codigoFatura}&id=${idDetalheFatura}&page=${page}&pageSize=${pageSize}`;
       const response = await axios.get(apiUrl);
-      console.log(apiUrl)
+      
       return res.json(response.data); 
     } catch (error) {
       console.error("Erro no FaturasController.getDetalheFaturaFinanceiro:", error);

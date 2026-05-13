@@ -16,7 +16,7 @@ export class VendasClient {
         TXTMOTIVOCANCELA,
         IDVENDA
     ) {
-        const response = await this.api.put(`http://164.152.245.77:8000/quality/concentrador_node/api/administrativo/altera-venda-pagamento.xsjs`, [{
+        const response = await this.api.put(`${url}/api/administrativo/altera-venda-pagamento.xsjs`, [{
             STCANCELADO,
             DTULTIMAALTERACAO,
             IDFUNCIONARIOCANCELA,

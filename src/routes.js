@@ -80,6 +80,7 @@ import ComercialProdutoControllers from './Comercial/Produto/controllers/index.j
 import ModulosControllers from './Modulos/controllers/modulos.js';
 import DanfeControllers from './Danfe/controllers/danfe.js';
 
+import PermissaoControllers from './Permissoes/controller/index.js';
 const routes = new Router();
 // routes.use(authMiddleware)
 
@@ -110,15 +111,23 @@ routes.get('/listaEmpresas', EmpresaControllers.getListaEmpresas)
 routes.put('/empresas/:id', EmpresaControllers.putListaEmpresas)
 
 
+routes.get('/menu-pai', PermissaoControllers.getMenuPai)
+
 routes.get('/menus-usuario', ModulosControllers.getListaPerfilUsuario)
 routes.get('/menus-usuario-excecao', ModulosControllers.getListaMenusPorUsuario)
 routes.get('/menus-filho-usuario', ModulosControllers.getListaMenusFilhosUsuario)
 routes.get('/menus', ModulosControllers.getListaSubMenusUsuario)
 
+routes.get('/listaMenusFilhos', PermissaoControllers.getListaMenusFilhos)
 
-routes.put('/perfil-usuario/:id', ModulosControllers.putPerfilUsuarioMenu)
-routes.put('/funcionario-departamento/:id', ModulosControllers.putFuncionarioDepartamento)
-routes.post('/criar-perfil-usuario', ModulosControllers.postPerfilUsuarioMenu)
+//routes.put('/perfil-usuario/:id', ModulosControllers.putPerfilUsuarioMenu)
+routes.put('/perfil-usuario/:id', PermissaoControllers.putPerfilUsuarioMenu)
+//routes.put('/funcionario-departamento/:id', ModulosControllers.putFuncionarioDepartamento)
+routes.put('/funcionario-departamento/:id', PermissaoControllers.putFuncionarioDepartamento)
+routes.put('/menu-filho/:id', PermissaoControllers.putAtualizarMenuFilho)
+//routes.post('/criar-perfil-usuario', ModulosControllers.postPerfilUsuarioMenu)
+routes.post('/criar-perfil-usuario', PermissaoControllers.postPerfilUsuarioMenu)
+routes.post('/criar-menu-filho', PermissaoControllers.postCriarMenuFilho)
 
 //routes.get('/listaCaixasMovimento', ADMCaixasControllers.getListaCaixasMovimento);
 //Início Administrativo
@@ -447,7 +456,7 @@ routes.put('/adiantamento-salarial/:id', DashBoardAdiantamentoSalarialController
 
 // routes.get('/resumoVendaConvenioDescontoFN', DashBoardControllers.getRetornoListaVendasConvenioDescontoFuncionario)
 routes.get('/resumo-venda-convenio-desconto', DashBoardVendasControllers.getVendasConvenioDescontoFuncionario)
-routes.get('/resumo-venda-convenio', DashBoardVendasControllers.getVendasConvenioDescontoFuncionario)
+routes.get('/resumo-venda-convenio', DashBoardVendasControllers.getListaResumoVendasConvenio)
 routes.get('/detalhe-venda', DashBoardVendasControllers.getRetornoVendasAtivasDetalheProduto)
 routes.get('/resumo-venda-caixa-detalhado', DashBoardVendasControllers.getListaVendaDetalhe)
 routes.get('/resumo-venda-caixa', DashBoardVendasControllers.getListaResumoVendasCaixas)
@@ -737,13 +746,19 @@ routes.get('/nfPedido', CadastroControllers.getListaNFPedido)
 routes.get('/ncm', CadastroControllers.getListaNCM)
 routes.get('/cadastro-nfpedido', CadastroControllers.getListaCadastroNFPedido)
 routes.get('/uso-principal', CadastroControllers.getListaUsoPrincipal)
+routes.get('/pedidos-sem-vinculo-nfe', CadastroControllers.getListaPedidosSemVinculoNFE)
+routes.get('/desvincular-pedidos-nfe', CadastroControllers.getListaDesVincularPedidosNFE)
+routes.get('/produto-nf-pedidos', CadastroControllers.getListaProdutoNFPedido)
 
 
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
 // routes.put('/produtoAvulso/:id', CadastroControllers.getListaTipoFiscalProdutos)
 routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvulso)
 routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
-// routes.post('/produtoAvulso', CadastroControllers.postDetalheProdutoPedido)
+routes.put('/nf-avulsa/:id', CadastroControllers.putNFAvulsa)
+routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
+routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
+routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
 
 // Movimento Caixa
 
@@ -897,6 +912,7 @@ routes.post('/adiantamentos-salariais-integracao', ServiceLayerControllers.postI
 routes.post('/quebras-de-caixas-integracao', ServiceLayerControllers.postIntegrarQuebraCaixaSAP)
 routes.post('/pix-integracao', ServiceLayerControllers.postIntegrarPagamentoPixSAP)
 routes.post('/migrar-produto-avulso', ServiceLayerControllers.postMigrarProdutoAvulso)
+routes.post('/integrar-despesa', ServiceLayerControllers.postIntegrarDespesaSAP)
 
 
 // // Logs

@@ -106,6 +106,23 @@ class ServiceLayerControllers {
             return res.status(400).json({ error: error.message });
         }
     }
+
+    async postIntegrarDespesaSAP(req, res) {
+        try {
+          
+            let { IDDESPESASLOJA, IDFUNCIONARIO } = req.body;
+   
+            const response = await axios.post(`${url}/api/service-layer/despesa/jobs/despesas-integracao.xsjs`, [{
+                IDDESPESASLOJA,
+                IDFUNCIONARIO,
+            }])
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Erro no ServiceLayerControllers.postIntegrarDespesaSAP:", error);
+            return res.status(400).json({ error: error.message });
+        }
+    }
 }
 
 export default new ServiceLayerControllers();
