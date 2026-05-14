@@ -618,8 +618,12 @@ routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPo
 routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)
 routes.get('/listaMetaVendas', ComercialControllers.getListaMetasGrupo)
 routes.get('/listaPremiacoes', ComercialControllers.getListaPremiacoesPeriodo)
+routes.get('/lista-premios-gerente', ComercialControllers.getListaPremiosGerente)
 routes.get('/meta-vendas', ComercialControllers.getListaMetasVendas)
 routes.get('/meta-vendas-resumida', ComercialControllers.getListaMetasVendasResumida)
+routes.get('/lista-premiacao-cadastrada', ComercialControllers.getListaPremiacaoCadastrada)
+
+routes.post('/cadastra-premiacoes', ComercialControllers.postCadastrarPremiacoes)
 
 // routes.get('/listaGrupoProduto', ComercialControllers.getListaGrupoProduto)
 // routes.get('/listaSubGrupoProduto', ComercialControllers.getListaSubGrupoProduto)

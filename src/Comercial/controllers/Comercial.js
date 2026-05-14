@@ -4,7 +4,7 @@ import 'dotenv/config';
 const url = process.env.API_URL;
 
 
-class CormercialControllers {
+class ComercialControllers {
 
     async getListaFornecedorProduto(req, res) {
         let { idMarca } = req.query;
@@ -397,6 +397,88 @@ class CormercialControllers {
         }
 
     }
+
+    async getListaPremiosGerente(req, res) {
+        let { idSubGrupo, dataPesquisaInicio, dataPesquisaFim, funcao, page, pageSize } = req.query;
+        
+        idSubGrupo = idSubGrupo ? idSubGrupo : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        funcao = funcao ? funcao : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        
+        try {
+          
+            const apiUrl = `${url}/api/comercial/lista-premios-gerente.xsjs?idPremioSubGrupoEmp=${idSubGrupo}&DTInicPremio=${dataPesquisaInicio}&DTFimPremio=${dataPesquisaFim}&noFunc=${funcao}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaPremiacaoCadastrada(req, res) {
+        let { idSubGrupo, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        
+            idSubGrupo = idSubGrupo ? idSubGrupo : '';
+            dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+            dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+        
+        try {
+          
+            const apiUrl = `${url}/api/comercial/lista_premiacaocad.xsjs?idPremioSubGrupoEmp=${idSubGrupo}&DTInicPremio=${dataPesquisaInicio}&DTFimPremio=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaPremiacaoCadastrada:", error);
+            throw error;
+        }
+
+    }
+
+    async postCadastrarPremiacoes(req, res) {
+        let {
+            DTPREMIOINICIO,
+            DTPREMIOFIM,
+            IDSUBGRUPOEMPRESARIAL,
+            NOFUNCAO,
+            NOINDICADOR,
+            TPAPURACAO,
+            VRBONUSSENIOR,
+            VRBONUSPLENO,
+            VRBONUSJUNIOR,
+            VRBONUSTODOS,
+            STATIVO
+        } = req.body;
+
+        try {
+            const apiUrl = `${url}/api/comercial/cadastrar-premiacoes.xsjs`
+            const response = await axios.post(apiUrl, [{
+                DTPREMIOINICIO,
+                DTPREMIOFIM,
+                IDSUBGRUPOEMPRESARIAL,
+                NOFUNCAO,
+                NOINDICADOR,
+                TPAPURACAO,
+                VRBONUSSENIOR,
+                VRBONUSPLENO,
+                VRBONUSJUNIOR,
+                VRBONUSTODOS,
+                STATIVO
+            }]);
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro no ComercialControllers.postCadastrarPremiacoes:", error);
+            throw error;
+        }
+    }
 }
 
-export default new CormercialControllers();
+export default new ComercialControllers();
