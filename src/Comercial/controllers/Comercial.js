@@ -1,8 +1,8 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = 'http://164.152.245.77:8000/quality/concentrador'
+const url = process.env.API_URL;
+
 
 class CormercialControllers {
 
@@ -84,7 +84,7 @@ class CormercialControllers {
             page = page ? page : '';
             pageSize = pageSize ? pageSize : '';
             try {
-                const apiUrl = `http://164.152.245.77:8000/quality/concentrador/api/comercial/empresa.xsjs?idmarca=${idMarca}`;
+                const apiUrl = `${url}/api/comercial/empresa.xsjs?idmarca=${idMarca}`;
                 const response = await axios.get(apiUrl)
                 return res.json(response.data); // Retorna
             } catch (error) {
@@ -260,7 +260,7 @@ class CormercialControllers {
 
             const apiUrl = `${url}/api/comercial/custo-por-loja.xsjs?page=&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&idGrupoEmpresarial=${idGrupoEmpresarial}&idEmpresa=${idEmpresa}&descricaoProduto=${descricaoProduto}&uf=${ufPesquisa}&idFornecedor=${idFornecedor}&idGrupoGrade=${idGrupo}&idGrade=${idGrade}&idMarcaProduto=${idMarcaProduto}`;
             const response = await axios.get(apiUrl)
-            console.log(apiUrl, 'apiUrl')
+      
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -326,7 +326,7 @@ class CormercialControllers {
         let {  } = req.query;
         
         try {
-            // ajaxGetComAnimacaoDeCarregamento(`api/comercial/lista-premiacoes.xsjs?page=${numPage}`)
+          
             const apiUrl = `${url}/api/comercial/lista-meta-vendas.xsjs?page=1`;
             const response = await axios.get(apiUrl)
 
@@ -338,11 +338,55 @@ class CormercialControllers {
 
     }
 
+    async getListaMetasVendas(req, res) {
+        let { idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        
+            idMarca = idMarca ? idMarca : '';
+            dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : ''
+            dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : ''
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+        
+        try {
+          
+            const apiUrl = `${url}/api/comercial/meta-vendas.xsjs?idMarca=${idMarca}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaMetasVendasResumida(req, res) {
+        let { idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize  } = req.query;
+
+        idMarca = idMarca ? idMarca : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+        
+        try {
+          
+            const apiUrl = `${url}/api/comercial/meta-vendas-resumida.xsjs?idMarca=${idMarca}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasResumida:", error);
+            throw error;
+        }
+
+    }
+
     async getListaPremiacoesPeriodo(req, res) {
         let {  } = req.query;
         
         try {
-            // ajaxGetComAnimacaoDeCarregamento(`api/comercial/lista-premiacoes.xsjs?page=${numPage}`)
+          
             const apiUrl = `${url}/api/comercial/lista-premiacoes.xsjs?page=1`;
             const response = await axios.get(apiUrl)
 
