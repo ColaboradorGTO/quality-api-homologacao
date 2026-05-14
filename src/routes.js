@@ -129,9 +129,9 @@ routes.put('/menu-filho/:id', PermissaoControllers.putAtualizarMenuFilho)
 routes.post('/criar-perfil-usuario', PermissaoControllers.postPerfilUsuarioMenu)
 routes.post('/criar-menu-filho', PermissaoControllers.postCriarMenuFilho)
 
-routes.get('/listaCaixasMovimento', ADMCaixasControllers.getListaCaixasMovimento);
+//routes.get('/listaCaixasMovimento', ADMCaixasControllers.getListaCaixasMovimento);
 //Início Administrativo
-//routes.get('/listaCaixasMovimento', AdministrativoControllers.retornoListaCaixasMovimento);
+routes.get('/listaCaixasMovimento', ADMCaixasControllers.getRetornoListaCaixasMovimento);
 
 routes.get('/listaCaixasFechados', AdministrativoControllers.retornoListaCaixasFechados);
 routes.get('/vendaVendedor', AdmVendasControllers.getVendaVendedor);

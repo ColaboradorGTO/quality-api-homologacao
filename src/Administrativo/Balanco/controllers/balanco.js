@@ -48,6 +48,7 @@ class AdmBalancoControllers {
         pageSize = pageSize ? pageSize : '';
 
         try {
+            //http://164.152.245.77:8000/quality/concentrador/api/administrativo/coletor-balanco.xsjs?page=2&idEmpresa=1&idresumo=1720
             const apiUrl = `${url}/api/administrativo/coletor-balanco.xsjs?idresumo=${idResumo}&idempresa=${idEmpresa}&descProduto=${descricaoProduto}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
 
