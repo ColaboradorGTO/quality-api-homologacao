@@ -323,11 +323,13 @@ class ComercialControllers {
 
     }
     async getListaMetasGrupo(req, res) {
-        let {  } = req.query;
+        let { page, pageSize } = req.query;
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
         
         try {
           
-            const apiUrl = `${url}/api/comercial/lista-meta-vendas.xsjs?page=1`;
+            const apiUrl = `${url}/api/comercial/lista-meta-vendas.xsjs?page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); 
@@ -383,11 +385,12 @@ class ComercialControllers {
     }
 
     async getListaPremiacoesPeriodo(req, res) {
-        let {  } = req.query;
-        
+        let { page, pageSize } = req.query;
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
         try {
           
-            const apiUrl = `${url}/api/comercial/lista-premiacoes.xsjs?page=1`;
+            const apiUrl = `${url}/api/comercial/lista-premiacoes.xsjs`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); 
