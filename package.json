@@ -24,6 +24,7 @@
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "bwip-js": "^4.6.0",
     "chalk": "^5.6.2",
     "cli-progress": "^3.12.0",
     "cookie-parser": "^1.4.6",
@@ -37,6 +38,7 @@
     "inquirer": "^12.10.0",
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
+    "handlebars": "^4.7.8",
     "moment": "^2.29.4",
     "morgan-body": "^2.6.9",
     "multer": "^2.0.2",
@@ -48,6 +50,8 @@
     "nodemon": "^3.0.1",
     "ora": "^9.0.0",
     "passport": "^0.7.0",
+    "pdfkit": "^0.18.0",
+    "puppeteer-core": "^25.0.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "soap": "^1.5.0",
@@ -55,7 +59,8 @@
     "uuid": "^9.0.1",
     "winston": "^3.11.0",
     "xlsx": "^0.18.5",
-    "xml2js": "^0.6.2"
+    "xml2js": "^0.6.2",
+    "xmlbuilder2": "^4.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
