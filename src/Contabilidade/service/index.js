@@ -107,6 +107,95 @@ export class ContabilidadeServices {
         );
         return result;
     }
+
+    async updateNcmExcecao({
+
+        NUNCM,
+        EX,
+        TIPO,
+        DSNCM,
+        IMPNACIONAL,
+        IMPIMPORTACAOFEDERAL,
+        IMPESTADUAL,
+        IMPMUNICIPAL,
+        DTINICIOVIGENCIA,
+        DTFIMVIGENCIA,
+        PWCHAVE,
+        NUVERSAO,
+        FONTE,
+        SGUF,
+        PERCIBPT,
+        IDNCMEXCECAO
+
+    }) {
+        if (!IDNCMEXCECAO) {
+            throw new Error("IDNCMEXCECAO é Obrigatorio.")
+        }
+
+        const result = await this.client.atualizarNcmExcecao(
+            NUNCM,
+            EX,
+            TIPO,
+            DSNCM,
+            IMPNACIONAL,
+            IMPIMPORTACAOFEDERAL,
+            IMPESTADUAL,
+            IMPMUNICIPAL,
+            DTINICIOVIGENCIA,
+            DTFIMVIGENCIA,
+            PWCHAVE,
+            NUVERSAO,
+            FONTE,
+            SGUF,
+            PERCIBPT,
+            IDNCMEXCECAO
+
+        );
+        return result;
+    }
+
+    async createExcecao({
+
+        NUNCM,
+        EX,
+        TIPO,
+        DSNCM,
+        IMPNACIONAL,
+        IMPIMPORTACAOFEDERAL,
+        IMPESTADUAL,
+        IMPMUNICIPAL,
+        DTINICIOVIGENCIA,
+        DTFIMVIGENCIA,
+        PWCHAVE,
+        NUVERSAO,
+        FONTE,
+        SGUF,
+        PERCIBPT,
+    }) {
+
+        if (!NUNCM) {
+            throw new Error("NUNCM é Obrigatorio.")
+        }
+
+        const result = await this.client.criarNcmExcecao(
+            NUNCM,
+            EX,
+            TIPO,
+            DSNCM,
+            IMPNACIONAL,
+            IMPIMPORTACAOFEDERAL,
+            IMPESTADUAL,
+            IMPMUNICIPAL,
+            DTINICIOVIGENCIA,
+            DTFIMVIGENCIA,
+            PWCHAVE,
+            NUVERSAO,
+            FONTE,
+            SGUF,
+            PERCIBPT,
+        );
+        return result;
+    }
 }
 
 

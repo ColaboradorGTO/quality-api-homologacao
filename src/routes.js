@@ -853,6 +853,12 @@ routes.get('/vendasProdutos', ContabilidadeControllers.getListaVendasPeriodo)
 routes.get('/vendasProdutosConsolidado', ContabilidadeControllers.getListaVendasPeriodoConsolidado)
 routes.get('/buscar-produtos', ContabilidadeControllers.getBuscarProdutos)
 
+//NCM EXCECAO
+
+routes.get('/ncm-excecao', ContabilidadeControllers.getNcmExcecao)
+routes.post('/cadastrar-ncm-excecao', ContabilidadeControllers.postNcmExcecao)
+routes.put('/ncm-excecao/:id', ContabilidadeControllers.putNcmExcecao)
+
 /// ALVARA EMPRESA ///
 routes.get('/todas-empresas', ContabilidadeControllers.getTodasEmpresas)
 routes.get('/alvaras', ContabilidadeControllers.getAlvaras)
