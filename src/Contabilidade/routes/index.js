@@ -17,6 +17,9 @@ routes.get('/alvaras-empresa-detalhe', ContabilidadeControllers.getEmpresaAlvara
 routes.get('/vinculo-alvaras-empresa', ContabilidadeControllers.getVinculoAlvaraEmpresa)
 routes.get('/visualizar-anexo-alvara', ContabilidadeControllers.getVisualizarAnexoAlvara)
 routes.get('/status-alvara', ContabilidadeControllers.getStatusAlvara)
+routes.get('/ncm-excecao', ContabilidadeControllers.getNcmExcecao)
+routes.post('/cadastrar-ncm-excecao', ContabilidadeControllers.postNcmExcecao)
+routes.put('/ncm-excecao/:id', ContabilidadeControllers.putNcmExcecao)
 
 routes.put('/vinculoAlvarasEmpresa/:id', ContabilidadeControllers.putVinculoAlvarasEmpresas)
 routes.put('/arquivosAnexosAlvara/:id', ContabilidadeControllers.putArquivosAnexosAlvara)

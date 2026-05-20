@@ -102,4 +102,85 @@ export class ContabilidadeClient {
         }])
         return response.data;
     }
+
+    async atualizarNcmExcecao(
+        NUNCM,
+        EX,
+        TIPO,
+        DSNCM,
+        IMPNACIONAL,
+        IMPIMPORTACAOFEDERAL,
+        IMPESTADUAL,
+        IMPMUNICIPAL,
+        DTINICIOVIGENCIA,
+        DTFIMVIGENCIA,
+        PWCHAVE,
+        NUVERSAO,
+        FONTE,
+        SGUF,
+        PERCIBPT,
+        IDNCMEXCECAO
+
+    ) {
+
+        const response = await this.api.put(`${url}/api/contabilidade/buscar-ncm.xsjs`, [{
+            NUNCM,
+            EX,
+            TIPO,
+            DSNCM,
+            IMPNACIONAL,
+            IMPIMPORTACAOFEDERAL,
+            IMPESTADUAL,
+            IMPMUNICIPAL,
+            DTINICIOVIGENCIA,
+            DTFIMVIGENCIA,
+            PWCHAVE,
+            NUVERSAO,
+            FONTE,
+            SGUF,
+            PERCIBPT,
+            IDNCMEXCECAO
+        }])
+        return response.data;
+    }
+
+
+    async criarNcmExcecao(
+        NUNCM,
+        EX,
+        TIPO,
+        DSNCM,
+        IMPNACIONAL,
+        IMPIMPORTACAOFEDERAL,
+        IMPESTADUAL,
+        IMPMUNICIPAL,
+        DTINICIOVIGENCIA,
+        DTFIMVIGENCIA,
+        PWCHAVE,
+        NUVERSAO,
+        FONTE,
+        SGUF,
+        PERCIBPT,
+
+    ) {
+
+        const response = await this.api.post(`${url}/api/contabilidade/buscar-ncm.xsjs`, [{
+            NUNCM,
+            EX,
+            TIPO,
+            DSNCM,
+            IMPNACIONAL,
+            IMPIMPORTACAOFEDERAL,
+            IMPESTADUAL,
+            IMPMUNICIPAL,
+            DTINICIOVIGENCIA,
+            DTFIMVIGENCIA,
+            PWCHAVE,
+            NUVERSAO,
+            FONTE,
+            SGUF,
+            PERCIBPT,
+        }])
+        return response.data;
+    }
 }
