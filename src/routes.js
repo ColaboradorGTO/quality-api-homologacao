@@ -97,7 +97,6 @@ routes.post('/gerar-danfe', DanfeControllers.gerarDanfeLocal);
 
 // routes.use(authMiddleware)
 
-
 //  Funcionarios 
 
 routes.get('/autorizarVoucher', FuncionariosControllers.getAutorizacaoVoucherFuncionarios)
