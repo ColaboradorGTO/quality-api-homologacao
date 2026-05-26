@@ -1,9 +1,14 @@
-
 import axios from "axios";
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
+import schemaDespesaLoja from "../schema/schemaDespesaLoja.js";
+import { DespesasClient } from "../client/index.js";
+import { DespesasServices } from "../service/index.js";
+import schemaStatusDespesaLoja from "../schema/schemaStatusDespesaLoja.js";
 
+const url = process.env.API_URL;
+const despesasClient = new DespesasClient(url);
+const despesasServices = new DespesasServices(despesasClient);
 
 class DespesasControllers {
 
@@ -30,32 +35,75 @@ class DespesasControllers {
   }
 
   async putDespesasLoja(req, res) {
-    try {
-      const despesas = Array.isArray(req.body) ? req.body : [req.body];
 
-      const response = await axios.put(`${url}/api/despesa-loja/editar-despesa.xsjs`, despesas);
-      return res.json(response.data);
+    try {
+      const { error, value } = schemaDespesaLoja.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
+
+      if (error) {
+        return res.status(400).json({
+          message: 'Dados inválidos',
+          errors: error.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await despesasServices.updateDespesasLoja(
+
+        value.IDCATEGORIARECEITADESPESA,
+        value.VRDESPESA,
+        value.DSPAGOA,
+        value.DSHISTORIO,
+        value.TPNOTA,
+        value.NUNOTAFISCAL,
+        value.IDUSRCACELAMENTO,
+        value.DSMOTIVOCANCELAMENTO,
+        value.IDDESPESASLOJA,
+
+      );
+
+      return res.status(200).json(response);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      return res.status(500).json({ error: error.message });
+      console.log('Erro no DespesasControllers.putDespesasLoja:', error);
+      return res.status(500).json({ message: 'Erro ao  atualizar despesa loja.' });
+
     }
   }
 
   async putStatusDespesasLoja(req, res) {
+
     try {
-      let { STCANCELADO, IDDESPESASLOJA } = req.body;
+      const { error, value } = schemaStatusDespesaLoja.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
 
-      if (!IDDESPESASLOJA) {
-        return res.status(400).json({ error: "IDDESPESASLOJA is required" });
+      if (error) {
+        return res.status(400).json({
+          message: 'Dados inválidos',
+          errors: error.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message
+          }))
+        });
       }
-      const response = await axios.put(`${url}/api/despesa-loja/atualizacao-status.xsjs`, { STCANCELADO, IDDESPESASLOJA });
 
-      return res.json(response.data);
+      const response = await despesasServices.updateStatusDespesasLoja(
+
+        value.STCANCELADO,
+        value.IDDESPESASLOJA,
+      );
+
+      return res.status(200).json(response);
     } catch (error) {
-      console.error("Erro no DespesasControllers.putStatusDespesasLoja:", error);
-      return res.status(500).json({ error: error.message });
-    }
+      console.log('Erro no DespesasControllers.putStatusDespesasLoja:', error);
+      return res.status(500).json({ message: 'Erro ao  atualizar status despesa loja.' });
 
+    }
   }
 
 }
