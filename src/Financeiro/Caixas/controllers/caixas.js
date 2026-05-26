@@ -2,16 +2,10 @@
 import axios from "axios";
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import 'dotenv/config';
-import fechaCaixaZeradoSchema from "../schema/fecharCaixaZeradoSchema.js";
-import { CaixaClient } from "../client/caixaClient.js";
-import { CaixaService } from "../service/caixaService.js";
-
 const url = process.env.API_URL;
-const caixaClient = new CaixaClient(url);
-const caixaService = new CaixaService(caixaClient);
+
 
 class CaixasControllers {
-  
   async getListaCaixasMovmentoFinanceiro(req, res) {
     let { idMarca, dataPesquisaInicio, dataPesquisaFim, idLoja, idLojaPesquisa, page, pageSize } = req.query;
 
@@ -77,37 +71,19 @@ class CaixasControllers {
 
   }
 
-  async putFecharCaixaZerado(req, res) {
+  async updateFecharCaixaZerado(req, res) {
+    let { ID } = req.body;
 
     try {
-      const { error, value } = fechaCaixaZeradoSchema.validate(req.body, {
-        abortEarly: false,
-        stripUnknown: true
+      const response = await axios.put(`${url}/api/financeiro/fecha-caixas-zerados.xsjs`, {
+        ID
       });
-
-      if (error) {
-        return res.status(400).json({
-          message: 'Dados inválidos',
-          errors: error.details.map(detail => ({
-            field: detail.path.join('.'),
-            message: detail.message
-          }))
-        });
-      }
-
-      const response = await caixaService.updateFecharCaixaZerado(
-         value.ID,
-      );
-
-      return res.status(200).json(response);
-
+      return res.json(response.data);
     } catch (error) {
-      console.log('Erro no AdiantamentosControllers.putAdiantamentoStatus', error);
-      return res.status(500).json({ message: 'Erro ao criar Adiantamento Status.' });
-
+      console.error("Erro no CaixasControllers.updateFecharCaixaZerado:", error);
+      throw error;
     }
   }
-
 }
 
 export default new CaixasControllers();

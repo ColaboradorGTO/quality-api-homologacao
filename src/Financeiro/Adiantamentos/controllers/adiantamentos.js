@@ -1,14 +1,7 @@
 
 import axios from "axios";
 import 'dotenv/config';
-import { dataFormatada } from "../../../utils/dataFormatada.js";
-import schemaAdiantamentoStatus from "../schema/schemaAdiantamentoStatus.js";
-import { AdiantamentoService } from '../service/serviceAdiantamento.js';
-import { AdiantamentosClient } from '../client/adiantamentoClient.js';
 const url = process.env.API_URL;
-
-const adiantamentoClient = new AdiantamentosClient(url);
-const adiantamentoService = new AdiantamentoService(adiantamentoClient);
 
 class AdiantamentosControllers {
   async getListaAdiantamentoSalarialFinanceiro(req, res) {
@@ -28,36 +21,6 @@ class AdiantamentosControllers {
     }
   }
 
-  async putAdiantamentoStatus(req, res) {
-
-    try {
-      const { error, value } = schemaAdiantamentoStatus.validate(req.body, {
-        abortEarly: false,
-        stripUnknown: true
-      });
-
-      if (error) {
-        return res.status(400).json({
-          message: 'Dados inválidos',
-          errors: error.details.map(detail => ({
-            field: detail.path.join('.'),
-            message: detail.message
-          }))
-        });
-      }
-
-      const response = await adiantamentoService.updateAdiantamentoStatus(
-        value.IDADIANTAMENTOSALARIO,
-        value.STATIVO,
-      );
-
-      return res.status(200).json(response);
-    } catch (error) {
-      console.log('Erro no AdiantamentosControllers.putAdiantamentoStatus', error);
-      return res.status(500).json({ message: 'Erro ao criar Adiantamento Status.' });
-
-    }
-  }
 }
 
 export default new AdiantamentosControllers();

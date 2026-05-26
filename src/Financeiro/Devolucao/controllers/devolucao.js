@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import 'dotenv/config';
 const url = process.env.API_URL;
@@ -60,7 +61,8 @@ class DevolucaoControllers {
     }
   }
 
-  async postMotivoDevolucao(req, res) {
+
+  async createMotivoDevolucao(req, res) {
 
     try {
       const { error, value } = criarDevolucaoSchema.validate(req.body, {
@@ -85,12 +87,10 @@ class DevolucaoControllers {
 
       return res.status(200).json(response);
     } catch (error) {
-      console.error("Erro no DevolucaoControllers.postMotivoDevolucao", error);
+      console.error("Erro no DevolucaoControllers.createMotivoDevolucao", error);
       return res.status(500).json({ error: "Erro no servidor" });
     }
   }
-
-
 }
 
 
