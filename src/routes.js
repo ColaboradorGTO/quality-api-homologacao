@@ -579,6 +579,7 @@ routes.get('/listaDetalheVendaCliente', VendasControllers.getListaDetalheVendaCl
 routes.get('/venda-xml', VendasControllers.getListaVendaXML)
 routes.get('/venda-cliente', VendasControllers.getListaVendaClienteGerencia)
 routes.get('/vendas-prazo-excedido', VendasControllers.getListaVendasPrazoExcedido);
+routes.get('/vendas-gnre', VendasControllers.getListaVendasGnre);
 routes.post('/alterar-vendas-prazo-excedido', VendasControllers.postAlterarVendasPrazoExcedido);
 
 // Vouchers
