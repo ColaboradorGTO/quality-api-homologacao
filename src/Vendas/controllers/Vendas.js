@@ -187,7 +187,7 @@ class VendasControllers {
         try {
 
             
-            const apiUrl = `${url}/api/venda/lista-venda-gnre.xsjs?docEntry=${chave}&pageSize=${pageSize}&page=${page}`;
+            const apiUrl = `${url}/api/venda/lista-venda-gnre.xsjs?docEntry=${docEntry}&pageSize=${pageSize}&page=${page}`;
            console.log(apiUrl)
             const response = await axios.get(apiUrl)
 

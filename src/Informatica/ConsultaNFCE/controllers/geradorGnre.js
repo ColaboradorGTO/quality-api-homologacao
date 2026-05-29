@@ -407,6 +407,11 @@ class PDFGNRE {
   }
 
   static gerarNumeroControle({ nfe, calculo, dadosGNRE }) {
+    const numeroControleOficial = String(dadosGNRE?.numeroControle || '').replace(/\D/g, '');
+    if (numeroControleOficial.length >= 16) {
+      return numeroControleOficial.slice(-16);
+    }
+
     const base = [
       nfe?.ide?.nNF,
       dadosGNRE?.receita,
@@ -417,6 +422,11 @@ class PDFGNRE {
   }
 
   static gerarLinhaDigitavel({ nfe, calculo, dadosGNRE }) {
+    const linhaDigitavelOficial = String(dadosGNRE?.linhaDigitavel || '').trim();
+    if (linhaDigitavelOficial) {
+      return linhaDigitavelOficial;
+    }
+
     const numeros = [
       dadosGNRE?.ufFavorecida || '',
       dadosGNRE?.receita || '',
@@ -485,7 +495,7 @@ class PDFGNRE {
     doc.restore();
   }
 
-  static async desenharVia(doc, { x, y, width, height, tituloVia, nfe, calculo, dadosGNRE, numeroControle, linhaDigitavel }) {
+  static async desenharVia(doc, { x, y, width, height, tituloVia, nfe, calculo, dadosGNRE, numeroControle, linhaDigitavel, codigoBarras }) {
     const authWidth = 10;
     const sideWidth = 172;
     const mainWidth = width - sideWidth - authWidth;
@@ -719,7 +729,7 @@ class PDFGNRE {
       y: barcodeY - 2,
       w: mainWidth - 140,
       h: barcodeHeight - 8,
-      digits: linhaDigitavel
+      digits: codigoBarras || linhaDigitavel
     });
   }
 
@@ -765,6 +775,7 @@ class PDFGNRE {
         const sectionHeight = Math.floor(availableHeight / totalVias);
         const numeroControle = PDFGNRE.gerarNumeroControle({ nfe, calculo, dadosGNRE });
         const linhaDigitavel = PDFGNRE.gerarLinhaDigitavel({ nfe, calculo, dadosGNRE });
+        const codigoBarras = String(dadosGNRE?.codigoBarras || '').replace(/\D/g, '') || String(linhaDigitavel || '').replace(/\D/g, '');
 
         doc.font('Helvetica-Bold').fontSize(15).text('ANEXO I', doc.page.margins.left, 10, {
           width: pageWidth,
@@ -785,7 +796,8 @@ class PDFGNRE {
             calculo,
             dadosGNRE,
             numeroControle,
-            linhaDigitavel
+            linhaDigitavel,
+            codigoBarras
           });
 
           if (index < vias.length - 1) {

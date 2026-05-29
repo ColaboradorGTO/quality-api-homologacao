@@ -82,12 +82,168 @@ import ModulosControllers from './Modulos/controllers/modulos.js';
 import DanfeControllers from './Danfe/controllers/danfe.js';
 
 import PermissaoControllers from './Permissoes/controller/index.js';
+import GNRE from './Informatica/ConsultaNFCE/controllers/gnre.js'
+
 const routes = new Router();
 // routes.use(authMiddleware)
 
 routes.get('/', (req, res) => {
     res.send('Hello World! Myltiane');
 });
+
+routes.post('/gnre',
+    async (req, res) => {
+
+        try {
+
+            const extrairNumeroControle16 = (obj) => {
+                if (!obj || typeof obj !== 'object') {
+                    return null;
+                }
+
+                for (const [chave, valor] of Object.entries(obj)) {
+                    if (/numero.?controle/i.test(chave)) {
+                        const digitos = String(valor ?? '').replace(/\D/g, '');
+                        if (digitos) {
+                            return digitos.slice(-16).padStart(16, '0');
+                        }
+                    }
+
+                    if (valor && typeof valor === 'object') {
+                        const encontrado = extrairNumeroControle16(valor);
+                        if (encontrado) {
+                            return encontrado;
+                        }
+                    }
+                }
+
+                return null;
+            };
+
+            const extrairValorPorRegex = (obj, regex) => {
+                if (!obj || typeof obj !== 'object') {
+                    return null;
+                }
+
+                for (const [chave, valor] of Object.entries(obj)) {
+                    if (regex.test(chave)) {
+                        const valorTexto = String(valor ?? '').trim();
+                        if (valorTexto) {
+                            return valorTexto;
+                        }
+                    }
+
+                    if (valor && typeof valor === 'object') {
+                        const encontrado = extrairValorPorRegex(valor, regex);
+                        if (encontrado) {
+                            return encontrado;
+                        }
+                    }
+                }
+
+                return null;
+            };
+
+            const extrairCodigoSituacaoLote = (obj) => {
+                if (!obj || typeof obj !== 'object') {
+                    return null;
+                }
+
+                for (const [chave, valor] of Object.entries(obj)) {
+                    if (/situacao.?process|situacao.?recepcao/i.test(chave) && valor && typeof valor === 'object') {
+                        for (const [chaveInterna, valorInterno] of Object.entries(valor)) {
+                            if (/codigo/i.test(chaveInterna)) {
+                                const codigo = String(valorInterno ?? '').replace(/\D/g, '');
+                                if (codigo) {
+                                    return codigo;
+                                }
+                            }
+                        }
+                    }
+
+                    if (valor && typeof valor === 'object') {
+                        const encontrado = extrairCodigoSituacaoLote(valor);
+                        if (encontrado) {
+                            return encontrado;
+                        }
+                    }
+                }
+
+                return null;
+            };
+
+            const aguardar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+            const gnre = new GNRE();
+
+            /*
+                ENVIO GNRE
+            */
+            const retornoEnvio = await gnre.enviarParaSefaz( req.body);
+
+            if (!retornoEnvio.success) {
+                return res.status(400).json(retornoEnvio);
+            }
+
+            /*
+                RECIBO
+            */
+            const numeroRecibo =
+                retornoEnvio?.recibo?.['ns1:numero'] ||
+                retornoEnvio?.recibo?.numero ||
+                retornoEnvio?.jsonResposta
+                ?.['soapenv:Envelope']
+                ?.['soapenv:Body']
+                ?.processarResponse
+                ?.['ns1:TRetLote_GNRE']
+                ?.['ns1:recibo']
+                ?.['ns1:numero'];
+
+            const numeroReciboConsulta = numeroRecibo
+                ? String(numeroRecibo).replace(/\D/g, '').slice(0, 14)
+                : null;
+
+            let consulta = null;
+
+            /*
+                CONSULTA LOTE
+            */
+            if (numeroReciboConsulta) {
+                consulta = await gnre.consultarLote(numeroReciboConsulta);
+
+                let codigoSituacao = extrairCodigoSituacaoLote(consulta?.jsonResposta);
+
+                // Enquanto lote estiver em processamento, tenta poucas reconsultas.
+                for (let tentativa = 0; tentativa < 3 && codigoSituacao === '401'; tentativa += 1) {
+                    await aguardar(2500);
+                    consulta = await gnre.consultarLote(numeroReciboConsulta);
+                    codigoSituacao = extrairCodigoSituacaoLote(consulta?.jsonResposta);
+                }
+            }
+
+            const numeroControle16 =
+                extrairNumeroControle16(consulta?.jsonResposta) ||
+                (req.body?.numeroControle
+                    ? String(req.body.numeroControle).replace(/\D/g, '').slice(-16).padStart(16, '0')
+                    : null);
+
+            const linhaDigitavel =
+                extrairValorPorRegex(consulta?.jsonResposta, /linha.?digitavel/i) ||
+                (req.body?.linhaDigitavel ? String(req.body.linhaDigitavel) : null);
+
+            const codigoBarras =
+                extrairValorPorRegex(consulta?.jsonResposta, /codigo.?barra(s)?|barra(s)?/i) ||
+                (req.body?.codigoBarras ? String(req.body.codigoBarras) : null);
+
+                   
+            const pdf = await gnre.gerarPdfGnre(req.body, numeroControle16, { linhaDigitavel, codigoBarras });
+            return res.json({ envio: retornoEnvio, numeroReciboConsulta, numeroControle16, consulta, pdf });
+
+        } catch (error) {
+            return res.status(500).json({success: false,message: error.message});
+        }
+    }
+);
 
 routes.get('/ping', ApiPing.index);
 
