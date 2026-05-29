@@ -1,9 +1,13 @@
-
 import axios from "axios";
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
+import fechaCaixaZeradoSchema from "../schema/fecharCaixaZeradoSchema.js";
+import { CaixaClient } from "../client/caixaClient.js";
+import { CaixaService } from "../service/caixaService.js";
 
+const url = process.env.API_URL;
+const caixaClient = new CaixaClient(url);
+const caixaService = new CaixaService(caixaClient);
 
 class CaixasControllers {
   async getListaCaixasMovmentoFinanceiro(req, res) {
@@ -21,12 +25,11 @@ class CaixasControllers {
       const apiUrl = `${url}/api/financeiro/lista-caixas-movimento.xsjs?idMarca=${idMarca}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idLoja=${idLoja}&idLojaPesq=${idLojaPesquisa}&page=${page}&pageSize=${pageSize}`
       const response = await axios.get(apiUrl)
 
-      return res.json(response.data); // Retorna
+      return res.json(response.data);
     } catch (error) {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
 
   async getListaCaixaStatus(req, res) {
@@ -54,8 +57,8 @@ class CaixasControllers {
     let { idEmpresa, idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
     idEmpresa = idEmpresa ? idEmpresa : '';
     idMarca = idMarca ? idMarca : '';
-    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
+    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
     page = page ? page : ''
     pageSize = pageSize ? pageSize : ''
     try {
@@ -68,22 +71,39 @@ class CaixasControllers {
       console.error("Unable to connect to the database:", error);
       throw error;
     }
-
   }
-
-  async updateFecharCaixaZerado(req, res) {
-    let { ID } = req.body;
-
+  
+  async putFecharCaixaZerado(req, res) {
     try {
-      const response = await axios.put(`${url}/api/financeiro/fecha-caixas-zerados.xsjs`, {
-        ID
+      const { error, value } = fechaCaixaZeradoSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
       });
-      return res.json(response.data);
+
+      if (error) {
+        return res.status(400).json({
+          message: 'Dados inválidos',
+          errors: error.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await caixaService.updateFecharCaixaZerado(
+        value.ID
+      );
+      if (!value.ID) {
+        return res.status(400).json({ message: 'ID é obrigatório.' });
+      }
+
+      return res.status(200).json(response);
     } catch (error) {
-      console.error("Erro no CaixasControllers.updateFecharCaixaZerado:", error);
-      throw error;
+      console.log('Erro no CaixasControllers.putFecharCaixaZerado', error);
+      return res.status(500).json({ message: 'Erro ao atualizar fechar caixa zerado.' });
     }
   }
+
 }
 
 export default new CaixasControllers();

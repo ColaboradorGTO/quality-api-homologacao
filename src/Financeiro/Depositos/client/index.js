@@ -8,9 +8,13 @@ export class DepositoClient {
             baseURL: baseURL || url
         });
     }
-    async cancelarDeposito(IDDEPOSITOLOJA) {
-        
-        const response = await this.api.put('/api/financeiro/atualizar-deposito-loja.xsjs', IDDEPOSITOLOJA);
+    async updateDepositoLoja(IDDEPOSITOLOJA) {
+
+        const response = await this.api.put('/api/financeiro/atualizar-deposito-loja.xsjs', {
+            IDDEPOSITOLOJA
+        }
+        );
+
         return response.data;
     }
 }
