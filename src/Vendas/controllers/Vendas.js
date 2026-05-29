@@ -12,7 +12,7 @@ class VendasControllers {
     
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Error no VendasControllers.getListaVendas:", error);
             throw error;
         }
     }
@@ -25,7 +25,7 @@ class VendasControllers {
     
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Error no VendasControllers.getListaVendaId:", error);
             throw error;
         }
         
@@ -39,8 +39,8 @@ class VendasControllers {
             idVenda = idVenda ? idVenda : '';
             idSubGrupoEmpresarial = idSubGrupoEmpresarial ? idSubGrupoEmpresarial : '';
             cpfOUidVenda = cpfOUidVenda ? cpfOUidVenda : '';
-            dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-            dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+            dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+            dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
             page = page ? page : '';
             pageSize = pageSize ? pageSize : '';
         try {
@@ -50,7 +50,7 @@ class VendasControllers {
         
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Error no VendasControllers.getListaVendaClienteGerencia:", error);
             throw error;
         }
         
@@ -67,7 +67,7 @@ class VendasControllers {
     
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Error no VendasControllers.getListaDetalheVendaCliente:", error);
             throw error;
         }
         
@@ -135,8 +135,8 @@ class VendasControllers {
         idEmpresa = idEmpresa ? idEmpresa : '';
         stCancelado = stCancelado ? stCancelado : '';
         stContigencia = stContigencia ? stContigencia : '';
-        dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
-        dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
@@ -172,7 +172,7 @@ class VendasControllers {
 
             return res.json(response.data); 
         } catch (error) {
-            console.error("Error no AdmVendasControllers.getListaVendasPrazoExcedido:", error);
+            console.error("Error no VendasControllers.getListaVendasPrazoExcedido:", error);
             throw error;
         }
     }
@@ -188,12 +188,12 @@ class VendasControllers {
 
             
             const apiUrl = `${url}/api/venda/lista-venda-gnre.xsjs?docEntry=${docEntry}&pageSize=${pageSize}&page=${page}`;
-           console.log(apiUrl)
+          
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); 
         } catch (error) {
-            console.error("Error no AdmVendasControllers.getListaVendasGnre:", error);
+            console.error("Error no VendasControllers.getListaVendasGnre:", error);
             throw error;
         }
     }
@@ -212,8 +212,8 @@ class VendasControllers {
                 VRPRODUTO,
                 VRTOTALLIQUIDO
             } = req.body; 
-            // const response = await axios.post(`${url}/api/venda/vendas-prazo-excedido-troca.xsjs`, {
-            const response = await axios.post(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/venda/vendas-prazo-excedido-troca.xsjs`, [{
+            
+            const response = await axios.post(`${url}/api/venda/vendas-prazo-excedido-troca.xsjs`, [{
                 DIASAPOSCOMPRAR,
                 IDPRODUTO,
                 IDVENDA,
@@ -227,7 +227,7 @@ class VendasControllers {
             }]);
             return res.json(response.data);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Error no VendasControllers.postAlterarVendasPrazoExcedido:", error);
             return res.status(500).json({ error: error.message });
         }
     }
