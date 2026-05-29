@@ -1,8 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
-const url = 'http://164.152.245.77:8000/quality/concentrador_node';
-//const url = process.env.API_URL;
-//let url = `http://164.152.245.77:8000/quality/concentrador_homologacao`;
+const url = process.env.API_URL;
 
 export class AdiantamentosClient {
     constructor(baseURL) {

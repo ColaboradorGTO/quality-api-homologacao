@@ -1,13 +1,12 @@
-
 import axios from "axios";
 import 'dotenv/config';
-const url = process.env.API_URL;
 import criarDevolucaoSchema from "../schema/criarDevolucaoSchema.js";
 import atualizarDevolucaoSchema from "../schema/atualizarDevolucaoSchema.js";
 import { MotivoDevolucaoClient } from "../client/index.js";
 import { MotivoDevolucaoService } from "../services/index.js";
 const devolucaoDevolucaoClient = new MotivoDevolucaoClient(process.env.API_URL);
 const devolucaoService = new MotivoDevolucaoService(devolucaoDevolucaoClient);
+const url = process.env.API_URL;
 
 class DevolucaoControllers {
   async getListaMotivosDevolucao(req, res) {
@@ -61,8 +60,7 @@ class DevolucaoControllers {
     }
   }
 
-
-  async createMotivoDevolucao(req, res) {
+    async postMotivoDevolucao(req, res) {
 
     try {
       const { error, value } = criarDevolucaoSchema.validate(req.body, {
@@ -87,7 +85,7 @@ class DevolucaoControllers {
 
       return res.status(200).json(response);
     } catch (error) {
-      console.error("Erro no DevolucaoControllers.createMotivoDevolucao", error);
+      console.error("Erro no DevolucaoControllers.postMotivoDevolucao", error);
       return res.status(500).json({ error: "Erro no servidor" });
     }
   }

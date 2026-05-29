@@ -5,8 +5,7 @@ import { BancoClient } from "../client/bancoClient.js";
 import { BancoService } from "../service/bancoService.js";
 import schemaCriarContaBanco from "../schema/schemaCriarContaBanco.js";
 
-//const url = process.env.API_URL;
-const url = 'http://164.152.245.77:8000/quality/concentrador_node';
+const url = process.env.API_URL;
 const bancoClient = new BancoClient(url);
 const bancoService = new BancoService(bancoClient);
 

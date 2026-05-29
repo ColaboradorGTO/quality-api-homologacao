@@ -1,7 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
-const url = 'http://164.152.245.77:8000/quality/concentrador_node';
-//const url = process.env.API_URL;
+const url = process.env.API_URL;
 
 export class CaixaClient {
     constructor(baseURL) {

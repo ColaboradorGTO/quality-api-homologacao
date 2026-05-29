@@ -1,31 +1,3 @@
-/* 
-import axios from "axios";
-import 'dotenv/config';
-const url = process.env.API_URL;
-
-class AdiantamentosControllers {
-  async getListaAdiantamentoSalarialFinanceiro(req, res) {
-    let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
-
-    idEmpresa = idEmpresa ? idEmpresa : '';
-    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
-    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
-    try {
-      const apiUrl = `${url}/api/financeiro/adiantamento-salarial.xsjs?idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
-      const response = await axios.get(apiUrl);
-
-      return res.json(response.data);
-    } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
-    }
-  }
-
-}
-
-export default new AdiantamentosControllers(); */
-
-
 import axios from "axios";
 import 'dotenv/config';
 import schemaAdiantamentoStatus from "../schema/schemaAdiantamentoStatus.js";
@@ -34,9 +6,7 @@ import { AdiantamentosClient } from '../client/adiantamentoClient.js';
 import { dataFormatada } from "../../../utils/dataFormatada.js";
 import schemaFecharCaixaZerado from "../schema/schemaFecharCaixaZerado.js";
 
-//const url = process.env.API_URL;
-//let url = `http://164.152.245.77:8000/quality/concentrador_homologacao`;
-const url = 'http://164.152.245.77:8000/quality/concentrador_node';
+const url = process.env.API_URL;
 const adiantamentoClient = new AdiantamentosClient(url);
 const adiantamentoService = new AdiantamentoService(adiantamentoClient);
 

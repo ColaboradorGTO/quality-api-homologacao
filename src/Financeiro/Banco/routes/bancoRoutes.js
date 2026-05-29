@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import BancoControllers from '../controller/controller.js';
-
 const FinanceiroBanco = new Router();
 
 FinanceiroBanco.get('/banco', BancoControllers.getListaBanco)
