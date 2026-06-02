@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import ComercialProdutoControllers from '../controllers/index.js';
 
-
 const comercialProdutoRoutes = new Router();
-
 
 comercialProdutoRoutes.get('/lista-marca-produto', ComercialProdutoControllers.getListaMarcaProduto)
 comercialProdutoRoutes.get('/lista-fornecedor-produto', ComercialProdutoControllers.getListaFornecedorProduto)
