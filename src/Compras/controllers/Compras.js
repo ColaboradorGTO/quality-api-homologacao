@@ -227,12 +227,17 @@ class ComprasControllers {
     }
 
     async getListaProdutoPedido(req, res) {
-        let { referenciaProduto, fornecedorPedido } = req.query;
+        let { referenciaProduto, fornecedorPedido, page, pageSize } = req.query;
         referenciaProduto = referenciaProduto ? referenciaProduto : '';
         fornecedorPedido = fornecedorPedido ? fornecedorPedido : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
 
         try {
-            const apiUrl = `${url}/api/compras/produtospedido.xsjs?PesqProd=${referenciaProduto}&idForn=${fornecedorPedido}`
+
+
+            const apiUrl = `${url}/api/compras/produtospedido.xsjs?PesqProd=${referenciaProduto}&IdForn=${fornecedorPedido}&page=${page}&pageSize=${pageSize}`
+   
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
@@ -250,7 +255,7 @@ class ComprasControllers {
         try {
             const apiUrl = `${url}/api/compras/fabricante.xsjs?idFab=${idFabricante}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
-
+          
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Error no ComprasControllers.getListaFabricantes:", error);

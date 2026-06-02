@@ -173,21 +173,13 @@ routes.post('/gnre',
             };
 
             const aguardar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
             const gnre = new GNRE();
-
-            /*
-                ENVIO GNRE
-            */
             const retornoEnvio = await gnre.enviarParaSefaz( req.body);
 
             if (!retornoEnvio.success) {
                 return res.status(400).json(retornoEnvio);
             }
 
-            /*
-                RECIBO
-            */
             const numeroRecibo =
                 retornoEnvio?.recibo?.['ns1:numero'] ||
                 retornoEnvio?.recibo?.numero ||
@@ -199,18 +191,12 @@ routes.post('/gnre',
                 ?.['ns1:recibo']
                 ?.['ns1:numero'];
 
-            const numeroReciboConsulta = numeroRecibo
-                ? String(numeroRecibo).replace(/\D/g, '').slice(0, 14)
-                : null;
+            const numeroReciboConsulta = numeroRecibo ? String(numeroRecibo).replace(/\D/g, '').slice(0, 14) : null;
 
             let consulta = null;
 
-            /*
-                CONSULTA LOTE
-            */
             if (numeroReciboConsulta) {
                 consulta = await gnre.consultarLote(numeroReciboConsulta);
-
                 let codigoSituacao = extrairCodigoSituacaoLote(consulta?.jsonResposta);
 
                 // Enquanto lote estiver em processamento, tenta poucas reconsultas.

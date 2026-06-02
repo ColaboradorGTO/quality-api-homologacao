@@ -65,17 +65,16 @@ export default class GNRE {
         return String(valor).replace(/\D/g, '');
     }
 
-    // Substitua toda a função buscarCodigoMunicipioGNRE por isso:
-normalizarMunicipioGNRE(codigoIBGE = '') {
-    // GNRE aceita exatamente 5 dígitos numéricos (IBGE sem o dígito verificador)
-    const apenas5 = String(codigoIBGE).replace(/\D/g, '').slice(0, 5);
+    normalizarMunicipioGNRE(codigoIBGE = '') {
 
-    if (apenas5.length !== 5) {
-        console.warn(`[GNRE] Código de município inválido: '${codigoIBGE}' → '${apenas5}'`);
+        const apenas5 = String(codigoIBGE).replace(/\D/g, '').slice(0, 5);
+
+        if (apenas5.length !== 5) {
+            console.warn(`[GNRE] Código de município inválido: '${codigoIBGE}' → '${apenas5}'`);
+        }
+
+        return apenas5;
     }
-
-    return apenas5;
-}
 
     salvarRetornoXmlSefaz(tipo, xml, id = '') {
         if (!xml || typeof xml !== 'string') {
@@ -103,30 +102,28 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
 
     async buscarCodigoMunicipioGNRE(codigoIBGE, uf, ufFavorecida = null) {
         try {
-            // Normaliza o código IBGE recebido (remove não-numéricos)
             const ibgeNormalizado = String(codigoIBGE).replace(/\D/g, '');
-
-            // Monta o XML de consulta de municípios por UF
             const xmlConsulta = `<?xml version="1.0" encoding="utf-8"?>
-<soapenv:Envelope
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:xsd="http://www.w3.org/2001/XMLSchema"
- xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-    <soapenv:Header>
-        <gnreCabecMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreConsultaConfigUf">
-            <versaoDados>2.00</versaoDados>
-        </gnreCabecMsg>
-    </soapenv:Header>
-    <soapenv:Body>
-        <gnreDadosMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreConsultaConfigUf">
-            <TConsultaConfigUf xmlns="http://www.gnre.pe.gov.br">
-                <ambiente>2</ambiente>
-                <uf>${ufFavorecida || uf}</uf>
-                <receita>${this.receita || '100102'}</receita>
-            </TConsultaConfigUf>
-        </gnreDadosMsg>
-    </soapenv:Body>
-</soapenv:Envelope>`;
+                <soapenv:Envelope
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                    <soapenv:Header>
+                        <gnreCabecMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreConsultaConfigUf">
+                            <versaoDados>2.00</versaoDados>
+                        </gnreCabecMsg>
+                    </soapenv:Header>
+                    <soapenv:Body>
+                        <gnreDadosMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreConsultaConfigUf">
+                            <TConsultaConfigUf xmlns="http://www.gnre.pe.gov.br">
+                                <ambiente>2</ambiente>
+                                <uf>${ufFavorecida || uf}</uf>
+                                <receita>${this.receita || '100102'}</receita>
+                            </TConsultaConfigUf>
+                        </gnreDadosMsg>
+                    </soapenv:Body>
+                </soapenv:Envelope>
+            `;
 
             const URL_CONFIG_UF = 'https://www.testegnre.pe.gov.br/gnreWS/services/GnreConsultaConfigUf';
 
@@ -253,11 +250,9 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
             };
 
             const pdfBuffer = await PDFGNRE.gerarBuffer({ nfe, calculo, estrutura });
-
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             const nomeArquivo = `gnre_${String(payload?.nnf || 'sem_nnf')}_${timestamp}.pdf`;
             const caminhoPdf = path.join(pastaSaida, nomeArquivo);
-
             PDFGNRE.salvar(pdfBuffer, caminhoPdf);
 
             return {
@@ -274,106 +269,76 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
     }
 
     async gerarXML(payload) {
+        const emitCnpj = this.removerMascara(payload.emitente.CNPJ);
+        const documentoOrigem = String(payload?.nnf || '').replace(/\D/g, '');
+        const ufFavorecida = payload?.destinatario?.UF || '';
+        const valor = Number(payload.valorNota || 0).toFixed(2).trim();
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const municipioEmitente = String(payload.emitente.municipioEmitente || '').padStart(5, '0');
 
-    const emitCnpj = this.removerMascara(payload.emitente.CNPJ);
+        return `
+            <TLote_GNRE versao="2.00" xmlns="http://www.gnre.pe.gov.br">
+                <guias>
+                    <TDadosGNRE versao="2.00">
+                        <ufFavorecida>${ufFavorecida}</ufFavorecida>
+                        <tipoGnre>0</tipoGnre>
+                        <contribuinteEmitente>
 
-    const documentoOrigem = String(payload?.nnf || '').replace(/\D/g, '');
+                            <identificacao>
+                                <CNPJ>${emitCnpj}</CNPJ>
+                            </identificacao>
+                            <razaoSocial>${payload.emitente.xNome}</razaoSocial>
+                            <endereco>${payload.emitente.xLgr}</endereco>
+                            <municipio>${municipioEmitente}</municipio>
+                            <uf>${payload.emitente.state}</uf>
+                            <cep>${this.removerMascara(payload.emitente.CEP)}</cep>
+                            <telefone>${this.removerMascara(payload.emitente.fone || '')}</telefone>
 
-    const ufFavorecida = payload?.destinatario?.UF || '';
+                        </contribuinteEmitente>
 
-   const valor = Number(payload.valorNota || 0)
-    .toFixed(2)
-    .trim();
+                        <itensGNRE>
 
-    const hoje = new Date();
+                            <item>
+                                <receita>${payload.receita}</receita>
+                                <documentoOrigem tipo="${payload.tipoDocumento || 10}">${documentoOrigem}</documentoOrigem>
+                                <referencia>
+                                    <periodo>0</periodo>
+                                    <mes>${mes}</mes>
+                                    <ano>${ano}</ano>
+                                </referencia>
+                                <dataVencimento>${payload.dataVencimento}</dataVencimento>
+                                <valor tipo="21">${valor}</valor>
 
-    const ano = hoje.getFullYear();
+                                <contribuinteDestinatario>
+                                    <identificacao>
+                                        <CNPJ>${this.removerMascara(payload.destinatario.CNPJ)}</CNPJ>
+                                    </identificacao>
+                                    <razaoSocial>${payload.destinatario.xNomeDestinatario}</razaoSocial>
+                                    <municipio>${payload.destinatario.municipioDestinatario}</municipio>
+                                </contribuinteDestinatario>
+                                <camposExtras>
+                                    <campoExtra>
+                                        <codigo>113</codigo>
+                                        <valor>${payload.chave}</valor>
+                                    </campoExtra>
 
-    const mes = String(
-        hoje.getMonth() + 1
-    ).padStart(2, '0');
+                                    <campoExtra>
+                                        <codigo>112</codigo>
+                                        <valor>33</valor>
+                                    </campoExtra>
+                                </camposExtras>
+                            </item>
 
-    // IMPORTANTE:
-    // usar exatamente o código GNRE do portal
-    // Brasília = 00108
-    const municipioEmitente =
-        String(payload.emitente.municipioEmitente || '')
-            .padStart(5, '0');
-
-    return `
-<TLote_GNRE versao="2.00" xmlns="http://www.gnre.pe.gov.br">
-    <guias>
-
-        <TDadosGNRE versao="2.00">
-
-            <ufFavorecida>${ufFavorecida}</ufFavorecida>
-
-            <tipoGnre>0</tipoGnre>
-
-            <contribuinteEmitente>
-
-                <identificacao>
-                    <CNPJ>${emitCnpj}</CNPJ>
-                </identificacao>
-
-                <razaoSocial>${payload.emitente.xNome}</razaoSocial>
-
-                <endereco>${payload.emitente.xLgr}</endereco>
-
-                <municipio>${municipioEmitente}</municipio>
-
-                <uf>${payload.emitente.state}</uf>
-
-                <cep>${this.removerMascara(payload.emitente.CEP)}</cep>
-
-                <telefone>${this.removerMascara(payload.emitente.fone || '')}</telefone>
-
-            </contribuinteEmitente>
-
-            <itensGNRE>
-
-                <item>
-                    <receita>${payload.receita}</receita>
-                    <documentoOrigem tipo="${payload.tipoDocumento || 10}">${documentoOrigem}</documentoOrigem>
-                    <referencia>
-                        <periodo>0</periodo>
-                        <mes>${mes}</mes>
-                        <ano>${ano}</ano>
-                    </referencia>
-                    <dataVencimento>${payload.dataVencimento}</dataVencimento>
-                    <valor tipo="21">${valor}</valor>
-
-                     <contribuinteDestinatario>
-                        <identificacao>
-                            <CNPJ>${this.removerMascara(payload.destinatario.CNPJ)}</CNPJ>
-                        </identificacao>
-                        <razaoSocial>${payload.destinatario.xNomeDestinatario}</razaoSocial>
-                        <municipio>${payload.destinatario.municipioDestinatario}</municipio>
-                    </contribuinteDestinatario>
-                    <camposExtras>
-                        <campoExtra>
-                            <codigo>113</codigo>
-                            <valor>${payload.chave}</valor>
-                        </campoExtra>
-
-                        <campoExtra>
-                            <codigo>112</codigo>
-                            <valor>33</valor>
-                        </campoExtra>
-                    </camposExtras>
-                </item>
-
-            </itensGNRE>
-            <valorGNRE>${valor}</valorGNRE>
-            <dataPagamento>${payload.dataPagamento}</dataPagamento>
-        </TDadosGNRE>
-
-    </guias>
-
-</TLote_GNRE>
-`.trim();
-
-}
+                        </itensGNRE>
+                        <valorGNRE>${valor}</valorGNRE>
+                        <dataPagamento>${payload.dataPagamento}</dataPagamento>
+                    </TDadosGNRE>
+                </guias>
+            </TLote_GNRE>
+        `.trim();
+    }
 
     async montarSOAP(xmlGNRE) {
 
@@ -399,7 +364,6 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
 
     async enviarParaSefaz(payload) {
 
-
         try {
             const xmlGNRE = await this.gerarXML(payload);
             const soapXML = await this.montarSOAP(xmlGNRE);
@@ -407,10 +371,7 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
                 this.URL_ENVIO,
                 soapXML,
                 {
-                    headers: {
-                        'Content-Type': 'text/xml; charset=utf-8',
-                        SOAPAction: 'processar'
-                    },
+                    headers: {'Content-Type': 'text/xml; charset=utf-8',SOAPAction: 'processar'},
                     httpsAgent: this.httpsAgent,
                     timeout: 60000
                 }
@@ -471,63 +432,37 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
             numeroRecibo = String(numeroRecibo).trim();
 
             const xmlConsulta = `<?xml version="1.0" encoding="utf-8"?>
-<soapenv:Envelope
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:xsd="http://www.w3.org/2001/XMLSchema"
- xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                <soapenv:Envelope
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
 
-    <soapenv:Header>
+                    <soapenv:Header>
+                        <gnreCabecMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote"><versaoDados>2.00</versaoDados></gnreCabecMsg>
+                    </soapenv:Header>
 
-        <gnreCabecMsg
-         xmlns="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote">
-
-            <versaoDados>2.00</versaoDados>
-
-        </gnreCabecMsg>
-
-    </soapenv:Header>
-
-    <soapenv:Body>
-
-        <gnreDadosMsg
-         xmlns="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote">
-
-            <TConsLote_GNRE xmlns="http://www.gnre.pe.gov.br">
-
-                <ambiente>2</ambiente>
-
-                <numeroRecibo>${numeroRecibo}</numeroRecibo>
-
-            </TConsLote_GNRE>
-
-        </gnreDadosMsg>
-
-    </soapenv:Body>
-
-</soapenv:Envelope>`;
+                    <soapenv:Body>
+                        <gnreDadosMsg xmlns="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote">
+                            <TConsLote_GNRE xmlns="http://www.gnre.pe.gov.br">
+                                <ambiente>2</ambiente>
+                                <numeroRecibo>${numeroRecibo}</numeroRecibo>
+                            </TConsLote_GNRE>
+                        </gnreDadosMsg>
+                    </soapenv:Body>
+                </soapenv:Envelope>`;
 
             const response = await axios.post(
                 this.URL_CONSULTA,
                 xmlConsulta,
                 {
-                    headers: {
-                        'Content-Type': 'text/xml; charset=utf-8',
-                        SOAPAction: 'consultar'
-                    },
+                    headers: {'Content-Type': 'text/xml; charset=utf-8', SOAPAction: 'consultar'},
                     httpsAgent: this.httpsAgent,
                     timeout: 60000
                 }
             );
 
             const xmlResposta = response.data;
-
-            const jsonResposta = await xml2js.parseStringPromise(
-                xmlResposta,
-                {
-                    explicitArray: false
-                }
-            );
-
+            const jsonResposta = await xml2js.parseStringPromise(xmlResposta, { explicitArray: false});
             const retornoLote = jsonResposta?.['soapenv:Envelope']?.['soapenv:Body']?.gnreRespostaMsg?.['ns1:TResultLote_GNRE'];
             const situacaoProcess = retornoLote?.['ns1:situacaoProcess'];
             const codigo = situacaoProcess?.['ns1:codigo'];
@@ -541,16 +476,11 @@ normalizarMunicipioGNRE(codigoIBGE = '') {
                 xmlResposta,
                 jsonResposta
             };
-
         } catch (error) {
-
             return {
                 success: false,
                 erro: error?.response?.data || error.message
             };
-
         }
-
     }
-
 }
