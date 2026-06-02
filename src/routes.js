@@ -13,7 +13,8 @@ import ExpedicaoControllers from './Expedicao/controllers/index.js';
 import DashBoardControllers from './DashBoard/controllers/DashBoard.js';
 import VendasControllers from './Vendas/controllers/Vendas.js';
 import ResumoVoucherControllers from './ResumoVoucher/controllers/index.js';
-import ComercialControllers from './Comercial/controllers/Comercial.js';
+//import ComercialControllers from './Comercial/controllers/Comercial.js';
+import ComercialControllers from './Comercial/Comercial/controller/comercialControler.js';
 import ComprasControllers from './Compras/controllers/Compras.js';
 import CadastroControllers from './Cadastro/controllers/Cadastro.js';
 import ProdutoControllers from './Produtos/controllers/Produtos.js';
@@ -80,6 +81,9 @@ import FaturaControllers from './Administrativo/Fatura/controller/faturaControll
 import GERAlteracaoPrecoControllers from './Gerencia/AlteracaoPreco/controllers/index.js'
 //  Comercial
 import ComercialProdutoControllers from './Comercial/Produto/controllers/index.js'
+import EstoqueControllersComercial from './Comercial/estoque/controller/controllerEstoque.js'
+import MetasControllers from './Comercial/metas/controller/MetaController.js'
+import PremiacaoControllers from './Comercial/premiacao/controller/ControllerPermiacao.js'
 
 import ModulosControllers from './Modulos/controllers/modulos.js';
 import DanfeControllers from './Danfe/controllers/danfe.js';
@@ -623,25 +627,39 @@ routes.post('/auth-funcionario-print-voucher', ResumoVoucherControllers.postAuth
 routes.post('/auth-autorizar-excecao-venda', ResumoVoucherControllers.postAuthAutorizarExecaoVenda)
 
 // Comercial
-routes.get('/listaProdutoSap', ComercialControllers.getListaProdutoSap)
+//routes.get('/listaProdutoSap', ComercialControllers.getListaProdutoSap)
+routes.get('/listaProdutoSap', ComercialProdutoControllers.getListaProdutoSap)
+//routes.get('/listaEmpresaComercial', ComercialControllers.getListaEmpresaComercial)
 routes.get('/listaEmpresaComercial', ComercialControllers.getListaEmpresaComercial)
 // routes.get('/listaVendasPorProduto', ComercialControllers.getListaVendasEstruturaProdutos)
+ routes.get('/listaVendasPorProduto', ComercialProdutoControllers.getListaVendasEstruturaProdutos)
 routes.get('/venda-marca-periodo-comercial', ComercialControllers.getListaVendasMarcaPorPeriodoComercial)
 routes.get('/vendas-estoque-grupo-subGrupo', ComercialControllers.getListaVendasEstoqueGrupoSubGrupoComercial)
-routes.get('/produtosPrecosEstoquesLojas', ComercialControllers.getListaProdutosEstoquePrecoLoja)
-routes.get('/vendasEstoqueProduto', ComercialControllers.getListaVendasPosicionamentoEstoquePeriodos)
+routes.get('/produtosPrecosEstoquesLojas', EstoqueControllersComercial.getListaProdutosEstoquePrecoLoja)
+//routes.get('/produtosPrecosEstoquesLojas', ComercialControllers.getListaProdutosEstoquePrecoLoja)
+//routes.get('/vendasEstoqueProduto', ComercialControllers.getListaVendasPosicionamentoEstoquePeriodos)
+routes.get('/vendasEstoqueProduto', EstoqueControllersComercial.getListaVendasPosicionamentoEstoquePeriodos)
 routes.get('/funcionario-relatorio', ComercialControllers.getListaColaboradorRelatorio)
 routes.get('/custoPorLoja', ComercialControllers.getListaVendasCustoLojas)
-routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPosicionamentoEstoque)
-routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)
-routes.get('/listaMetaVendas', ComercialControllers.getListaMetasGrupo)
-routes.get('/listaPremiacoes', ComercialControllers.getListaPremiacoesPeriodo)
-routes.get('/lista-premios-gerente', ComercialControllers.getListaPremiosGerente)
-routes.get('/meta-vendas', ComercialControllers.getListaMetasVendas)
-routes.get('/meta-vendas-resumida', ComercialControllers.getListaMetasVendasResumida)
-routes.get('/lista-premiacao-cadastrada', ComercialControllers.getListaPremiacaoCadastrada)
+//routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPosicionamentoEstoque)
+routes.get('/vendasPosicionamentoEstoque', EstoqueControllersComercial.getListaVendasPosicionamentoEstoque)
+//routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)
+routes.get('/colaboradorProdutosVendidos', ComercialProdutoControllers.getListaColaboradorProdutosVendidos)
+//routes.get('/listaMetaVendas', ComercialControllers.getListaMetasGrupo)
+routes.get('/listaMetaVendas', MetasControllers.getListaMetasGrupo)
+//routes.get('/listaPremiacoes', ComercialControllers.getListaPremiacoesPeriodo)
+routes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)
+//routes.get('/lista-premios-gerente', ComercialControllers.getListaPremiosGerente)
+routes.get('/lista-premios-gerente', PremiacaoControllers.getListaPremiosGerente)
+//routes.get('/meta-vendas', ComercialControllers.getListaMetasVendas)
+routes.get('/meta-vendas', MetasControllers.getListaMetasVendas)
+//routes.get('/meta-vendas-resumida', ComercialControllers.getListaMetasVendasResumida)
+routes.get('/meta-vendas-resumida', MetasControllers.getListaMetasVendasResumida)
+//routes.get('/lista-premiacao-cadastrada', ComercialControllers.getListaPremiacaoCadastrada)
+routes.get('/lista-premiacao-cadastrada', PremiacaoControllers.getListaPremiacaoCadastrada)
 
-routes.post('/cadastra-premiacoes', ComercialControllers.postCadastrarPremiacoes)
+//routes.post('/cadastra-premiacoes', ComercialControllers.postCadastrarPremiacoes)
+routes.post('/cadastra-premiacoes', PremiacaoControllers.postCadastrarPremiacoes)
 
 // routes.get('/listaGrupoProduto', ComercialControllers.getListaGrupoProduto)
 // routes.get('/listaSubGrupoProduto', ComercialControllers.getListaSubGrupoProduto)
