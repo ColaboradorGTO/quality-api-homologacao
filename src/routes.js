@@ -865,6 +865,7 @@ routes.put('/atualizar-pedido/:id', ComprasControllers.putPedido)
 routes.put('/atualizacao-status-pedido/:id', ComprasControllers.putAtualizarStatusPedido)
 routes.put('/atualizacao-status-produto-pedido/:id', ComprasControllers.putAtualizarStatusProdutoPedido)
 routes.put('/distribuicao-compras-historico/:id', ComprasControllers.putDistribuicaoComprasHistorico)
+routes.put('/lista-pedidos/:id', ComprasControllers.putListaPedidos)
 
 // POST
 routes.post('/cadastrarCondicaoPagamento', ComprasControllers.postCondicaoPagamento)
