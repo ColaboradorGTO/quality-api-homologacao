@@ -1715,6 +1715,28 @@ class ComprasControllers {
             throw error;
         }
     }
+
+    async putListaPedidos(req, res) {
+        let {  
+            IDRESUMOPEDIDO,
+    
+        } = req.body;
+
+        try {
+            const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?IDRESUMOPEDIDO=${IDRESUMOPEDIDO}`
+        
+            const response = await axios.post(apiUrl, [{
+                IDRESUMOPEDIDO,
+            }]);
+     
+          
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putListaPedidos:", error);
+            throw error;
+        }
+    }
+
     // CREATE
     async postSubGrupoEstrutura(req, res) {
         let {
