@@ -2360,6 +2360,27 @@ class ComprasControllers {
             throw error;
         }
     }
+
+    async postDetalhePedido(req, res) {
+        let {  
+            IDRESUMOPEDIDO,
+    
+        } = req.body;
+
+        try {
+            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs`
+        
+            const response = await axios.post(apiUrl, [{
+                IDRESUMOPEDIDO,
+            }]);
+     
+          
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.postDetalhePedido:", error);
+            throw error;
+        }
+    }
 }
 
 export default new ComprasControllers();
