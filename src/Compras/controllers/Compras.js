@@ -39,18 +39,27 @@ class ComprasControllers {
         }
     }
     async getListaDetalhePedidos(req, res) {
-        let { idPedido, idDetalhePedido } = req.query;
+        let { idPedido, idDetalhePedido, dsProduto, refProduto, somenteGradeAtiva, dataPesquisaInicio, dataPesquisaFim, streposicao,sttransformado, page, pageSize } = req.query;
         idPedido = idPedido ? idPedido : '';
         idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
+        dsProduto = dsProduto ? dsProduto : '';
+        refProduto = refProduto ? refProduto : '';
+        somenteGradeAtiva = somenteGradeAtiva ? somenteGradeAtiva : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        streposicao = streposicao ? streposicao : '';
+        sttransformado = sttransformado ? sttransformado : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
 
         try {
 
-            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs?idpedido=${idPedido}&id=${idDetalhePedido}`;
+            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs?idpedido=${idPedido}&id=${idDetalhePedido}&dsProduto=${dsProduto}&refProduto=${refProduto}&somenteGradeAtiva=${somenteGradeAtiva}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&streposicao=${streposicao}&sttransformado=${sttransformado}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
        
             return res.json(response.data); 
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("Erro no ComprasControllers.getListaDetalhePedidos:", error);
             throw error;
         }
     }
@@ -60,7 +69,7 @@ class ComprasControllers {
         idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
 
         try {
-            // const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs?idpedido=${idPedido}`;
+           
             const apiUrl = `${url}/api/compras/lista_detalhepedidogradeedit.xsjs?idDetPedido=${idDetalhePedido}&page=1`;
             const response = await axios.get(apiUrl)
             return res.json(response.data); 
@@ -232,6 +241,7 @@ class ComprasControllers {
         fornecedorPedido = fornecedorPedido ? fornecedorPedido : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
+
 
         try {
 
@@ -1720,12 +1730,12 @@ class ComprasControllers {
         let {  
             IDRESUMOPEDIDO,
     
-        } = req.body;
+        } = req.query;
 
         try {
-            const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?IDRESUMOPEDIDO=${IDRESUMOPEDIDO}`
+            const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?idrespedido=${IDRESUMOPEDIDO}`
         
-            const response = await axios.post(apiUrl, [{
+            const response = await axios.put(apiUrl, [{
                 IDRESUMOPEDIDO,
             }]);
      
@@ -2386,7 +2396,40 @@ class ComprasControllers {
     async postDetalhePedido(req, res) {
         let {  
             IDRESUMOPEDIDO,
-    
+            IDCOR,
+            IDSUBGRUPOESTRUTURA,
+            IDCATEGORIAPEDIDO,
+            IDTIPOTECIDO,
+            IDESTILO,
+            IDFABRICANTE,
+            IDLOCALEXPOSICAO,
+            NUREF,
+            DSPRODUTO,
+            QTDTOTAL,
+            NUCAIXA,
+            UND,
+            VRUNITBRUTO,
+            DESC01,
+            DESC02,
+            DESC03,
+            VRUNITLIQUIDO,
+            VRVENDA,
+            VRTOTAL,
+            STRECEBIDO,
+            STECOMMERCE,
+            STREDESOCIAL,
+            STCANCELADO,
+            GRADE,
+            VRCUSTOPRODATUAL,
+            VRVENDAPRODATUAL,
+            OBSPRODUTO,
+            STTRANSFORMADO,
+            IDCATEGORIAS,
+            STREPOSICAO,
+            NUCODBARRAS,
+            IDPRODUTO,
+            IDRESPCADASTRO,
+            STPEDIDOPORINTEMEDIARIO
         } = req.body;
 
         try {
@@ -2394,6 +2437,40 @@ class ComprasControllers {
         
             const response = await axios.post(apiUrl, [{
                 IDRESUMOPEDIDO,
+                IDCOR,
+                IDSUBGRUPOESTRUTURA,
+                IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO,
+                IDESTILO,
+                IDFABRICANTE,
+                IDLOCALEXPOSICAO,
+                NUREF,
+                DSPRODUTO,
+                QTDTOTAL,
+                NUCAIXA,
+                UND,
+                VRUNITBRUTO,
+                DESC01,
+                DESC02,
+                DESC03,
+                VRUNITLIQUIDO,
+                VRVENDA,
+                VRTOTAL,
+                STRECEBIDO,
+                STECOMMERCE,
+                STREDESOCIAL,
+                STCANCELADO,
+                GRADE,
+                VRCUSTOPRODATUAL,
+                VRVENDAPRODATUAL,
+                OBSPRODUTO,
+                STTRANSFORMADO,
+                IDCATEGORIAS,
+                STREPOSICAO,
+                NUCODBARRAS,
+                IDPRODUTO,
+                IDRESPCADASTRO,
+                STPEDIDOPORINTEMEDIARIO
             }]);
      
           
