@@ -89,4 +89,30 @@ export class ComprasClient {
       
         return response.data;
     }
+
+    async atualizarDistribuicaoHistorico(
+        IDDISTRIBUICAOCOMPRASHISTORICO,
+        IDPEDIDOCOMPRA,
+        IDEMPRESA,
+        IDFILIAL,
+        CODBARRAS,
+        QTDSUGESTAOALTERACAOHISTORICO,
+        IDUSUARIOALTERACAO,
+        IDUSUARIO,
+        FINALIZAR
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/distribuicao-compras-historico.xsjs`, [{
+            IDDISTRIBUICAOCOMPRASHISTORICO,
+            IDPEDIDOCOMPRA,
+            IDEMPRESA,
+            IDFILIAL,
+            CODBARRAS,
+            QTDSUGESTAOALTERACAOHISTORICO,
+            IDUSUARIOALTERACAO,
+            IDUSUARIO,
+            FINALIZAR
+        }]);
+        return response.data;
+    }
 }

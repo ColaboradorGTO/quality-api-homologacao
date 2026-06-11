@@ -94,4 +94,33 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateDistribuicaoHistorico(
+        IDDISTRIBUICAOCOMPRASHISTORICO,
+        IDPEDIDOCOMPRA,
+        IDEMPRESA,
+        IDFILIAL,
+        CODBARRAS,
+        QTDSUGESTAOALTERACAOHISTORICO,
+        IDUSUARIOALTERACAO,
+        IDUSUARIO,
+        FINALIZAR
+    ) {
+        if(!IDPEDIDOCOMPRA) {
+            throw new Error('ID do pedido de compra é obrigatório.');
+        }
+
+        const response = await this.client.atualizarDistribuicaoHistorico(
+            IDDISTRIBUICAOCOMPRASHISTORICO,
+            IDPEDIDOCOMPRA,
+            IDEMPRESA,
+            IDFILIAL,
+            CODBARRAS,
+            QTDSUGESTAOALTERACAOHISTORICO,
+            IDUSUARIOALTERACAO,
+            IDUSUARIO,
+            FINALIZAR
+        );
+        return response.data;
+    }
 }
