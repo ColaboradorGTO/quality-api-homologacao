@@ -9,11 +9,84 @@ export class ComprasClient {
             timeout: 80000
         });
     }
+
     async atualizarStatusPedido(IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO) {
         
         const response = await this.api.put(`${url}/api/compras/atualizacao-status-pedido.xsjs`, {
             IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO
         });
+        return response.data;
+    }
+
+    async atualizarDetalhePedido(
+        idDetPedido,
+        IDCOR,
+        IDSUBGRUPOESTRUTURA,
+        IDCATEGORIAPEDIDO,
+        IDTIPOTECIDO,
+        IDESTILO,
+        IDFABRICANTE,
+        IDLOCALEXPOSICAO,
+        NUREF,
+        DSPRODUTO,
+        QTDTOTAL,
+        NUCAIXA,
+        UND,
+        VRUNITBRUTO,
+        DESC01,
+        DESC02,
+        DESC03,
+        VRUNITLIQUIDO,
+        VRVENDA,
+        VRTOTAL,
+        STECOMMERCE,
+        STREDESOCIAL,
+        VRCUSTOPRODATUAL,
+        VRVENDAPRODATUAL,
+        OBSPRODUTO,
+        IDCATEGORIAS,
+        STREPOSICAO,
+        NUCODBARRAS,
+        IDPRODUTO,
+        IDRESPATUALIZACAO,
+        GRADE,
+        STPEDIDOPORINTEMEDIARIO    
+    ) {
+        const response = await this.api.put(`${url}/api/compras/lista_detalhepedidos.xsjs`, [{
+            idDetPedido,
+            IDCOR,
+            IDSUBGRUPOESTRUTURA,
+            IDCATEGORIAPEDIDO,
+            IDTIPOTECIDO,
+            IDESTILO,
+            IDFABRICANTE,
+            IDLOCALEXPOSICAO,
+            NUREF,
+            DSPRODUTO,
+            QTDTOTAL,
+            NUCAIXA,
+            UND,
+            VRUNITBRUTO,
+            DESC01,
+            DESC02,
+            DESC03,
+            VRUNITLIQUIDO,
+            VRVENDA,
+            VRTOTAL,
+            STECOMMERCE,
+            STREDESOCIAL,
+            VRCUSTOPRODATUAL,
+            VRVENDAPRODATUAL,
+            OBSPRODUTO,
+            IDCATEGORIAS,
+            STREPOSICAO,
+            NUCODBARRAS,
+            IDPRODUTO,
+            IDRESPATUALIZACAO,
+            GRADE,
+            STPEDIDOPORINTEMEDIARIO
+        }]);
+      
         return response.data;
     }
 }

@@ -4,10 +4,15 @@ import 'dotenv/config';
 const url = process.env.API_URL;
 // const url = process.env.API_URL_HML;
 import atualizarStatusPedidoSchema from "../schema/atualizarStatusPedido.js";
+import atualizarDetalhePedidoSchema from "../schema/atualizarDetalhePedido.js";
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
-const statusClient = new ComprasClient(process.env.API_URL);
-const statusService = new ComprasService(statusClient);
+const comprasClient = new ComprasClient(process.env.API_URL);
+const comprasService = new ComprasService(comprasClient);
+
+// const detalhePedidoClient = new ComprasClient(process.env.API_URL);
+// const detalhePedidoService = new ComprasService(detalhePedidoClient);
+
 class ComprasControllers {
 
     async getListaTodosPedidos(req, res) {
@@ -1455,7 +1460,7 @@ class ComprasControllers {
                 });  
             }
 
-            const response = await statusService.updateStatusPedido(
+            const response = await comprasService.updateStatusPedido(
                 value.IDRESUMOPEDIDO,
                 value.IDANDAMENTO,
                 value.IDRESPCANCELAMENTO,
@@ -1463,7 +1468,7 @@ class ComprasControllers {
                 value.DTCANCELAMENTO,
                 value.STCANCELADO
             );
-            
+
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putAtualizarStatusPedido:", error);
@@ -1737,11 +1742,12 @@ class ComprasControllers {
     }
 
     async putListaPedidos(req, res) {
-        let {  
-            IDRESUMOPEDIDO,
-    
-        } = req.query;
+        let { IDRESUMOPEDIDO } = req.query;
 
+        if(!IDRESUMOPEDIDO) {
+            return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+        }
+        
         try {
             const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?idrespedido=${IDRESUMOPEDIDO}`
         
@@ -1757,82 +1763,61 @@ class ComprasControllers {
         }
     }
 
-      async putDetalhePedido(req, res) {
-        let {  
-            idDetPedido,
-            IDCOR,
-            IDSUBGRUPOESTRUTURA,
-            IDCATEGORIAPEDIDO,
-            IDTIPOTECIDO,
-            IDESTILO,
-            IDFABRICANTE,
-            IDLOCALEXPOSICAO,
-            NUREF,
-            DSPRODUTO,
-            QTDTOTAL,
-            NUCAIXA,
-            UND,
-            VRUNITBRUTO,
-            DESC01,
-            DESC02,
-            DESC03,
-            VRUNITLIQUIDO,
-            VRVENDA,
-            VRTOTAL,
-            STECOMMERCE,
-            STREDESOCIAL,
-            VRCUSTOPRODATUAL,
-            VRVENDAPRODATUAL,
-            OBSPRODUTO,
-            IDCATEGORIAS,
-            STREPOSICAO,
-            NUCODBARRAS,
-            IDPRODUTO,
-            IDRESPATUALIZACAO,
-            GRADE,
-            STPEDIDOPORINTEMEDIARIO
-        } = req.body;
-
+    async putDetalhePedido(req, res) {
         try {
-            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs`
-        
-            const response = await axios.put(apiUrl, [{
-                idDetPedido,
-                IDCOR,
-                IDSUBGRUPOESTRUTURA,
-                IDCATEGORIAPEDIDO,
-                IDTIPOTECIDO,
-                IDESTILO,
-                IDFABRICANTE,
-                IDLOCALEXPOSICAO,
-                NUREF,
-                DSPRODUTO,
-                QTDTOTAL,
-                NUCAIXA,
-                UND,
-                VRUNITBRUTO,
-                DESC01,
-                DESC02,
-                DESC03,
-                VRUNITLIQUIDO,
-                VRVENDA,
-                VRTOTAL,
-                STECOMMERCE,
-                STREDESOCIAL,
-                VRCUSTOPRODATUAL,
-                VRVENDAPRODATUAL,
-                OBSPRODUTO,
-                IDCATEGORIAS,
-                STREPOSICAO,
-                NUCODBARRAS,
-                IDPRODUTO,
-                IDRESPATUALIZACAO,
-                GRADE,
-                STPEDIDOPORINTEMEDIARIO
-            }]);
+            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+          
+            const response = await comprasService.updateDetalhePedido(
+                value.idDetPedido,
+                value.IDCOR,
+                value.IDSUBGRUPOESTRUTURA,
+                value.IDCATEGORIAPEDIDO,
+                value.IDTIPOTECIDO,
+                value.IDESTILO,
+                value.IDFABRICANTE,
+                value.IDLOCALEXPOSICAO,
+                value.NUREF,
+                value.DSPRODUTO,
+                value.QTDTOTAL,
+                value.NUCAIXA,
+                value.UND,
+                value.VRUNITBRUTO,
+                value.DESC01,
+                value.DESC02,
+                value.DESC03,
+                value.VRUNITLIQUIDO,
+                value.VRVENDA,
+                value.VRTOTAL,
+                value.STECOMMERCE,
+                value.STREDESOCIAL,
+                value.VRCUSTOPRODATUAL,
+                value.VRVENDAPRODATUAL,
+                value.OBSPRODUTO,
+                value.IDCATEGORIAS,
+                value.STREPOSICAO,
+                value.NUCODBARRAS,
+                value.IDPRODUTO,
+                value.IDRESPATUALIZACAO,
+                value.GRADE,
+                value.STPEDIDOPORINTEMEDIARIO
+            );
      
           
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putDetalhePedido:", error);
             throw error;
@@ -2577,3 +2562,4 @@ class ComprasControllers {
 export default new ComprasControllers();
 
 
+// 2580 linhas antes da refatoração

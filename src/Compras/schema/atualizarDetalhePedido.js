@@ -63,31 +63,31 @@ const atualizarDetalhePedidoSchema = Joi.object({
     .messages({
         'number.base': 'UND deve ser um número inteiro',
     }),
-    VRUNITBRUTO: Joi.number().float()
+    VRUNITBRUTO: Joi.number()
     .messages({
         'number.base': 'VRUNITBRUTO deve ser um número',
     }),
-    DESC01: Joi.number().float()
+    DESC01: Joi.number()
     .messages({
         'number.base': 'DESC01 deve ser um número',
     }),
-    DESC02: Joi.number().float()
+    DESC02: Joi.number()
     .messages({
         'number.base': 'DESC02 deve ser um número',
     }),
-    DESC03: Joi.number().float()
+    DESC03: Joi.number()
     .messages({
         'number.base': 'DESC03 deve ser um número',
     }),
-    VRUNITLIQUIDO: Joi.number().float()
+    VRUNITLIQUIDO: Joi.number()
     .messages({
         'number.base': 'VRUNITLIQUIDO deve ser um número',
     }),
-    VRVENDA: Joi.number().float()
+    VRVENDA: Joi.number()
     .messages({
         'number.base': 'VRVENDA deve ser um número',
     }),
-    VRTOTAL: Joi.number().float()
+    VRTOTAL: Joi.number()
     .messages({
         'number.base': 'VRTOTAL deve ser um número',
     }),
@@ -101,11 +101,11 @@ const atualizarDetalhePedidoSchema = Joi.object({
         'string.base': 'STREDESOCIAL deve ser uma string',
         'string.max': 'STREDESOCIAL deve ter no máximo 10 caracteres'
     }),
-    VRCUSTOPRODATUAL: Joi.number().float()
+    VRCUSTOPRODATUAL: Joi.number()
     .messages({
         'number.base': 'VRCUSTOPRODATUAL deve ser um número',
     }),
-    VRVENDAPRODATUAL: Joi.number().float()
+    VRVENDAPRODATUAL: Joi.number()
     .messages({
         'number.base': 'VRVENDAPRODATUAL deve ser um número',
     }),
@@ -135,11 +135,23 @@ const atualizarDetalhePedidoSchema = Joi.object({
         'number.base': 'IDRESPATUALIZACAO deve ser um número inteiro',
         'any.required': 'IDRESPATUALIZACAO é obrigatório'
     }),
+    GRADE: Joi.array().items(
+        Joi.object({
+            IDDETALHEPEDIDOGRADE: Joi.number().integer(),
+            IDTAMANHO: Joi.number().integer(),
+            INDICETAMANHO: Joi.number().integer(),
+            QTD: Joi.number().integer(),
+        })
+    ).optional().default([])
+    .messages({
+        'array.base': 'GRADE deve ser um array de objetos',
+        'any.required': 'GRADE é obrigatório'
+    }),
     STPEDIDOPORINTEMEDIARIO: Joi.string().allow('').max(10).optional()
     .messages({
         'string.base': 'STPEDIDOPORINTEMEDIARIO deve ser uma string',
         'string.max': 'STPEDIDOPORINTEMEDIARIO deve ter no máximo 10 caracteres'
-    }),
+    })
 });
 
 export default atualizarDetalhePedidoSchema;
