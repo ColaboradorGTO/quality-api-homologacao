@@ -1747,6 +1747,88 @@ class ComprasControllers {
         }
     }
 
+      async putDetalhePedido(req, res) {
+        let {  
+            idDetPedido,
+            IDCOR,
+            IDSUBGRUPOESTRUTURA,
+            IDCATEGORIAPEDIDO,
+            IDTIPOTECIDO,
+            IDESTILO,
+            IDFABRICANTE,
+            IDLOCALEXPOSICAO,
+            NUREF,
+            DSPRODUTO,
+            QTDTOTAL,
+            NUCAIXA,
+            UND,
+            VRUNITBRUTO,
+            DESC01,
+            DESC02,
+            DESC03,
+            VRUNITLIQUIDO,
+            VRVENDA,
+            VRTOTAL,
+            STECOMMERCE,
+            STREDESOCIAL,
+            VRCUSTOPRODATUAL,
+            VRVENDAPRODATUAL,
+            OBSPRODUTO,
+            IDCATEGORIAS,
+            STREPOSICAO,
+            NUCODBARRAS,
+            IDPRODUTO,
+            IDRESPATUALIZACAO,
+            GRADE,
+            STPEDIDOPORINTEMEDIARIO
+        } = req.body;
+
+        try {
+            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs`
+        
+            const response = await axios.put(apiUrl, [{
+                idDetPedido,
+                IDCOR,
+                IDSUBGRUPOESTRUTURA,
+                IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO,
+                IDESTILO,
+                IDFABRICANTE,
+                IDLOCALEXPOSICAO,
+                NUREF,
+                DSPRODUTO,
+                QTDTOTAL,
+                NUCAIXA,
+                UND,
+                VRUNITBRUTO,
+                DESC01,
+                DESC02,
+                DESC03,
+                VRUNITLIQUIDO,
+                VRVENDA,
+                VRTOTAL,
+                STECOMMERCE,
+                STREDESOCIAL,
+                VRCUSTOPRODATUAL,
+                VRVENDAPRODATUAL,
+                OBSPRODUTO,
+                IDCATEGORIAS,
+                STREPOSICAO,
+                NUCODBARRAS,
+                IDPRODUTO,
+                IDRESPATUALIZACAO,
+                GRADE,
+                STPEDIDOPORINTEMEDIARIO
+            }]);
+     
+          
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.putDetalhePedido:", error);
+            throw error;
+        }
+    }
+
     // CREATE
     async postSubGrupoEstrutura(req, res) {
         let {
