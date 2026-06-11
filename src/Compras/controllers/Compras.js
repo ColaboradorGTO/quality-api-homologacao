@@ -1,10 +1,13 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = process.env.API_URL_HML;
-
-
+const url = process.env.API_URL;
+// const url = process.env.API_URL_HML;
+import atualizarStatusPedidoSchema from "../schema/atualizarStatusPedido.js";
+import { ComprasClient } from "../client/index.js";
+import { ComprasService } from "../services/index.js";
+const statusClient = new ComprasClient(process.env.API_URL);
+const statusService = new ComprasService(statusClient);
 class ComprasControllers {
 
     async getListaTodosPedidos(req, res) {
@@ -1436,28 +1439,35 @@ class ComprasControllers {
     }
 
     async putAtualizarStatusPedido(req, res) {
-        let { IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO } = req.query;
-
         try {
-
-            if(!IDRESUMOPEDIDO) {
-                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            const { error, value } = atualizarStatusPedidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
             }
 
-            const response = axios.put(`${url}/api/compras/atualizacao-status-pedido.xsjs`, {
-                IDRESUMOPEDIDO,
-                IDANDAMENTO,
-                IDRESPCANCELAMENTO,
-                DSMOTIVOCANCELAMENTO,
-                DTCANCELAMENTO,
-                STCANCELADO
-            })
-        
-
-            return res.json(response.data);
+            const response = await statusService.updateStatusPedido(
+                value.IDRESUMOPEDIDO,
+                value.IDANDAMENTO,
+                value.IDRESPCANCELAMENTO,
+                value.DSMOTIVOCANCELAMENTO,
+                value.DTCANCELAMENTO,
+                value.STCANCELADO
+            );
+            
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putAtualizarStatusPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1470,7 +1480,7 @@ class ComprasControllers {
                 return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
             }
 
-            const response = axios.put(`${url}/api/compras/atualizacao-status-produto-pedido.xsjs`, {
+            const response = await axios.put(`${url}/api/compras/atualizacao-status-produto-pedido.xsjs`, {
                 IDDETALHEPEDIDO, 
                 STCANCELADO, 
                 IDRESPCANCELAMENTO, 
