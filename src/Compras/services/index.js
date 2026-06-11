@@ -95,6 +95,76 @@ export class ComprasService {
         return response.data;
     }
 
+    async updatePedido(  
+        IDRESUMOPEDIDO,
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        IDCOMPRADOR,
+        IDCONDICAOPAGAMENTO,
+        IDFORNECEDOR,
+        IDTRANSPORTADORA,
+        IDANDAMENTO,
+        MODPEDIDO,
+        NOVENDEDOR,
+        EEMAILVENDEDOR,
+        DTPEDIDO,
+        DTPREVENTREGA,
+        TPFRETE,
+        DESCPERC01,
+        DESCPERC02,
+        DESCPERC03,
+        PERCCOMISSAO,
+        VRTOTALLIQUIDO,
+        OBSPEDIDO,
+        OBSPEDIDO2,
+        DTFECHAMENTOPEDIDO,
+        DTCADASTRO,
+        TPARQUIVO,
+        STDISTRIBUIDO,
+        STAGRUPAPRODUTO,
+        STCANCELADO,
+        TPFISCAL,
+        STRASCUNHO 
+    ) {
+        if(!IDRESUMOPEDIDO) {
+            throw new Error('ID do resumo do pedido é obrigatório.');
+        }
+
+   
+        const response = await this.client.atualizarPedido(
+            IDRESUMOPEDIDO,
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            IDCOMPRADOR,
+            IDCONDICAOPAGAMENTO,
+            IDFORNECEDOR,
+            IDTRANSPORTADORA,
+            IDANDAMENTO,
+            MODPEDIDO,
+            NOVENDEDOR,
+            EEMAILVENDEDOR,
+            DTPEDIDO,
+            DTPREVENTREGA,
+            TPFRETE,
+            DESCPERC01,
+            DESCPERC02,
+            DESCPERC03,
+            PERCCOMISSAO,
+            VRTOTALLIQUIDO,
+            OBSPEDIDO,
+            OBSPEDIDO2,
+            DTFECHAMENTOPEDIDO,
+            DTCADASTRO,
+            TPARQUIVO,
+            STDISTRIBUIDO,
+            STAGRUPAPRODUTO,
+            STCANCELADO,
+            TPFISCAL,
+            STRASCUNHO
+        );
+        return response.data;
+    }
+
     async updateDistribuicaoHistorico(
         IDDISTRIBUICAOCOMPRASHISTORICO,
         IDPEDIDOCOMPRA,
