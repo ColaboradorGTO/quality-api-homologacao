@@ -326,6 +326,7 @@ export class ComprasService {
         );
         return response.data;
     }
+
     async updateFornecedor(
         IDFORNECEDOR,
         IDGRUPOEMPRESARIAL,
@@ -399,6 +400,25 @@ export class ComprasService {
             TPARQUIVOPADRAO,
             TPFISCALPADRAO,
             EMAILVENDEDORPADRAO
+        );
+        return response.data;
+    }
+
+    async updateFornecedorFabricante(
+        IDFABRICANTEFORN,
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO
+    ) {
+        if(!IDFORNECEDOR) {
+            throw new Error('ID do fornecedor é obrigatório.');
+        }
+
+        const response = await this.client.atualizarFornecedorFabricante(
+            IDFABRICANTEFORN,
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO
         );
         return response.data;
     }
