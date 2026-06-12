@@ -395,4 +395,20 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+
+    async atualizarFornecedorFabricante(
+        IDFABRICANTEFORN,
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO,
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/fornecedor-fabricante.xsjs`, [{
+            IDFABRICANTEFORN,
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO,
+        }]);
+        return response.data;
+    }
 }

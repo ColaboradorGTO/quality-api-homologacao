@@ -1,6 +1,10 @@
 import Joi from 'joi';
 
 const atualizarFornecedorFabricanteSchema = Joi.object({
+    IDFABRICANTEFORN: Joi.string().allow('')
+    .messages({
+        'string.base': 'IDFABRICANTEFORN deve ser uma string',
+    }),
     IDFORNECEDOR: Joi.string().allow('')
     .messages({
         'string.base': 'IDFORNECEDOR deve ser uma string',
