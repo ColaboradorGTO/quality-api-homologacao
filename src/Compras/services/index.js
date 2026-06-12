@@ -189,6 +189,24 @@ export class ComprasService {
         return response.data;
     }
 
+    async updateReativarPedido(  
+        IDRESUMOPEDIDO,   
+        IDRESPREATIVACAO, 
+        TXTMOTIVOREATIVACAO
+    ) {
+        if(!IDRESUMOPEDIDO) {
+            throw new Error('ID do resumo do pedido é obrigatório.');
+        }
+
+   
+        const response = await this.client.reativarPedido(
+            IDRESUMOPEDIDO,   
+            IDRESPREATIVACAO, 
+            TXTMOTIVOREATIVACAO
+        );
+        return response.data;
+    }
+
     async updateFinalizarPedido(  
         IDRESUMOPEDIDO,
         IDGRUPOEMPRESARIAL,

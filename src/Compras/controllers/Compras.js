@@ -5,6 +5,12 @@ const url = process.env.API_URL;
 // const url = process.env.API_URL_HML;
 import atualizarStatusPedidoSchema from "../schema/atualizarStatusPedido.js";
 import atualizarDetalhePedidoSchema from "../schema/atualizarDetalhePedido.js";
+import atualizarDistribuicaoHistoricoSchema from "../schema/atualizarDistribuicaoHistorico.js";
+import cancelarPedidoSchema from "../schema/cancelarPedido.js";
+import atualizarFinalizandoPedidoSchema from "../schema/finalizarPedido.js";
+import reativarPedidoSchema from "../schema/reativarPedido.js";
+import atualizarPedidoSchema  from "../schema/atualizarPedido.js";
+
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
 const comprasClient = new ComprasClient(process.env.API_URL);
@@ -1502,22 +1508,33 @@ class ComprasControllers {
     }
 
     async putReativarPedido(req, res) {
-        let { IDRESUMOPEDIDO, IDRESPREATIVACAO, TXTMOTIVOREATIVACAO } = req.body;
 
         try {
-
-            if(!IDRESUMOPEDIDO) {
-                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            const { error, value } = await reativarPedidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
             }
 
-            const response = axios.put(`${url}/api/compras/ativar-pedido.xsjs`, {
-                IDRESUMOPEDIDO,   
-                IDRESPREATIVACAO, 
-                TXTMOTIVOREATIVACAO
-            })
+
+
+            const response = await comprasService.updateReativarPedido(
+                value.IDRESUMOPEDIDO,   
+                value.IDRESPREATIVACAO, 
+                value.TXTMOTIVOREATIVACAO
+            )
         
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putReativarPedido:", error);
             throw error;
@@ -1527,7 +1544,7 @@ class ComprasControllers {
     async putCancelarPedido(req, res) {
         try {
 
-            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+            const { error, value } = await cancelarPedidoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true,
             })
@@ -1561,7 +1578,7 @@ class ComprasControllers {
 
     async putFinalizarPedido(req, res) {
         try {
-            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+            const { error, value } = await atualizarFinalizandoPedidoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true,
             })
@@ -1618,7 +1635,7 @@ class ComprasControllers {
     async putPedido(req, res) {
   
         try {
-            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+            const { error, value } = await atualizarPedidoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true,
             })
@@ -1677,7 +1694,7 @@ class ComprasControllers {
 
         try {
 
-            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+            const { error, value } = await atualizarDistribuicaoHistoricoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true,
             })
@@ -1736,7 +1753,7 @@ class ComprasControllers {
 
     async putDetalhePedido(req, res) {
         try {
-            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+            const { error, value } = await atualizarDetalhePedidoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true,
             })

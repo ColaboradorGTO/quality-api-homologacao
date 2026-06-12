@@ -243,6 +243,41 @@ export class ComprasClient {
         return response.data;
     }
 
+    async reativarPedido(
+        IDRESUMOPEDIDO,   
+        IDRESPREATIVACAO, 
+        TXTMOTIVOREATIVACAO
+    ) {
+        const response = await this.api.put(`${url}/api/compras/ativar-pedido.xsjs`, {
+            IDRESUMOPEDIDO,   
+            IDRESPREATIVACAO, 
+            TXTMOTIVOREATIVACAO
+        });
+      
+        return response.data;
+    }
+
+    async cancelarPedido(
+        IDRESUMOPEDIDO,   
+        IDANDAMENTO, 
+        IDRESPCANCELAMENTO, 
+        DSMOTIVOCANCELAMENTO, 
+        DTCANCELAMENTO, 
+        STCANCELADO
+        
+    ) {
+        const response = await this.api.put(`${url}/api/compras/cancelamento-pedido.xsjs`, {
+            IDRESUMOPEDIDO,   
+            IDANDAMENTO, 
+            IDRESPCANCELAMENTO, 
+            DSMOTIVOCANCELAMENTO, 
+            DTCANCELAMENTO, 
+            STCANCELADO
+        });
+      
+        return response.data;
+    }
+
     async atualizarDistribuicaoHistorico(
         IDDISTRIBUICAOCOMPRASHISTORICO,
         IDPEDIDOCOMPRA,
