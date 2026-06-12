@@ -18,7 +18,7 @@ import atualizarFabricanteFornecedorSchema from "../schema/atualizarFabricanteFo
 import atualizarFabricanteSchema from "../schema/atualizarFabricante.js";
 import atualizarCategoriaPedidosSchema from "../schema/atualizarCategoriaPedidos.js";
 import atualizarTipoTecidoSchema from "../schema/atualizarTipoTecido.js";
-
+import atualizarEstilosSchema from "../schema/atualizarEstilos.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1153,16 +1153,30 @@ class ComprasControllers {
 
     async putEstilos(req, res) {
         try {
-            let { IDVINCESTILOSESTRUTURA, IDGRUPOESTRUTURAANTIGA, IDESTILO, DSESTILO, IDGRUPOESTRUTURA, STATIVO } = req.body;
-            const apiUrl = `${url}/api/compras/estilos.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDVINCESTILOSESTRUTURA,
-                IDGRUPOESTRUTURAANTIGA,
-                IDESTILO,
-                DSESTILO,
-                IDGRUPOESTRUTURA,
-                STATIVO,
-            }]);
+            const { error, value } = await atualizarEstilosSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+        
+            const response = await comprasService.updateEstilos(
+                value.IDVINCESTILOSESTRUTURA,
+                value.IDGRUPOESTRUTURAANTIGA,
+                value.IDESTILO,
+                value.DSESTILO,
+                value.IDGRUPOESTRUTURA,
+                value.STATIVO
+            );
             
             return res.json(response.data);
         } catch (error) {

@@ -476,6 +476,26 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarEstilos(
+        IDVINCESTILOSESTRUTURA,
+        IDGRUPOESTRUTURAANTIGA,
+        IDESTILO,
+        DSESTILO,
+        IDGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/estilos.xsjs`, [{
+            IDVINCESTILOSESTRUTURA,
+            IDGRUPOESTRUTURAANTIGA,
+            IDESTILO,
+            DSESTILO,
+            IDGRUPOESTRUTURA,
+            STATIVO
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,

@@ -481,6 +481,30 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateTipoTecidos(
+        IDVINCESTILOSESTRUTURA,
+        IDGRUPOESTRUTURAANTIGA,
+        IDESTILO,
+        DSESTILO,
+        IDGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        if(!IDVINCESTILOSESTRUTURA) {
+            throw new Error('ID do vínculo estilo-estrutura é obrigatório.');
+        }
+
+        const response = await this.client.atualizarEstilos(
+            IDVINCESTILOSESTRUTURA,
+            IDGRUPOESTRUTURAANTIGA,
+            IDESTILO,
+            DSESTILO,
+            IDGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
+  
     async updateTipoTecidos(
         IDTPTECIDO,
         DSTIPOTECIDO,
