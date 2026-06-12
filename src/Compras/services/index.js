@@ -563,4 +563,23 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateGrupoEstrutura(
+        IDGRUPOESTRUTURA,
+        IDGRUPOEMPRESARIAL,
+        DSGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        if(!IDGRUPOESTRUTURA) {
+            throw new Error('ID do Grupo de Estrutura é obrigatório.');
+        }
+
+        const response = await this.client.atualizarGrupoEstrutura(
+            IDGRUPOESTRUTURA,
+            IDGRUPOEMPRESARIAL,
+            DSGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
 }

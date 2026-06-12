@@ -21,7 +21,7 @@ import atualizarTipoTecidoSchema from "../schema/atualizarTipoTecido.js";
 import atualizarEstilosSchema from "../schema/atualizarEstilos.js";
 import atualizarCoresSchema from "../schema/atualizarCores.js";
 import atualizarUnidadeMedidaSchema from "../schema/atualizarUnidadeMedida.js";
-
+import atualizarGrupoEstruturaSchema from "../schema/atualizarGrupoEstrutura.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1081,21 +1081,28 @@ class ComprasControllers {
     }
 
     async putGrupoEstrutura(req, res) {
-        let {
-            IDGRUPOESTRUTURA,
-            IDGRUPOEMPRESARIAL,
-            DSGRUPOESTRUTURA,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/grupoextrutura.xsjs`
-            const response = await axios.put(apiUrl, {
-                IDGRUPOESTRUTURA,
-                IDGRUPOEMPRESARIAL,
-                DSGRUPOESTRUTURA,
-                STATIVO
+            const { error, value } = await atualizarGrupoEstruturaSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
             });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.updateGrupoEstrutura(
+                value.IDGRUPOESTRUTURA,
+                value.IDGRUPOEMPRESARIAL,
+                value.DSGRUPOESTRUTURA,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasController.putGrupoEstrutura:", error);

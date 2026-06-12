@@ -533,6 +533,23 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarGrupoEstrutura(
+        IDGRUPOESTRUTURA,
+        IDGRUPOEMPRESARIAL,
+        DSGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/grupoextrutura.xsjs`, {
+            IDGRUPOESTRUTURA,
+            IDGRUPOEMPRESARIAL,
+            DSGRUPOESTRUTURA,
+            STATIVO
+        });
+        
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
