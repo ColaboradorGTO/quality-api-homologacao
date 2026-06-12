@@ -1278,29 +1278,31 @@ class ComprasControllers {
     }
 
     async putFornecedorFabricante(req, res) {
-        let {
-            IDFABRICANTEFORN,
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            STATIVO,
-        } = req.body;
-
-        if(!IDFABRICANTEFORN) {
-            return res.status(400).json({ error: "IDFABRICANTEFORN is required" });
-        }
-
         try {
-            const apiUrl = `${url}/api/compras/fornecedor-fabricante.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDFABRICANTEFORN,
-                IDFABRICANTE,
-                IDFORNECEDOR,
-                STATIVO,
-            }]);
+            const { error, value } = atualizarFornecedorSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateFornecedorFabricante(
+                value.IDFABRICANTEFORN,
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putFornecedorFabricante:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 

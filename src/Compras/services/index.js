@@ -410,8 +410,8 @@ export class ComprasService {
         IDFORNECEDOR,
         STATIVO
     ) {
-        if(!IDFORNECEDOR) {
-            throw new Error('ID do fornecedor é obrigatório.');
+        if(!IDFABRICANTEFORN) {
+            throw new Error('ID do fabricante-fornecedor é obrigatório.');
         }
 
         const response = await this.client.atualizarFornecedorFabricante(
