@@ -1262,19 +1262,21 @@ class ComprasControllers {
         }
     }
 
-    //  este update é para excluir vinculo de tamanho com categoria
+    
     async updateVinculoTamanhoCategoria(req, res) {
-        let {
-            IDCATPEDIDOTAMANHO,
-        } = req.query;
+        let { IDCATPEDIDOTAMANHO } = req.query;
+
+        if(!IDCATPEDIDOTAMANHO) {
+            return res.status(400).json({ error: "IDCATPEDIDOTAMANHO is required" });
+        }
 
         try {
             const apiUrl = `${url}/api/compras/del_vinctamcat.xsjs?IDCATPEDIDOTAMANHO=${IDCATPEDIDOTAMANHO}`
             const response = await axios.put(apiUrl);
             return res.json(response.data);
         } catch (error) {
-            console.error("erro nos dados enviados:", error);
-            throw error;
+            console.error("error no ComprasControllers.updateVinculoTamanhoCategoria:", error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1308,23 +1310,27 @@ class ComprasControllers {
     }
 
     async postFornecedorFabricante(req, res) {
-        let {
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            STATIVO,
-        } = req.body;
-
-        if(!IDFABRICANTE) {
-            return res.status(400).json({ error: "IDFABRICANTE is required" });
-        }
-
         try {
-            const apiUrl = `${url}/api/compras/fornecedor-fabricante.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDFABRICANTE,
-                IDFORNECEDOR,
-                STATIVO,
-            }]);
+            const { error, value } = criarFornecedorFabricanteSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+          
+            const response = await comprasService.criarFornecedorFabricante(
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.postFornecedorFabricante:", error);

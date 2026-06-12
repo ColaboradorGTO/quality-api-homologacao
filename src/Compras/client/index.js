@@ -411,4 +411,18 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+  
+    async criarFornecedorFabricante(
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/fornecedor-fabricante.xsjs`, [{
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO
+        }]);
+        return response.data;
+    }
 }
