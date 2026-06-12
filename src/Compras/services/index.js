@@ -540,4 +540,27 @@ export class ComprasService {
         );
         return response.data;
     }
+   
+    async updateUnidadeMedida(
+        IDUNIDADEMEDIDA,
+        DSUNIDADE,
+        DSSIGLA,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        if(!IDUNIDADEMEDIDA) {
+            throw new Error('ID da Unidade de Medida é obrigatório.');
+        }
+
+        const response = await this.client.atualizarUnidadeMedida(
+            IDUNIDADEMEDIDA,
+            DSUNIDADE,
+            DSSIGLA,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+        );
+        return response.data;
+    }
 }

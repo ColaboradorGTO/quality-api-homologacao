@@ -1104,26 +1104,31 @@ class ComprasControllers {
     }
 
     async putUnidadeMedida(req, res) {
-        let {
-            IDUNIDADEMEDIDA,
-            DSUNIDADE,
-            DSSIGLA,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/unidadesdemedidas.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDUNIDADEMEDIDA,
-                DSUNIDADE,
-                DSSIGLA,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO
-            }]);
-            return res.status(200).json({message: 'Atualizado com sucesso'});
+            const { error, value } = await atualizarUnidadeMedidaSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateUnidadeMedida(
+                value.IDUNIDADEMEDIDA,
+                value.DSUNIDADE,
+                value.DSSIGLA,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO
+            );
+            
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putUnidadeMedida:", error);
             throw error;
@@ -1153,7 +1158,7 @@ class ComprasControllers {
                 value.STATIVO
             );
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Erro no ComprasControllers.putCores:", error);
             throw error;
