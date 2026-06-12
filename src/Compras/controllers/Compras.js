@@ -16,6 +16,8 @@ import atualizarFornecedorFabricanteSchema from "../schema/atualizarFornecedorFa
 import criarFornecedorFabricanteSchema from "../schema/criarFornecedorFabricante.js";
 import atualizarFabricanteFornecedorSchema from "../schema/atualizarFabricanteFornecedor.js";
 import atualizarFabricanteSchema from "../schema/atualizarFabricante.js";
+import atualizarCategoriaPedidosSchema from "../schema/atualizarCategoriaPedidos.js";
+
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1190,21 +1192,27 @@ class ComprasControllers {
     }
 
     async putCategoriaPedidos(req, res) {
-        let {
-            IDCATEGORIAPEDIDO,
-            DSCATEGORIAPEDIDO,
-            TIPOPEDIDO,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/categoriapedidos.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDCATEGORIAPEDIDO,
-                DSCATEGORIAPEDIDO,
-                TIPOPEDIDO,
-                STATIVO
-            }]);
+            const { error, value } = await atualizarCategoriaPedidosSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateCategoriaPedidos(
+                value.IDCATEGORIAPEDIDO,
+                value.DSCATEGORIAPEDIDO,
+                value.TIPOPEDIDO,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putCategoriaPedidos:", error);

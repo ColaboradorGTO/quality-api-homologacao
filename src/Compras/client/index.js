@@ -445,6 +445,22 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+    
+    async atualizarCategoriaPedidos(
+        IDCATEGORIAPEDIDO,
+        DSCATEGORIAPEDIDO,
+        TIPOPEDIDO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/categoriapedidos.xsjs`, [{
+            IDCATEGORIAPEDIDO,
+            DSCATEGORIAPEDIDO,
+            TIPOPEDIDO,
+            STATIVO
+        }]);
+        return response.data;
+    }
 
     async criarFornecedorFabricante(
         IDFABRICANTE,

@@ -462,4 +462,23 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateCategoriaPedidos(
+        IDCATEGORIAPEDIDO,
+        DSCATEGORIAPEDIDO,
+        TIPOPEDIDO,
+        STATIVO
+    ) {
+        if(!IDCATEGORIAPEDIDO) {
+            throw new Error('ID da categoria de pedido é obrigatório.');
+        }
+
+        const response = await this.client.atualizarCategoriaPedidos(
+            IDCATEGORIAPEDIDO,
+            DSCATEGORIAPEDIDO,
+            TIPOPEDIDO,
+            STATIVO
+        );
+        return response.data;
+    }
 }
