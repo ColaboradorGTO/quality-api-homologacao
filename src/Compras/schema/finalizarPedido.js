@@ -6,30 +6,26 @@ const atualizarFinalizandoPedidoSchema = Joi.object({
         'number.base': 'IDRESUMOPEDIDO deve ser um número inteiro',
         'any.required': 'ID do resumo do pedido é obrigatório'
     }),
-    IDCOR: Joi.number().integer().required()
+    IDGRUPOEMPRESARIAL: Joi.number().integer().required()
     .messages({
-        'number.base': 'IDCOR deve ser um número inteiro',
-        'any.required': 'ID da cor é obrigatório'
+        'number.base': 'IDGRUPOEMPRESARIAL deve ser um número inteiro',
+        'any.required': 'ID do grupo empresarial é obrigatório'
     }),
-    IDSUBGRUPOESTRUTURA: Joi.number().integer().required()
+    IDSUBGRUPOEMPRESARIAL: Joi.number().integer()
     .messages({
-        'number.base': 'IDSUBGRUPOESTRUTURA deve ser um número inteiro',
-        'any.required': 'ID do subgrupo de estrutura é obrigatório'
+        'number.base': 'IDSUBGRUPOEMPRESARIAL deve ser um número inteiro',
     }),
-    IDCATEGORIAPEDIDO: Joi.number().integer().required()
+    IDCOMPRADOR: Joi.number().integer()
     .messages({
-        'number.base': 'IDCATEGORIAPEDIDO deve ser um número inteiro',
-        'any.required': 'ID da categoria do pedido é obrigatório'
+        'number.base': 'IDCOMPRADOR deve ser um número inteiro',
     }),
-    IDTIPOTECIDO: Joi.number().integer().required()
+    IDCONDICAOPAGAMENTO: Joi.number().integer()
     .messages({
-        'number.base': 'IDTIPOTECIDO deve ser um número inteiro',
-        'any.required': 'ID do tipo de tecido é obrigatório'
+        'number.base': 'IDCONDICAOPAGAMENTO deve ser um número inteiro',
     }),
-    IDESTILO: Joi.number().integer().required()
+    IDFORNECEDOR: Joi.number().integer()
     .messages({
-        'number.base': 'IDESTILO deve ser um número inteiro',
-        'any.required': 'ID do estilo é obrigatório'
+        'number.base': 'IDFORNECEDOR deve ser um número inteiro',
     }),
     IDFABRICANTE: Joi.number().integer()
     .messages({
