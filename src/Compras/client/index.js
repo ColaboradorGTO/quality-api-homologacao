@@ -411,7 +411,41 @@ export class ComprasClient {
         }]);
         return response.data;
     }
-  
+    
+    async atualizarFabricanteFornecedor(
+        IDFABRICANTEFORN,
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/fabricante-fornecedor.xsjs`, [{
+            IDFABRICANTEFORN,
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO
+        }]);
+        return response.data;
+    }
+
+    async atualizarFabricante(
+        IDFABRICANTE,
+        DSFABRICANTE,
+        DTULTATUALIZACAO,
+        DTCADASTRO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/fabricante.xsjs`, [{
+            IDFABRICANTE,
+            DSFABRICANTE,
+            DTULTATUALIZACAO,
+            DTCADASTRO,
+            STATIVO
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
@@ -419,6 +453,19 @@ export class ComprasClient {
     ) {
         
         const response = await this.api.post(`${url}/api/compras/fornecedor-fabricante.xsjs`, [{
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO
+        }]);
+        return response.data;
+    }
+    async criarFabricanteFornecedor(
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/fabricante-fornecedor.xsjs`, [{
             IDFABRICANTE,
             IDFORNECEDOR,
             STATIVO

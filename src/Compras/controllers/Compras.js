@@ -14,7 +14,8 @@ import atualizarStatusProdutoPedidoSchema from "../schema/atualizarStatusProduto
 import atualizarFornecedorSchema from "../schema/atualizarFornecedor.js";
 import atualizarFornecedorFabricanteSchema from "../schema/atualizarFornecedorFabricante.js";
 import criarFornecedorFabricanteSchema from "../schema/criarFornecedorFabricante.js";
-
+import atualizarFabricanteFornecedorSchema from "../schema/atualizarFabricanteFornecedor.js";
+import atualizarFabricanteSchema from "../schema/atualizarFabricante.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1212,23 +1213,28 @@ class ComprasControllers {
     }
 
     async putFabricante(req, res) {
-        let {
-            IDFABRICANTE,
-            DSFABRICANTE,
-            DTULTATUALIZACAO,
-            DTCADASTRO,
-            STATIVO,
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/fabricante.xsjs`
-            const response = await axios.put(apiUrl, {
-                IDFABRICANTE,
-                DSFABRICANTE,
-                DTULTATUALIZACAO,
-                DTCADASTRO,
-                STATIVO
+            const { error, value } = await atualizarFabricanteSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
             });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateFabricante(
+                value.IDFABRICANTE,
+                value.DSFABRICANTE,
+                value.DTULTATUALIZACAO,
+                value.DTCADASTRO,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putFabricante:", error);
@@ -1237,24 +1243,27 @@ class ComprasControllers {
     }
 
     async putFabricanteFornecedor(req, res) {
-        let {
-            IDFABRICANTEFORN,
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            STATIVO,
-        } = req.body;
-        if(!IDFABRICANTEFORN) {
-            return res.status(400).json({ error: "IDFABRICANTEFORN is required" });
-        }
-
         try {
-            const apiUrl = `${url}/api/compras/fabricante-fornecedor.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDFABRICANTEFORN,
-                IDFABRICANTE,
-                IDFORNECEDOR,
-                STATIVO,
-            }]);
+            const { error, value } = await atualizarFabricanteFornecedorSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateFabricanteFornecedor(
+                value.IDFABRICANTEFORN,
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putFabricanteFornecedor:", error);
@@ -1282,7 +1291,7 @@ class ComprasControllers {
 
     async putFornecedorFabricante(req, res) {
         try {
-            const { error, value } = atualizarFornecedorSchema.validate(req.body, {
+            const { error, value } = await atualizarFornecedorSchema.validate(req.body, {
                 abortEarly: false, 
                 stripUnknown: true,
             });
@@ -1311,7 +1320,7 @@ class ComprasControllers {
 
     async postFornecedorFabricante(req, res) {
         try {
-            const { error, value } = criarFornecedorFabricanteSchema.validate(req.body, {
+            const { error, value } = await criarFornecedorFabricanteSchema.validate(req.body, {
                 abortEarly: false, 
                 stripUnknown: true,
             });
@@ -1340,7 +1349,7 @@ class ComprasControllers {
 
     async putFornecedor(req, res) {
         try {
-            const { error, value } = atualizarFornecedorSchema.validate(req.body, {
+            const { error, value } = await atualizarFornecedorSchema.validate(req.body, {
                 abortEarly: false, 
                 stripUnknown: true,
             });
@@ -1437,7 +1446,7 @@ class ComprasControllers {
 
     async putAtualizarStatusPedido(req, res) {
         try {
-            const { error, value } = atualizarStatusPedidoSchema.validate(req.body, {
+            const { error, value } = await atualizarStatusPedidoSchema.validate(req.body, {
                 abortEarly: false, 
                 stripUnknown: true,
             });

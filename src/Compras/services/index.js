@@ -422,4 +422,44 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateFabricanteFornecedor(
+        IDFABRICANTEFORN,
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO
+    ) {
+        if(!IDFABRICANTEFORN) {
+            throw new Error('ID do fabricante-fornecedor é obrigatório.');
+        }
+
+        const response = await this.client.atualizarFabricanteFornecedor(
+            IDFABRICANTEFORN,
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO
+        );
+        return response.data;
+    }
+   
+    async updateFabricante(
+       IDFABRICANTE,
+        DSFABRICANTE,
+        DTULTATUALIZACAO,
+        DTCADASTRO,
+        STATIVO
+    ) {
+        if(!IDFABRICANTE) {
+            throw new Error('ID do fabricante é obrigatório.');
+        }
+
+        const response = await this.client.atualizarFabricante(
+            IDFABRICANTE,
+            DSFABRICANTE,
+            DTULTATUALIZACAO,
+            DTCADASTRO,
+            STATIVO
+        );
+        return response.data;
+    }
 }
