@@ -496,6 +496,22 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarCores(
+        IDCOR,
+        IDGRUPOCOR,
+        DSCOR,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/cores.xsjs`, [{
+            IDCOR,
+            IDGRUPOCOR,
+            DSCOR,
+            STATIVO
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,

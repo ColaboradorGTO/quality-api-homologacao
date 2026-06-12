@@ -19,6 +19,8 @@ import atualizarFabricanteSchema from "../schema/atualizarFabricante.js";
 import atualizarCategoriaPedidosSchema from "../schema/atualizarCategoriaPedidos.js";
 import atualizarTipoTecidoSchema from "../schema/atualizarTipoTecido.js";
 import atualizarEstilosSchema from "../schema/atualizarEstilos.js";
+import atualizarCoresSchema from "../schema/atualizarCores.js";
+
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1128,21 +1130,27 @@ class ComprasControllers {
     }
 
     async putCores(req, res) {
-        let {
-            IDCOR,
-            IDGRUPOCOR,
-            DSCOR,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/cores.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDCOR,
-                IDGRUPOCOR,
-                DSCOR,
-                STATIVO
-            }]);
+            const { error, value } = await atualizarCoresSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            const response = await comprasService.updateCores(
+                value.IDCOR,
+                value.IDGRUPOCOR,
+                value.DSCOR,
+                value.STATIVO
+            );
 
             return res.json(response.data);
         } catch (error) {
@@ -1178,7 +1186,7 @@ class ComprasControllers {
                 value.STATIVO
             );
             
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Erro no ComprasControllers.putEstilos:", error);
             return res.status(500).json({ error: error.message });
@@ -1207,7 +1215,7 @@ class ComprasControllers {
                 value.DSTIPOTECIDO,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ComprasControllers.updateTipoTecidos:", error);
             throw error;
@@ -1236,7 +1244,7 @@ class ComprasControllers {
                 value.TIPOPEDIDO,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putCategoriaPedidos:", error);
             throw error;
@@ -1266,7 +1274,7 @@ class ComprasControllers {
                 value.DTCADASTRO,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFabricante:", error);
             throw error;
@@ -1295,13 +1303,12 @@ class ComprasControllers {
                 value.IDFORNECEDOR,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFabricanteFornecedor:", error);
             throw error;
         }
     }
-
     
     async updateVinculoTamanhoCategoria(req, res) {
         let { IDCATPEDIDOTAMANHO } = req.query;
@@ -1342,7 +1349,7 @@ class ComprasControllers {
                 value.IDFORNECEDOR,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFornecedorFabricante:", error);
             return res.status(500).json({ error: error.message });
@@ -1371,7 +1378,7 @@ class ComprasControllers {
                 value.IDFORNECEDOR,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postFornecedorFabricante:", error);
             throw error;

@@ -482,7 +482,7 @@ export class ComprasService {
         return response.data;
     }
 
-    async updateTipoTecidos(
+    async updateEstilos(
         IDVINCESTILOSESTRUTURA,
         IDGRUPOESTRUTURAANTIGA,
         IDESTILO,
@@ -490,8 +490,8 @@ export class ComprasService {
         IDGRUPOESTRUTURA,
         STATIVO
     ) {
-        if(!IDVINCESTILOSESTRUTURA) {
-            throw new Error('ID do vínculo estilo-estrutura é obrigatório.');
+        if(!IDESTILO) {
+            throw new Error('ID do estilo é obrigatório.');
         }
 
         const response = await this.client.atualizarEstilos(
@@ -517,6 +517,25 @@ export class ComprasService {
         const response = await this.client.atualizarTipoTecidos(
             IDTPTECIDO,
             DSTIPOTECIDO,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async updateCores(
+        IDCOR,
+        IDGRUPOCOR,
+        DSCOR,
+        STATIVO
+    ) {
+        if(!IDCOR) {
+            throw new Error('ID da cor é obrigatório.');
+        }
+
+        const response = await this.client.atualizarCores(
+            IDCOR,
+            IDGRUPOCOR,
+            DSCOR,
             STATIVO
         );
         return response.data;
