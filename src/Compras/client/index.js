@@ -155,6 +155,73 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarFinalizandoPedido(
+        IDRESUMOPEDIDO,
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        IDCOMPRADOR,
+        IDCONDICAOPAGAMENTO,
+        IDFORNECEDOR,
+        IDTRANSPORTADORA,
+        IDANDAMENTO,
+        MODPEDIDO,
+        NOVENDEDOR,
+        EEMAILVENDEDOR,
+        DTPEDIDO,
+        DTPREVENTREGA,
+        TPFRETE,
+        DESCPERC01,
+        DESCPERC02,
+        DESCPERC03,
+        PERCCOMISSAO,
+        VRTOTALLIQUIDO,
+        OBSPEDIDO,
+        OBSPEDIDO2,
+        DTFECHAMENTOPEDIDO,
+        DTCADASTRO,
+        TPARQUIVO,
+        STDISTRIBUIDO,
+        STAGRUPAPRODUTO,
+        STCANCELADO,
+        TPFISCAL,
+        STRASCUNHO
+        
+    ) {
+        const response = await this.api.put(`${url}/api/compras/finalizar-pedido.xsjs`, [{
+            IDRESUMOPEDIDO,
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            IDCOMPRADOR,
+            IDCONDICAOPAGAMENTO,
+            IDFORNECEDOR,
+            IDTRANSPORTADORA,
+            IDANDAMENTO,
+            MODPEDIDO,
+            NOVENDEDOR,
+            EEMAILVENDEDOR,
+            DTPEDIDO,
+            DTPREVENTREGA,
+            TPFRETE,
+            DESCPERC01,
+            DESCPERC02,
+            DESCPERC03,
+            PERCCOMISSAO,
+            VRTOTALLIQUIDO,
+            OBSPEDIDO,
+            OBSPEDIDO2,
+            DTFECHAMENTOPEDIDO,
+            DTCADASTRO,
+            TPARQUIVO,
+            STDISTRIBUIDO,
+            STAGRUPAPRODUTO,
+            STCANCELADO,
+            TPFISCAL,
+            STRASCUNHO
+        }]);
+      
+        return response.data;
+    }
+
     async atualizarDistribuicaoHistorico(
         IDDISTRIBUICAOCOMPRASHISTORICO,
         IDPEDIDOCOMPRA,
