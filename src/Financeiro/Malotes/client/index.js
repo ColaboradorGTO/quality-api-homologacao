@@ -10,17 +10,61 @@ export class MaloteClient {
         });
     }
 
-    
-    async atualizarMalote(IDMALOTE, STATUS, OBSERVACAOADMINISTRATIVO, PENDENCIAS, IDUSERULTIMAALTERACAO) {
+    async atualizarMalote(
+        IDMALOTE,
+        STATUS,
+        OBSERVACAOADMINISTRATIVO,
+        PENDENCIAS,
+        IDUSERULTIMAALTERACAO
+    ) {
 
         const response = await this.api.put(`${url}/api/financeiro/malotes-por-loja.xsjs`, [{
-          IDMALOTE,
-          STATUS,
-          OBSERVACAOADMINISTRATIVO,
-          PENDENCIAS,
-          IDUSERULTIMAALTERACAO
+            IDMALOTE,
+            STATUS,
+            OBSERVACAOADMINISTRATIVO,
+            PENDENCIAS,
+            IDUSERULTIMAALTERACAO
         }]);
-     
+
+        return response.data;
+    }
+
+    async criarMalotePorLoja(
+        IDEMPRESA,
+        DATAMOVIMENTOCAIXA,
+        VRDINHEIRO,
+        VRCARTAO,
+        VRPOS,
+        VRPIX,
+        VRCONVENIO,
+        VRVOUCHER,
+        VRFATURA,
+        VRFATURAPIX,
+        VRDESPESA,
+        VRTOTALRECEBIDO,
+        VRDISPONIVEL,
+        IDUSERCRIACAO,
+        OBSERVACAOLOJA,
+    ) {
+
+        const response = await this.api.post(`${url}/api/gerencia/malotes-por-loja.xsjs`, [{
+            IDEMPRESA,
+            DATAMOVIMENTOCAIXA,
+            VRDINHEIRO,
+            VRCARTAO,
+            VRPOS,
+            VRPIX,
+            VRCONVENIO,
+            VRVOUCHER,
+            VRFATURA,
+            VRFATURAPIX,
+            VRDESPESA,
+            VRTOTALRECEBIDO,
+            VRDISPONIVEL,
+            IDUSERCRIACAO,
+            OBSERVACAOLOJA,
+
+        }]);
         return response.data;
     }
 }

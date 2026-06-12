@@ -1,13 +1,17 @@
-
 import axios from "axios";
 import 'dotenv/config';
-const url = process.env.API_URL;
 
+const url = process.env.API_URL;
 
 class DescontoControllers {
   async getListaDescontoVendas(req, res) {
-    let { idEmpresa, idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
-
+    let {
+      idEmpresa,
+      idMarca,
+      dataPesquisaInicio,
+      dataPesquisaFim,
+      page, pageSize
+    } = req.query;
 
     page = page ? page : '';
     pageSize = pageSize ? pageSize : '';
@@ -26,9 +30,15 @@ class DescontoControllers {
     }
   }
 
-
   async getListaDescontoMotivoVendas(req, res) {
-    let { idEmpresa, idMarca, motivoDesconto, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+    let {
+      idEmpresa,
+      idMarca,
+      motivoDesconto,
+      dataPesquisaInicio,
+      dataPesquisaFim,
+      page, pageSize
+    } = req.query;
 
     idEmpresa = idEmpresa ? idEmpresa : '';
     idMarca = idMarca ? idMarca : '';
@@ -49,8 +59,14 @@ class DescontoControllers {
   }
 
   async getListaDescontoVendasSimplificada(req, res) {
-    let { idEmpresa, idMarca, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
-
+    let {
+      idEmpresa,
+      idMarca,
+      dataPesquisaInicio,
+      dataPesquisaFim,
+      page,
+      pageSize
+    } = req.query;
 
     idEmpresa = idEmpresa ? idEmpresa : '';
     idMarca = idMarca ? idMarca : '';

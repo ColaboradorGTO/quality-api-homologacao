@@ -6,12 +6,15 @@ import ApiPing from './controllers/ApiPing.js';
 import AuthentiCationController from './Auth/controllers/Auth.js';
 import AdministrativoControllers from './Administrativo/controllers/Administrativo.js';
 import FinanceiroControllers from './Financeiro/controllers/Financeiro.js';
+import BancoControllers from './Financeiro/Banco/controller/controller.js';
 import InformaticaControllers from './Informatica/controllers/Informatica.js';
+import DetalhesControllers from './Financeiro/Detalhes/controller/controller.js';
 import ExpedicaoControllers from './Expedicao/controllers/index.js';
 import DashBoardControllers from './DashBoard/controllers/DashBoard.js';
 import VendasControllers from './Vendas/controllers/Vendas.js';
 import ResumoVoucherControllers from './ResumoVoucher/controllers/index.js';
-import ComercialControllers from './Comercial/controllers/Comercial.js';
+//import ComercialControllers from './Comercial/controllers/Comercial.js';
+import ComercialControllers from './Comercial/Comercial/controller/comercialControler.js';
 import ComprasControllers from './Compras/controllers/Compras.js';
 import CadastroControllers from './Cadastro/controllers/Cadastro.js';
 import ProdutoControllers from './Produtos/controllers/Produtos.js';
@@ -52,6 +55,7 @@ import SaldosControllers from './Financeiro/Saldos/controllers/saldos.js'
 import FinanceiroVendasControllers from './Financeiro/Vendas/controllers/vendas.js'
 import VoucherControllers from './Financeiro/Voucher/controllers/voucher.js'
 import ExtratosControllers from './Financeiro/Extrato/controllers/extrato.js'
+import MaloteFinanceiroController from './Financeiro/Malotes/controllers/index.js'
 
 
 import QuebraCaixaControllers from './DashBoard/QuebraCaixa/controllers/quebraCaixaLoja.js'
@@ -77,6 +81,9 @@ import FaturaControllers from './Administrativo/Fatura/controller/faturaControll
 import GERAlteracaoPrecoControllers from './Gerencia/AlteracaoPreco/controllers/index.js'
 //  Comercial
 import ComercialProdutoControllers from './Comercial/Produto/controllers/index.js'
+import EstoqueControllersComercial from './Comercial/estoque/controller/controllerEstoque.js'
+import MetasControllers from './Comercial/metas/controller/MetaController.js'
+import PremiacaoControllers from './Comercial/premiacao/controller/ControllerPermiacao.js'
 
 import ModulosControllers from './Modulos/controllers/modulos.js';
 import DanfeControllers from './Danfe/controllers/danfe.js';
@@ -381,7 +388,8 @@ routes.post('/alterar-venda-pagamento', AdmVendasControllers.postAlterarVendasPa
 
 // Desconto
 routes.get('/vendaConvenio', AdmVendasControllers.getVendaConvenio)
-routes.get('/desconto-motivo-vendas-adm', AdmDescontoControllers.getListaDescontoMotivoVendas)
+//routes.get('/desconto-motivo-vendas-adm', AdmDescontoControllers.getListaDescontoMotivoVendas)
+routes.get('/desconto-motivo-vendas-adm', DescontoControllers.getListaDescontoMotivoVendas)
 
 
 //  Recebimentos
@@ -426,40 +434,46 @@ routes.post('/quebra-caixa-todos', QuebraCaixaControllers.postQuebraCaixa)
 // Início Financeiro
 
 routes.get('/listaExtratoDaLojaPeriodo', FinanceiroControllers.getListaExtratoDaLojaPeriodoFinan)
-routes.get('/historicos-malotes', FinanceiroControllers.getListasHistoricosMalotes)
-routes.get('/malotes-loja', FinanceiroControllers.getListasMalotesLojas)
-routes.get('/pendencias-malotes', FinanceiroControllers.getListaPendenciasMalotes)
+//routes.get('/historicos-malotes', FinanceiroControllers.getListasHistoricosMalotes)
+routes.get('/historicos-malotes', MaloteFinanceiroController.getListasHistoricosMalotes)
+//routes.get('/malotes-loja', FinanceiroControllers.getListasMalotesLojas)
+routes.get('/malotes-loja', MaloteFinanceiroController.getListasMalotesLojas)
+//routes.get('/pendencias-malotes', FinanceiroControllers.getListaPendenciasMalotes)
+routes.get('/pendencias-malotes', MaloteFinanceiroController.getListaPendenciasMalotes)
 
 routes.put('/malotes-loja/:id', FinanceiroControllers.putMalotesLoja)
 
 // routes.get('/listaVendasMarca', FinanceiroControllers.getListaVendasMarca)
-routes.get('/resumoVendaFinanceiro', FinanceiroControllers.getListaVendasResumidaFinanceiro)
+routes.get('/resumoVendaFinanceiro', FinanceiroVendasControllers.getListaVendasResumidaFinanceiro)
 
 routes.get('/vendaPagamento', FinanceiroControllers.getListaVendasTransacoesEmpresa)
-routes.get('/vendaTotalEmpresa', FinanceiroControllers.getListaVendasEmpresa)
-routes.get('/detalheFechamento', FinanceiroControllers.getListaDetalheFechamento)
-routes.get('/listaCaixasMovimentoFinanceiro', FinanceiroControllers.getListaCaixasMovmentoFinanceiro)
-routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroControllers.getListaVendasMarcaFinanceiro)
-routes.get('/vendaMarcaRob', FinanceiroControllers.getListaVendasMarcaROB)
-routes.get('/vendaMarcaMarckup', FinanceiroControllers.getListaVendasMarcaMarckup)
+routes.get('/vendaTotalEmpresa', FinanceiroVendasControllers.getListaVendasEmpresa)
+routes.get('/detalheFechamento', DetalhesControllers.getListaDetalheFechamento)
+routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
+//routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroControllers.getListaVendasMarcaFinanceiro)
+routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroVendasControllers.getListaVendasMarcaFinanceiro)
+//routes.get('/vendaMarcaRob', FinanceiroControllers.getListaVendasMarcaROB)
+routes.get('/vendaMarcaRob', FinanceiroVendasControllers.getListaVendasMarcaROB)
+routes.get('/vendaMarcaMarckup', FinanceiroVendasControllers.getListaVendasMarcaMarckup)
 routes.get('/vendaDigitalFinanceiro', FinanceiroControllers.getListaVendasDigital)
 routes.get('/vendaPixPeriodo', FinanceiroControllers.getListaVendasPixPeriodo)
 routes.get('/vendaPixConsolidadoLoja', FinanceiroControllers.getListaVendasPixConsolidadoLojas)
 routes.get('/vendaPixConsolidado', FinanceiroControllers.getListaVendasPixConsolidado)
-routes.get('/detalhe-fatura-financeiro', FinanceiroControllers.getDetalheFaturaFinanceiro)
+routes.get('/detalhe-fatura-financeiro', FaturasControllers.getDetalheFaturaFinanceiro)
 
 // routes.get('/faturaPixPeriodoConsolidado', FinanceiroControllers.getListaFaturasPixConsolidado)
 routes.get('/faturaPixConsolidadoLoja', FinanceiroControllers.getListaFaturaPixConsolidadoLoja)
 // routes.get('/vendaConciliar', FinanceiroControllers.getListaVendasConciliar)
-routes.get('/venda-detalhe-recebimento-eletronico', FinanceiroControllers.getListaDetalheRecebimentosEletronico)
+routes.get('/venda-detalhe-recebimento-eletronico', FinanceiroVendasControllers.getListaDetalheRecebimentosEletronico)
 // routes.get('/vendaDetalheRecebimentoEletronico', FinanceiroControllers.getListaDetalheRecebimentosEletronico)
 // routes.get('/deposito-loja-conciliacao', FinanceiroControllers.getListaConciliarBanco)
-routes.get('/deposito-loja-consolidado', FinanceiroControllers.getListaConciliarBancoConsolidado)
+//routes.get('/deposito-loja-consolidado', FinanceiroControllers.getListaConciliarBancoConsolidado)
+routes.get('/deposito-loja-consolidado', DepositosControllers.getListaConciliarBancoConsolidado)
 // routes.get('/saldoLojaPorGrupo', FinanceiroControllers.getListaSaldoExtratoLoja)
 routes.post('/motivoDevolucao', FinanceiroControllers.createMotivoDevolucao)
 // routes.get('/detalheFaturaFinanceiro', FinanceiroControllers.getListaDetalheFaturaFinanceiro)
-routes.get('/banco', FinanceiroControllers.getListaBanco)
-routes.get('/conta-banco', FinanceiroControllers.getListaContaBanco)
+routes.get('/banco', BancoControllers.getListaBanco)
+routes.get('/conta-banco', BancoControllers.getListaContaBanco)
 routes.get('/quebra-caixa-integracao-sap', FinanceiroControllers.getListaQuebraCaixaIntegracaoSAP)
 routes.put('/conta-banco/:id', FinanceiroControllers.putContaBanco)
 routes.post('/cadastrar-conta-banco', FinanceiroControllers.postContaBanco)
@@ -470,13 +484,13 @@ routes.post('/ajuste-extrato', ExtratosControllers.postListaAjusteExtrato)
 
 routes.get('/resumo-voucher', VoucherControllers.getListaResumoVoucherFinanceiro)
 // routes.put('/atualizacaoAdiantamentoStatus', FinanceiroControllers.updateAdiantamentoStatus)
-routes.put('/atualizarFatura/:id', FinanceiroControllers.putFaturaFinanceiro)
+routes.put('/atualizarFatura/:id', FaturasControllers.putFaturaFinanceiro)
 routes.put('/conferencia-fatura/:id', FinanceiroControllers.putFaturaConferencia)
 routes.put('/deposito-alteracao-data-movimento/:id', FinanceiroControllers.putAlterarDataMovimentoDeposito)
 
 
 // Início Vendas 
-routes.get('/vendaLojaPeriodo', FinanceiroControllers.getListaVendasLojaPeriodo)
+routes.get('/vendaLojaPeriodo', FinanceiroVendasControllers.getListaVendasLojaPeriodo)
 routes.get('/venda-digital-marca', FinanceiroVendasControllers.getListaVendasDigitalMarca)
 
 routes.get('/venda-total-recebido-periodo', FinanceiroVendasControllers.getListaRecebimentos)
@@ -493,6 +507,11 @@ routes.get('/venda-pix-consolidado', FinanceiroVendasControllers.getListaVendasP
 routes.get('/venda-pix-consolidado-loja', FinanceiroVendasControllers.getListaVendasPixConsolidadoLojas)
 routes.get('/venda-conciliacao', FinanceiroVendasControllers.getListaVendasConciliar)
 routes.get('/vendas-marca-periodo', FinanceiroVendasControllers.getListaVendasMarca)
+
+routes.get('/vendas-total-mes', FinanceiroVendasControllers.getListaVendasTotalMes)
+routes.get('/vendas-total-loja-hora', FinanceiroVendasControllers.getListaVendasTotalLojaHora)
+routes.get('/vendas-total-loja-hora-ano-passado', FinanceiroVendasControllers.getListaVendasTotalLojaHoraAnoPassado)
+routes.get('/vendas-total-to', FinanceiroVendasControllers.getListaVendasTotalTO)
 
 
 routes.put('/venda-pix-status-conferido', FinanceiroVendasControllers.putListaVendaPixStatusConferido)
@@ -532,7 +551,7 @@ routes.get('/estabelecimento', EstabelecimentoControllers.getListaEstabeleciment
 // Devolução
 routes.get('/motivo-devolucao', DevolucaoControllers.getListaMotivosDevolucao)
 routes.put('/atualizar-motivo-devolucao', DevolucaoControllers.putMotivoDevolucao)
-routes.post('/criar-motivo-devolucao', DevolucaoControllers.createMotivoDevolucao)
+routes.post('/criar-motivo-devolucao', DevolucaoControllers.postMotivoDevolucao)
 
 // Despesas
 routes.get('/despesa-loja', DespesasControllers.getListaDespesasLoja)
@@ -551,11 +570,12 @@ routes.get('/adiantamento-salarial', AdiantamentosControllers.getListaAdiantamen
 routes.get('/lista-caixas-movimento', CaixasControllers.getListaCaixasMovmentoFinanceiro)
 routes.get('/lista-caixas-status', CaixasControllers.getListaCaixaStatus)
 routes.get('/lista-caixas-zerados', CaixasControllers.getListaCaixaZerados)
-routes.put('/fechar-caixas-zerados', CaixasControllers.updateFecharCaixaZerado)
+routes.put('/fechar-caixas-zerados', CaixasControllers.putFecharCaixaZerado)
 
 
 // Depositos
-routes.put('/atualizar-deposito-loja/:id', DepositosControllers.updateDepositoLoja)
+//routes.put('/atualizar-deposito-loja/:id', DepositosControllers.updateDepositoLoja)
+routes.put('/atualizar-deposito-loja/:id', DepositosControllers.putDepositoLojaCancelar)
 routes.get('/deposito-loja', DepositosControllers.getListaDepositosLoja)
 routes.get('/deposito-loja-conciliacao', DepositosControllers.getListaConciliarBanco)
 
@@ -750,25 +770,39 @@ routes.post('/auth-funcionario-print-voucher', ResumoVoucherControllers.postAuth
 routes.post('/auth-autorizar-excecao-venda', ResumoVoucherControllers.postAuthAutorizarExecaoVenda)
 
 // Comercial
-routes.get('/listaProdutoSap', ComercialControllers.getListaProdutoSap)
+//routes.get('/listaProdutoSap', ComercialControllers.getListaProdutoSap)
+routes.get('/listaProdutoSap', ComercialProdutoControllers.getListaProdutoSap)
+//routes.get('/listaEmpresaComercial', ComercialControllers.getListaEmpresaComercial)
 routes.get('/listaEmpresaComercial', ComercialControllers.getListaEmpresaComercial)
 // routes.get('/listaVendasPorProduto', ComercialControllers.getListaVendasEstruturaProdutos)
+ routes.get('/listaVendasPorProduto', ComercialProdutoControllers.getListaVendasEstruturaProdutos)
 routes.get('/venda-marca-periodo-comercial', ComercialControllers.getListaVendasMarcaPorPeriodoComercial)
 routes.get('/vendas-estoque-grupo-subGrupo', ComercialControllers.getListaVendasEstoqueGrupoSubGrupoComercial)
-routes.get('/produtosPrecosEstoquesLojas', ComercialControllers.getListaProdutosEstoquePrecoLoja)
-routes.get('/vendasEstoqueProduto', ComercialControllers.getListaVendasPosicionamentoEstoquePeriodos)
+routes.get('/produtosPrecosEstoquesLojas', EstoqueControllersComercial.getListaProdutosEstoquePrecoLoja)
+//routes.get('/produtosPrecosEstoquesLojas', ComercialControllers.getListaProdutosEstoquePrecoLoja)
+//routes.get('/vendasEstoqueProduto', ComercialControllers.getListaVendasPosicionamentoEstoquePeriodos)
+routes.get('/vendasEstoqueProduto', EstoqueControllersComercial.getListaVendasPosicionamentoEstoquePeriodos)
 routes.get('/funcionario-relatorio', ComercialControllers.getListaColaboradorRelatorio)
 routes.get('/custoPorLoja', ComercialControllers.getListaVendasCustoLojas)
-routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPosicionamentoEstoque)
-routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)
-routes.get('/listaMetaVendas', ComercialControllers.getListaMetasGrupo)
-routes.get('/listaPremiacoes', ComercialControllers.getListaPremiacoesPeriodo)
-routes.get('/lista-premios-gerente', ComercialControllers.getListaPremiosGerente)
-routes.get('/meta-vendas', ComercialControllers.getListaMetasVendas)
-routes.get('/meta-vendas-resumida', ComercialControllers.getListaMetasVendasResumida)
-routes.get('/lista-premiacao-cadastrada', ComercialControllers.getListaPremiacaoCadastrada)
+//routes.get('/vendasPosicionamentoEstoque', ComercialControllers.getListaVendasPosicionamentoEstoque)
+routes.get('/vendasPosicionamentoEstoque', EstoqueControllersComercial.getListaVendasPosicionamentoEstoque)
+//routes.get('/colaboradorProdutosVendidos', ComercialControllers.getListaColaboradorProdutosVendidos)
+routes.get('/colaboradorProdutosVendidos', ComercialProdutoControllers.getListaColaboradorProdutosVendidos)
+//routes.get('/listaMetaVendas', ComercialControllers.getListaMetasGrupo)
+routes.get('/listaMetaVendas', MetasControllers.getListaMetasGrupo)
+//routes.get('/listaPremiacoes', ComercialControllers.getListaPremiacoesPeriodo)
+routes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)
+//routes.get('/lista-premios-gerente', ComercialControllers.getListaPremiosGerente)
+routes.get('/lista-premios-gerente', PremiacaoControllers.getListaPremiosGerente)
+//routes.get('/meta-vendas', ComercialControllers.getListaMetasVendas)
+routes.get('/meta-vendas', MetasControllers.getListaMetasVendas)
+//routes.get('/meta-vendas-resumida', ComercialControllers.getListaMetasVendasResumida)
+routes.get('/meta-vendas-resumida', MetasControllers.getListaMetasVendasResumida)
+//routes.get('/lista-premiacao-cadastrada', ComercialControllers.getListaPremiacaoCadastrada)
+routes.get('/lista-premiacao-cadastrada', PremiacaoControllers.getListaPremiacaoCadastrada)
 
-routes.post('/cadastra-premiacoes', ComercialControllers.postCadastrarPremiacoes)
+//routes.post('/cadastra-premiacoes', ComercialControllers.postCadastrarPremiacoes)
+routes.post('/cadastra-premiacoes', PremiacaoControllers.postCadastrarPremiacoes)
 
 // routes.get('/listaGrupoProduto', ComercialControllers.getListaGrupoProduto)
 // routes.get('/listaSubGrupoProduto', ComercialControllers.getListaSubGrupoProduto)
