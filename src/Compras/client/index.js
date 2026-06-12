@@ -512,6 +512,27 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarUnidadeMedida(
+        IDUNIDADEMEDIDA,
+        DSUNIDADE,
+        DSSIGLA,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/unidadesdemedidas.xsjs`, [{
+            IDUNIDADEMEDIDA,
+            DSUNIDADE,
+            DSSIGLA,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+           
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
