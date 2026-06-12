@@ -17,6 +17,7 @@ import criarFornecedorFabricanteSchema from "../schema/criarFornecedorFabricante
 import atualizarFabricanteFornecedorSchema from "../schema/atualizarFabricanteFornecedor.js";
 import atualizarFabricanteSchema from "../schema/atualizarFabricante.js";
 import atualizarCategoriaPedidosSchema from "../schema/atualizarCategoriaPedidos.js";
+import atualizarTipoTecidoSchema from "../schema/atualizarTipoTecido.js";
 
 
 import { ComprasClient } from "../client/index.js";
@@ -1171,19 +1172,27 @@ class ComprasControllers {
     }
 
     async updateTipoTecidos(req, res) {
-        let {
-            IDTPTECIDO,
-            DSTIPOTECIDO,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/tipotecidos.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDTPTECIDO: parseInt(IDTPTECIDO),
-                DSTIPOTECIDO,
-                STATIVO
-            }]);
+            const { error, value } = await atualizarTipoTecidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.updateTipoTecidos(
+                value.IDTPTECIDO,
+                value.DSTIPOTECIDO,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("erro no ComprasControllers.updateTipoTecidos:", error);

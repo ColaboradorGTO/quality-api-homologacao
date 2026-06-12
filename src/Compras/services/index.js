@@ -481,4 +481,20 @@ export class ComprasService {
         );
         return response.data;
     }
+    async updateTipoTecidos(
+        IDTPTECIDO,
+        DSTIPOTECIDO,
+        STATIVO
+    ) {
+        if(!IDTPTECIDO) {
+            throw new Error('ID do tipo de tecido é obrigatório.');
+        }
+
+        const response = await this.client.atualizarTipoTecidos(
+            IDTPTECIDO,
+            DSTIPOTECIDO,
+            STATIVO
+        );
+        return response.data;
+    }
 }

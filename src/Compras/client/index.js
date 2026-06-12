@@ -461,6 +461,20 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+   
+    async atualizarTipoTecidos(
+        IDTPTECIDO,
+        DSTIPOTECIDO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/tipotecidos.xsjs`, [{
+            IDTPTECIDO,
+            DSTIPOTECIDO,
+            STATIVO
+        }]);
+        return response.data;
+    }
 
     async criarFornecedorFabricante(
         IDFABRICANTE,
