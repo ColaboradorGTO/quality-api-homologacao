@@ -1551,77 +1551,55 @@ class ComprasControllers {
     }
 
     async putFinalizarPedido(req, res) {
-        let {  
-            IDRESUMOPEDIDO,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            IDCOMPRADOR,
-            IDCONDICAOPAGAMENTO,
-            IDFORNECEDOR,
-            IDTRANSPORTADORA,
-            IDANDAMENTO,
-            MODPEDIDO,
-            NOVENDEDOR,
-            EEMAILVENDEDOR,
-            DTPEDIDO,
-            DTPREVENTREGA,
-            TPFRETE,
-            DESCPERC01,
-            DESCPERC02,
-            DESCPERC03,
-            PERCCOMISSAO,
-            VRTOTALLIQUIDO,
-            OBSPEDIDO,
-            OBSPEDIDO2,
-            DTFECHAMENTOPEDIDO,
-            DTCADASTRO,
-            TPARQUIVO,
-            STDISTRIBUIDO,
-            STAGRUPAPRODUTO,
-            STCANCELADO,
-            TPFISCAL,
-            STRASCUNHO,
-        } = req.body;
-
-        if(!IDRESUMOPEDIDO) {
-            return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
-        }
         try {
+            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
 
-            const apiUrl = `${url}/api/compras/finalizar-pedido.xsjs`
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            
         
-            const response = await axios.put(apiUrl, {
-                IDRESUMOPEDIDO,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                IDCOMPRADOR,
-                IDCONDICAOPAGAMENTO,
-                IDFORNECEDOR,
-                IDTRANSPORTADORA,
-                IDANDAMENTO,
-                MODPEDIDO,
-                NOVENDEDOR,
-                EEMAILVENDEDOR,
-                DTPEDIDO,
-                DTPREVENTREGA,
-                TPFRETE,
-                DESCPERC01,
-                DESCPERC02,
-                DESCPERC03,
-                PERCCOMISSAO,
-                VRTOTALLIQUIDO,
-                OBSPEDIDO,
-                OBSPEDIDO2,
-                DTFECHAMENTOPEDIDO,
-                DTCADASTRO,
-                TPARQUIVO,
-                STDISTRIBUIDO,
-                STAGRUPAPRODUTO,
-                STCANCELADO,
-                TPFISCAL,
-                STRASCUNHO,
-            });
-            return res.json(response.data);
+            const response = await comprasService.updateFinalizarPedido(
+                value.IDRESUMOPEDIDO,
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.IDCOMPRADOR,
+                value.IDCONDICAOPAGAMENTO,
+                value.IDFORNECEDOR,
+                value.IDTRANSPORTADORA,
+                value.IDANDAMENTO,
+                value.MODPEDIDO,
+                value.NOVENDEDOR,
+                value.EEMAILVENDEDOR,
+                value.DTPEDIDO,
+                value.DTPREVENTREGA,
+                value.TPFRETE,
+                value.DESCPERC01,
+                value.DESCPERC02,
+                value.DESCPERC03,
+                value.PERCCOMISSAO,
+                value.VRTOTALLIQUIDO,
+                value.OBSPEDIDO,
+                value.OBSPEDIDO2,
+                value.DTFECHAMENTOPEDIDO,
+                value.DTCADASTRO,
+                value.TPARQUIVO,
+                value.STDISTRIBUIDO,
+                value.STAGRUPAPRODUTO,
+                value.STCANCELADO,
+                value.TPFISCAL,
+                value.STRASCUNHO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFinalizarPedido:", error);
             throw error;
