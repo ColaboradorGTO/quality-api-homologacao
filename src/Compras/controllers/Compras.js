@@ -11,6 +11,9 @@ import atualizarFinalizandoPedidoSchema from "../schema/finalizarPedido.js";
 import reativarPedidoSchema from "../schema/reativarPedido.js";
 import atualizarPedidoSchema  from "../schema/atualizarPedido.js";
 import atualizarStatusProdutoPedidoSchema from "../schema/atualizarStatusProdutoPedido.js";
+import atualizarFornecedorSchema from "../schema/atualizarFornecedor.js";
+import atualizarFornecedorFabricanteSchema from "../schema/atualizarFornecedorFabricante.js";
+
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1327,85 +1330,58 @@ class ComprasControllers {
     }
 
     async putFornecedor(req, res) {
-        let {
-            IDFORNECEDOR,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            MODPEDIDO,
-            NORAZAOSOCIAL,
-            NOFANTASIA,
-            NUCNPJ,
-            NUINSCESTADUAL,
-            NUINSCMUNICIPAL,
-            NUIBGE,
-            EENDERECO,
-            ENUMERO,
-            ECOMPLEMENTO,
-            EBAIRRO,
-            ECIDADE,
-            SGUF,
-            NUCEP,
-            EEMAIL,
-            NUTELEFONE1,
-            NUTELEFONE2,
-            NUTELEFONE3,
-            NOREPRESENTANTE,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO,
-            IDCONDPAGPADRAO,
-            IDTRANSPORTADORAPADRAO,
-            TPPEDIDOPADRAO,
-            NOVENDEDORPADRAO,
-            TPFRETEPADRAO,
-            TPARQUIVOPADRAO,
-            TPFISCALPADRAO,
-            EMAILVENDEDORPADRAO,
-        } = req.body;
-
-        if(!IDFORNECEDOR) {
-            return res.status(400).json({ error: "IDFORNECEDOR is required" });
-        }
-
         try {
-            const apiUrl = `${url}/api/compras/fornecedor.xsjs`
+            const { error, value } = atualizarFornecedorSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
         
-            const response = await axios.put(apiUrl, [{
-                IDFORNECEDOR,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                MODPEDIDO,
-                NORAZAOSOCIAL,
-                NOFANTASIA,
-                NUCNPJ,
-                NUINSCESTADUAL,
-                NUINSCMUNICIPAL,
-                NUIBGE,
-                EENDERECO,
-                ENUMERO,
-                ECOMPLEMENTO,
-                EBAIRRO,
-                ECIDADE,
-                SGUF,
-                NUCEP,
-                EEMAIL,
-                NUTELEFONE1,
-                NUTELEFONE2,
-                NUTELEFONE3,
-                NOREPRESENTANTE,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO,
-                IDCONDPAGPADRAO,
-                IDTRANSPORTADORAPADRAO,
-                TPPEDIDOPADRAO,
-                NOVENDEDORPADRAO,
-                TPFRETEPADRAO,
-                TPARQUIVOPADRAO,
-                TPFISCALPADRAO,
-                EMAILVENDEDORPADRAO,
-            }]);
-            return res.json(response.data);
+            const response = await comprasService.updateFornecedor(
+                value.IDFORNECEDOR,
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.MODPEDIDO,
+                value.NORAZAOSOCIAL,
+                value.NOFANTASIA,
+                value.NUCNPJ,
+                value.NUINSCESTADUAL,
+                value.NUINSCMUNICIPAL,
+                value.NUIBGE,
+                value.EENDERECO,
+                value.ENUMERO,
+                value.ECOMPLEMENTO,
+                value.EBAIRRO,
+                value.ECIDADE,
+                value.SGUF,
+                value.NUCEP,
+                value.EEMAIL,
+                value.NUTELEFONE1,
+                value.NUTELEFONE2,
+                value.NUTELEFONE3,
+                value.NOREPRESENTANTE,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO,
+                value.IDCONDPAGPADRAO,
+                value.IDTRANSPORTADORAPADRAO,
+                value.TPPEDIDOPADRAO,
+                value.NOVENDEDORPADRAO,
+                value.TPFRETEPADRAO,
+                value.TPARQUIVOPADRAO,
+                value.TPFISCALPADRAO,
+                value.EMAILVENDEDORPADRAO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFornecedor:", error);
             return res.status(500).json({ error: error.message });

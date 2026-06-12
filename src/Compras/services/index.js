@@ -326,4 +326,80 @@ export class ComprasService {
         );
         return response.data;
     }
+    async updateFornecedor(
+        IDFORNECEDOR,
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        MODPEDIDO,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO,
+        IDCONDPAGPADRAO,
+        IDTRANSPORTADORAPADRAO,
+        TPPEDIDOPADRAO,
+        NOVENDEDORPADRAO,
+        TPFRETEPADRAO,
+        TPARQUIVOPADRAO,
+        TPFISCALPADRAO,
+        EMAILVENDEDORPADRAO
+    ) {
+        if(!IDFORNECEDOR) {
+            throw new Error('ID do fornecedor é obrigatório.');
+        }
+
+        const response = await this.client.atualizarFornecedor(
+            IDFORNECEDOR,
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            MODPEDIDO,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO,
+            IDCONDPAGPADRAO,
+            IDTRANSPORTADORAPADRAO,
+            TPPEDIDOPADRAO,
+            NOVENDEDORPADRAO,
+            TPFRETEPADRAO,
+            TPARQUIVOPADRAO,
+            TPFISCALPADRAO,
+            EMAILVENDEDORPADRAO
+        );
+        return response.data;
+    }
 }

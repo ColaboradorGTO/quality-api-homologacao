@@ -1,28 +1,138 @@
 import Joi from 'joi';
 
 const atualizarFornecedorSchema = Joi.object({
-    IDDETALHEPEDIDO: Joi.number().integer().required()
+    IDFORNECEDOR: Joi.string().allow('')
     .messages({
-        'number.base': 'IDDETALHEPEDIDO deve ser um número inteiro',
-        'any.required': 'ID do detalhe do pedido é obrigatório'
+        'string.base': 'IDFORNECEDOR deve ser uma string',
     }),
-    STCANCELADO: Joi.string().allow('').max(10).optional()
+    IDGRUPOEMPRESARIAL: Joi.number().integer()
     .messages({
-        'string.base': 'STCANCELADO deve ser uma string',
-        'string.max': 'STCANCELADO deve ter no máximo 10 caracteres'
+        'number.base': 'IDGRUPOEMPRESARIAL deve ser um número inteiro'
     }),
-    IDRESPCANCELAMENTO: Joi.number().integer()
+    IDSUBGRUPOEMPRESARIAL: Joi.number().integer()
     .messages({
-        'number.base': 'IDRESPCANCELAMENTO deve ser um número inteiro'
+        'number.base': 'IDSUBGRUPOEMPRESARIAL deve ser um número inteiro'
     }),
-    TXTOBSCANCELAMENTO: Joi.string().allow('').max(500).optional()
+    MODPEDIDO: Joi.string().allow('').optional()
     .messages({
-        'string.base': 'TXTOBSCANCELAMENTO deve ser uma string',
-        'string.max': 'TXTOBSCANCELAMENTO deve ter no máximo 500 caracteres'
+        'string.base': 'MODPEDIDO deve ser uma string',
     }),
-    IDRESUMOPEDIDO: Joi.number().integer()
+    NORAZAOSOCIAL: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'IDRESUMOPEDIDO deve ser um número inteiro',
+        'string.base': 'NORAZAOSOCIAL deve ser uma string',
+    }),
+    NOFANTASIA: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NOFANTASIA deve ser uma string',
+    }),
+    NUCNPJ: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUCNPJ deve ser uma string',
+    }),
+    NUINSCESTADUAL: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUINSCESTADUAL deve ser uma string',
+    }),
+    NUINSCMUNICIPAL: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUINSCMUNICIPAL deve ser uma string',
+    }),
+    NUIBGE: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUIBGE deve ser uma string',
+    }),
+    EENDERECO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'EENDERECO deve ser uma string',
+    }),
+    ENUMERO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'ENUMERO deve ser uma string',
+    }),
+    ECOMPLEMENTO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'ECOMPLEMENTO deve ser uma string',
+    }),
+    EBAIRRO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'EBAIRRO deve ser uma string',
+    }),
+    ECIDADE: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'ECIDADE deve ser uma string',
+    }),
+    SGUF: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'SGUF deve ser uma string',
+    }),
+    NUCEP: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUCEP deve ser uma string',
+    }),
+    EEMAIL: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'EEMAIL deve ser uma string',
+    }),
+    NUTELEFONE1: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUTELEFONE1 deve ser uma string',
+    }),
+    NUTELEFONE2: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUTELEFONE2 deve ser uma string',
+    }),
+    NUTELEFONE3: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NUTELEFONE3 deve ser uma string',
+    }),
+    NOREPRESENTANTE: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NOREPRESENTANTE deve ser uma string',
+    }),
+    DTCADASTRO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'DTCADASTRO deve ser uma string',
+    }),
+    DTULTATUALIZACAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'DTULTATUALIZACAO deve ser uma string',
+    }),
+    STATIVO: Joi.string().allow('').max(10).optional()
+    .messages({
+        'string.base': 'STATIVO deve ser uma string',
+        'string.max': 'STATIVO deve ter no máximo 10 caracteres'
+    }),
+    IDCONDPAGPADRAO: Joi.number().integer()
+    .messages({
+        'number.base': 'IDCONDPAGPADRAO deve ser um número inteiro'
+    }),
+    IDTRANSPORTADORAPADRAO: Joi.number().integer()
+    .messages({
+        'number.base': 'IDTRANSPORTADORAPADRAO deve ser um número inteiro'
+    }),
+    TPPEDIDOPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'TPPEDIDOPADRAO deve ser uma string',
+    }),
+    NOVENDEDORPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'NOVENDEDORPADRAO deve ser uma string',
+    }),
+    TPFRETEPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'TPFRETEPADRAO deve ser uma string',
+    }),
+    TPARQUIVOPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'TPARQUIVOPADRAO deve ser uma string',
+    }),
+    TPFISCALPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'TPFISCALPADRAO deve ser uma string',
+    }),
+    EMAILVENDEDORPADRAO: Joi.string().allow('').optional()
+    .messages({
+        'string.base': 'EMAILVENDEDORPADRAO deve ser uma string',
     })
 });
 
