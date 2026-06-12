@@ -165,6 +165,30 @@ export class ComprasService {
         return response.data;
     }
 
+    async updateCancelarPedido(  
+        IDRESUMOPEDIDO,   
+        IDANDAMENTO, 
+        IDRESPCANCELAMENTO, 
+        DSMOTIVOCANCELAMENTO, 
+        DTCANCELAMENTO, 
+        STCANCELADO
+    ) {
+        if(!IDRESUMOPEDIDO) {
+            throw new Error('ID do resumo do pedido é obrigatório.');
+        }
+
+   
+        const response = await this.client.cancelarPedido(
+            IDRESUMOPEDIDO,   
+            IDANDAMENTO, 
+            IDRESPCANCELAMENTO, 
+            DSMOTIVOCANCELAMENTO, 
+            DTCANCELAMENTO, 
+            STCANCELADO
+        );
+        return response.data;
+    }
+
     async updateFinalizarPedido(  
         IDRESUMOPEDIDO,
         IDGRUPOEMPRESARIAL,
