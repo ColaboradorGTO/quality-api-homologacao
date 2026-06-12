@@ -13,6 +13,7 @@ import atualizarPedidoSchema  from "../schema/atualizarPedido.js";
 import atualizarStatusProdutoPedidoSchema from "../schema/atualizarStatusProdutoPedido.js";
 import atualizarFornecedorSchema from "../schema/atualizarFornecedor.js";
 import atualizarFornecedorFabricanteSchema from "../schema/atualizarFornecedorFabricante.js";
+import criarFornecedorFabricanteSchema from "../schema/criarFornecedorFabricante.js";
 
 
 import { ComprasClient } from "../client/index.js";
