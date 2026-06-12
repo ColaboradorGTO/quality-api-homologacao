@@ -305,4 +305,25 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateStatusProdutoPedido(
+        IDDETALHEPEDIDO, 
+        STCANCELADO, 
+        IDRESPCANCELAMENTO, 
+        TXTOBSCANCELAMENTO,
+        IDRESUMOPEDIDO
+    ) {
+        if(!IDDETALHEPEDIDO) {
+            throw new Error('ID do detalhe do pedido é obrigatório.');
+        }
+
+        const response = await this.client.atualizarStatusProdutoPedido(
+            IDDETALHEPEDIDO, 
+            STCANCELADO, 
+            IDRESPCANCELAMENTO, 
+            TXTOBSCANCELAMENTO,
+            IDRESUMOPEDIDO
+        );
+        return response.data;
+    }
 }

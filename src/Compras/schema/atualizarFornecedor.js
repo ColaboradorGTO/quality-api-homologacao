@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const atualizarStatusProdutoPedidoSchema = Joi.object({
+const atualizarFornecedorSchema = Joi.object({
     IDDETALHEPEDIDO: Joi.number().integer().required()
     .messages({
         'number.base': 'IDDETALHEPEDIDO deve ser um número inteiro',
@@ -26,4 +26,4 @@ const atualizarStatusProdutoPedidoSchema = Joi.object({
     })
 });
 
-export default atualizarStatusProdutoPedidoSchema;
+export default atualizarFornecedorSchema;

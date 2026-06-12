@@ -10,6 +10,7 @@ import cancelarPedidoSchema from "../schema/cancelarPedido.js";
 import atualizarFinalizandoPedidoSchema from "../schema/finalizarPedido.js";
 import reativarPedidoSchema from "../schema/reativarPedido.js";
 import atualizarPedidoSchema  from "../schema/atualizarPedido.js";
+import atualizarStatusProdutoPedidoSchema from "../schema/atualizarStatusProdutoPedido.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -1369,7 +1370,7 @@ class ComprasControllers {
         try {
             const apiUrl = `${url}/api/compras/fornecedor.xsjs`
         
-            const response = await axios.put(apiUrl, {
+            const response = await axios.put(apiUrl, [{
                 IDFORNECEDOR,
                 IDGRUPOEMPRESARIAL,
                 IDSUBGRUPOEMPRESARIAL,
@@ -1403,11 +1404,11 @@ class ComprasControllers {
                 TPARQUIVOPADRAO,
                 TPFISCALPADRAO,
                 EMAILVENDEDORPADRAO,
-            });
+            }]);
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putFornecedor:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1426,7 +1427,7 @@ class ComprasControllers {
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putExcluirVinculoFornecedor:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
    
@@ -1445,7 +1446,7 @@ class ComprasControllers {
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putMigrarFornecedorSAP:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1483,27 +1484,36 @@ class ComprasControllers {
     }
 
     async putAtualizarStatusProdutoPedido(req, res) {
-        let { IDDETALHEPEDIDO, STCANCELADO, IDRESPCANCELAMENTO, TXTOBSCANCELAMENTO, IDRESUMOPEDIDO } = req.query;
-
         try {
 
-            if(!IDRESUMOPEDIDO) {
-                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            const { error, value } = await atualizarStatusProdutoPedidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
             }
 
-            const response = await axios.put(`${url}/api/compras/atualizacao-status-produto-pedido.xsjs`, {
-                IDDETALHEPEDIDO, 
-                STCANCELADO, 
-                IDRESPCANCELAMENTO, 
-                TXTOBSCANCELAMENTO,
-                IDRESUMOPEDIDO,    
-            })
+            const response = await comprasService.updateStatusProdutoPedido(
+                value.IDDETALHEPEDIDO, 
+                value.STCANCELADO, 
+                value.IDRESPCANCELAMENTO, 
+                value.TXTOBSCANCELAMENTO,
+                value.IDRESUMOPEDIDO
+            )
         
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putAtualizarStatusProdutoPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1526,18 +1536,16 @@ class ComprasControllers {
             }
 
 
-
             const response = await comprasService.updateReativarPedido(
                 value.IDRESUMOPEDIDO,   
                 value.IDRESPREATIVACAO, 
                 value.TXTMOTIVOREATIVACAO
             )
         
-
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putReativarPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1572,7 +1580,7 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putCancelarPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1628,7 +1636,7 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putFinalizarPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1686,7 +1694,7 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putPedido:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1725,7 +1733,7 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putDistribuicaoComprasHistorico:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 

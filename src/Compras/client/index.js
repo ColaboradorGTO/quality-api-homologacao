@@ -303,4 +303,22 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+
+    async atualizarStatusProdutoPedido(
+        IDDETALHEPEDIDO, 
+        STCANCELADO, 
+        IDRESPCANCELAMENTO, 
+        TXTOBSCANCELAMENTO,
+        IDRESUMOPEDIDO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/atualizacao-status-produto-pedido.xsjs`, {
+            IDDETALHEPEDIDO, 
+            STCANCELADO, 
+            IDRESPCANCELAMENTO, 
+            TXTOBSCANCELAMENTO,
+            IDRESUMOPEDIDO
+        });
+        return response.data;
+    }
 }
