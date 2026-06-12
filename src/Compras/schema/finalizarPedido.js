@@ -6,10 +6,9 @@ const atualizarFinalizandoPedidoSchema = Joi.object({
         'number.base': 'IDRESUMOPEDIDO deve ser um número inteiro',
         'any.required': 'ID do resumo do pedido é obrigatório'
     }),
-    IDGRUPOEMPRESARIAL: Joi.number().integer().required()
+    IDGRUPOEMPRESARIAL: Joi.number().integer()
     .messages({
-        'number.base': 'IDGRUPOEMPRESARIAL deve ser um número inteiro',
-        'any.required': 'ID do grupo empresarial é obrigatório'
+        'number.base': 'IDGRUPOEMPRESARIAL deve ser um número inteiro'
     }),
     IDSUBGRUPOEMPRESARIAL: Joi.number().integer()
     .messages({
@@ -27,115 +26,105 @@ const atualizarFinalizandoPedidoSchema = Joi.object({
     .messages({
         'number.base': 'IDFORNECEDOR deve ser um número inteiro',
     }),
-    IDFABRICANTE: Joi.number().integer()
+    IDTRANSPORTADORA: Joi.number().integer()
     .messages({
-        'number.base': 'IDFABRICANTE deve ser um número inteiro',
-        'any.required': 'ID do fabricante é obrigatório'
+        'number.base': 'IDTRANSPORTADORA deve ser um número inteiro',
     }),
-    IDLOCALEXPOSICAO: Joi.number().integer()
+    IDANDAMENTO: Joi.number().integer()
     .messages({
-        'number.base': 'IDLOCALEXPOSICAO deve ser um número inteiro',
-        'any.required': 'ID do local de exposição é obrigatório'
+        'number.base': 'IDANDAMENTO deve ser um número inteiro',
     }),
-    NUREF: Joi.string().allow('').max(50).optional()
+    MODPEDIDO: Joi.string().allow('').optional()
     .messages({
-        'string.base': 'NUREF deve ser uma string',
-        'string.max': 'NUREF deve ter no máximo 50 caracteres'
+        'string.base': 'MODPEDIDO deve ser uma string',
     }),
-    DSPRODUTO: Joi.string().allow('').max(500).optional()
+    NOVENDEDOR: Joi.string().allow('').optional()
     .messages({
-        'string.base': 'DSPRODUTO deve ser uma string',
-        'string.max': 'DSPRODUTO deve ter no máximo 500 caracteres'
+        'string.base': 'NOVENDEDOR deve ser uma string',
     }),
-    QTDTOTAL: Joi.number().integer()
+    EEMAILVENDEDOR: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'QTDTOTAL deve ser um número inteiro',
+        'string.base': 'EEMAILVENDEDOR deve ser uma string',
     }),
-    NUCAIXA: Joi.number().integer()
+    DTPEDIDO: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'NUCAIXA deve ser um número inteiro',
+        'string.base': 'DTPEDIDO deve ser uma string',
     }),
-    UND: Joi.number().integer()
+    DTPREVENTREGA: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'UND deve ser um número inteiro',
+        'string.base': 'DTPREVENTREGA deve ser uma string',
     }),
-    VRUNITBRUTO: Joi.number()
+    TPFRETE: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'VRUNITBRUTO deve ser um número',
+        'string.base': 'TPFRETE deve ser uma string',
     }),
-    DESC01: Joi.number()
+    DESCPERC01: Joi.number()
     .messages({
-        'number.base': 'DESC01 deve ser um número',
+        'number.base': 'DESCPERC01 deve ser um número',
     }),
-    DESC02: Joi.number()
+    DESCPERC02: Joi.number()
     .messages({
-        'number.base': 'DESC02 deve ser um número',
+        'number.base': 'DESCPERC02 deve ser um número',
     }),
-    DESC03: Joi.number()
+    DESCPERC03: Joi.number()
     .messages({
-        'number.base': 'DESC03 deve ser um número',
+        'number.base': 'DESCPERC03 deve ser um número',
     }),
-    VRUNITLIQUIDO: Joi.number()
+    PERCCOMISSAO: Joi.number()
     .messages({
-        'number.base': 'VRUNITLIQUIDO deve ser um número',
+        'number.base': 'PERCCOMISSAO deve ser um número',
     }),
-    VRVENDA: Joi.number()
+    VRTOTALLIQUIDO: Joi.number()
     .messages({
-        'number.base': 'VRVENDA deve ser um número',
+        'number.base': 'VRTOTALLIQUIDO deve ser um número',
     }),
-    VRTOTAL: Joi.number()
+    OBSPEDIDO: Joi.string().allow('').max(500).optional()
     .messages({
-        'number.base': 'VRTOTAL deve ser um número',
+        'string.base': 'OBSPEDIDO deve ser uma string',
+        'string.max': 'OBSPEDIDO deve ter no máximo 500 caracteres'
     }),
-    STECOMMERCE: Joi.string().allow('').max(10).optional()
+    OBSPEDIDO2: Joi.string().allow('').max(500).optional()
     .messages({
-        'string.base': 'STECOMMERCE deve ser uma string',
-        'string.max': 'STECOMMERCE deve ter no máximo 10 caracteres'
+        'string.base': 'OBSPEDIDO2 deve ser uma string',
+        'string.max': 'OBSPEDIDO2 deve ter no máximo 500 caracteres'
     }),
-    STREDESOCIAL: Joi.string().allow('').max(10).optional()
+    DTFECHAMENTOPEDIDO: Joi.string().allow('').optional()
     .messages({
-        'string.base': 'STREDESOCIAL deve ser uma string',
-        'string.max': 'STREDESOCIAL deve ter no máximo 10 caracteres'
+        'string.base': 'DTFECHAMENTOPEDIDO deve ser uma string',
     }),
-    VRCUSTOPRODATUAL: Joi.number()
+    DTCADASTRO: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'VRCUSTOPRODATUAL deve ser um número',
+        'string.base': 'DTCADASTRO deve ser uma string',
     }),
-    VRVENDAPRODATUAL: Joi.number()
+    TPARQUIVO: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'VRVENDAPRODATUAL deve ser um número',
+        'string.base': 'TPARQUIVO deve ser uma string',
     }),
-    OBSPRODUTO: Joi.string().allow('').max(500).optional()
+    STDISTRIBUIDO: Joi.string().allow('').max(10).optional()
     .messages({
-        'string.base': 'OBSPRODUTO deve ser uma string',
-        'string.max': 'OBSPRODUTO deve ter no máximo 500 caracteres'
+        'string.base': 'STDISTRIBUIDO deve ser uma string',
+        'string.max': 'STDISTRIBUIDO deve ter no máximo 10 caracteres'
     }),
-    IDCATEGORIAS: Joi.number().integer().required()
+    STAGRUPAPRODUTO: Joi.string().allow('').max(10).optional()
     .messages({
-        'number.base': 'IDCATEGORIAS deve ser um número inteiro',
-        'any.required': 'ID da categoria é obrigatório'
+        'string.base': 'STAGRUPAPRODUTO deve ser uma string',
+        'string.max': 'STAGRUPAPRODUTO deve ter no máximo 10 caracteres'
     }),
-    STREPOSICAO: Joi.string().allow('').max(10).optional()
+    STCANCELADO: Joi.string().allow('').max(10).optional()
     .messages({
-        'string.base': 'STREPOSICAO deve ser uma string',
-        'string.max': 'STREPOSICAO deve ter no máximo 10 caracteres'
+        'string.base': 'STCANCELADO deve ser uma string',
+        'string.max': 'STCANCELADO deve ter no máximo 10 caracteres'
     }),
-    NUCODBARRAS: Joi.string().allow('').max(500).optional()
+    TPFISCAL: Joi.string().allow('').optional()
     .messages({
-        'string.base': 'NUCODBARRAS deve ser uma string',
-        'string.max': 'NUCODBARRAS deve ter no máximo 500 caracteres'
+        'string.base': 'TPFISCAL deve ser uma string',
+        'string.max': 'TPFISCAL deve ter no máximo 10 caracteres'
     }),
-    IDPRODUTO: Joi.string().allow('').optional(),
-    IDRESPATUALIZACAO: Joi.number().integer().required()
+    STRASCUNHO: Joi.string().allow('').max(10).optional()
     .messages({
-        'number.base': 'IDRESPATUALIZACAO deve ser um número inteiro',
-        'any.required': 'IDRESPATUALIZACAO é obrigatório'
+        'string.base': 'STRASCUNHO deve ser uma string',
+        'string.max': 'STRASCUNHO deve ter no máximo 10 caracteres'
     }),
-    STPEDIDOPORINTEMEDIARIO: Joi.string().allow('').max(10).optional()
-    .messages({
-        'string.base': 'STPEDIDOPORINTEMEDIARIO deve ser uma string',
-        'string.max': 'STPEDIDOPORINTEMEDIARIO deve ter no máximo 10 caracteres'
-    })
 });
 
 export default atualizarFinalizandoPedidoSchema;
