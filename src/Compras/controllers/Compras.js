@@ -1502,7 +1502,7 @@ class ComprasControllers {
     }
 
     async putReativarPedido(req, res) {
-        let { IDRESUMOPEDIDO, IDRESPREATIVACAO, TXTMOTIVOREATIVACAO } = req.query;
+        let { IDRESUMOPEDIDO, IDRESPREATIVACAO, TXTMOTIVOREATIVACAO } = req.body;
 
         try {
 
@@ -1525,25 +1525,34 @@ class ComprasControllers {
     }
 
     async putCancelarPedido(req, res) {
-        let { IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO } = req.body;
-
         try {
 
-            if(!IDRESUMOPEDIDO) {
-                return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
+            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
             }
 
-            const response = axios.put(`${url}/api/compras/cancelamento-pedido.xsjs`, {
-                IDRESUMOPEDIDO,   
-                IDANDAMENTO, 
-                IDRESPCANCELAMENTO, 
-                DSMOTIVOCANCELAMENTO, 
-                DTCANCELAMENTO, 
-                STCANCELADO
-            })
+            const response = await comprasService.updateCancelarPedido(
+                value.IDRESUMOPEDIDO,   
+                value.IDANDAMENTO, 
+                value.IDRESPCANCELAMENTO, 
+                value.DSMOTIVOCANCELAMENTO, 
+                value.DTCANCELAMENTO, 
+                value.STCANCELADO
+            )
         
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putCancelarPedido:", error);
             throw error;
