@@ -1629,73 +1629,57 @@ class ComprasControllers {
     }
 
     async putPedido(req, res) {
-        let {  
-            IDRESUMOPEDIDO,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            IDCOMPRADOR,
-            IDCONDICAOPAGAMENTO,
-            IDFORNECEDOR,
-            IDTRANSPORTADORA,
-            IDANDAMENTO,
-            MODPEDIDO,
-            NOVENDEDOR,
-            EEMAILVENDEDOR,
-            DTPEDIDO,
-            DTPREVENTREGA,
-            TPFRETE,
-            DESCPERC01,
-            DESCPERC02,
-            DESCPERC03,
-            PERCCOMISSAO,
-            VRTOTALLIQUIDO,
-            OBSPEDIDO,
-            OBSPEDIDO2,
-            DTFECHAMENTOPEDIDO,
-            DTCADASTRO,
-            TPARQUIVO,
-            STDISTRIBUIDO,
-            STAGRUPAPRODUTO,
-            STCANCELADO,
-            TPFISCAL,
-            STRASCUNHO,
-        } = req.body;
-
+  
         try {
-            const apiUrl = `${url}/api/compras/atualizar-pedido.xsjs`
+            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+  
         
-            const response = await axios.post(apiUrl, {
-                IDRESUMOPEDIDO,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                IDCOMPRADOR,
-                IDCONDICAOPAGAMENTO,
-                IDFORNECEDOR,
-                IDTRANSPORTADORA,
-                IDANDAMENTO,
-                MODPEDIDO,
-                NOVENDEDOR,
-                EEMAILVENDEDOR,
-                DTPEDIDO,
-                DTPREVENTREGA,
-                TPFRETE,
-                DESCPERC01,
-                DESCPERC02,
-                DESCPERC03,
-                PERCCOMISSAO,
-                VRTOTALLIQUIDO,
-                OBSPEDIDO,
-                OBSPEDIDO2,
-                DTFECHAMENTOPEDIDO,
-                DTCADASTRO,
-                TPARQUIVO,
-                STDISTRIBUIDO,
-                STAGRUPAPRODUTO,
-                STCANCELADO,
-                TPFISCAL,
-                STRASCUNHO,
-            });
-            return res.json(response.data);
+            const response = await comprasService.updatePedido(
+                value.IDRESUMOPEDIDO,
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.IDCOMPRADOR,
+                value.IDCONDICAOPAGAMENTO,
+                value.IDFORNECEDOR,
+                value.IDTRANSPORTADORA,
+                value.IDANDAMENTO,
+                value.MODPEDIDO,
+                value.NOVENDEDOR,
+                value.EEMAILVENDEDOR,
+                value.DTPEDIDO,
+                value.DTPREVENTREGA,
+                value.TPFRETE,
+                value.DESCPERC01,
+                value.DESCPERC02,
+                value.DESCPERC03,
+                value.PERCCOMISSAO,
+                value.VRTOTALLIQUIDO,
+                value.OBSPEDIDO,
+                value.OBSPEDIDO2,
+                value.DTFECHAMENTOPEDIDO,
+                value.DTCADASTRO,
+                value.TPARQUIVO,
+                value.STDISTRIBUIDO,
+                value.STAGRUPAPRODUTO,
+                value.STCANCELADO,
+                value.TPFISCAL,
+                value.STRASCUNHO,
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putPedido:", error);
             throw error;
@@ -1703,38 +1687,38 @@ class ComprasControllers {
     }
 
     async putDistribuicaoComprasHistorico(req, res) {
-        let { 
-            IDDISTRIBUICAOCOMPRASHISTORICO,
-            IDPEDIDOCOMPRA,
-            IDEMPRESA,
-            IDFILIAL,
-            CODBARRAS,
-            QTDSUGESTAOALTERACAOHISTORICO,
-            IDUSUARIOALTERACAO,
-            IDUSUARIO,
-            FINALIZAR
-         } = req.body;
 
         try {
 
-            if(!IDDISTRIBUICAOCOMPRASHISTORICO) {
-                return res.status(400).json({ error: "IDDISTRIBUICAOCOMPRASHISTORICO is required" });
+            const { error, value } = atualizarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
             }
             
         
-            const response = axios.put(`${url}/api/compras/distribuicao-compras-historico.xsjs`, [{
-                IDDISTRIBUICAOCOMPRASHISTORICO,
-                IDPEDIDOCOMPRA,
-                IDEMPRESA,
-                IDFILIAL,
-                CODBARRAS,
-                QTDSUGESTAOALTERACAOHISTORICO,
-                IDUSUARIOALTERACAO,
-                IDUSUARIO,
-                FINALIZAR
-            }])
+            const response = await comprasService.updateDistribuicaoHistorico(
+                value.IDDISTRIBUICAOCOMPRASHISTORICO,
+                value.IDPEDIDOCOMPRA,
+                value.IDEMPRESA,
+                value.IDFILIAL,
+                value.CODBARRAS,
+                value.QTDSUGESTAOALTERACAOHISTORICO,
+                value.IDUSUARIOALTERACAO,
+                value.IDUSUARIO,
+                value.FINALIZAR
+            );
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putDistribuicaoComprasHistorico:", error);
             throw error;
@@ -1747,7 +1731,7 @@ class ComprasControllers {
         if(!IDRESUMOPEDIDO) {
             return res.status(400).json({ error: "IDRESUMOPEDIDO is required" });
         }
-        
+
         try {
             const apiUrl = `${url}/api/compras/lista_pedidos.xsjs?idrespedido=${IDRESUMOPEDIDO}`
         
