@@ -20,6 +20,7 @@ import atualizarCategoriaPedidosSchema from "../schema/atualizarCategoriaPedidos
 import atualizarTipoTecidoSchema from "../schema/atualizarTipoTecido.js";
 import atualizarEstilosSchema from "../schema/atualizarEstilos.js";
 import atualizarCoresSchema from "../schema/atualizarCores.js";
+import atualizarUnidadeMedidaSchema from "../schema/atualizarUnidadeMedida.js";
 
 
 import { ComprasClient } from "../client/index.js";
