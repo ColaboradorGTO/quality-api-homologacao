@@ -912,65 +912,49 @@ class ComprasControllers {
     }
 
     async putCadastroTransportador(req, res) {
-        let {
-            IDTRANSPORTADORA,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            NORAZAOSOCIAL,
-            NOFANTASIA,
-            NUCNPJ,
-            NUINSCESTADUAL,
-            NUINSCMUNICIPAL,
-            NUIBGE,
-            EENDERECO,
-            ENUMERO,
-            ECOMPLEMENTO,
-            EBAIRRO,
-            ECIDADE,
-            SGUF,
-            NUCEP,
-            EEMAIL,
-            NUTELEFONE1,
-            NUTELEFONE2,
-            NUTELEFONE3,
-            NOREPRESENTANTE,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO
-        } = req.body;
-
-        if(!IDTRANSPORTADORA) {
-            return res.status(400).json({ error: "IDTRANSPORTADORA is required" });
-        }
-
         try {
-            const apiUrl = `${url}/api/compras/transportador.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDTRANSPORTADORA,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                NORAZAOSOCIAL,
-                NOFANTASIA,
-                NUCNPJ,
-                NUINSCESTADUAL,
-                NUINSCMUNICIPAL,
-                NUIBGE,
-                EENDERECO,
-                ENUMERO,
-                ECOMPLEMENTO,
-                EBAIRRO,
-                ECIDADE,
-                SGUF,
-                NUCEP,
-                EEMAIL,
-                NUTELEFONE1,
-                NUTELEFONE2,
-                NUTELEFONE3,
-                NOREPRESENTANTE,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO
-            }]);
+            const { error, value } = await atualizarTransportadorSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+          
+            const response = await comprasService.updateTransportador(
+                value.IDTRANSPORTADORA,
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.NORAZAOSOCIAL,
+                value.NOFANTASIA,
+                value.NUCNPJ,
+                value.NUINSCESTADUAL,
+                value.NUINSCMUNICIPAL,
+                value.NUIBGE,
+                value.EENDERECO,
+                value.ENUMERO,
+                value.ECOMPLEMENTO,
+                value.EBAIRRO,
+                value.ECIDADE,
+                value.SGUF,
+                value.NUCEP,
+                value.EEMAIL,
+                value.NUTELEFONE1,
+                value.NUTELEFONE2,
+                value.NUTELEFONE3,
+                value.NOREPRESENTANTE,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO
+            );
            
             return res.json(response.data);
         } catch (error) {
