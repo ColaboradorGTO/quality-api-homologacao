@@ -23,6 +23,7 @@ import atualizarCoresSchema from "../schema/atualizarCores.js";
 import atualizarUnidadeMedidaSchema from "../schema/atualizarUnidadeMedida.js";
 import atualizarGrupoEstruturaSchema from "../schema/atualizarGrupoEstrutura.js";
 import atualizarSubGrupoEstruturaSchema from "../schema/atualizarSubGrupoEstrutura.js";
+import atualizarSubGrupoEstruturaSchema from "../schema/atualizarCondicaoPagamento.js";
 
 
 import { ComprasClient } from "../client/index.js";
@@ -1053,28 +1054,33 @@ class ComprasControllers {
     }
 
     async putSubGrupoEstrutura(req, res) {
-        let {
-            IDGRUPOESTRUTURAANTIGA,
-            IDGRUPOESTRUTURA,
-            DSSUBGRUPOESTRUTURA,
-            DSSUBGRUPOESTRUTURAFIM,
-            CODSUBGRUPOESTRUTURA,
-            IDSUBGRUPOESTRUTURA,
-            STATIVO
-        } = req.body;
 
         try {
-            const apiUrl = `${url}/api/compras/subgrupoestrutura.xsjs`
+            const { error, value } = await atualizarSubGrupoEstruturaSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
          
-            const response = await axios.put(apiUrl, [{
-                IDGRUPOESTRUTURAANTIGA,
-                IDGRUPOESTRUTURA,
-                DSSUBGRUPOESTRUTURA,
-                DSSUBGRUPOESTRUTURAFIM,
-                CODSUBGRUPOESTRUTURA,
-                IDSUBGRUPOESTRUTURA,
-                STATIVO
-            }]);
+            const response = await comprasService.updateSubGrupoEstrutura(
+                value.IDGRUPOESTRUTURAANTIGA,
+                value.IDGRUPOESTRUTURA,
+                value.DSSUBGRUPOESTRUTURA,
+                value.DSSUBGRUPOESTRUTURAFIM,
+                value.CODSUBGRUPOESTRUTURA,
+                value.IDSUBGRUPOESTRUTURA,
+                value.STATIVO
+            );
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasControllers.putSubGrupoEstrutura:", error);

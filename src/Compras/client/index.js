@@ -550,6 +550,29 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarSubGrupoEstrutura(
+        IDGRUPOESTRUTURAANTIGA,
+        IDGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURAFIM,
+        CODSUBGRUPOESTRUTURA,
+        IDSUBGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/subgrupoestrutura.xsjs`, {
+            IDGRUPOESTRUTURAANTIGA,
+            IDGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURAFIM,
+            CODSUBGRUPOESTRUTURA,
+            IDSUBGRUPOESTRUTURA,
+            STATIVO
+        });
+        
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,

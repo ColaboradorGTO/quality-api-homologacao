@@ -582,4 +582,29 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async updateSubGrupoEstrutura(
+        IDGRUPOESTRUTURAANTIGA,
+        IDGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURAFIM,
+        CODSUBGRUPOESTRUTURA,
+        IDSUBGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        if(!IDGRUPOESTRUTURA) {
+            throw new Error('ID do Grupo de Estrutura é obrigatório.');
+        }
+
+        const response = await this.client.atualizarSubGrupoEstrutura(
+            IDGRUPOESTRUTURAANTIGA,
+            IDGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURAFIM,
+            CODSUBGRUPOESTRUTURA,
+            IDSUBGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
 }
