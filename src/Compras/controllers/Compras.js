@@ -25,6 +25,7 @@ import atualizarGrupoEstruturaSchema from "../schema/atualizarGrupoEstrutura.js"
 import atualizarSubGrupoEstruturaSchema from "../schema/atualizarSubGrupoEstrutura.js";
 import atualizarCondicaoPagamentoSchema from "../schema/atualizarCondicaoPagamento.js";
 import atualizarTransportadorSchema from "../schema/atualizarTransportador.js";
+import atualizarImagemSchema from "../schema/atualizarImagem.js";
 
 
 import { ComprasClient } from "../client/index.js";
