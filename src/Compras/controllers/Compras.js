@@ -22,6 +22,8 @@ import atualizarEstilosSchema from "../schema/atualizarEstilos.js";
 import atualizarCoresSchema from "../schema/atualizarCores.js";
 import atualizarUnidadeMedidaSchema from "../schema/atualizarUnidadeMedida.js";
 import atualizarGrupoEstruturaSchema from "../schema/atualizarGrupoEstrutura.js";
+import atualizarSubGrupoEstruturaSchema from "../schema/atualizarSubGrupoEstrutura.js";
+
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
