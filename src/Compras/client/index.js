@@ -626,6 +626,67 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarTransportador(
+        IDTRANSPORTADORA,
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        
+        if(!IDTRANSPORTADORA) {
+            throw new Error("IDTRANSPORTADORA é obrigatório para atualizar um transportador.");
+        }
+
+        const response = await this.api.put(`${url}/api/compras/transportador.xsjs`, [{
+            IDTRANSPORTADORA,
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+        }]);
+        
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
