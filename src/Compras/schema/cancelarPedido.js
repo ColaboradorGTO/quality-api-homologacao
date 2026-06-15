@@ -21,10 +21,9 @@ const cancelarPedidoSchema = Joi.object({
         'string.max': 'DSMOTIVOCANCELAMENTO deve ter no máximo 500 caracteres'
     }),
     
-    DTCANCELAMENTO: Joi.string().allow('').max(100).optional()
+    DTCANCELAMENTO: Joi.string().allow('')
     .messages({
         'string.base': 'DTCANCELAMENTO deve ser uma string',
-        'string.max': 'DTCANCELAMENTO deve ter no máximo 100 caracteres'
     }),
     STCANCELADO: Joi.string().allow('').max(10).optional()
     .messages({

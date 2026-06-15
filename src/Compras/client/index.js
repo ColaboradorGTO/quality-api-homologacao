@@ -119,7 +119,8 @@ export class ComprasClient {
         STAGRUPAPRODUTO,
         STCANCELADO,
         TPFISCAL,
-        STRASCUNHO
+        STRASCUNHO,
+        STPEDIDOPORINTEMEDIARIO
     ) {
         const response = await this.api.put(`${url}/api/compras/atualizar-pedido.xsjs`, [{
             IDRESUMOPEDIDO,
@@ -149,7 +150,9 @@ export class ComprasClient {
             STDISTRIBUIDO,
             STAGRUPAPRODUTO,
             STCANCELADO,
-            TPFISCAL
+            TPFISCAL,
+            STRASCUNHO,
+            STPEDIDOPORINTEMEDIARIO
         }]);
       
         return response.data;
@@ -257,27 +260,6 @@ export class ComprasClient {
         return response.data;
     }
 
-    async cancelarPedido(
-        IDRESUMOPEDIDO,   
-        IDANDAMENTO, 
-        IDRESPCANCELAMENTO, 
-        DSMOTIVOCANCELAMENTO, 
-        DTCANCELAMENTO, 
-        STCANCELADO
-        
-    ) {
-        const response = await this.api.put(`${url}/api/compras/cancelamento-pedido.xsjs`, {
-            IDRESUMOPEDIDO,   
-            IDANDAMENTO, 
-            IDRESPCANCELAMENTO, 
-            DSMOTIVOCANCELAMENTO, 
-            DTCANCELAMENTO, 
-            STCANCELADO
-        });
-      
-        return response.data;
-    }
-
     async atualizarDistribuicaoHistorico(
         IDDISTRIBUICAOCOMPRASHISTORICO,
         IDPEDIDOCOMPRA,
@@ -286,7 +268,6 @@ export class ComprasClient {
         CODBARRAS,
         QTDSUGESTAOALTERACAOHISTORICO,
         IDUSUARIOALTERACAO,
-        IDUSUARIO,
         FINALIZAR
     ) {
         
@@ -298,7 +279,6 @@ export class ComprasClient {
             CODBARRAS,
             QTDSUGESTAOALTERACAOHISTORICO,
             IDUSUARIOALTERACAO,
-            IDUSUARIO,
             FINALIZAR
         }]);
         return response.data;
@@ -465,13 +445,17 @@ export class ComprasClient {
     async atualizarTipoTecidos(
         IDTPTECIDO,
         DSTIPOTECIDO,
-        STATIVO
+        DSSIGLA,
+        STATIVO,
+        IDFUNCIONARIO
     ) {
         
         const response = await this.api.put(`${url}/api/compras/tipotecidos.xsjs`, [{
             IDTPTECIDO,
             DSTIPOTECIDO,
-            STATIVO
+            DSSIGLA,
+            STATIVO,
+            IDFUNCIONARIO
         }]);
         return response.data;
     }
@@ -540,12 +524,12 @@ export class ComprasClient {
         STATIVO
     ) {
         
-        const response = await this.api.put(`${url}/api/compras/grupoextrutura.xsjs`, {
+        const response = await this.api.put(`${url}/api/compras/grupoextrutura.xsjs`, [{
             IDGRUPOESTRUTURA,
             IDGRUPOEMPRESARIAL,
             DSGRUPOESTRUTURA,
             STATIVO
-        });
+        }]);
         
         return response.data;
     }
@@ -683,6 +667,23 @@ export class ComprasClient {
             DTULTATUALIZACAO,
             STATIVO
         }]);
+        
+        return response.data;
+    }
+
+    async atualizarImagem(
+        IDIMAGEM,
+        STATIVO
+    ) {
+        
+        if(!IDIMAGEM) {
+            throw new Error("IDIMAGEM é obrigatório para atualizar uma imagem.");
+        }
+
+        const response = await this.api.put(`${url}/api/compras/atualiza_imagem.xsjs`, {
+            IDIMAGEM,
+            STATIVO
+        });
         
         return response.data;
     }

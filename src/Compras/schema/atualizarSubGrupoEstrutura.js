@@ -1,10 +1,9 @@
 import Joi from 'joi';
 
 const atualizarSubGrupoEstruturaSchema = Joi.object({
-    IDGRUPOESTRUTURAANTIGA: Joi.number().required()
+    IDGRUPOESTRUTURAANTIGA: Joi.number()
     .messages({
         'number.base': 'IDGRUPOESTRUTURAANTIGA deve ser um número',
-        'any.required': 'IDGRUPOESTRUTURAANTIGA é obrigatório'
     }),
     IDGRUPOESTRUTURA: Joi.number().required()
     .messages({

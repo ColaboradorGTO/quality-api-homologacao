@@ -1,14 +1,13 @@
 import Joi from 'joi';
 
 const atualizarCategoriaPedidosSchema = Joi.object({
-    IDCATEGORIAPEDIDO: Joi.string().allow('')
+    IDCATEGORIAPEDIDO: Joi.number()
     .messages({
-        'string.base': 'IDCATEGORIAPEDIDO deve ser uma string',
+        'number.base': 'IDCATEGORIAPEDIDO deve ser um número',
     }),
-    DSCATEGORIAPEDIDO: Joi.string().allow('').max(500).optional()
+    DSCATEGORIAPEDIDO: Joi.string().allow('')
     .messages({
-        'string.base': 'DSCATEGORIAPEDIDO deve ser uma string',
-        'string.max': 'DSCATEGORIAPEDIDO deve ter no máximo 500 caracteres'
+        'string.base': 'DSCATEGORIAPEDIDO deve ser uma string'
     }),
     TIPOPEDIDO: Joi.string().allow('')
     .messages({

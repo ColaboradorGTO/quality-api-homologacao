@@ -18,7 +18,6 @@ const atualizarDistribuicaoHistoricoSchema = Joi.object({
     .messages({
         'number.base': 'IDFILIAL deve ser um número inteiro',
     }),
-    
     CODBARRAS: Joi.string().allow('').max(200).optional()
     .messages({
         'string.base': 'CODBARRAS deve ser uma string',
@@ -31,11 +30,6 @@ const atualizarDistribuicaoHistoricoSchema = Joi.object({
     IDUSUARIOALTERACAO: Joi.number().optional()
     .messages({
         'number.base': 'IDUSUARIOALTERACAO deve ser um número inteiro'
-    }),
-    IDUSUARIO: Joi.number().optional()
-    .messages({
-        'number.base': 'IDUSUARIO deve ser um número inteiro',
-        'any.required': 'ID do usuário é obrigatório'
     }),
     FINALIZAR: Joi.number().optional()
     .messages({

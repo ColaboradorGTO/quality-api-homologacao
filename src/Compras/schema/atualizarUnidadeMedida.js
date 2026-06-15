@@ -6,15 +6,13 @@ const atualizarUnidadeMedidaSchema = Joi.object({
         'number.base': 'IDUNIDADEMEDIDA deve ser um número',
         'any.required': 'IDUNIDADEMEDIDA é obrigatório'
     }),
-    DSUNIDADE: Joi.string().allow('').max(100).optional()
+    DSUNIDADE: Joi.string().allow('')
     .messages({
         'string.base': 'DSUNIDADE deve ser uma string',
-        'string.max': 'DSUNIDADE deve ter no máximo 100 caracteres'
     }),
-    DSSIGLA: Joi.string().allow('').max(100).optional()
+    DSSIGLA: Joi.string().allow('')
     .messages({
         'string.base': 'DSSIGLA deve ser uma string',
-        'string.max': 'DSSIGLA deve ter no máximo 100 caracteres'
     }),
     DTCADASTRO: Joi.string().allow('').optional()
     .messages({

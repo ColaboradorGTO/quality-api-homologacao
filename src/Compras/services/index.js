@@ -124,7 +124,8 @@ export class ComprasService {
         STAGRUPAPRODUTO,
         STCANCELADO,
         TPFISCAL,
-        STRASCUNHO 
+        STRASCUNHO,
+        STPEDIDOPORINTEMEDIARIO 
     ) {
         if(!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
@@ -160,7 +161,8 @@ export class ComprasService {
             STAGRUPAPRODUTO,
             STCANCELADO,
             TPFISCAL,
-            STRASCUNHO
+            STRASCUNHO,
+            STPEDIDOPORINTEMEDIARIO
         );
         return response.data;
     }
@@ -285,7 +287,6 @@ export class ComprasService {
         CODBARRAS,
         QTDSUGESTAOALTERACAOHISTORICO,
         IDUSUARIOALTERACAO,
-        IDUSUARIO,
         FINALIZAR
     ) {
         if(!IDPEDIDOCOMPRA) {
@@ -300,7 +301,6 @@ export class ComprasService {
             CODBARRAS,
             QTDSUGESTAOALTERACAOHISTORICO,
             IDUSUARIOALTERACAO,
-            IDUSUARIO,
             FINALIZAR
         );
         return response.data;
@@ -508,7 +508,9 @@ export class ComprasService {
     async updateTipoTecidos(
         IDTPTECIDO,
         DSTIPOTECIDO,
-        STATIVO
+        DSSIGLA,
+        STATIVO,
+        IDFUNCIONARIO
     ) {
         if(!IDTPTECIDO) {
             throw new Error('ID do tipo de tecido é obrigatório.');
@@ -517,7 +519,9 @@ export class ComprasService {
         const response = await this.client.atualizarTipoTecidos(
             IDTPTECIDO,
             DSTIPOTECIDO,
-            STATIVO
+            DSSIGLA,
+            STATIVO,
+            IDFUNCIONARIO
         );
         return response.data;
     }
@@ -718,6 +722,21 @@ export class ComprasService {
             DTCADASTRO,
             DTULTATUALIZACAO,
             STATIVO
+        );
+        return response.data;
+    }
+
+    async updateImagem(
+        IDIMAGEM,
+        STATIVO
+    ) {
+        if(!IDIMAGEM) {
+            throw new Error('ID da Imagem é obrigatório.');
+        }
+
+        const response = await this.client.atualizarImagem(
+           IDIMAGEM,
+           STATIVO
         );
         return response.data;
     }

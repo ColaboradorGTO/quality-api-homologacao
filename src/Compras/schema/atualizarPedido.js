@@ -22,9 +22,9 @@ const atualizarPedidoSchema = Joi.object({
     .messages({
         'number.base': 'IDCONDICAOPAGAMENTO deve ser um número inteiro',
     }),
-    IDFORNECEDOR: Joi.number().integer()
+    IDFORNECEDOR: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'IDFORNECEDOR deve ser um número inteiro',
+        'string.base': 'IDFORNECEDOR deve ser uma string',
     }),
     IDTRANSPORTADORA: Joi.number().integer()
     .messages({
@@ -124,6 +124,11 @@ const atualizarPedidoSchema = Joi.object({
     .messages({
         'string.base': 'STRASCUNHO deve ser uma string',
         'string.max': 'STRASCUNHO deve ter no máximo 10 caracteres'
+    }),
+    STPEDIDOPORINTEMEDIARIO: Joi.string().allow('').max(10).optional()
+    .messages({
+        'string.base': 'STPEDIDOPORINTEMEDIARIO deve ser uma string',
+        'string.max': 'STPEDIDOPORINTEMEDIARIO deve ter no máximo 10 caracteres'
     }),
 });
 

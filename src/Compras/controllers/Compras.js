@@ -896,14 +896,28 @@ class ComprasControllers {
     }
 
     async putImagem(req, res) {
-        let { IDIMAGEMPRODUTO, STATIVO } = req.body;
+       
 
         try {
-            const apiUrl = `${url}/api/compras/atualiza_imagem.xsjs`
-            const response = await axios.put(apiUrl, {
-                IDIMAGEMPRODUTO,
-                STATIVO
-            })
+            const { error, value } = await atualizarImagemSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.updateImagem(
+                value.IDIMAGEM,
+                value.STATIVO
+            )
 
             return res.json(response.data); // Retorna
         } catch (error) {
@@ -1174,7 +1188,7 @@ class ComprasControllers {
         }
     }
 
-    async updateTipoTecidos(req, res) {
+    async putTipoTecidos(req, res) {
         try {
             const { error, value } = await atualizarTipoTecidoSchema.validate(req.body, {
                 abortEarly: false, 
@@ -1194,7 +1208,9 @@ class ComprasControllers {
             const response = await comprasService.updateTipoTecidos(
                 value.IDTPTECIDO,
                 value.DSTIPOTECIDO,
-                value.STATIVO
+                value.DSSIGLA,
+                value.STATIVO,
+                value.IDFUNCIONARIO
             );
             return res.status(200).json(response);
         } catch (error) {
@@ -1703,6 +1719,7 @@ class ComprasControllers {
                 value.STCANCELADO,
                 value.TPFISCAL,
                 value.STRASCUNHO,
+                value.STPEDIDOPORINTEMEDIARIO
             );
             return res.status(200).json(response);
         } catch (error) {
@@ -1739,7 +1756,6 @@ class ComprasControllers {
                 value.CODBARRAS,
                 value.QTDSUGESTAOALTERACAOHISTORICO,
                 value.IDUSUARIOALTERACAO,
-                value.IDUSUARIO,
                 value.FINALIZAR
             );
 

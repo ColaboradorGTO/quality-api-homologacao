@@ -18,4 +18,4 @@ const reativarPedidoSchema = Joi.object({
     })
 });
 
-export default reativarPedidoSchema;
+export default reativarPedidoSchema; 

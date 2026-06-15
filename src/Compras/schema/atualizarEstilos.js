@@ -15,10 +15,9 @@ const atualizarEstilosSchema = Joi.object({
         'number.base': 'IDESTILO deve ser um número',
         'any.required': 'IDESTILO é obrigatório'
     }),
-    DSESTILO: Joi.string().allow('').max(500).optional()
+    DSESTILO: Joi.string().allow('')
     .messages({
         'string.base': 'DSESTILO deve ser uma string',
-        'string.max': 'DSESTILO deve ter no máximo 500 caracteres'
     }),
     IDGRUPOESTRUTURA: Joi.number()
     .messages({
