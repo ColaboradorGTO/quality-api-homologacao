@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const atualizarSubGrupoEstruturaSchema = Joi.object({
+const atualizarCondicaoPagamentoSchema = Joi.object({
     IDCONDICAOPAGAMENTO: Joi.number().required()
     .messages({
         'number.base': 'IDCONDICAOPAGAMENTO deve ser um número',
@@ -92,4 +92,4 @@ const atualizarSubGrupoEstruturaSchema = Joi.object({
     })
 });
 
-export default atualizarSubGrupoEstruturaSchema;
+export default atualizarCondicaoPagamentoSchema;

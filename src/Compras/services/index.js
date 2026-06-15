@@ -607,4 +607,59 @@ export class ComprasService {
         );
         return response.data;
     }
+ 
+    async updateCondicaoPagamento(
+        IDCONDICAOPAGAMENTO,
+        IDGRUPOEMPRESARIAL,
+        DSCONDICAOPAG,
+        STPARCELADO,
+        NUPARCELAS,
+        NUNDIA1PAG,
+        NUNDIA2PAG,
+        NUNDIA3PAG,
+        NUNDIA4PAG,
+        NUNDIA5PAG,
+        NUNDIA6PAG,
+        NUNDIA7PAG,
+        NUNDIA8PAG,
+        NUNDIA9PAG,
+        NUNDIA10PAG,
+        NUNDIA11PAG,
+        NUNDIA12PAG,
+        DTULTALTERACAO,
+        QTDDIAS,
+        DSTPDOCUMENTO,
+        STATIVO,
+        IDTPDOCUMENTO
+    ) {
+        if(!IDCONDICAOPAGAMENTO) {
+            throw new Error('ID da Condição de Pagamento é obrigatório.');
+        }
+
+        const response = await this.client.atualizarCondicaoPagamento(
+            IDCONDICAOPAGAMENTO,
+            IDGRUPOEMPRESARIAL,
+            DSCONDICAOPAG,
+            STPARCELADO,
+            NUPARCELAS,
+            NUNDIA1PAG,
+            NUNDIA2PAG,
+            NUNDIA3PAG,
+            NUNDIA4PAG,
+            NUNDIA5PAG,
+            NUNDIA6PAG,
+            NUNDIA7PAG,
+            NUNDIA8PAG,
+            NUNDIA9PAG,
+            NUNDIA10PAG,
+            NUNDIA11PAG,
+            NUNDIA12PAG,
+            DTULTALTERACAO,
+            QTDDIAS,
+            DSTPDOCUMENTO,
+            STATIVO,
+            IDTPDOCUMENTO
+        );
+        return response.data;
+    }
 }

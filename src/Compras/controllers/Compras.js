@@ -23,8 +23,7 @@ import atualizarCoresSchema from "../schema/atualizarCores.js";
 import atualizarUnidadeMedidaSchema from "../schema/atualizarUnidadeMedida.js";
 import atualizarGrupoEstruturaSchema from "../schema/atualizarGrupoEstrutura.js";
 import atualizarSubGrupoEstruturaSchema from "../schema/atualizarSubGrupoEstrutura.js";
-import atualizarSubGrupoEstruturaSchema from "../schema/atualizarCondicaoPagamento.js";
-
+import atualizarCondicaoPagamentoSchema from "../schema/atualizarCondicaoPagamento.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -979,77 +978,51 @@ class ComprasControllers {
     }
 
     async putCondicaoPagamento(req, res) {
-        let {
-            IDCONDICAOPAGAMENTO,
-            IDGRUPOEMPRESARIAL,
-            DSCONDICAOPAG,
-            STPARCELADO,
-            NUPARCELAS,
-            NUNDIA1PAG,
-            NUNDIA2PAG,
-            NUNDIA3PAG,
-            NUNDIA4PAG,
-            NUNDIA5PAG,
-            NUNDIA6PAG,
-            NUNDIA7PAG,
-            NUNDIA8PAG,
-            NUNDIA9PAG,
-            NUNDIA10PAG,
-            NUNDIA11PAG,
-            NUNDIA12PAG,
-            DTULTALTERACAO,
-            QTDDIAS,
-            DSTPDOCUMENTO,
-            STATIVO,
-            IDTPDOCUMENTO
-        } = req.body;
-
-        if(!IDCONDICAOPAGAMENTO) {
-            return res.status(400).json({ error: "IDCONDICAOPAGAMENTO is required" });
-        }
-
-        if(DSCONDICAOPAG == '') {
-            return res.status(400).json({ error: "O campo 'DSCONDICAOPAG' é obrigatório e não pode estar vazio." });
-        }
-
-        if(STPARCELADO == '') {
-            return res.status(400).json({ error: "O campo 'STPARCELADO' é obrigatório e não pode estar vazio." });
-        }
-
-        if(NUPARCELAS == '') {
-            return res.status(400).json({ error: "O campo 'NUPARCELAS' é obrigatório e não pode estar vazio." });
-        }
         
         try {
-            const apiUrl = `${url}/api/compras/condicaopagamento.xsjs`
-            const response = await axios.put(apiUrl, [{
-                IDCONDICAOPAGAMENTO,
-                IDGRUPOEMPRESARIAL,
-                DSCONDICAOPAG,
-                STPARCELADO,
-                NUPARCELAS,
-                NUNDIA1PAG,
-                NUNDIA2PAG,
-                NUNDIA3PAG,
-                NUNDIA4PAG,
-                NUNDIA5PAG,
-                NUNDIA6PAG,
-                NUNDIA7PAG,
-                NUNDIA8PAG,
-                NUNDIA9PAG,
-                NUNDIA10PAG,
-                NUNDIA11PAG,
-                NUNDIA12PAG,
-                DTULTALTERACAO,
-                QTDDIAS,
-                DSTPDOCUMENTO,
-                STATIVO,
-                IDTPDOCUMENTO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await atualizarCondicaoPagamentoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.updateCondicaoPagamento(
+                value.IDCONDICAOPAGAMENTO,
+                value.IDGRUPOEMPRESARIAL,
+                value.DSCONDICAOPAG,
+                value.STPARCELADO,
+                value.NUPARCELAS,
+                value.NUNDIA1PAG,
+                value.NUNDIA2PAG,
+                value.NUNDIA3PAG,
+                value.NUNDIA4PAG,
+                value.NUNDIA5PAG,
+                value.NUNDIA6PAG,
+                value.NUNDIA7PAG,
+                value.NUNDIA8PAG,
+                value.NUNDIA9PAG,
+                value.NUNDIA10PAG,
+                value.NUNDIA11PAG,
+                value.NUNDIA12PAG,
+                value.DTULTALTERACAO,
+                value.QTDDIAS,
+                value.DSTPDOCUMENTO,
+                value.STATIVO,
+                value.IDTPDOCUMENTO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Error no ComprasControllers.putCondicaoPagamento:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1081,10 +1054,10 @@ class ComprasControllers {
                 value.IDSUBGRUPOESTRUTURA,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("error no ComprasControllers.putSubGrupoEstrutura:", error);
-            throw error;
+            console.error("Erro no ComprasControllers.putSubGrupoEstrutura:", error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1111,10 +1084,10 @@ class ComprasControllers {
                 value.DSGRUPOESTRUTURA,
                 value.STATIVO
             );
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasController.putGrupoEstrutura:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1145,8 +1118,8 @@ class ComprasControllers {
             
             return res.status(200).json(response);
         } catch (error) {
-            console.error("error no ComprasControllers.putUnidadeMedida:", error);
-            throw error;
+            console.error("Erro no ComprasControllers.putUnidadeMedida:", error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -1176,7 +1149,7 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("Erro no ComprasControllers.putCores:", error);
-            throw error;
+            return res.status(500).json({ error: error.message });
         }
     }
 
