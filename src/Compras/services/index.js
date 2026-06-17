@@ -306,6 +306,23 @@ export class ComprasService {
         return response.data;
     }
 
+    async updateDistribuicaoHistoricoADM(
+        IDPEDIDOCOMPRA,
+        IDUSUARIO,
+        FINALIZAR
+    ) {
+        if(!IDPEDIDOCOMPRA) {
+            throw new Error('ID do pedido de compra é obrigatório.');
+        }
+
+        const response = await this.client.atualizarDistribuicaoHistoricoADM(
+            IDPEDIDOCOMPRA,
+            IDUSUARIO,
+            FINALIZAR
+        );
+        return response.data;
+    }
+
     async updateStatusProdutoPedido(
         IDDETALHEPEDIDO, 
         STCANCELADO, 
@@ -736,6 +753,21 @@ export class ComprasService {
 
         const response = await this.client.atualizarImagem(
            IDIMAGEM,
+           STATIVO
+        );
+        return response.data;
+    }
+
+    async updateImagemProduto(
+        IDIMAGEMPRODUTO,
+        STATIVO
+    ) {
+        if(!IDIMAGEMPRODUTO) {
+            throw new Error('ID da Imagem do Produto é obrigatório.');
+        }
+
+        const response = await this.client.atualizarProdutoImagem(
+           IDIMAGEMPRODUTO,
            STATIVO
         );
         return response.data;

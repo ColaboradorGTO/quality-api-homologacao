@@ -26,7 +26,8 @@ import atualizarSubGrupoEstruturaSchema from "../schema/atualizarSubGrupoEstrutu
 import atualizarCondicaoPagamentoSchema from "../schema/atualizarCondicaoPagamento.js";
 import atualizarTransportadorSchema from "../schema/atualizarTransportador.js";
 import atualizarImagemSchema from "../schema/atualizarImagem.js";
-
+import atualizarImagemProdutoSchema from "../schema/atualizarImagemProduto.js";
+import atualizarDistribuicaoHistoricoADMSchema from "../schema/atualizarDistribuicaoHistoricoADM.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -878,17 +879,30 @@ class ComprasControllers {
     }
 
     //  UPDATE
-    async updateProdutoImagem(req, res) {
-        let { IDIMAGEMPRODUTO, STATIVO } = req.body;
-
+    async putProdutoImagem(req, res) {
         try {
-            const apiUrl = `${url}/api/compras/atualiza_produtosimagem.xsjs`
-            const response = await axios.put(apiUrl, {
-                IDIMAGEMPRODUTO,
-                STATIVO
-            })
+            const { error, value } = await atualizarImagemProdutoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+           
+           if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
 
-            return res.json(response.data); // Retorna
+           
+            const response = await comprasService.updateImagemProduto(
+                value.IDIMAGEMPRODUTO,
+                value.STATIVO
+            )
+
+            return res.status(200).json(response); // Retorna
         } catch (error) {
             console.error("Erro no ComprasControllers.updateProdutoImagem:", error);
             throw error;
@@ -896,8 +910,6 @@ class ComprasControllers {
     }
 
     async putImagem(req, res) {
-       
-
         try {
             const { error, value } = await atualizarImagemSchema.validate(req.body, {
                 abortEarly: false, 
@@ -919,7 +931,7 @@ class ComprasControllers {
                 value.STATIVO
             )
 
-            return res.json(response.data); // Retorna
+            return res.status(200).json(response); // Retorna
         } catch (error) {
             console.error("Erro no ComprasControllers.putImagem:", error);
             throw error;
@@ -971,7 +983,7 @@ class ComprasControllers {
                 value.STATIVO
             );
            
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Error no ComprasControllers.putCadastroTransportador:", error);
             throw error;
@@ -1724,6 +1736,44 @@ class ComprasControllers {
             return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.putPedido:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async putDistribuicaoComprasHistoricoADM(req, res) {
+
+        try {
+
+            const { error, value } = await atualizarDistribuicaoHistoricoADMSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+            
+        
+            const response = await comprasService.updateDistribuicaoHistoricoADM(
+                value.IDDISTRIBUICAOCOMPRASHISTORICO,
+                value.IDPEDIDOCOMPRA,
+                value.IDEMPRESA,
+                value.IDFILIAL,
+                value.CODBARRAS,
+                value.QTDSUGESTAOALTERACAOHISTORICO,
+                value.IDUSUARIOALTERACAO,
+                value.FINALIZAR
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("error no ComprasControllers.putDistribuicaoComprasHistoricoADM:", error);
             return res.status(500).json({ error: error.message });
         }
     }

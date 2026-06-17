@@ -190,7 +190,7 @@ export class ComprasClient {
         STRASCUNHO
         
     ) {
-        const response = await this.api.put(`${url}/api/compras/finalizar-pedido.xsjs`, [{
+        const response = await this.api.put(`${url}/api/compras/finalizar-pedido.xsjs`, {
             IDRESUMOPEDIDO,
             IDGRUPOEMPRESARIAL,
             IDSUBGRUPOEMPRESARIAL,
@@ -220,7 +220,7 @@ export class ComprasClient {
             STCANCELADO,
             TPFISCAL,
             STRASCUNHO
-        }]);
+        });
       
         return response.data;
     }
@@ -279,6 +279,20 @@ export class ComprasClient {
             CODBARRAS,
             QTDSUGESTAOALTERACAOHISTORICO,
             IDUSUARIOALTERACAO,
+            FINALIZAR
+        }]);
+        return response.data;
+    }
+   
+    async atualizarDistribuicaoHistoricoADM(
+        IDPEDIDOCOMPRA,
+        IDUSUARIO,
+        FINALIZAR
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/distribuicao-compras-historico.xsjs`, [{
+            IDPEDIDOCOMPRA,
+            IDUSUARIO,
             FINALIZAR
         }]);
         return response.data;
@@ -667,6 +681,23 @@ export class ComprasClient {
             DTULTATUALIZACAO,
             STATIVO
         }]);
+        
+        return response.data;
+    }
+
+    async atualizarProdutoImagem(
+        IDIMAGEMPRODUTO,
+        STATIVO
+    ) {
+        
+        if(!IDIMAGEMPRODUTO) {
+            throw new Error("IDIMAGEMPRODUTO é obrigatório para atualizar uma imagem.");
+        }
+
+        const response = await this.api.put(`${url}/api/compras/atualiza_produtosimagem.xsjs`, {
+            IDIMAGEMPRODUTO,
+            STATIVO
+        });
         
         return response.data;
     }
