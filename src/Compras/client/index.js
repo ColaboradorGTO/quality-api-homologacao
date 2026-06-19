@@ -17,7 +17,7 @@ export class ComprasClient {
         });
         return response.data;
     }
-
+    // TESTADO NA TELA NÃO PRECISA TESTAR NOVAMENTE
     async atualizarDetalhePedido(
         idDetPedido,
         IDCOR,
