@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import MarketingControllers from '../controllers/Marketing.js';
 
-
 const routes = new Router();
 
 routes.get('/produto-promocao', MarketingControllers.getListaProdutosPromocao)
