@@ -49,7 +49,7 @@ class CadastroControllers  {
             return res.json(response.data); // Retorna
         } catch(error) {
             console.error("Erro no CadastroControllers.getListaCategorias:", error);
-            throw error;
+            return res.status(500).json({ error: "erro no CadastroControllers.getListaCategorias" });
         } 
     }
 

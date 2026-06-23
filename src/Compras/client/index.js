@@ -17,7 +17,7 @@ export class ComprasClient {
         });
         return response.data;
     }
-    // TESTADO NA TELA NÃO PRECISA TESTAR NOVAMENTE
+    
     async atualizarDetalhePedido(
         idDetPedido,
         IDCOR,
@@ -122,7 +122,7 @@ export class ComprasClient {
         STRASCUNHO,
         STPEDIDOPORINTEMEDIARIO
     ) {
-        const response = await this.api.put(`${url}/api/compras/atualizar-pedido.xsjs`, [{
+        const response = await this.api.put(`${url}/api/compras/atualizar-pedido.xsjs`, {
             IDRESUMOPEDIDO,
             IDGRUPOEMPRESARIAL,
             IDSUBGRUPOEMPRESARIAL,
@@ -153,7 +153,7 @@ export class ComprasClient {
             TPFISCAL,
             STRASCUNHO,
             STPEDIDOPORINTEMEDIARIO
-        }]);
+        });
       
         return response.data;
     }
@@ -746,3 +746,4 @@ export class ComprasClient {
         return response.data;
     }
 }
+

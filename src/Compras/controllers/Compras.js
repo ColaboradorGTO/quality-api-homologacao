@@ -107,7 +107,7 @@ class ComprasControllers {
             return res.json(response.data); 
         } catch (error) {
             console.error("Unable to connect to the database:", error);
-            throw error;
+            return res.status(500).json({ error: "erro no ComprasControllers.getListaDetalhePedidoGrade" });
         }
     }
 
@@ -811,7 +811,7 @@ class ComprasControllers {
             return res.json(response.data);
         } catch (error) {
             console.error("Erro ComprasControllers.getListaVinculoEstiloGrupo:", error);
-            throw error;
+            return res.status(500).json({ error: "erro no ComprasControllers.getListaVinculoEstiloGrupo" });
         }
     }
 

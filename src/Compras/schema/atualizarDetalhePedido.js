@@ -51,7 +51,7 @@ const atualizarDetalhePedidoSchema = Joi.object({
         'string.base': 'DSPRODUTO deve ser uma string',
         'string.max': 'DSPRODUTO deve ter no máximo 500 caracteres'
     }),
-    QTDTOTAL: Joi.number().integer()
+    QTDTOTAL: Joi.number().integer().optional()
     .messages({
         'number.base': 'QTDTOTAL deve ser um número inteiro',
     }),
@@ -67,23 +67,23 @@ const atualizarDetalhePedidoSchema = Joi.object({
     .messages({
         'number.base': 'VRUNITBRUTO deve ser um número',
     }),
-    DESC01: Joi.number()
+    DESC01: Joi.number().optional()
     .messages({
         'number.base': 'DESC01 deve ser um número',
     }),
-    DESC02: Joi.number()
+    DESC02: Joi.number().optional()
     .messages({
         'number.base': 'DESC02 deve ser um número',
     }),
-    DESC03: Joi.number()
+    DESC03: Joi.number().optional()
     .messages({
         'number.base': 'DESC03 deve ser um número',
     }),
-    VRUNITLIQUIDO: Joi.number()
+    VRUNITLIQUIDO: Joi.number().optional()
     .messages({
         'number.base': 'VRUNITLIQUIDO deve ser um número',
     }),
-    VRVENDA: Joi.number()
+    VRVENDA: Joi.number().optional()
     .messages({
         'number.base': 'VRVENDA deve ser um número',
     }),
