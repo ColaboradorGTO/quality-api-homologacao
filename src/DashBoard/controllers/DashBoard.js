@@ -1,10 +1,11 @@
-import { dataFormatada } from "../../utils/dataFormatada.js";
+/* import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
 const url = process.env.API_URL;
 import axios from 'axios';
 
 class DashBoardControllers {
 
+    //vendas
     async getResumoVendaGerencia(req, res) {
 
         let { idEmpresa, page, pageSize, dataPesquisa } = req.query;
@@ -28,6 +29,8 @@ class DashBoardControllers {
 
         }
     }
+
+    //vendas
     async getListaVendasLojaResumidoGerencia(req, res) {
 
         let { idEmpresaLogin, dataPesquisaInicio, dataPesquisaFim } = req.query;
@@ -36,8 +39,6 @@ class DashBoardControllers {
         dataPesquisaFim = dataFormatada(dataPesquisaFim)
 
         try {
-          
-
             const apiUrl = `${url}/api/dashboard/venda/venda-resumido.xsjs?pageSize=500&idLoja=${idEmpresaLogin}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`;
 
             const response = await axios.get(apiUrl);
@@ -47,13 +48,12 @@ class DashBoardControllers {
 
             throw error;
         }
-
-
     }
 
+    //quebra caixa
     async getListaQuebraCaixa(req, res) {
         let { idMarca, idEmpresa, cpfOperadorQuebra, stQuebraPositivaNegativa, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
-       
+
         idMarca = idMarca ? idMarca : '';
         idEmpresa = idEmpresa ? idEmpresa : '';
         cpfOperadorQuebra = cpfOperadorQuebra ? cpfOperadorQuebra : '';
@@ -66,16 +66,15 @@ class DashBoardControllers {
         try {
             const apiUrl = `${url}/api/dashboard/quebra-caixa/lista-quebra-caixa.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idMarca=${idMarca}&cpfquebraop=${cpfOperadorQuebra}`
             const response = await axios.get(apiUrl)
-            
-            return res.json(response.data); 
+
+            return res.json(response.data);
         } catch (error) {
             console.error("Erro no DashBoardControllers.getListaQuebraCaixa:", error);
             throw error;
         }
-
-
     }
 
+    //quebra caixa
     async getListaQuebraCaixaPositiva(req, res) {
         let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, quebra, idMarca, cpfOperadorQuebra } = req.query;
 
@@ -87,7 +86,7 @@ class DashBoardControllers {
         cpfOperadorQuebra = cpfOperadorQuebra ? cpfOperadorQuebra : '';
 
         try {
-          
+
             const apiUrl = `${url}/api/dashboard/quebra-caixa/lista-quebra-caixa.xsjs?pageSize=1000&page=1&idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&stQuebraPositivaNegativa=${quebra}&idMarca=${idMarca}&cpfquebraop=${cpfOperadorQuebra}`
             const response = await axios.get(apiUrl)
 
@@ -97,9 +96,9 @@ class DashBoardControllers {
             throw error;
         }
 
-
     }
 
+    //quebra caixa 
     async getListaQuebraCaixaNegativa(req, res) {
         let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, quebra, idMarca, cpfOperadorQuebra } = req.query;
 
@@ -112,7 +111,7 @@ class DashBoardControllers {
 
 
         try {
-          
+
             const apiUrl = `${url}/api/dashboard/quebra-caixa/lista-quebra-caixa.xsjs?pageSize=1000&page=1&idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&stQuebraPositivaNegativa=${quebra}&idMarca=${idMarca}&cpfquebraop=${cpfOperadorQuebra}`
             const response = await axios.get(apiUrl)
 
@@ -121,10 +120,9 @@ class DashBoardControllers {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
-
-
     }
 
+    //quebra caixa
     async getRetornoTableImprimeQuebra(req, res) {
         let { idQuebraCaixa } = req.query;
 
@@ -139,12 +137,13 @@ class DashBoardControllers {
             } catch (error) {
                 console.error("Error no DashBoardControllers.getRetornoTableImprimeQuebra:", error);
                 return res.status(500).json({ error: error.message });
-    
+
             }
         }
 
     }
 
+    //vendas
     async getRetornoListaVendaDetalhe(req, res) {
         let { idEmpresa, idVenda } = req.query;
 
@@ -161,6 +160,7 @@ class DashBoardControllers {
         }
     }
 
+    //vendas
     async getRetornoListaVendasAtivasDetalheProduto(req, res) {
         let { idEmpresa, idVenda } = req.query;
 
@@ -177,6 +177,7 @@ class DashBoardControllers {
         }
     }
 
+    //vendas
     async getRetornoListaVendasConvenioDescontoFuncionario(req, res) {
         let { idEmpresaLogin, idFuncionarioPN, dataFechamento, dataInicio, page, pageSize } = req.query;
         idEmpresaLogin = idEmpresaLogin ? idEmpresaLogin : '';
@@ -194,6 +195,7 @@ class DashBoardControllers {
         }
     }
 
+    //vendas
     async getRetornoListaVendasConvenioDesconto(req, res) {
         let { idEmpresa, dataFechamento, dataInicio } = req.query;
 
@@ -211,7 +213,7 @@ class DashBoardControllers {
         }
     }
 
-
+    //vendas
     async getListaVendasVendedorGerencia(req, res) {
         let { idEmpresa, page, pageSize, dataFechamento } = req.query;
         if (!isNaN(idEmpresa)) {
@@ -230,7 +232,8 @@ class DashBoardControllers {
             }
         }
     }
-  
+
+    //vendas
     async getListaResumoVendasAtivaGerencia(req, res) {
         let { idEmpresa, page, pageSize, dataFechamento, status } = req.query;
         if (!isNaN(idEmpresa)) {
@@ -249,6 +252,8 @@ class DashBoardControllers {
             }
         }
     }
+
+    //vendas
     async getListaVendasGerencia(req, res) {
         let { idVenda } = req.query;
 
@@ -265,6 +270,7 @@ class DashBoardControllers {
 
     }
 
+    //vendas
     async getListaResumoVendasCanceladasGerencia(req, res) {
         let { idEmpresa, pageNumber, dataFechamento } = req.query;
         if (!isNaN(idEmpresa)) {
@@ -285,6 +291,7 @@ class DashBoardControllers {
         }
     }
 
+    //adiantamento
     async getListAdiantamentoLoja(req, res) {
         let { idEmpresa, dataPesquisaInicio, dataPesquisaFim } = req.query;
 
@@ -302,6 +309,8 @@ class DashBoardControllers {
         }
 
     }
+
+    //adiantamento
     async getListAdiantamentoSalarialData(req, res) {
         let { idEmpresa, pageNumber, dataPesquisa } = req.query;
 
@@ -317,8 +326,9 @@ class DashBoardControllers {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
-
     }
+
+    //adiantamento
     async getListaAdiantamentoSalarialLoja(req, res) {
         let { idMarca, idEmpresa, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
 
@@ -328,16 +338,16 @@ class DashBoardControllers {
         dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
         try {
             const apiUrl = `${url}/api/dashboard/adiantamento-salarial/adiantamentolojas.xsjs?idEmpresa=${idEmpresa}&dataPesquisaIni=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idMarca=${idMarca}`
-         
+
             const response = await axios.get(apiUrl)
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
-
     }
 
+    //adiantamento
     async getAdiantamentoSalarialFuncionario(req, res) {
         let { idFuncionario } = req.query;
         try {
@@ -349,9 +359,9 @@ class DashBoardControllers {
             console.error("Erro no DashBoardControllers.getAdiantamentoSalarialFuncionario:", error);
             throw error; // Lança o erro para tratamento posterior, se necessário
         }
-
     }
 
+    //extrato
     async getListaExtratoDaLojaPeriodo(req, res) {
         let { idEmpresa, page, pageSize, dataPesquisaInicio, dataPesquisaFim } = req.query;
 
@@ -361,11 +371,11 @@ class DashBoardControllers {
             dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
             pageSize = pageSize ? pageSize : '';
             page = page ? page : '';
-           
+
             try {
                 const apiUrl = `${url}/api/dashboard/extrato-loja-periodo.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
                 const response = await axios.get(apiUrl)
-           
+
 
                 return res.json(response.data); // Retorna
             } catch (error) {
@@ -374,6 +384,8 @@ class DashBoardControllers {
             }
         }
     }
+
+    //extrato
     async getListaExtratoDaLojaPeriodoADM(req, res) {
         let { idEmpresa, pageNumber, dataPesquisaInicio, dataPesquisaFim } = req.query;
 
@@ -396,12 +408,13 @@ class DashBoardControllers {
         }
     }
 
+    //relatorio
     async getListaRelatorioBIGerencia(req, res) {
         let { idEmpresaLogin, idRelatorio } = req.query;
 
         if (!isNaN(idEmpresaLogin)) {
             idEmpresaLogin = Number(idEmpresaLogin);
-   
+
             try {
                 const apiUrl = `${url}/api/relatorio-bi.xsjs?pageSize=500&page=1&id=${idEmpresaLogin}&idrelatorio=${idRelatorio}`
                 const response = await axios.get(apiUrl)
@@ -415,6 +428,7 @@ class DashBoardControllers {
     }
 
 
+    //quebra caixa
     async updateStatusQuebraCaixaLoja(req, res) {
         let {
             IDQUEBRACAIXA,
@@ -438,3 +452,4 @@ class DashBoardControllers {
 export default new DashBoardControllers();
 
 
+ */

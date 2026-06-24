@@ -1,6 +1,11 @@
 import axios from "axios";
 import 'dotenv/config';
+import { CategoriaReceitaService } from "../service/index.js";
+import { CategoriaReceitaClient } from "../client/index.js";
 const url = process.env.API_URL;
+
+const categoriaReceitaClient = new CategoriaReceitaClient(url)
+const categoriaReceitaService = new CategoriaReceitaService(categoriaReceitaClient);
 
 class CategoriaReceitaDespesasControllers  {
 

@@ -1,10 +1,13 @@
 import axios from "axios";
 import 'dotenv/config';
+import { FuncionarioServices } from "../service/index.js";
+import { FuncionarioClient } from "../client/index.js";
 const url = process.env.API_URL;
 
+const funcionarioClient = new FuncionarioClient(url)
+const funcionarioService = new FuncionarioServices(funcionarioClient);
 
 class DashBoardFuncionariosControllers {
-
 
     async getListaFuncionarios(req, res,) {
         let { idEmpresa, page, pageSize } = req.query;
@@ -23,7 +26,6 @@ class DashBoardFuncionariosControllers {
             throw error; 
         }
     }
-
 }
 
 export default new DashBoardFuncionariosControllers();
