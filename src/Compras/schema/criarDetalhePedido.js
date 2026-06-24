@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
-const atualizarDetalhePedidoSchema = Joi.object({
-    idDetPedido: Joi.number().integer().required()
+const criarDetalhePedidoSchema = Joi.object({
+    IDRESUMOPEDIDO: Joi.number().integer().required()
     .messages({
         'number.base': 'IDRESUMOPEDIDO deve ser um número inteiro',
         'any.required': 'ID do resumo do pedido é obrigatório'
@@ -91,6 +91,11 @@ const atualizarDetalhePedidoSchema = Joi.object({
     .messages({
         'number.base': 'VRTOTAL deve ser um número',
     }),
+    STRECEBIDO: Joi.string().allow('').max(10).optional()
+    .messages({
+        'string.base': 'STRECEBIDO deve ser uma string',
+        'string.max': 'STRECEBIDO deve ter no máximo 10 caracteres'
+    }),
     STECOMMERCE: Joi.string().allow('').max(10).optional()
     .messages({
         'string.base': 'STECOMMERCE deve ser uma string',
@@ -100,6 +105,11 @@ const atualizarDetalhePedidoSchema = Joi.object({
     .messages({
         'string.base': 'STREDESOCIAL deve ser uma string',
         'string.max': 'STREDESOCIAL deve ter no máximo 10 caracteres'
+    }),
+    STCANCELADO: Joi.string().allow('').max(10).optional()
+    .messages({
+        'string.base': 'STCANCELADO deve ser uma string',
+        'string.max': 'STCANCELADO deve ter no máximo 10 caracteres'
     }),
     VRCUSTOPRODATUAL: Joi.number()
     .messages({
@@ -113,6 +123,11 @@ const atualizarDetalhePedidoSchema = Joi.object({
     .messages({
         'string.base': 'OBSPRODUTO deve ser uma string',
         'string.max': 'OBSPRODUTO deve ter no máximo 500 caracteres'
+    }),
+    STTRANSFORMADO: Joi.string().allow('').max(10).optional()
+    .messages({
+        'string.base': 'STTRANSFORMADO deve ser uma string',
+        'string.max': 'STTRANSFORMADO deve ter no máximo 10 caracteres'
     }),
     IDCATEGORIAS: Joi.number().integer().required()
     .messages({
@@ -130,10 +145,10 @@ const atualizarDetalhePedidoSchema = Joi.object({
         'string.max': 'NUCODBARRAS deve ter no máximo 500 caracteres'
     }),
     IDPRODUTO: Joi.string().allow('').optional(),
-    IDRESPATUALIZACAO: Joi.number().integer().required()
+    IDRESPCADASTRO: Joi.number().integer().required()
     .messages({
-        'number.base': 'IDRESPATUALIZACAO deve ser um número inteiro',
-        'any.required': 'IDRESPATUALIZACAO é obrigatório'
+        'number.base': 'IDRESPCADASTRO deve ser um número inteiro',
+        'any.required': 'IDRESPCADASTRO é obrigatório'
     }),
     GRADE: Joi.array().items(
         Joi.object({
@@ -154,4 +169,4 @@ const atualizarDetalhePedidoSchema = Joi.object({
     })
 });
 
-export default atualizarDetalhePedidoSchema;
+export default criarDetalhePedidoSchema;

@@ -29,6 +29,8 @@ import atualizarImagemSchema from "../schema/atualizarImagem.js";
 import atualizarImagemProdutoSchema from "../schema/atualizarImagemProduto.js";
 import atualizarDistribuicaoHistoricoADMSchema from "../schema/atualizarDistribuicaoHistoricoADM.js";
 
+import criarDetalhePedidoSchema from "../schema/criarDetalhePedido.js";
+
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
 const comprasClient = new ComprasClient(process.env.API_URL);
@@ -662,13 +664,14 @@ class ComprasControllers {
     }
 
     async getListaCategoriaPedido(req, res) {
-        let { idCategoriaPedido, descricao} = req.query;
+        let { idCategoriaPedido, descricao, tipoCategoria} = req.query;
         idCategoriaPedido = idCategoriaPedido ? idCategoriaPedido : '';
         descricao = descricao ? descricao : '';
+        tipoCategoria = tipoCategoria ? tipoCategoria : '';
         try {
             const apiUrl = `${url}/api/compras/categoriapedido.xsjs?idtipopedido=${idCategoriaPedido}`
             const response = await axios.get(apiUrl)
-
+            
             return res.json(response.data);
         } catch (error) {
             console.error("error no ComprasController.getListaCategoriaPedido:", error);
@@ -1644,7 +1647,6 @@ class ComprasControllers {
             
         
             const response = await comprasService.updateFinalizarPedido(
-                value.IDRESUMOPEDIDO,
                 value.IDGRUPOEMPRESARIAL,
                 value.IDSUBGRUPOEMPRESARIAL,
                 value.IDCOMPRADOR,
@@ -1672,7 +1674,8 @@ class ComprasControllers {
                 value.STAGRUPAPRODUTO,
                 value.STCANCELADO,
                 value.TPFISCAL,
-                value.STRASCUNHO
+                value.STRASCUNHO,
+                value.IDRESUMOPEDIDO
             );
             return res.status(200).json(response);
         } catch (error) {
@@ -2546,87 +2549,63 @@ class ComprasControllers {
     }
 
     async postDetalhePedido(req, res) {
-        let {  
-            IDRESUMOPEDIDO,
-            IDCOR,
-            IDSUBGRUPOESTRUTURA,
-            IDCATEGORIAPEDIDO,
-            IDTIPOTECIDO,
-            IDESTILO,
-            IDFABRICANTE,
-            IDLOCALEXPOSICAO,
-            NUREF,
-            DSPRODUTO,
-            QTDTOTAL,
-            NUCAIXA,
-            UND,
-            VRUNITBRUTO,
-            DESC01,
-            DESC02,
-            DESC03,
-            VRUNITLIQUIDO,
-            VRVENDA,
-            VRTOTAL,
-            STRECEBIDO,
-            STECOMMERCE,
-            STREDESOCIAL,
-            STCANCELADO,
-            GRADE,
-            VRCUSTOPRODATUAL,
-            VRVENDAPRODATUAL,
-            OBSPRODUTO,
-            STTRANSFORMADO,
-            IDCATEGORIAS,
-            STREPOSICAO,
-            NUCODBARRAS,
-            IDPRODUTO,
-            IDRESPCADASTRO,
-            STPEDIDOPORINTEMEDIARIO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/lista_detalhepedidos.xsjs`
+            const { error, value } = await criarDetalhePedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
         
-            const response = await axios.post(apiUrl, [{
-                IDRESUMOPEDIDO,
-                IDCOR,
-                IDSUBGRUPOESTRUTURA,
-                IDCATEGORIAPEDIDO,
-                IDTIPOTECIDO,
-                IDESTILO,
-                IDFABRICANTE,
-                IDLOCALEXPOSICAO,
-                NUREF,
-                DSPRODUTO,
-                QTDTOTAL,
-                NUCAIXA,
-                UND,
-                VRUNITBRUTO,
-                DESC01,
-                DESC02,
-                DESC03,
-                VRUNITLIQUIDO,
-                VRVENDA,
-                VRTOTAL,
-                STRECEBIDO,
-                STECOMMERCE,
-                STREDESOCIAL,
-                STCANCELADO,
-                GRADE,
-                VRCUSTOPRODATUAL,
-                VRVENDAPRODATUAL,
-                OBSPRODUTO,
-                STTRANSFORMADO,
-                IDCATEGORIAS,
-                STREPOSICAO,
-                NUCODBARRAS,
-                IDPRODUTO,
-                IDRESPCADASTRO,
-                STPEDIDOPORINTEMEDIARIO
-            }]);
+            const response = await comprasService.createDetalhePedido(
+                value.IDRESUMOPEDIDO,
+                value.IDCOR,
+                value.IDSUBGRUPOESTRUTURA,
+                value.IDCATEGORIAPEDIDO,
+                value.IDTIPOTECIDO,
+                value.IDESTILO,
+                value.IDFABRICANTE,
+                value.IDLOCALEXPOSICAO,
+                value.NUREF,
+                value.DSPRODUTO,
+                value.QTDTOTAL,
+                value.NUCAIXA,
+                value.UND,
+                value.VRUNITBRUTO,
+                value.DESC01,
+                value.DESC02,
+                value.DESC03,
+                value.VRUNITLIQUIDO,
+                value.VRVENDA,
+                value.VRTOTAL,
+                value.STRECEBIDO,
+                value.STECOMMERCE,
+                value.STREDESOCIAL,
+                value.STCANCELADO,
+                value.VRCUSTOPRODATUAL,
+                value.VRVENDAPRODATUAL,
+                value.OBSPRODUTO,
+                value.STTRANSFORMADO,
+                value.IDCATEGORIAS,
+                value.STREPOSICAO,
+                value.NUCODBARRAS,
+                value.IDPRODUTO,
+                value.IDRESPCADASTRO,
+                value.GRADE,
+                value.STPEDIDOPORINTEMEDIARIO
+            );
      
           
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postDetalhePedido:", error);
             throw error;

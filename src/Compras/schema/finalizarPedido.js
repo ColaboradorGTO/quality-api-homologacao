@@ -22,9 +22,9 @@ const atualizarFinalizandoPedidoSchema = Joi.object({
     .messages({
         'number.base': 'IDCONDICAOPAGAMENTO deve ser um número inteiro',
     }),
-    IDFORNECEDOR: Joi.number().integer()
+    IDFORNECEDOR: Joi.string().allow('').optional()
     .messages({
-        'number.base': 'IDFORNECEDOR deve ser um número inteiro',
+        'string.base': 'IDFORNECEDOR deve ser uma string',
     }),
     IDTRANSPORTADORA: Joi.number().integer()
     .messages({
@@ -70,7 +70,7 @@ const atualizarFinalizandoPedidoSchema = Joi.object({
     .messages({
         'number.base': 'DESCPERC03 deve ser um número',
     }),
-    PERCCOMISSAO: Joi.number()
+    PERCCOMISSAO: Joi.number().allow(null).optional()
     .messages({
         'number.base': 'PERCCOMISSAO deve ser um número',
     }),

@@ -4,11 +4,11 @@ export class ComprasService {
     }
 
     async updateStatusPedido(IDRESUMOPEDIDO, IDANDAMENTO, IDRESPCANCELAMENTO, DSMOTIVOCANCELAMENTO, DTCANCELAMENTO, STCANCELADO) {
-        if(!IDRESUMOPEDIDO) {
+        if (!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
         }
 
-        if(!IDRESPCANCELAMENTO) {
+        if (!IDRESPCANCELAMENTO) {
             throw new Error('ID do responsável pelo cancelamento é obrigatório.');
         }
 
@@ -16,7 +16,7 @@ export class ComprasService {
         return response.data;
     }
 
-    async updateDetalhePedido(  
+    async updateDetalhePedido(
         idDetPedido,
         IDCOR,
         IDSUBGRUPOESTRUTURA,
@@ -48,13 +48,13 @@ export class ComprasService {
         IDPRODUTO,
         IDRESPATUALIZACAO,
         GRADE,
-        STPEDIDOPORINTEMEDIARIO    
+        STPEDIDOPORINTEMEDIARIO
     ) {
-        if(!idDetPedido) {
+        if (!idDetPedido) {
             throw new Error('ID do detalhe do pedido é obrigatório.');
         }
 
-        if(!IDRESPATUALIZACAO) {
+        if (!IDRESPATUALIZACAO) {
             throw new Error('ID do responsável pela atualização é obrigatório.');
         }
 
@@ -95,7 +95,7 @@ export class ComprasService {
         return response.data;
     }
 
-    async updatePedido(  
+    async updatePedido(
         IDRESUMOPEDIDO,
         IDGRUPOEMPRESARIAL,
         IDSUBGRUPOEMPRESARIAL,
@@ -125,13 +125,13 @@ export class ComprasService {
         STCANCELADO,
         TPFISCAL,
         STRASCUNHO,
-        STPEDIDOPORINTEMEDIARIO 
+        STPEDIDOPORINTEMEDIARIO
     ) {
-        if(!IDRESUMOPEDIDO) {
+        if (!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
         }
 
-   
+
         const response = await this.client.atualizarPedido(
             IDRESUMOPEDIDO,
             IDGRUPOEMPRESARIAL,
@@ -167,50 +167,49 @@ export class ComprasService {
         return response.data;
     }
 
-    async updateCancelarPedido(  
-        IDRESUMOPEDIDO,   
-        IDANDAMENTO, 
-        IDRESPCANCELAMENTO, 
-        DSMOTIVOCANCELAMENTO, 
-        DTCANCELAMENTO, 
+    async updateCancelarPedido(
+        IDRESUMOPEDIDO,
+        IDANDAMENTO,
+        IDRESPCANCELAMENTO,
+        DSMOTIVOCANCELAMENTO,
+        DTCANCELAMENTO,
         STCANCELADO
     ) {
-        if(!IDRESUMOPEDIDO) {
+        if (!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
         }
 
-   
+
         const response = await this.client.cancelarPedido(
-            IDRESUMOPEDIDO,   
-            IDANDAMENTO, 
-            IDRESPCANCELAMENTO, 
-            DSMOTIVOCANCELAMENTO, 
-            DTCANCELAMENTO, 
+            IDRESUMOPEDIDO,
+            IDANDAMENTO,
+            IDRESPCANCELAMENTO,
+            DSMOTIVOCANCELAMENTO,
+            DTCANCELAMENTO,
             STCANCELADO
         );
         return response.data;
     }
 
-    async updateReativarPedido(  
-        IDRESUMOPEDIDO,   
-        IDRESPREATIVACAO, 
+    async updateReativarPedido(
+        IDRESUMOPEDIDO,
+        IDRESPREATIVACAO,
         TXTMOTIVOREATIVACAO
     ) {
-        if(!IDRESUMOPEDIDO) {
+        if (!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
         }
 
-   
+
         const response = await this.client.reativarPedido(
-            IDRESUMOPEDIDO,   
-            IDRESPREATIVACAO, 
+            IDRESUMOPEDIDO,
+            IDRESPREATIVACAO,
             TXTMOTIVOREATIVACAO
         );
         return response.data;
     }
 
-    async updateFinalizarPedido(  
-        IDRESUMOPEDIDO,
+    async updateFinalizarPedido(
         IDGRUPOEMPRESARIAL,
         IDSUBGRUPOEMPRESARIAL,
         IDCOMPRADOR,
@@ -238,15 +237,15 @@ export class ComprasService {
         STAGRUPAPRODUTO,
         STCANCELADO,
         TPFISCAL,
-        STRASCUNHO
+        STRASCUNHO,
+        IDRESUMOPEDIDO
     ) {
-        if(!IDRESUMOPEDIDO) {
+        if (!IDRESUMOPEDIDO) {
             throw new Error('ID do resumo do pedido é obrigatório.');
         }
 
-   
+
         const response = await this.client.atualizarFinalizandoPedido(
-            IDRESUMOPEDIDO,
             IDGRUPOEMPRESARIAL,
             IDSUBGRUPOEMPRESARIAL,
             IDCOMPRADOR,
@@ -274,7 +273,8 @@ export class ComprasService {
             STAGRUPAPRODUTO,
             STCANCELADO,
             TPFISCAL,
-            STRASCUNHO
+            STRASCUNHO,
+            IDRESUMOPEDIDO
         );
         return response.data;
     }
@@ -289,7 +289,7 @@ export class ComprasService {
         IDUSUARIOALTERACAO,
         FINALIZAR
     ) {
-        if(!IDPEDIDOCOMPRA) {
+        if (!IDPEDIDOCOMPRA) {
             throw new Error('ID do pedido de compra é obrigatório.');
         }
 
@@ -311,7 +311,7 @@ export class ComprasService {
         IDUSUARIO,
         FINALIZAR
     ) {
-        if(!IDPEDIDOCOMPRA) {
+        if (!IDPEDIDOCOMPRA) {
             throw new Error('ID do pedido de compra é obrigatório.');
         }
 
@@ -324,20 +324,20 @@ export class ComprasService {
     }
 
     async updateStatusProdutoPedido(
-        IDDETALHEPEDIDO, 
-        STCANCELADO, 
-        IDRESPCANCELAMENTO, 
+        IDDETALHEPEDIDO,
+        STCANCELADO,
+        IDRESPCANCELAMENTO,
         TXTOBSCANCELAMENTO,
         IDRESUMOPEDIDO
     ) {
-        if(!IDDETALHEPEDIDO) {
+        if (!IDDETALHEPEDIDO) {
             throw new Error('ID do detalhe do pedido é obrigatório.');
         }
 
         const response = await this.client.atualizarStatusProdutoPedido(
-            IDDETALHEPEDIDO, 
-            STCANCELADO, 
-            IDRESPCANCELAMENTO, 
+            IDDETALHEPEDIDO,
+            STCANCELADO,
+            IDRESPCANCELAMENTO,
             TXTOBSCANCELAMENTO,
             IDRESUMOPEDIDO
         );
@@ -379,7 +379,7 @@ export class ComprasService {
         TPFISCALPADRAO,
         EMAILVENDEDORPADRAO
     ) {
-        if(!IDFORNECEDOR) {
+        if (!IDFORNECEDOR) {
             throw new Error('ID do fornecedor é obrigatório.');
         }
 
@@ -427,7 +427,7 @@ export class ComprasService {
         IDFORNECEDOR,
         STATIVO
     ) {
-        if(!IDFABRICANTEFORN) {
+        if (!IDFABRICANTEFORN) {
             throw new Error('ID do fabricante-fornecedor é obrigatório.');
         }
 
@@ -446,7 +446,7 @@ export class ComprasService {
         IDFORNECEDOR,
         STATIVO
     ) {
-        if(!IDFABRICANTEFORN) {
+        if (!IDFABRICANTEFORN) {
             throw new Error('ID do fabricante-fornecedor é obrigatório.');
         }
 
@@ -458,15 +458,15 @@ export class ComprasService {
         );
         return response.data;
     }
-   
+
     async updateFabricante(
-       IDFABRICANTE,
+        IDFABRICANTE,
         DSFABRICANTE,
         DTULTATUALIZACAO,
         DTCADASTRO,
         STATIVO
     ) {
-        if(!IDFABRICANTE) {
+        if (!IDFABRICANTE) {
             throw new Error('ID do fabricante é obrigatório.');
         }
 
@@ -486,7 +486,7 @@ export class ComprasService {
         TIPOPEDIDO,
         STATIVO
     ) {
-        if(!IDCATEGORIAPEDIDO) {
+        if (!IDCATEGORIAPEDIDO) {
             throw new Error('ID da categoria de pedido é obrigatório.');
         }
 
@@ -507,7 +507,7 @@ export class ComprasService {
         IDGRUPOESTRUTURA,
         STATIVO
     ) {
-        if(!IDESTILO) {
+        if (!IDESTILO) {
             throw new Error('ID do estilo é obrigatório.');
         }
 
@@ -521,7 +521,7 @@ export class ComprasService {
         );
         return response.data;
     }
-  
+
     async updateTipoTecidos(
         IDTPTECIDO,
         DSTIPOTECIDO,
@@ -529,7 +529,7 @@ export class ComprasService {
         STATIVO,
         IDFUNCIONARIO
     ) {
-        if(!IDTPTECIDO) {
+        if (!IDTPTECIDO) {
             throw new Error('ID do tipo de tecido é obrigatório.');
         }
 
@@ -549,7 +549,7 @@ export class ComprasService {
         DSCOR,
         STATIVO
     ) {
-        if(!IDCOR) {
+        if (!IDCOR) {
             throw new Error('ID da cor é obrigatório.');
         }
 
@@ -561,7 +561,7 @@ export class ComprasService {
         );
         return response.data;
     }
-   
+
     async updateUnidadeMedida(
         IDUNIDADEMEDIDA,
         DSUNIDADE,
@@ -570,7 +570,7 @@ export class ComprasService {
         DTULTATUALIZACAO,
         STATIVO
     ) {
-        if(!IDUNIDADEMEDIDA) {
+        if (!IDUNIDADEMEDIDA) {
             throw new Error('ID da Unidade de Medida é obrigatório.');
         }
 
@@ -591,7 +591,7 @@ export class ComprasService {
         DSGRUPOESTRUTURA,
         STATIVO
     ) {
-        if(!IDGRUPOESTRUTURA) {
+        if (!IDGRUPOESTRUTURA) {
             throw new Error('ID do Grupo de Estrutura é obrigatório.');
         }
 
@@ -613,7 +613,7 @@ export class ComprasService {
         IDSUBGRUPOESTRUTURA,
         STATIVO
     ) {
-        if(!IDGRUPOESTRUTURA) {
+        if (!IDGRUPOESTRUTURA) {
             throw new Error('ID do Grupo de Estrutura é obrigatório.');
         }
 
@@ -628,7 +628,7 @@ export class ComprasService {
         );
         return response.data;
     }
- 
+
     async updateCondicaoPagamento(
         IDCONDICAOPAGAMENTO,
         IDGRUPOEMPRESARIAL,
@@ -653,7 +653,7 @@ export class ComprasService {
         STATIVO,
         IDTPDOCUMENTO
     ) {
-        if(!IDCONDICAOPAGAMENTO) {
+        if (!IDCONDICAOPAGAMENTO) {
             throw new Error('ID da Condição de Pagamento é obrigatório.');
         }
 
@@ -710,7 +710,7 @@ export class ComprasService {
         DTULTATUALIZACAO,
         STATIVO
     ) {
-        if(!IDTRANSPORTADORA) {
+        if (!IDTRANSPORTADORA) {
             throw new Error('ID do Transportador é obrigatório.');
         }
 
@@ -747,13 +747,13 @@ export class ComprasService {
         IDIMAGEM,
         STATIVO
     ) {
-        if(!IDIMAGEM) {
+        if (!IDIMAGEM) {
             throw new Error('ID da Imagem é obrigatório.');
         }
 
         const response = await this.client.atualizarImagem(
-           IDIMAGEM,
-           STATIVO
+            IDIMAGEM,
+            STATIVO
         );
         return response.data;
     }
@@ -762,14 +762,96 @@ export class ComprasService {
         IDIMAGEMPRODUTO,
         STATIVO
     ) {
-        if(!IDIMAGEMPRODUTO) {
+        if (!IDIMAGEMPRODUTO) {
             throw new Error('ID da Imagem do Produto é obrigatório.');
         }
 
         const response = await this.client.atualizarProdutoImagem(
-           IDIMAGEMPRODUTO,
-           STATIVO
+            IDIMAGEMPRODUTO,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async createDetalhePedido(
+        IDRESUMOPEDIDO,
+        IDCOR,
+        IDSUBGRUPOESTRUTURA,
+        IDCATEGORIAPEDIDO,
+        IDTIPOTECIDO,
+        IDESTILO,
+        IDFABRICANTE,
+        IDLOCALEXPOSICAO,
+        NUREF,
+        DSPRODUTO,
+        QTDTOTAL,
+        NUCAIXA,
+        UND,
+        VRUNITBRUTO,
+        DESC01,
+        DESC02,
+        DESC03,
+        VRUNITLIQUIDO,
+        VRVENDA,
+        VRTOTAL,
+        STRECEBIDO,
+        STECOMMERCE,
+        STREDESOCIAL,
+        STCANCELADO,
+        VRCUSTOPRODATUAL,
+        VRVENDAPRODATUAL,
+        OBSPRODUTO,
+        STTRANSFORMADO,
+        IDCATEGORIAS,
+        STREPOSICAO,
+        NUCODBARRAS,
+        IDPRODUTO,
+        IDRESPCADASTRO,
+        GRADE,
+        STPEDIDOPORINTEMEDIARIO
+    ) {
+        if (!IDRESUMOPEDIDO) {
+            throw new Error('ID do resumo do pedido é obrigatório.');
+        }
+
+        const response = await this.client.criarDetalhePedido(
+            IDRESUMOPEDIDO,
+            IDCOR,
+            IDSUBGRUPOESTRUTURA,
+            IDCATEGORIAPEDIDO,
+            IDTIPOTECIDO,
+            IDESTILO,
+            IDFABRICANTE,
+            IDLOCALEXPOSICAO,
+            NUREF,
+            DSPRODUTO,
+            QTDTOTAL,
+            NUCAIXA,
+            UND,
+            VRUNITBRUTO,
+            DESC01,
+            DESC02,
+            DESC03,
+            VRUNITLIQUIDO,
+            VRVENDA,
+            VRTOTAL,
+            STRECEBIDO,
+            STECOMMERCE,
+            STREDESOCIAL,
+            STCANCELADO,
+            VRCUSTOPRODATUAL,
+            VRVENDAPRODATUAL,
+            OBSPRODUTO,
+            STTRANSFORMADO,
+            IDCATEGORIAS,
+            STREPOSICAO,
+            NUCODBARRAS,
+            IDPRODUTO,
+            IDRESPCADASTRO,
+            GRADE,
+            STPEDIDOPORINTEMEDIARIO
         );
         return response.data;
     }
 }
+

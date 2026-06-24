@@ -159,7 +159,6 @@ export class ComprasClient {
     }
 
     async atualizarFinalizandoPedido(
-        IDRESUMOPEDIDO,
         IDGRUPOEMPRESARIAL,
         IDSUBGRUPOEMPRESARIAL,
         IDCOMPRADOR,
@@ -187,11 +186,11 @@ export class ComprasClient {
         STAGRUPAPRODUTO,
         STCANCELADO,
         TPFISCAL,
-        STRASCUNHO
+        STRASCUNHO,
+        IDRESUMOPEDIDO
         
     ) {
         const response = await this.api.put(`${url}/api/compras/finalizar-pedido.xsjs`, {
-            IDRESUMOPEDIDO,
             IDGRUPOEMPRESARIAL,
             IDSUBGRUPOEMPRESARIAL,
             IDCOMPRADOR,
@@ -219,11 +218,13 @@ export class ComprasClient {
             STAGRUPAPRODUTO,
             STCANCELADO,
             TPFISCAL,
-            STRASCUNHO
+            STRASCUNHO,
+            IDRESUMOPEDIDO
         });
       
         return response.data;
     }
+
 
     async cancelarPedido(
         IDRESUMOPEDIDO,   
@@ -745,5 +746,85 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+
+    async criarDetalhePedido(
+        IDRESUMOPEDIDO,
+        IDCOR,
+        IDSUBGRUPOESTRUTURA,
+        IDCATEGORIAPEDIDO,
+        IDTIPOTECIDO,
+        IDESTILO,
+        IDFABRICANTE,
+        IDLOCALEXPOSICAO,
+        NUREF,
+        DSPRODUTO,
+        QTDTOTAL,
+        NUCAIXA,
+        UND,
+        VRUNITBRUTO,
+        DESC01,
+        DESC02,
+        DESC03,
+        VRUNITLIQUIDO,
+        VRVENDA,
+        VRTOTAL,
+        STRECEBIDO,
+        STECOMMERCE,
+        STREDESOCIAL,
+        STCANCELADO,
+        VRCUSTOPRODATUAL,
+        VRVENDAPRODATUAL,
+        OBSPRODUTO,
+        STTRANSFORMADO,
+        IDCATEGORIAS,
+        STREPOSICAO,
+        NUCODBARRAS,
+        IDPRODUTO,
+        IDRESPCADASTRO,
+        GRADE,
+        STPEDIDOPORINTEMEDIARIO    
+    ) {
+        console.log(GRADE, 'GRADE CLIENT');
+        const response = await this.api.post(`${url}/api/compras/lista_detalhepedidos.xsjs`, [{
+            IDRESUMOPEDIDO,
+            IDCOR,
+            IDSUBGRUPOESTRUTURA,
+            IDCATEGORIAPEDIDO,
+            IDTIPOTECIDO,
+            IDESTILO,
+            IDFABRICANTE,
+            IDLOCALEXPOSICAO,
+            NUREF,
+            DSPRODUTO,
+            QTDTOTAL,
+            NUCAIXA,
+            UND,
+            VRUNITBRUTO,
+            DESC01,
+            DESC02,
+            DESC03,
+            VRUNITLIQUIDO,
+            VRVENDA,
+            VRTOTAL,
+            STRECEBIDO,
+            STECOMMERCE,
+            STREDESOCIAL,
+            STCANCELADO,
+            VRCUSTOPRODATUAL,
+            VRVENDAPRODATUAL,
+            OBSPRODUTO,
+            STTRANSFORMADO,
+            IDCATEGORIAS,
+            STREPOSICAO,
+            NUCODBARRAS,
+            IDPRODUTO,
+            IDRESPCADASTRO,
+            GRADE,
+            STPEDIDOPORINTEMEDIARIO
+        }]);
+        
+        return response.data;
+    }
+
 }
 
