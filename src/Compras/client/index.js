@@ -784,7 +784,7 @@ export class ComprasClient {
         GRADE,
         STPEDIDOPORINTEMEDIARIO    
     ) {
-        console.log(GRADE, 'GRADE CLIENT');
+       
         const response = await this.api.post(`${url}/api/compras/lista_detalhepedidos.xsjs`, [{
             IDRESUMOPEDIDO,
             IDCOR,
