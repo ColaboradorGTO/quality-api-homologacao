@@ -129,7 +129,7 @@ class DepositosLojaControllers  {
     async postDepositoLoja(req, res) {
         
         try {
-            let {error, value} = createDepositoSchema.validate(req.body, {
+            const {error, value} = createDepositoSchema.validate(req.body, {
                 abortEarly: false,
                 stripUnknown: true
             });
@@ -142,17 +142,6 @@ class DepositosLojaControllers  {
                     message: detail.message
                     }))
                 });
-            }
-
-            if(!value.IDEMPRESA) {
-                return res.status(400).json({ error: "IDEMPRESA is required." });
-            }
-
-            if(!value.IDUSR) {
-                return res.status(400).json({ error: "IDUSUARIO is required." });
-            }
-            if(!value.IDCONTABANCO) {
-                return res.status(400).json({ error: "IDCONTABANCO is required." });
             }
 
             const response = await depositoService.createDeposito(
@@ -170,10 +159,11 @@ class DepositosLojaControllers  {
                 value.IDUSRCACELAMENTO,
                 value.DSMOTIVOCANCELAMENTO,
             );
+               
 
-            return res.status(201).json(response);
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Error creating deposit:", error.message);
+        throw error;
             return res.status(error.response?.status || 500).json({ error: error.message });
         }
     }

@@ -14,22 +14,6 @@ const atualizarPerfilUsuarioMenuSchema = Joi.object({
         .messages({
             "string.base": "ALTERAR deve ser uma string"
         }),
-    STATIVO: Joi.string()
-        .messages({
-            "string.base": "A STATIVO deve ser uma string"
-        }),
-    DATAULTIMAALTERACAO: Joi.string()
-        .messages({
-            "string.base": "O DATAULTIMAALTERACAO deve ser uma string "
-        }),
-    DATA_CRIACAO: Joi.string().allow('')
-        .messages({
-            "string.base": "O DATA_CRIACAO deve ser uma string "
-        }),
-    IDMODULO: Joi.string().allow('')
-        .messages({
-            "string.base": "A IDMODULO deve ser uma string"
-        }),
     IDMODULOADMINISTRATIVO: Joi.string().allow('')
         .messages({
             "string.base": "A IDMODULOADMINISTRATIVO deve ser uma string"
@@ -72,7 +56,7 @@ const atualizarPerfilUsuarioMenuSchema = Joi.object({
         }),
     IDMODULOCOMPRASADM: Joi.string().allow('')
         .messages({
-            "string.base": "O IDMODULOCOMPRASADM do usuário de cancelamento deve ser uma string"
+            "string.base": "O IDMODULOCOMPRASADM  deve ser uma string"
         }),
     IDMODULOETIQUETAGEM: Joi.string().allow('')
         .messages({

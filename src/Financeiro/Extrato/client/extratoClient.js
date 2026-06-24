@@ -20,7 +20,7 @@ export class ExtratoClient {
         IDOPERADOR,
         DATACADASTRO
     ) {
-        const response = await this.api.post(`${url}/api/financeiro/ajuste-extrato.xsjs`, {
+        const response = await this.api.post(`${url}/api/financeiro/ajuste-extrato.xsjs`, [{
             IDEMPRESA,
             HISTORICO,
             VRDEBITO,
@@ -29,7 +29,7 @@ export class ExtratoClient {
             STCANCELADO,
             IDOPERADOR,
             DATACADASTRO
-        });
+        }]);
         return response.data;
     }
 

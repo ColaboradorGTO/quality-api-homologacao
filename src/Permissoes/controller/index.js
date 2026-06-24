@@ -71,7 +71,6 @@ class PermissaoControllers {
                 value.STATIVO,
                 value.DATAULTIMAALTERACAO,
                 value.DATA_CRIACAO,
-                String(value.IDMODULO),
                 String(value.IDMODULOADMINISTRATIVO),
                 String(value.IDMODULOCOMERCIAL),
                 String(value.IDMODULOCONTABILIDADE),
@@ -159,10 +158,6 @@ class PermissaoControllers {
                 value.IDUSUARIO,
                 value.CRIAR,
                 value.ALTERAR,
-                value.STATIVO,
-                value.DATAULTIMAALTERACAO,
-                value.DATA_CRIACAO,
-                String(value.IDMODULO),
                 String(value.IDMODULOADMINISTRATIVO),
                 String(value.IDMODULOCOMERCIAL),
                 String(value.IDMODULOCONTABILIDADE),
@@ -182,7 +177,6 @@ class PermissaoControllers {
                 String(value.IDUSERULTIMAALTERACAO),
                 String(value.IDPERMISSAO),
                 String(value.IDMODULORESUMOVENDAS),
-                String(value.IDMODULOPROMOCAO),
                 String(value.ADMINISTRADOR),
                 value.N4,
                 value.N3,
@@ -190,6 +184,7 @@ class PermissaoControllers {
                 value.N1,
                 value.IDMENU,
                 value.IDMENUFILHO,
+                String(value.IDMODULOPROMOCAO)
             );
 
             return res.status(200).json(response);

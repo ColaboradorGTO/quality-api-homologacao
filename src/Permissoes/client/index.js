@@ -13,10 +13,6 @@ export class PermissaoClient {
         IDUSUARIO,
         CRIAR,
         ALTERAR,
-        STATIVO,
-        DATAULTIMAALTERACAO,
-        DATA_CRIACAO,
-        IDMODULO,
         IDMODULOADMINISTRATIVO,
         IDMODULOCOMERCIAL,
         IDMODULOCONTABILIDADE,
@@ -36,7 +32,6 @@ export class PermissaoClient {
         IDUSERULTIMAALTERACAO,
         IDPERMISSAO,
         IDMODULORESUMOVENDAS,
-        IDMODULOPROMOCAO,
         ADMINISTRADOR,
         N4,
         N3,
@@ -44,16 +39,13 @@ export class PermissaoClient {
         N1,
         IDMENU,
         IDMENUFILHO,
+        IDMODULOPROMOCAO,
     ) {
 
-        const response = await this.api.post(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, {
+        const response = await this.api.post(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, [{
             IDUSUARIO,
             CRIAR,
             ALTERAR,
-            STATIVO,
-            DATAULTIMAALTERACAO,
-            DATA_CRIACAO,
-            IDMODULO,
             IDMODULOADMINISTRATIVO,
             IDMODULOCOMERCIAL,
             IDMODULOCONTABILIDADE,
@@ -73,7 +65,6 @@ export class PermissaoClient {
             IDUSERULTIMAALTERACAO,
             IDPERMISSAO,
             IDMODULORESUMOVENDAS,
-            IDMODULOPROMOCAO,
             ADMINISTRADOR,
             N4,
             N3,
@@ -81,7 +72,8 @@ export class PermissaoClient {
             N1,
             IDMENU,
             IDMENUFILHO,
-        });
+            IDMODULOPROMOCAO,
+        }]);
         return response.data;
     }
 

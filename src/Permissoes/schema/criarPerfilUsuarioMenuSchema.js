@@ -14,22 +14,6 @@ const criarPerfilUsuarioMenuSchema = Joi.object({
         .messages({
             "string.base": "ALTERAR deve ser uma string"
         }),
-    STATIVO: Joi.string()
-        .messages({
-            "string.base": "A STATIVO deve ser uma string"
-        }),
-    DATAULTIMAALTERACAO: Joi.string()
-        .messages({
-            "string.base": "O DATAULTIMAALTERACAO deve ser uma string "
-        }),
-    DATA_CRIACAO: Joi.string().allow('')
-        .messages({
-            "string.base": "O DATA_CRIACAO deve ser uma string "
-        }),
-    IDMODULO: Joi.string().allow('')
-        .messages({
-            "string.base": "A IDMODULO deve ser uma string"
-        }),
     IDMODULOADMINISTRATIVO: Joi.string().allow('')
         .messages({
             "string.base": "A IDMODULOADMINISTRATIVO deve ser uma string"
@@ -107,12 +91,6 @@ const criarPerfilUsuarioMenuSchema = Joi.object({
         .messages({
             "string.base": "A IDMODULORESUMOVENDAS deve ser um string"
         }),
-
-    IDMODULOPROMOCAO: Joi.string().allow('')
-        .messages({
-            "string.base": "IDMODULOPROMOCAO deve ser um string"
-        }),
-
     ADMINISTRADOR: Joi.string().allow('')
         .messages({
             "string.base": "ADMINISTRADOR deve ser uma string"
@@ -146,6 +124,10 @@ const criarPerfilUsuarioMenuSchema = Joi.object({
     IDMENUFILHO: Joi.number()
         .messages({
             "number.base": "A IDMENUFILHO deve ser um número"
+        }),
+    IDMODULOPROMOCAO: Joi.string().allow('')
+        .messages({
+            "string.base": "IDMODULOPROMOCAO deve ser um string"
         }),
 })
 

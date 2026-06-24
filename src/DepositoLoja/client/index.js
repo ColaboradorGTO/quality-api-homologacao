@@ -40,7 +40,7 @@ export class DepositoClient {
             IDUSRCACELAMENTO,
             DSMOTIVOCANCELAMENTO,
         }]);
-
+        
         return response.data;
     }
 
