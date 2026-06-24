@@ -14,7 +14,6 @@ class DespesasControllers {
 
   async getListaDespesasLoja(req, res) {
     let { idDespesaLoja, idEmpresa, dataPesquisaInicio, dataPesquisaFim, idCategoria, page, pageSize } = req.query;
-    idDespesaLoja = Number(idDespesaLoja) ? Number(idDespesaLoja) : '';
     idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
     dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
     dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
@@ -23,7 +22,7 @@ class DespesasControllers {
     pageSize = pageSize ? pageSize : '';
     try {
 
-      const apiUrl = `${url}/api/financeiro/despesa-loja.xsjs?idDaCategoria=${idCategoria}&idDaEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}&idDespesaLoja=${idDespesaLoja}`;
+      const apiUrl = `${url}/api/financeiro/despesa-loja.xsjs?idCategoria=${idCategoria}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
       const response = await axios.get(apiUrl)
 
       return res.json(response.data);
