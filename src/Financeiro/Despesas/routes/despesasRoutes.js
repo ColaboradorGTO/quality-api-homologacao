@@ -6,6 +6,8 @@ const FinanceiroDespesas = new Router();
 FinanceiroDespesas.get('/despesa-loja', DespesasControllers.getListaDespesasLoja)
 FinanceiroDespesas.put('/editar-despesa', DespesasControllers.putDespesasLoja)
 FinanceiroDespesas.put('/editar-status-despesa/:id', DespesasControllers.putStatusDespesasLoja)
+FinanceiroDespesas.post('/integrar-despesa', DespesasControllers.postIntegracaoDespesa)
+
 
 
 export default FinanceiroDespesas;

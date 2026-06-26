@@ -5,6 +5,7 @@ import schemaDespesaLoja from "../schema/schemaDespesaLoja.js";
 import { DespesasClient } from "../client/despesasClient.js";
 import { DespesasServices } from "../service/despesasService.js";
 import schemaStatusDespesaLoja from "../schema/schemaStatusDespesaLoja.js";
+import schemaCreateIntegracaoDespesa from "../schema/schemaCreateIntegracaoDespesa.js";
 
 const url = process.env.API_URL;
 const despesasClient = new DespesasClient(url);
@@ -102,6 +103,38 @@ class DespesasControllers {
     } catch (error) {
       console.log('Erro no DespesasControllers.putStatusDespesasLoja:', error);
       return res.status(500).json({ message: 'Erro ao  atualizar status despesa loja.' });
+
+    }
+  }
+
+  async postIntegracaoDespesa(req, res) {
+
+    try {
+      const { error, value } = schemaCreateIntegracaoDespesa.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
+
+      if (error) {
+        return res.status(400).json({
+          message: 'Dados inválidos',
+          errors: error.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await despesasServices.createIntegracaoDespesa(
+
+        value.IDDESPESASLOJA,
+        value.IDFUNCIONARIO,
+      );
+
+      return res.status(200).json(response);
+    } catch (error) {
+      console.log('Erro no DespesasControllers.postIntegracaoDespesa:', error);
+      return res.status(500).json({ message: 'Erro ao criar integracao despesa' });
 
     }
   }

@@ -3,31 +3,25 @@ export class VendasServices {
         this.client = client;
     }
 
-    async updateAjusteExtrato(
-        DSHISTORIO,
-        VRDEBITO,
-        VRCREDITO,
-        IDOPERADOR,
-        DATACADASTRO,
-        STATIVO,
-        STCANCELADO,
-        IDAJUSTEEXTRATO,
+    async updateVendaPixStatusConferido(
+        STCONFERIDO,
+        DATA_COMPENSACAO,
+        IDVENDA,
+
     ) {
-        if (!IDAJUSTEEXTRATO) {
-            throw new Error("IDAJUSTEEXTRATO is required, services");
+        if (!STCONFERIDO) {
+            throw new Error("STCONFERIDO is required, services");
         }
-        if (!IDOPERADOR) {
-            throw new Error("IDOPERADOR is required, services");
+        if (!DATA_COMPENSACAO) {
+            throw new Error("DATA_COMPENSACAO is required, services");
         }
-        const result = await this.client.atualizarAjusteExtrato(
-            DSHISTORIO,
-            VRDEBITO,
-            VRCREDITO,
-            IDOPERADOR,
-            DATACADASTRO,
-            STATIVO,
-            STCANCELADO,
-            IDAJUSTEEXTRATO,
+        if (!IDVENDA) {
+            throw new Error("IDVENDA is required, services");
+        }
+        const result = await this.client.atualizarVendaPixStatusConferido(
+            STCONFERIDO,
+            DATA_COMPENSACAO,
+            IDVENDA,
         )
         return result;
     }

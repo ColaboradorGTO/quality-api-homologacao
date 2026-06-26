@@ -10,7 +10,7 @@ export class VendasClient {
         });
     }
 
-    async atualizarAjusteExtrato(
+    async atualizarVendaPixStatusConferido(
         DSHISTORIO,
         VRDEBITO,
         VRCREDITO,
@@ -22,7 +22,7 @@ export class VendasClient {
 
     ) {
 
-        const response = await this.api.put(`${url}/api/financeiro/ajuste-extrato.xsjs`, [{
+        const response = await this.api.put(`${url}/api/financeiro/venda-pix-periodo-status-conferido.xsjs`, [{
             DSHISTORIO,
             VRDEBITO,
             VRCREDITO,

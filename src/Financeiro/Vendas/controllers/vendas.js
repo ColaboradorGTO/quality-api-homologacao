@@ -4,6 +4,7 @@ import 'dotenv/config';
 import { VendasServices } from "../service/vendasService.js";
 import { VendasClient } from "../client/vendasClient.js";
 import schemaAtualizarListaAjusteExtrato from "../schema/schemaAtualizarListaAjusteExtrato.js";
+import schemaAtualizarVendasPixStatusConferido from "../schema/schemaAtualizarVendaPixStatusConferido.js";
 
 const url = process.env.API_URL;
 const vendasClient = new VendasClient(url);
@@ -476,7 +477,7 @@ class FinanceiroVendasControllers {
   async putListaVendaPixStatusConferido(req, res) {
 
     try {
-      const { error, value } = schemaAtualizarListaAjusteExtrato.validate(req.body, {
+      const { error, value } = schemaAtualizarVendasPixStatusConferido.validate(req.body, {
 
         abortEarly: false,
         stripUnknown: true
@@ -492,15 +493,11 @@ class FinanceiroVendasControllers {
         });
       }
 
-      const response = await vendasServices.updateAjusteExtrato(
-        value.DSHISTORIO,
-        value.VRDEBITO,
-        value.VRCREDITO,
-        value.IDOPERADOR,
-        value.DATACADASTRO,
-        value.STATIVO,
-        value.STCANCELADO,
-        value.IDAJUSTEEXTRATO,
+      const response = await vendasServices.updateVendaPixStatusConferido(
+        value.STCONFERIDO,
+        value.DATA_COMPENSACAO,
+        value.IDVENDA
+  
       );
 
       return res.status(200).json(response);
