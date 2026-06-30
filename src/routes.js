@@ -931,6 +931,7 @@ routes.post('/cadastrar-imagem-produto', ComprasControllers.postImagemProduto)
 routes.post('/finalizar-pedido', ComprasControllers.postFinalizarPedido)
 routes.post('/pedido', ComprasControllers.postPedido)
 routes.post('/detalhe-pedido', ComprasControllers.postDetalhePedido)
+routes.post('/clonar-pedido', ComprasControllers.postClonarPedido)
 
 
 // Cadastro
