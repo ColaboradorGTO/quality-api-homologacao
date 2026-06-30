@@ -2611,6 +2611,34 @@ class ComprasControllers {
             throw error;
         }
     }
+
+    async postClonarPedido(req, res) {
+        let {  
+          IDRESUMOPEDIDOCLONAR,
+          IDRESPCADASTRO
+        } = req.body;
+
+        try {
+
+            if(!IDRESUMOPEDIDOCLONAR) {
+                return res.status(400).json({ error: "O campo 'IDRESUMOPEDIDOCLONAR' é obrigatório e não pode estar vazio." });
+            }
+            
+            const apiUrl = `${url}/api/compras/clonar_pedidos.xsjs`
+        
+            const response = await axios.post(apiUrl, [{
+                IDRESUMOPEDIDOCLONAR,
+                IDRESPCADASTRO
+            }]);
+     
+          
+            return res.json(response.data);
+        } catch (error) {
+            console.error("error no ComprasControllers.postClonarPedido:", error);
+            throw error;
+        }
+    }
+
 }
 
 export default new ComprasControllers();
