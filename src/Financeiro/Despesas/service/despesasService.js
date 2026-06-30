@@ -58,4 +58,24 @@ export class DespesasServices {
         )
         return result;
     }
+
+    async createIntegracaoDespesa(
+        IDDESPESASLOJA,
+        IDFUNCIONARIO
+
+    ) {
+
+        if (!IDDESPESASLOJA) {
+            throw new Error("IDDESPESASLOJA is required, services");
+        }
+        if (!IDFUNCIONARIO) {
+            throw new Error("IDFUNCIONARIO is required, services");
+        }
+
+        const result = await this.client.criarIntegracaoDespesa(
+            IDDESPESASLOJA,
+            IDFUNCIONARIO
+        )
+        return result;
+    }
 }

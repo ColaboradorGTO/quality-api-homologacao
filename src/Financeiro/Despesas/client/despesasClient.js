@@ -49,4 +49,16 @@ export class DespesasClient {
         });
         return response.data;
     }
+
+    async criarIntegracaoDespesa(
+        IDDESPESASLOJA,
+        IDFUNCIONARIO
+    ) {
+        const response = await this.api.post(`${url}/api/service-layer/despesa/jobs/despesas-integracao.xsjs`, {
+            IDDESPESASLOJA,
+            IDFUNCIONARIO
+
+        });
+        return response.data;
+    }
 }
