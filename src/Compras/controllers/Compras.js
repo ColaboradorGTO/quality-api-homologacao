@@ -30,14 +30,14 @@ import atualizarImagemProdutoSchema from "../schema/atualizarImagemProduto.js";
 import atualizarDistribuicaoHistoricoADMSchema from "../schema/atualizarDistribuicaoHistoricoADM.js";
 
 import criarDetalhePedidoSchema from "../schema/criarDetalhePedido.js";
+import criarEstiloSchema from "../schema/criarEstilo.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
 const comprasClient = new ComprasClient(process.env.API_URL);
 const comprasService = new ComprasService(comprasClient);
 
-// const detalhePedidoClient = new ComprasClient(process.env.API_URL);
-// const detalhePedidoService = new ComprasService(detalhePedidoClient);
+
 
 class ComprasControllers {
 
@@ -366,7 +366,7 @@ class ComprasControllers {
         idFornecedorPedido = idFornecedorPedido ? idFornecedorPedido : '';
         idFabricantePedido = idFabricantePedido ? idFabricantePedido : '';
         
-        try {
+         try {
             const apiUrl = `${url}/api/compras/vincfabforn.xsjs?idvincfornfab=${idFabricanteFornecedor}&idfornpedido=${idFornecedorPedido}&idfabnpedido=${idFabricantePedido}`
             const response = await axios.get(apiUrl)
           
@@ -2073,19 +2073,35 @@ class ComprasControllers {
 
     async postEstilos(req, res) {
         try {
-            let { DSESTILO, IDGRUPOESTRUTURA, STATIVO, IDESTILO, IDGRUPOESTRUTURAANTIGA, IDVINCESTILOSESTRUTURA } = req.body;
-            const apiUrl = `${url}/api/compras/estilos.xsjs`
+            const { error, value } = await criarEstiloSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
 
-            const response = await axios.post(apiUrl, [{
-                IDGRUPOESTRUTURAANTIGA: parseInt(null),
-                IDVINCESTILOSESTRUTURA: parseInt(null),
-                IDESTILO: parseInt(null),
-                DSESTILO,
-                IDGRUPOESTRUTURA,
-                STATIVO,
-            }]);
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+
+            // let { DSESTILO, IDGRUPOESTRUTURA, STATIVO, IDESTILO, IDGRUPOESTRUTURAANTIGA, IDVINCESTILOSESTRUTURA } = req.body;
+            // const apiUrl = `${url}/api/compras/estilos.xsjs`
+
+            const response = await comprasService.createEstilo(
+                value.IDGRUPOESTRUTURAANTIGA,
+                value.IDVINCESTILOSESTRUTURA,
+                value.IDESTILO,
+                value.DSESTILO,
+                value.IDGRUPOESTRUTURA,
+                value.STATIVO,
+            );
          
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Erro no ComprasController.postEstilos:", error);
             return res.status(500).json({ error: error.message });
@@ -2094,16 +2110,17 @@ class ComprasControllers {
 
     async createTipoTecidos(req, res) {
         let {
-            IDTPTECIDO,
             DSTIPOTECIDO,
-            STATIVO
+            STATIVO,
+            IDFUNCIONARIO
         } = req.body;
 
         try {
             const apiUrl = `${url}/api/compras/tipotecidos.xsjs`
             const response = await axios.post(apiUrl, [{
                 DSTIPOTECIDO,
-                STATIVO
+                STATIVO,
+                IDFUNCIONARIO
             }]);
             return res.json(response.data);
         } catch (error) {

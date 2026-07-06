@@ -853,5 +853,28 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async createEstilo(
+        IDGRUPOESTRUTURAANTIGA,
+        IDVINCESTILOSESTRUTURA,
+        IDESTILO,
+        DSESTILO,
+        IDGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        if (!IDGRUPOESTRUTURA) {
+            throw new Error('ID do grupo de estrutura é obrigatório.');
+        }
+
+        const response = await this.client.criarEstilo(
+            IDGRUPOESTRUTURAANTIGA,
+            IDVINCESTILOSESTRUTURA,
+            IDESTILO,
+            DSESTILO,
+            IDGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
 }
 

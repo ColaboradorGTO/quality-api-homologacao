@@ -10,13 +10,15 @@ const metasService = new MetasServices(metasClient);
 class MetasControllers {
 
     async getListaMetasGrupo(req, res) {
-        let { page, pageSize } = req.query;
+        let { id, page, pageSize } = req.query;
+        id = id ? id : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
+
         try {
 
-            const apiUrl = `${url}/api/comercial/lista-meta-vendas.xsjs?page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/comercial/lista-meta-vendas.xsjs?id=${id}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);

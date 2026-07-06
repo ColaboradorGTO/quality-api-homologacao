@@ -43,7 +43,7 @@ export class ClienteClient {
         STATIVO
     ) {
 
-        const response = await this.api.post(`/api/cliente/todos.xsjs?`, {
+        const response = await this.api.post(`/api/cliente/todos.xsjs`, {
             IDEMPRESA,
             DSNOMERAZAOSOCIAL,
             DSAPELIDONOMEFANTASIA,
@@ -114,7 +114,7 @@ export class ClienteClient {
         IDCLIENTE
     ) {
 
-        const response = await this.api.put(`/api/cliente/todos.xsjs?`, {
+        const response = await this.api.put(`/api/cliente/todos.xsjs`, {
             IDEMPRESA,
             DSNOMERAZAOSOCIAL,
             DSAPELIDONOMEFANTASIA,

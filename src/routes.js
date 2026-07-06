@@ -767,6 +767,7 @@ routes.post('/todos-web', ResumoVoucherControllers.postResumoVoucher)
 
 //routes.put('/todos-cliente/:id', ResumoVoucherControllers.putCliente)
 //routes.post('/criar-cliente', ResumoVoucherControllers.postCliente)
+
 routes.post('/criar-cliente', ClienteControllers.postCliente)
 routes.put('/todos-cliente/:id', ClienteControllers.putCliente)
 

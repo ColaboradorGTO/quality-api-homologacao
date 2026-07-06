@@ -1,16 +1,16 @@
 import Joi from 'joi';
 
 const atualizarEstilosSchema = Joi.object({
-    IDVINCESTILOSESTRUTURA: Joi.number().required()
+    IDVINCESTILOSESTRUTURA: Joi.number().integer().allow(null)
     .messages({
         'number.base': 'IDVINCESTILOSESTRUTURA deve ser um número',
         'any.required': 'IDVINCESTILOSESTRUTURA é obrigatório'
     }),
-    IDGRUPOESTRUTURAANTIGA: Joi.number()
+    IDGRUPOESTRUTURAANTIGA: Joi.number().integer().allow(null)
     .messages({
         'number.base': 'IDGRUPOESTRUTURAANTIGA deve ser um número',
     }),
-    IDESTILO: Joi.number().required()
+    IDESTILO: Joi.number().integer().allow(null)
     .messages({
         'number.base': 'IDESTILO deve ser um número',
         'any.required': 'IDESTILO é obrigatório'
@@ -19,7 +19,7 @@ const atualizarEstilosSchema = Joi.object({
     .messages({
         'string.base': 'DSESTILO deve ser uma string',
     }),
-    IDGRUPOESTRUTURA: Joi.number()
+    IDGRUPOESTRUTURA: Joi.number().integer().allow(null)
     .messages({
         'number.base': 'IDGRUPOESTRUTURA deve ser um número',
     }),

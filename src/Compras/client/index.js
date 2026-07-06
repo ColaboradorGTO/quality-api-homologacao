@@ -826,5 +826,24 @@ export class ComprasClient {
         return response.data;
     }
 
+    async criarEstilo(
+        IDGRUPOESTRUTURAANTIGA,
+        IDVINCESTILOSESTRUTURA,
+        IDESTILO,
+        DSESTILO,
+        IDGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        const response = await this.api.post(`${url}/api/compras/estilos.xsjs`, [{
+            IDGRUPOESTRUTURAANTIGA: parseInt(null),
+            IDVINCESTILOSESTRUTURA: parseInt(null),
+            IDESTILO: parseInt(null),
+            DSESTILO,
+            IDGRUPOESTRUTURA,
+            STATIVO,
+        }]);
+
+        return response.data;
+    }
 }
 
