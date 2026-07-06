@@ -486,17 +486,18 @@ class AdmVendasControllers {
     }
 
     async getVendaConvenio(req, res) {
-        let { idEmpresa, idGrupo, pageNumber, dataPesquisaInicio, dataPesquisaFim, descontoFuncionario } = req.query;
+        let { idEmpresa, idMarca, pageNumber, dataPesquisaInicio, dataPesquisaFim, descontoFuncionario, dsmotdesc } = req.query;
 
         idEmpresa = idEmpresa ? Number(idEmpresa) : '';
-        idGrupo = idGrupo ? Number(idGrupo) : '';
+        idMarca = idMarca ? Number(idMarca) : '';
         const numPage = 100;
         dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataPesquisaInicio : '';
         dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataPesquisaFim : '';
         descontoFuncionario = descontoFuncionario ? descontoFuncionario : '';
+        dsmotdesc = dsmotdesc ? dsmotdesc : '';
 
         try {
-            const apiUrl = `${url}/api/administrativo/desconto-motivo-vendas.xsjs?idMarca=${idGrupo}&idEmpresa=${idEmpresa}&dataInicial=${dataPesquisaInicio}&dataFinal=${dataPesquisaFim}&dsmotdesc=${descontoFuncionario}`
+            const apiUrl = `${url}/api/administrativo/desconto-motivo-vendas.xsjs?idMarca=${idMarca}&idEmpresa=${idEmpresa}&dataInicial=${dataPesquisaInicio}&dataFinal=${dataPesquisaFim}&dsmotdesc=${dsmotdesc}`
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
