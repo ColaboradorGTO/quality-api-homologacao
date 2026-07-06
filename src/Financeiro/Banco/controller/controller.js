@@ -32,7 +32,7 @@ class BancoControllers {
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
-            const apiUrl = `${url}/api/conta-banco.xsjs?id=${idContaBanco}&idBanco=${idBanco}&idEmpresa=${idEmpresa}&dsConta=${dsConta}&page=${page}&pageSize=${pageSize}`
+            const apiUrl = `${url}/api/financeiro/conta-banco.xsjs?id=${idContaBanco}&idBanco=${idBanco}&idEmpresa=${idEmpresa}&dsConta=${dsConta}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
 
             return res.json(response.data);
