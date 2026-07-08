@@ -31,9 +31,16 @@ import atualizarDistribuicaoHistoricoADMSchema from "../schema/atualizarDistribu
 
 import criarDetalhePedidoSchema from "../schema/criarDetalhePedido.js";
 import criarEstiloSchema from "../schema/criarEstilo.js";
+import criarCoresSchema from "../schema/criarCores.js";
+import criarUnidadeMedidaSchema from "../schema/criarUnidadeMedida.js";
+import criarSubGrupoEstruturaSchema from "../schema/criarSubGrupoEstrutura.js";
+import criarGrupoEstruturaSchema from "../schema/criarGrupoEstrutura.js";
+import criarVinculoTamanhoCategoriaSchema from "../schema/criarVinculoTamanhoCategoria.js";
+
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
+import criarCategoriaPedidosSchema from "../schema/criarCategoriaPedidos.js";
 const comprasClient = new ComprasClient(process.env.API_URL);
 const comprasService = new ComprasService(comprasClient);
 
@@ -570,13 +577,17 @@ class ComprasControllers {
     }
 
     async getListaCores(req, res) {
-        let { idCor, descricao} = req.query;
+        let { idCor, descricao, idGrupoCor, page, pageSize} = req.query;
         idCor = idCor ? idCor : '';
         descricao = descricao ? descricao : '';
+        idGrupoCor = idGrupoCor ? idGrupoCor : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
         try {
-            const apiUrl = `${url}/api/compras/cores.xsjs?idCor=${idCor}&descCor=${descricao}`
+            const apiUrl = `${url}/api/compras/cores.xsjs?idCor=${idCor}&descCor=${descricao}&idGrupoCor=${idGrupoCor}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
-
+       
+          
             return res.json(response.data);
         } catch (error) {
             console.error("erro no ComprasControllers.getListaCores:", error);
@@ -1155,11 +1166,21 @@ class ComprasControllers {
                     }))
                 });  
             }
+            // Produção
+            // const response = await comprasService.updateCores(
+            //     value.IDGRUPOCOR,
+            //     value.DSCOR,
+            //     value.STATIVO,
+            //     value.IDCOR
+            // );
+          
             const response = await comprasService.updateCores(
-                value.IDCOR,
                 value.IDGRUPOCOR,
                 value.DSCOR,
-                value.STATIVO
+                value.DSSIGLA,
+                value.STATIVO,
+                value.IDFUNCIONARIO,
+                value.IDCOR
             );
 
             return res.status(200).json(response);
@@ -1904,28 +1925,31 @@ class ComprasControllers {
 
     // CREATE
     async postSubGrupoEstrutura(req, res) {
-        let {
-            IDGRUPOESTRUTURAANTIGA,
-            IDGRUPOESTRUTURA,
-            DSSUBGRUPOESTRUTURA,
-            DSSUBGRUPOESTRUTURAFIM,
-            CODSUBGRUPOESTRUTURA,
-            IDSUBGRUPOESTRUTURA,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/subgrupoestrutura.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDGRUPOESTRUTURAANTIGA,
-                IDGRUPOESTRUTURA,
-                DSSUBGRUPOESTRUTURA,
-                DSSUBGRUPOESTRUTURAFIM,
-                CODSUBGRUPOESTRUTURA,
-                IDSUBGRUPOESTRUTURA,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarSubGrupoEstruturaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createSubGrupoEstrutura(
+                value.IDGRUPOESTRUTURA,
+                value.DSSUBGRUPOESTRUTURA,
+                value.DSSUBGRUPOESTRUTURAFIM,
+                value.CODSUBGRUPOESTRUTURA,
+                value.IDSUBGRUPOESTRUTURA,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasController.postGrupoEstrutura:", error);
             throw error;
@@ -1933,20 +1957,28 @@ class ComprasControllers {
     }
 
     async postGrupoEstrutura(req, res) {
-        let {
-            DSGRUPOESTRUTURA,
-            IDGRUPOEMPRESARIAL,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/grupoextrutura.xsjs`
-            const response = await axios.post(apiUrl, {
-                DSGRUPOESTRUTURA,
-                IDGRUPOEMPRESARIAL,
-                STATIVO
-            });
-            return res.json(response.data);
+            const { error, value } = await criarGrupoEstruturaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createGrupoEstrutura(
+                value.DSGRUPOESTRUTURA,
+                value.IDGRUPOEMPRESARIAL,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasController.postGrupoEstrutura:", error);
             throw error;
@@ -2026,24 +2058,30 @@ class ComprasControllers {
     }
 
     async postUnidadeMedida(req, res) {
-        let {
-            DSUNIDADE,
-            DSSIGLA,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/unidadesdemedidas.xsjs`
-            const response = await axios.post(apiUrl, [{
-                DSUNIDADE,
-                DSSIGLA,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarUnidadeMedidaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createUnidadeMedida(
+                value.DSUNIDADE,
+                value.DSSIGLA,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("erro nos campos do banco:", error);
             throw error;
@@ -2051,20 +2089,29 @@ class ComprasControllers {
     }
 
     async postCores(req, res) {
-        let  {
-            IDGRUPOCOR,
-            DSCOR,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/cores.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDGRUPOCOR,
-                DSCOR,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarCoresSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createCor(
+                value.IDGRUPOCOR,
+                value.DSCOR,
+                value.STATIVO,
+                value.IDFUNCIONARIO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("erro ComprasController.postCores:", error);
             throw error;
@@ -2087,10 +2134,6 @@ class ComprasControllers {
                     }))
                 });  
             }
-
-
-            // let { DSESTILO, IDGRUPOESTRUTURA, STATIVO, IDESTILO, IDGRUPOESTRUTURAANTIGA, IDVINCESTILOSESTRUTURA } = req.body;
-            // const apiUrl = `${url}/api/compras/estilos.xsjs`
 
             const response = await comprasService.createEstilo(
                 value.IDGRUPOESTRUTURAANTIGA,
@@ -2130,22 +2173,30 @@ class ComprasControllers {
     }
 
     async postCategoriaPedidos(req, res) {
-        let {
-            IDCATEGORIAPEDIDO,
-            DSCATEGORIAPEDIDO,
-            TIPOPEDIDO,
-            STATIVO
-        } = req.body;
 
         try {
-            const apiUrl = `${url}/api/compras/categoriapedidos.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDCATEGORIAPEDIDO,
-                DSCATEGORIAPEDIDO,
-                TIPOPEDIDO,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarCategoriaPedidosSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createCategoriaPedidos(
+                value.IDCATEGORIAPEDIDO,
+                value.DSCATEGORIAPEDIDO,
+                value.TIPOPEDIDO,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error ComprasController.postCategoriaPedidos:", error);
             throw error;

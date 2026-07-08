@@ -496,17 +496,21 @@ export class ComprasClient {
     }
 
     async atualizarCores(
-        IDCOR,
         IDGRUPOCOR,
         DSCOR,
-        STATIVO
+        DSSIGLA,
+        STATIVO,
+        IDFUNCIONARIO,
+        IDCOR
     ) {
         
         const response = await this.api.put(`${url}/api/compras/cores.xsjs`, [{
-            IDCOR,
             IDGRUPOCOR,
             DSCOR,
-            STATIVO
+            DSSIGLA,
+            STATIVO,
+            IDFUNCIONARIO,
+            IDCOR
         }]);
         return response.data;
     }
@@ -559,7 +563,7 @@ export class ComprasClient {
         STATIVO
     ) {
         
-        const response = await this.api.put(`${url}/api/compras/subgrupoestrutura.xsjs`, {
+        const response = await this.api.put(`${url}/api/compras/subgrupoestrutura.xsjs`, [{
             IDGRUPOESTRUTURAANTIGA,
             IDGRUPOESTRUTURA,
             DSSUBGRUPOESTRUTURA,
@@ -567,7 +571,7 @@ export class ComprasClient {
             CODSUBGRUPOESTRUTURA,
             IDSUBGRUPOESTRUTURA,
             STATIVO
-        });
+        }]);
         
         return response.data;
     }
@@ -843,6 +847,91 @@ export class ComprasClient {
             STATIVO,
         }]);
 
+        return response.data;
+    }
+
+    async criarCor(
+        IDGRUPOCOR,
+        DSCOR,
+        STATIVO,
+        IDFUNCIONARIO
+    ) {
+        const response = await this.api.post(`${url}/api/compras/cores.xsjs`, [{
+            IDGRUPOCOR,
+            DSCOR,
+            STATIVO,
+            IDFUNCIONARIO
+        }]);
+        return response.data;
+    }
+
+     async criarUnidadeMedida(
+        DSUNIDADE,
+        DSSIGLA,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/unidadesdemedidas.xsjs`, [{
+            DSUNIDADE,
+            DSSIGLA,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+           
+        }]);
+        return response.data;
+    }
+
+    async criarSubGrupoEstrutura(
+        IDGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURAFIM,
+        CODSUBGRUPOESTRUTURA,
+        IDSUBGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/subgrupoestrutura.xsjs`, [{
+            IDGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURAFIM,
+            CODSUBGRUPOESTRUTURA,
+            IDSUBGRUPOESTRUTURA,
+            STATIVO
+        }]);
+        
+        return response.data;
+    }
+
+    async criarGrupoEstrutura(
+        DSGRUPOESTRUTURA,
+        IDGRUPOEMPRESARIAL,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/grupoextrutura.xsjs`, [{
+            DSGRUPOESTRUTURA,
+            IDGRUPOEMPRESARIAL,
+            STATIVO
+        }]);
+        
+        return response.data;
+    }
+
+    async criarCategoriaPedidos(
+        DSCATEGORIAPEDIDO,
+        TIPOPEDIDO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/categoriapedidos.xsjs`, [{
+            DSCATEGORIAPEDIDO,
+            TIPOPEDIDO,
+            STATIVO
+        }]);
+        
         return response.data;
     }
 }

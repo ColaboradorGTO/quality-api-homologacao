@@ -544,20 +544,24 @@ export class ComprasService {
     }
 
     async updateCores(
-        IDCOR,
         IDGRUPOCOR,
         DSCOR,
-        STATIVO
+        DSSIGLA,
+        STATIVO,
+        IDFUNCIONARIO,
+        IDCOR
     ) {
         if (!IDCOR) {
             throw new Error('ID da cor é obrigatório.');
         }
 
         const response = await this.client.atualizarCores(
-            IDCOR,
             IDGRUPOCOR,
             DSCOR,
-            STATIVO
+            DSSIGLA,
+            STATIVO,
+            IDFUNCIONARIO,
+            IDCOR
         );
         return response.data;
     }
@@ -872,6 +876,105 @@ export class ComprasService {
             IDESTILO,
             DSESTILO,
             IDGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async createCor(
+        IDGRUPOCOR,
+        DSCOR,
+        STATIVO,
+        IDFUNCIONARIO
+    ) {
+        if (!IDGRUPOCOR) {
+            throw new Error('ID do grupo de cor é obrigatório.');
+        }
+
+        const response = await this.client.criarCor(
+            IDGRUPOCOR,
+            DSCOR,
+            STATIVO,
+            IDFUNCIONARIO
+        );
+        return response.data;
+    }
+
+    async createUnidadeMedida(
+        DSUNIDADE,
+        DSSIGLA,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        if (!DSUNIDADE) {
+            throw new Error('DSUNIDADE é obrigatório.');
+        }
+
+        const response = await this.client.criarUnidadeMedida(
+            DSUNIDADE,
+            DSSIGLA,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async createSubGrupoEstrutura(
+        IDGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURA,
+        DSSUBGRUPOESTRUTURAFIM,
+        CODSUBGRUPOESTRUTURA,
+        IDSUBGRUPOESTRUTURA,
+        STATIVO
+    ) {
+        if (!IDGRUPOESTRUTURA) {
+            throw new Error('ID do Grupo de Estrutura é obrigatório.');
+        }
+
+        const response = await this.client.criarSubGrupoEstrutura(
+            IDGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURA,
+            DSSUBGRUPOESTRUTURAFIM,
+            CODSUBGRUPOESTRUTURA,
+            IDSUBGRUPOESTRUTURA,
+            STATIVO
+        );
+        return response.data;
+    }
+    
+    async createGrupoEstrutura(
+        DSGRUPOESTRUTURA,
+        IDGRUPOEMPRESARIAL,
+        STATIVO
+    ) {
+
+        if (!DSGRUPOESTRUTURA) {
+            throw new Error('DSGRUPOESTRUTURA é obrigatório.');
+        }
+
+        const response = await this.client.criarGrupoEstrutura(
+            DSGRUPOESTRUTURA,
+            IDGRUPOEMPRESARIAL,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async createCategoriaPedidos(
+        DSCATEGORIAPEDIDO,
+        TIPOPEDIDO,
+        STATIVO
+    ) {
+
+        if (!DSCATEGORIAPEDIDO) {
+            throw new Error('DSCATEGORIAPEDIDO é obrigatório.');
+        }
+
+        const response = await this.client.criarCategoriaPedidos(
+            DSCATEGORIAPEDIDO,
+            TIPOPEDIDO,
             STATIVO
         );
         return response.data;
