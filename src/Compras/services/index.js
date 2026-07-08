@@ -979,5 +979,23 @@ export class ComprasService {
         );
         return response.data;
     }
+
+    async createVinculoCategoriaPedido(
+        IDCATEGORIAPEDIDO,
+        IDTAMANHO,
+        STATIVO
+    ) {
+
+        if (!IDCATEGORIAPEDIDO) {
+            throw new Error('IDCATEGORIAPEDIDO é obrigatório.');
+        }
+
+        const response = await this.client.criarVinculoCategoriaPedido(
+            IDCATEGORIAPEDIDO,
+            IDTAMANHO,
+            STATIVO
+        );
+        return response.data;
+    }
 }
 

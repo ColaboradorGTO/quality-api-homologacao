@@ -2204,20 +2204,29 @@ class ComprasControllers {
     }
 
     async postVinculoCategoriaPedido(req, res) {
-        let {
-            IDCATEGORIAPEDIDO,
-            IDTAMANHO,
-            STATIVO
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/vinctamcat.xsjs`
-            const response = await axios.post(apiUrl, {
-                IDCATEGORIAPEDIDO,
-                IDTAMANHO,
-                STATIVO
-            });
-            return res.json(response.data);
+            const { error, value } = await criarVinculoTamanhoCategoriaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+   
+            const response = await comprasService.createVinculoCategoriaPedido(
+                value.IDCATEGORIAPEDIDO,
+                value.IDTAMANHO,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasController.postVinculoCategoriaPedido:", error);
             throw error;

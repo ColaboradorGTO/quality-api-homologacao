@@ -934,5 +934,20 @@ export class ComprasClient {
         
         return response.data;
     }
+
+    async criarVinculoCategoriaPedido(
+        IDCATEGORIAPEDIDO,
+        IDTAMANHO,
+        STATIVO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/vinctamcat.xsjs`, [{
+            IDCATEGORIAPEDIDO,
+            IDTAMANHO,
+            STATIVO
+        }]);
+        
+        return response.data;
+    }
 }
 
