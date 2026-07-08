@@ -12,9 +12,9 @@ const detItemSchema = Joi.object({
             'string.base': 'DSCOLETOR deve ser uma string'
         }),
 
-    IDPRODUTO: Joi.number().required()
+    IDPRODUTO: Joi.string().required()
         .messages({
-            'number.base': 'IDPRODUTO deve ser um número',
+            'string.base': 'IDPRODUTO deve ser uma string',
             'any.required': 'IDPRODUTO é obrigatório'
         }),
 
