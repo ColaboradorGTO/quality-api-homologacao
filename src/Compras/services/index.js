@@ -748,16 +748,16 @@ export class ComprasService {
     }
 
     async updateImagem(
-        IDIMAGEM,
-        STATIVO
+        STATIVO,
+        IDIMAGEM
     ) {
         if (!IDIMAGEM) {
             throw new Error('ID da Imagem é obrigatório.');
         }
 
         const response = await this.client.atualizarImagem(
-            IDIMAGEM,
-            STATIVO
+            STATIVO,
+            IDIMAGEM
         );
         return response.data;
     }

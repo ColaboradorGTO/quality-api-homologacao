@@ -708,8 +708,8 @@ export class ComprasClient {
     }
 
     async atualizarImagem(
-        IDIMAGEM,
-        STATIVO
+        STATIVO,
+        IDIMAGEM
     ) {
         
         if(!IDIMAGEM) {
@@ -717,8 +717,8 @@ export class ComprasClient {
         }
 
         const response = await this.api.put(`${url}/api/compras/atualiza_imagem.xsjs`, {
-            IDIMAGEM,
-            STATIVO
+            STATIVO,
+            IDIMAGEM
         });
         
         return response.data;

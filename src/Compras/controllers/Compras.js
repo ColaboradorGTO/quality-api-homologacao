@@ -951,8 +951,8 @@ class ComprasControllers {
             }
 
             const response = await comprasService.updateImagem(
-                value.IDIMAGEM,
-                value.STATIVO
+                value.STATIVO,
+                value.IDIMAGEM
             )
 
             return res.status(200).json(response); // Retorna
@@ -1795,13 +1795,8 @@ class ComprasControllers {
             
         
             const response = await comprasService.updateDistribuicaoHistoricoADM(
-                value.IDDISTRIBUICAOCOMPRASHISTORICO,
                 value.IDPEDIDOCOMPRA,
-                value.IDEMPRESA,
-                value.IDFILIAL,
-                value.CODBARRAS,
-                value.QTDSUGESTAOALTERACAOHISTORICO,
-                value.IDUSUARIOALTERACAO,
+                value.IDUSUARIO,
                 value.FINALIZAR
             );
 

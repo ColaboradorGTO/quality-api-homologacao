@@ -6,7 +6,7 @@ const atualizarDistribuicaoHistoricoADMSchema = Joi.object({
         'number.base': 'IDPEDIDOCOMPRA deve ser um número inteiro',
         'any.required': 'ID do pedido de compra é obrigatório'
     }),
-    IDUSUARIOA: Joi.number().optional()
+    IDUSUARIO: Joi.number().optional()
     .messages({
         'number.base': 'IDUSUARIO deve ser um número inteiro'
     }),
