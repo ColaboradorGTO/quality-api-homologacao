@@ -1,14 +1,14 @@
 import Joi from 'joi';
 
 const criarFornecedorFabricanteSchema = Joi.object({
-    IDFORNECEDOR: Joi.string().allow('').required()
+    IDFORNECEDOR: Joi.number().allow(null)
     .messages({
-        'string.base': 'IDFORNECEDOR deve ser uma string',
+        'number.base': 'IDFORNECEDOR deve ser um número',
         'any.required': 'IDFORNECEDOR é obrigatório'
     }),
-    IDFABRICANTE: Joi.string().allow('')
+    IDFABRICANTE: Joi.number().allow(null)
     .messages({
-        'string.base': 'IDFABRICANTE deve ser uma string',
+        'number.base': 'IDFABRICANTE deve ser um número',
     }),
     STATIVO: Joi.string().allow('').max(10).optional()
     .messages({

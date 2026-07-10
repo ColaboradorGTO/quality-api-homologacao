@@ -997,5 +997,244 @@ export class ComprasService {
         );
         return response.data;
     }
+    
+    async createCondicaoPagamento(
+         IDGRUPOEMPRESARIAL,
+        DSCONDICAOPAG,
+        STPARCELADO,
+        NUPARCELAS,
+        NUNDIA1PAG,
+        NUNDIA2PAG,
+        NUNDIA3PAG,
+        NUNDIA4PAG,
+        NUNDIA5PAG,
+        NUNDIA6PAG,
+        NUNDIA7PAG,
+        NUNDIA8PAG,
+        NUNDIA9PAG,
+        NUNDIA10PAG,
+        NUNDIA11PAG,
+        NUNDIA12PAG,
+        IDTPDOCUMENTO,
+        DTULTALTERACAO,
+        STATIVO,
+        QTDDIAS
+    ) {
+
+        const response = await this.client.criarCondicaoPagamento(
+            IDGRUPOEMPRESARIAL,
+            DSCONDICAOPAG,
+            STPARCELADO,
+            NUPARCELAS,
+            NUNDIA1PAG,
+            NUNDIA2PAG,
+            NUNDIA3PAG,
+            NUNDIA4PAG,
+            NUNDIA5PAG,
+            NUNDIA6PAG,
+            NUNDIA7PAG,
+            NUNDIA8PAG,
+            NUNDIA9PAG,
+            NUNDIA10PAG,
+            NUNDIA11PAG,
+            NUNDIA12PAG,
+            IDTPDOCUMENTO,
+            DTULTALTERACAO,
+            STATIVO,
+            QTDDIAS
+        );
+        return response.data;
+    }
+    
+    async createCadastroTransportador(
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+
+        const response = await this.client.criarCadastroTransportador(
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+        );
+        return response.data;
+    }
+    
+    async createFabricante(
+        DSFABRICANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO,
+    ) {
+
+        const response = await this.client.criarFabricante(
+            DSFABRICANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO,
+        );
+        return response.data;
+    }
+    
+    async createFabricanteFornecedor(
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO,
+    ) {
+
+        const response = await this.client.criarFabricanteFornecedor(
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO,
+        );
+        return response.data;
+    }
+  
+    async createFornecedorFabricante(
+        IDFABRICANTE,
+        IDFORNECEDOR,
+        STATIVO,
+    ) {
+
+        const response = await this.client.criarFornecedorFabricante(
+            IDFABRICANTE,
+            IDFORNECEDOR,
+            STATIVO,
+        );
+        return response.data;
+    }
+
+    async createFornecedor(
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        MODPEDIDO,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO,
+        IDCONDPAGPADRAO,
+        IDTRANSPORTADORAPADRAO,
+        TPPEDIDOPADRAO,
+        NOVENDEDORPADRAO,
+        TPFRETEPADRAO,
+        TPARQUIVOPADRAO,
+        TPFISCALPADRAO,
+        EMAILVENDEDORPADRAO
+    ) {
+        if (!IDGRUPOEMPRESARIAL) {
+            throw new Error('ID do grupo empresarial é obrigatório.');
+        }
+
+        const response = await this.client.criarFornecedor(
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            MODPEDIDO,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO,
+            IDCONDPAGPADRAO,
+            IDTRANSPORTADORAPADRAO,
+            TPPEDIDOPADRAO,
+            NOVENDEDORPADRAO,
+            TPFRETEPADRAO,
+            TPARQUIVOPADRAO,
+            TPFISCALPADRAO,
+            EMAILVENDEDORPADRAO
+        );
+        return response.data;
+    }
+
+    async createImagemProduto(
+        IDRESUMOPEDIDO,
+        NUREF,
+        IMAGEM,
+        STATIVO,
+        IDPRODIMAGEM
+    ) {
+
+        const response = await this.client.criarImagemProduto(
+            IDRESUMOPEDIDO,
+            NUREF,
+            IMAGEM,
+            STATIVO,
+            IDPRODIMAGEM
+        );
+        return response.data;
+    }
 }
 

@@ -1,11 +1,6 @@
 import Joi from 'joi';
 
-const atualizarTransportadorSchema = Joi.object({
-    IDTRANSPORTADORA: Joi.number().required()
-    .messages({
-        'number.base': 'IDTRANSPORTADORA deve ser um número',
-        'any.required': 'IDTRANSPORTADORA é obrigatório'
-    }),
+const criarTransportadorSchema = Joi.object({
     IDGRUPOEMPRESARIAL: Joi.number()
     .messages({
         'number.base': 'IDGRUPOEMPRESARIAL deve ser um número',
@@ -87,11 +82,11 @@ const atualizarTransportadorSchema = Joi.object({
     .messages({
         'string.base': 'NOREPRESENTANTE deve ser uma string',
     }),
-    DTCADASTRO: Joi.string()
+    DTCADASTRO: Joi.string().allow('')
     .messages({
         'string.base': 'DTCADASTRO deve ser uma string',
     }),
-    DTULTATUALIZACAO: Joi.string()
+    DTULTATUALIZACAO: Joi.string().allow('')
     .messages({
         'string.base': 'DTULTATUALIZACAO deve ser uma string',
     }),
@@ -102,4 +97,4 @@ const atualizarTransportadorSchema = Joi.object({
     }),
 });
 
-export default atualizarTransportadorSchema;
+export default criarTransportadorSchema;

@@ -724,6 +724,42 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarListaPromocao(
+        DSPROMOCAOMARKETING,
+        DTHORAINICIO,
+        DTHORAFIM,
+        TPAPLICADOA,
+        APARTIRDEQTD,
+        APARTIRDOVLR,
+        TPFATORPROMO,
+        FATORPROMOVLR,
+        FATORPROMOPERC,
+        TPAPARTIRDE,
+        VLPRECOPRODUTO,
+        STEMPRESAPROMO,
+        STDETPROMOORIGEM,
+        STDETPROMODESTINO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/lista_promocoes.xsjs`, [{
+            DSPROMOCAOMARKETING,
+            DTHORAINICIO,
+            DTHORAFIM,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
@@ -737,6 +773,7 @@ export class ComprasClient {
         }]);
         return response.data;
     }
+    
     async criarFabricanteFornecedor(
         IDFABRICANTE,
         IDFORNECEDOR,
@@ -947,6 +984,259 @@ export class ComprasClient {
             STATIVO
         }]);
         
+        return response.data;
+    }
+   
+    async criarCondicaoPagamento(
+        IDGRUPOEMPRESARIAL,
+        DSCONDICAOPAG,
+        STPARCELADO,
+        NUPARCELAS,
+        NUNDIA1PAG,
+        NUNDIA2PAG,
+        NUNDIA3PAG,
+        NUNDIA4PAG,
+        NUNDIA5PAG,
+        NUNDIA6PAG,
+        NUNDIA7PAG,
+        NUNDIA8PAG,
+        NUNDIA9PAG,
+        NUNDIA10PAG,
+        NUNDIA11PAG,
+        NUNDIA12PAG,
+        IDTPDOCUMENTO,
+        DTULTALTERACAO,
+        STATIVO,
+        QTDDIAS
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/condicaopagamento.xsjs`, [{
+            IDGRUPOEMPRESARIAL,
+            DSCONDICAOPAG,
+            STPARCELADO,
+            NUPARCELAS,
+            NUNDIA1PAG,
+            NUNDIA2PAG,
+            NUNDIA3PAG,
+            NUNDIA4PAG,
+            NUNDIA5PAG,
+            NUNDIA6PAG,
+            NUNDIA7PAG,
+            NUNDIA8PAG,
+            NUNDIA9PAG,
+            NUNDIA10PAG,
+            NUNDIA11PAG,
+            NUNDIA12PAG,
+            IDTPDOCUMENTO,
+            DTULTALTERACAO,
+            STATIVO,
+            QTDDIAS
+        }]);
+        
+        return response.data;
+    }
+  
+    async criarCadastroTransportador(
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO
+    ) {
+        if(!NUCNPJ) {
+            return res.status(400).json({ error: "O campo 'NUCNPJ' é obrigatório e não pode estar vazio." });
+        }
+
+        const response = await this.api.post(`${url}/api/compras/transportador.xsjs`, [{
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO
+        }]);
+        
+        return response.data;
+    }
+
+    async criarFabricante(
+        DSFABRICANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO,
+    ) {
+        if(!DSFABRICANTE) {
+            return res.status(400).json({ error: "O campo 'DSFABRICANTE' é obrigatório e não pode estar vazio." });
+        }
+
+        const response = await this.api.post(`${url}/api/compras/fabricante.xsjs`, [{
+            DSFABRICANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO,
+        }]);
+        
+        return response.data;
+    }
+
+    async criarFornecedor(
+        IDGRUPOEMPRESARIAL,
+        IDSUBGRUPOEMPRESARIAL,
+        MODPEDIDO,
+        NORAZAOSOCIAL,
+        NOFANTASIA,
+        NUCNPJ,
+        NUINSCESTADUAL,
+        NUINSCMUNICIPAL,
+        NUIBGE,
+        EENDERECO,
+        ENUMERO,
+        ECOMPLEMENTO,
+        EBAIRRO,
+        ECIDADE,
+        SGUF,
+        NUCEP,
+        EEMAIL,
+        NUTELEFONE1,
+        NUTELEFONE2,
+        NUTELEFONE3,
+        NOREPRESENTANTE,
+        DTCADASTRO,
+        DTULTATUALIZACAO,
+        STATIVO,
+        IDCONDPAGPADRAO,
+        IDTRANSPORTADORAPADRAO,
+        TPPEDIDOPADRAO,
+        NOVENDEDORPADRAO,
+        TPFRETEPADRAO,
+        TPARQUIVOPADRAO,
+        TPFISCALPADRAO,
+        EMAILVENDEDORPADRAO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/fornecedor.xsjs`, [{
+            IDGRUPOEMPRESARIAL,
+            IDSUBGRUPOEMPRESARIAL,
+            MODPEDIDO,
+            NORAZAOSOCIAL,
+            NOFANTASIA,
+            NUCNPJ,
+            NUINSCESTADUAL,
+            NUINSCMUNICIPAL,
+            NUIBGE,
+            EENDERECO,
+            ENUMERO,
+            ECOMPLEMENTO,
+            EBAIRRO,
+            ECIDADE,
+            SGUF,
+            NUCEP,
+            EEMAIL,
+            NUTELEFONE1,
+            NUTELEFONE2,
+            NUTELEFONE3,
+            NOREPRESENTANTE,
+            DTCADASTRO,
+            DTULTATUALIZACAO,
+            STATIVO,
+            IDCONDPAGPADRAO,
+            IDTRANSPORTADORAPADRAO,
+            TPPEDIDOPADRAO,
+            NOVENDEDORPADRAO,
+            TPFRETEPADRAO,
+            TPARQUIVOPADRAO,
+            TPFISCALPADRAO,
+            EMAILVENDEDORPADRAO
+        }]);
+        return response.data;
+    }
+
+    async criarImagemProduto(
+        IDRESUMOPEDIDO,
+        NUREF,
+        IMAGEM,
+        STATIVO,
+        IDPRODIMAGEM
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/imagemproduto.xsjs`, [{
+            IDRESUMOPEDIDO,
+            NUREF,
+            IMAGEM,
+            STATIVO,
+            IDPRODIMAGEM
+        }]);
+        return response.data;
+    }
+
+    async criarListaPromocao(
+        DSPROMOCAOMARKETING,
+        DTHORAINICIO,
+        DTHORAFIM,
+        TPAPLICADOA,
+        APARTIRDEQTD,
+        APARTIRDOVLR,
+        TPFATORPROMO,
+        FATORPROMOVLR,
+        FATORPROMOPERC,
+        TPAPARTIRDE,
+        VLPRECOPRODUTO,
+        STEMPRESAPROMO,
+        STDETPROMOORIGEM,
+        STDETPROMODESTINO
+    ) {
+        
+        const response = await this.api.post(`${url}/api/compras/lista_promocoes.xsjs`, [{
+            DSPROMOCAOMARKETING,
+            DTHORAINICIO,
+            DTHORAFIM,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO
+        }]);
         return response.data;
     }
 }

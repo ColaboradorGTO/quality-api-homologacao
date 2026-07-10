@@ -36,7 +36,12 @@ import criarUnidadeMedidaSchema from "../schema/criarUnidadeMedida.js";
 import criarSubGrupoEstruturaSchema from "../schema/criarSubGrupoEstrutura.js";
 import criarGrupoEstruturaSchema from "../schema/criarGrupoEstrutura.js";
 import criarVinculoTamanhoCategoriaSchema from "../schema/criarVinculoTamanhoCategoria.js";
-
+import criarCondicaoPagamentoSchema from "../schema/criarCondicaoPagamento.js";
+import criarTransportadorSchema  from "../schema/criarTransportador.js";
+import criarFabricanteSchema from "../schema/criarFabricante.js";
+import criarFabricanteFornecedorSchema from "../schema/criarFabricanteFornecedor.js";
+import criarFornecedorSchema from "../schema/criarFornecedor.js";
+import criarImagemProdutoSchema from "../schema/criarImagemProduto.js";
 
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
@@ -330,16 +335,19 @@ class ComprasControllers {
 
     }
     async getListaFornecedorFabricante(req, res) {
-        let { idFabricante, descricaoFornecedor, idFornecedor, cnpjFornecedor } = req.query;
+        let { idFabricante, descricaoFornecedor, idFornecedor, cnpjFornecedor, page, pageSize } = req.query;
         idFabricante = idFabricante ? idFabricante : '';
         descricaoFornecedor = descricaoFornecedor ? descricaoFornecedor : '';
         idFornecedor = idFornecedor ? idFornecedor : '';
         cnpjFornecedor = cnpjFornecedor ? cnpjFornecedor : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
 
         try {
-            const apiUrl = `${url}/api/compras/fornecedor-fabricante.xsjs?idFab=${idFabricante}&descFornecedor=${descricaoFornecedor}&idFor=${idFornecedor}&CNPJFornecedor=${cnpjFornecedor}`
+            const apiUrl = `${url}/api/compras/fornecedor-fabricante.xsjs?idFab=${idFabricante}&descFornecedor=${descricaoFornecedor}&idFor=${idFornecedor}&CNPJFornecedor=${cnpjFornecedor}&page=${page}&pageSize=${pageSize}`
             const response = await axios.get(apiUrl)
-
+          
+        
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -1406,7 +1414,7 @@ class ComprasControllers {
                 });  
             }
           
-            const response = await comprasService.criarFornecedorFabricante(
+            const response = await comprasService.createFornecedorFabricante(
                 value.IDFABRICANTE,
                 value.IDFORNECEDOR,
                 value.STATIVO
@@ -1986,71 +1994,48 @@ class ComprasControllers {
     }
 
     async postCondicaoPagamento(req, res) {
-        let  {
-            IDCONDICAOPAGAMENTO,
-            IDGRUPOEMPRESARIAL,
-            DSCONDICAOPAG,
-            STPARCELADO,
-            NUPARCELAS,
-            NUNDIA1PAG,
-            NUNDIA2PAG,
-            NUNDIA3PAG,
-            NUNDIA4PAG,
-            NUNDIA5PAG,
-            NUNDIA6PAG,
-            NUNDIA7PAG,
-            NUNDIA8PAG,
-            NUNDIA9PAG,
-            NUNDIA10PAG,
-            NUNDIA11PAG,
-            NUNDIA12PAG,
-            DTULTALTERACAO,
-            QTDDIAS,
-            DSTPDOCUMENTO,
-            STATIVO,
-            IDTPDOCUMENTO
-        } = req.body;
-
-        if(DSCONDICAOPAG == '') {
-            return res.status(400).json({ error: "O campo 'DSCONDICAOPAG' é obrigatório e não pode estar vazio." });
-        }
-
-        if(STPARCELADO == '') {
-            return res.status(400).json({ error: "O campo 'STPARCELADO' é obrigatório e não pode estar vazio." });
-        }
-
-        if(NUPARCELAS == '') {
-            return res.status(400).json({ error: "O campo 'NUPARCELAS' é obrigatório e não pode estar vazio." });
-        }
-
         try {
+            const { error, value } = await criarCondicaoPagamentoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
             const apiUrl = `${url}/api/compras/condicaopagamento.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDCONDICAOPAGAMENTO,
-                IDGRUPOEMPRESARIAL,
-                DSCONDICAOPAG,
-                STPARCELADO,
-                NUPARCELAS,
-                NUNDIA1PAG,
-                NUNDIA2PAG,
-                NUNDIA3PAG,
-                NUNDIA4PAG,
-                NUNDIA5PAG,
-                NUNDIA6PAG,
-                NUNDIA7PAG,
-                NUNDIA8PAG,
-                NUNDIA9PAG,
-                NUNDIA10PAG,
-                NUNDIA11PAG,
-                NUNDIA12PAG,
-                DTULTALTERACAO,
-                QTDDIAS,
-                DSTPDOCUMENTO,
-                STATIVO,
-                IDTPDOCUMENTO
-            }]);
+            const response = await comprasService.createCondicaoPagamento(
+                value.IDGRUPOEMPRESARIAL,
+                value.DSCONDICAOPAG,
+                value.STPARCELADO,
+                value.NUPARCELAS,
+                value.NUNDIA1PAG,
+                value.NUNDIA2PAG,
+                value.NUNDIA3PAG,
+                value.NUNDIA4PAG,
+                value.NUNDIA5PAG,
+                value.NUNDIA6PAG,
+                value.NUNDIA7PAG,
+                value.NUNDIA8PAG,
+                value.NUNDIA9PAG,
+                value.NUNDIA10PAG,
+                value.NUNDIA11PAG,
+                value.NUNDIA12PAG,
+                value.IDTPDOCUMENTO,
+                value.DTULTALTERACAO,
+                value.STATIVO,
+                value.QTDDIAS,
+             
+            );
         
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasController.createCondicaoPagamento:", error);
             throw error;
@@ -2234,65 +2219,49 @@ class ComprasControllers {
     }
 
     async postCadastroTransportador(req, res) {
-        let {
-            IDTRANSPORTADORA,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            NORAZAOSOCIAL,
-            NOFANTASIA,
-            NUCNPJ,
-            NUINSCESTADUAL,
-            NUINSCMUNICIPAL,
-            NUIBGE,
-            EENDERECO,
-            ENUMERO,
-            ECOMPLEMENTO,
-            EBAIRRO,
-            ECIDADE,
-            SGUF,
-            NUCEP,
-            EEMAIL,
-            NUTELEFONE1,
-            NUTELEFONE2,
-            NUTELEFONE3,
-            NOREPRESENTANTE,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO
-        } = req.body;
 
-        if(!NUCNPJ) {
-            return res.status(400).json({ error: "O campo 'NUCNPJ' é obrigatório e não pode estar vazio." });
-        }
         try {
-            const apiUrl = `${url}/api/compras/transportador.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDTRANSPORTADORA,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                NORAZAOSOCIAL,
-                NOFANTASIA,
-                NUCNPJ,
-                NUINSCESTADUAL,
-                NUINSCMUNICIPAL,
-                NUIBGE,
-                EENDERECO,
-                ENUMERO,
-                ECOMPLEMENTO,
-                EBAIRRO,
-                ECIDADE,
-                SGUF,
-                NUCEP,
-                EEMAIL,
-                NUTELEFONE1,
-                NUTELEFONE2,
-                NUTELEFONE3,
-                NOREPRESENTANTE,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarTransportadorSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+           
+            const response = await comprasService.createCadastroTransportador(
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.NORAZAOSOCIAL,
+                value.NOFANTASIA,
+                value.NUCNPJ,
+                value.NUINSCESTADUAL,
+                value.NUINSCMUNICIPAL,
+                value.NUIBGE,
+                value.EENDERECO,
+                value.ENUMERO,
+                value.ECOMPLEMENTO,
+                value.EBAIRRO,
+                value.ECIDADE,
+                value.SGUF,
+                value.NUCEP,
+                value.EEMAIL,
+                value.NUTELEFONE1,
+                value.NUTELEFONE2,
+                value.NUTELEFONE3,
+                value.NOREPRESENTANTE,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Error no ComprasCOntrollers.postCadastroTransportador:", error);
             throw error;
@@ -2313,15 +2282,29 @@ class ComprasControllers {
         }
 
         try {
-            const apiUrl = `${url}/api/compras/fabricante.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDFABRICANTE,
-                DSFABRICANTE,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarFabricanteSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+
+            const response = await comprasService.createFabricante(
+                value.DSFABRICANTE,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postFabricanteFornecedor:", error);
             throw error;
@@ -2347,20 +2330,30 @@ class ComprasControllers {
     }
 
     async postFabricanteFornecedor(req, res) {
-        let {
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            STATIVO,
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/fabricante-fornecedor.xsjs`
-            const response = await axios.post(apiUrl, {
-                IDFABRICANTE,
-                IDFORNECEDOR,
-                STATIVO
-            });
-            return res.json(response.data);
+
+            const { error, value } = await criarFabricanteFornecedorSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+         
+            const response = await comprasService.createFabricanteFornecedor(
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.STATIVO
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postFabricanteFornecedor:", error);
             throw error;
@@ -2368,80 +2361,58 @@ class ComprasControllers {
     }
 
     async postFornecedor(req, res) {
-        let {
-            IDFORNECEDOR,
-            IDGRUPOEMPRESARIAL,
-            IDSUBGRUPOEMPRESARIAL,
-            MODPEDIDO,
-            NORAZAOSOCIAL,
-            NOFANTASIA,
-            NUCNPJ,
-            NUINSCESTADUAL,
-            NUINSCMUNICIPAL,
-            NUIBGE,
-            EENDERECO,
-            ENUMERO,
-            ECOMPLEMENTO,
-            EBAIRRO,
-            ECIDADE,
-            SGUF,
-            NUCEP,
-            EEMAIL,
-            NUTELEFONE1,
-            NUTELEFONE2,
-            NUTELEFONE3,
-            NOREPRESENTANTE,
-            DTCADASTRO,
-            DTULTATUALIZACAO,
-            STATIVO,
-            IDCONDPAGPADRAO,
-            IDTRANSPORTADORAPADRAO,
-            TPPEDIDOPADRAO,
-            NOVENDEDORPADRAO,
-            TPFRETEPADRAO,
-            TPARQUIVOPADRAO,
-            TPFISCALPADRAO,
-            EMAILVENDEDORPADRAO,
-        } = req.body;
-
         try {
-            const apiUrl = `${url}/api/compras/fornecedor.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDFORNECEDOR,
-                IDGRUPOEMPRESARIAL,
-                IDSUBGRUPOEMPRESARIAL,
-                MODPEDIDO,
-                NORAZAOSOCIAL,
-                NOFANTASIA,
-                NUCNPJ,
-                NUINSCESTADUAL,
-                NUINSCMUNICIPAL,
-                NUIBGE,
-                EENDERECO,
-                ENUMERO,
-                ECOMPLEMENTO,
-                EBAIRRO,
-                ECIDADE,
-                SGUF,
-                NUCEP,
-                EEMAIL,
-                NUTELEFONE1,
-                NUTELEFONE2,
-                NUTELEFONE3,
-                NOREPRESENTANTE,
-                DTCADASTRO,
-                DTULTATUALIZACAO,
-                STATIVO,
-                IDCONDPAGPADRAO,
-                IDTRANSPORTADORAPADRAO,
-                TPPEDIDOPADRAO,
-                NOVENDEDORPADRAO,
-                TPFRETEPADRAO,
-                TPARQUIVOPADRAO,
-                TPFISCALPADRAO,
-                EMAILVENDEDORPADRAO,
-            }]);
-            return res.json(response.data);
+    
+            const { error, value } = await criarFornecedorSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createFornecedor(
+                value.IDGRUPOEMPRESARIAL,
+                value.IDSUBGRUPOEMPRESARIAL,
+                value.MODPEDIDO,
+                value.NORAZAOSOCIAL,
+                value.NOFANTASIA,
+                value.NUCNPJ,
+                value.NUINSCESTADUAL,
+                value.NUINSCMUNICIPAL,
+                value.NUIBGE,
+                value.EENDERECO,
+                value.ENUMERO,
+                value.ECOMPLEMENTO,
+                value.EBAIRRO,
+                value.ECIDADE,
+                value.SGUF,
+                value.NUCEP,
+                value.EEMAIL,
+                value.NUTELEFONE1,
+                value.NUTELEFONE2,
+                value.NUTELEFONE3,
+                value.NOREPRESENTANTE,
+                value.DTCADASTRO,
+                value.DTULTATUALIZACAO,
+                value.STATIVO,
+                value.IDCONDPAGPADRAO,
+                value.IDTRANSPORTADORAPADRAO,
+                value.TPPEDIDOPADRAO,
+                value.NOVENDEDORPADRAO,
+                value.TPFRETEPADRAO,
+                value.TPARQUIVOPADRAO,
+                value.TPFISCALPADRAO,
+                value.EMAILVENDEDORPADRAO,
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postFornecedor:", error);
             throw error;
@@ -2449,25 +2420,32 @@ class ComprasControllers {
     }
 
     async postImagemProduto(req, res) {
-        let {
-            IDRESUMOPEDIDO,
-            NUREF,
-            IMAGEM,
-            STATIVO,
-            IDPRODIMAGEM
-        } = req.body;
-
+     
         try {
-            const apiUrl = `${url}/api/compras/imagemproduto.xsjs`
-            const response = await axios.post(apiUrl, [{
-                IDRESUMOPEDIDO,
-                NUREF,
-                IMAGEM,
-                STATIVO,
-                IDPRODIMAGEM
-                
-            }]);
-            return res.json(response.data);
+            const { error, value } = await criarImagemProdutoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+            const response = await comprasService.createImagemProduto(
+                value.IDRESUMOPEDIDO,
+                value.NUREF,
+                value.IMAGEM,
+                value.STATIVO,
+                value.IDPRODIMAGEM
+
+            );
+            return res.status(200).json(response);
         } catch (error) {
             console.error("error no ComprasControllers.postImagemProduto:", error);
             throw error;

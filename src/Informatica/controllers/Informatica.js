@@ -217,16 +217,17 @@ class InformaticaControllers {
     }
 
     async getListaFuncionariosLoja(req, res) {
-        let { byId, idEmpresa, cpf, noFuncionarioCPF, page, pageSize } = req.query;
+        let { byId, idEmpresa, cpf, noFuncionarioCPF, situacao, page, pageSize } = req.query;
 
         try {
             byId = byId ? byId : '';
             idEmpresa = idEmpresa ? idEmpresa : '';
             cpf = cpf ? cpf : '';
             noFuncionarioCPF = noFuncionarioCPF ? noFuncionarioCPF : '';
+            situacao = situacao ? situacao : '';
             page = page ? page : '';
             pageSize = pageSize ? pageSize : '';
-            const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?id=${byId}&idEmpresa=${idEmpresa}&dsNomeFunc=${noFuncionarioCPF}&nuCPF=${cpf}&page=${page}&pagesize=${pageSize}`;
+            const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?id=${byId}&idEmpresa=${idEmpresa}&dsNomeFunc=${noFuncionarioCPF}&nuCPF=${cpf}&situacao=${situacao}&page=${page}&pagesize=${pageSize}`;
 
             const response = await axios.get(apiUrl)
 

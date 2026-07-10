@@ -14,7 +14,7 @@ class ModulosControllers  {
         try {
             
             const apiUrl = `${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs?idUsuario=${idUsuario}&idPerfil=${Number(idPerfil)}`;
-            // const apiUrl = `http://164.152.245.77:8000/quality/concentrador/api/perfilUsuario/perfilUsuarioMenu.xsjs?idUsuario=${idUsuario}&idPerfil=${Number(idPerfil)}`;
+          
             const response = await axios.get(apiUrl);
 
             return res.json(response.data); // Retorna
