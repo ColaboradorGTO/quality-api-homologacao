@@ -46,6 +46,8 @@ import criarImagemProdutoSchema from "../schema/criarImagemProduto.js";
 import { ComprasClient } from "../client/index.js";
 import { ComprasService } from "../services/index.js";
 import criarCategoriaPedidosSchema from "../schema/criarCategoriaPedidos.js";
+import atualizarPromocaoSchema from "../schema/atualizarPromocao.js";
+import criarPromocaoSchema from "../schema/criarPromocao.js";
 const comprasClient = new ComprasClient(process.env.API_URL);
 const comprasService = new ComprasService(comprasClient);
 
@@ -124,7 +126,7 @@ class ComprasControllers {
             return res.status(500).json({ error: "erro no ComprasControllers.getListaDetalhePedidoGrade" });
         }
     }
-
+ 
     async getListaPromocoes(req, res) {
         let { dataPesquisaInicio, dataPesquisaFim } = req.query;
         dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
@@ -1931,6 +1933,49 @@ class ComprasControllers {
         }
     }
 
+    async putListaPromocao(req, res) {
+        try {
+            const { error, value } = await atualizarPromocaoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+          
+            const response = await comprasService.updateListaPromocao(
+                value.DSPROMOCAOMARKETING,
+                value.DTHORAINICIO,
+                value.DTHORAFIM,
+                value.TPAPLICADOA,
+                value.APARTIRDEQTD,
+                value.APARTIRDOVLR,
+                value.TPFATORPROMO,
+                value.FATORPROMOVLR,
+                value.FATORPROMOPERC,
+                value.TPAPARTIRDE,
+                value.VLPRECOPRODUTO,
+                value.STEMPRESAPROMO,
+                value.STDETPROMOORIGEM,
+                value.STDETPROMODESTINO
+            );
+     
+          
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("error no ComprasControllers.putListaPromocao:", error);
+            throw error;
+        }
+    }
+
     // CREATE
     async postSubGrupoEstrutura(req, res) {
         try {
@@ -2694,6 +2739,48 @@ class ComprasControllers {
         }
     }
 
+    async postListaPromocao(req, res) {
+        try {
+            const { error, value } = await criarPromocaoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+          
+            const response = await comprasService.createListaPromocao(
+                value.DSPROMOCAOMARKETING,
+                value.DTHORAINICIO,
+                value.DTHORAFIM,
+                value.TPAPLICADOA,
+                value.APARTIRDEQTD,
+                value.APARTIRDOVLR,
+                value.TPFATORPROMO,
+                value.FATORPROMOVLR,
+                value.FATORPROMOPERC,
+                value.TPAPARTIRDE,
+                value.VLPRECOPRODUTO,
+                value.STEMPRESAPROMO,
+                value.STDETPROMOORIGEM,
+                value.STDETPROMODESTINO
+            );
+     
+          
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("error no ComprasControllers.postListaPromocao:", error);
+            throw error;
+        }
+    }
 }
 
 export default new ComprasControllers();

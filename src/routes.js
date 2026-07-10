@@ -912,6 +912,7 @@ routes.put('/distribuicao-compras-historico/:id', ComprasControllers.putDistribu
 routes.put('/distribuicao-compras-historico-adm/:id', ComprasControllers.putDistribuicaoComprasHistoricoADM)
 routes.put('/lista-pedidos/:id', ComprasControllers.putListaPedidos)
 routes.put('/detalhe-pedido/:id', ComprasControllers.putDetalhePedido)
+routes.put('/lista-promocao/:id', ComprasControllers.putListaPromocao)
 
 // POST
 routes.post('/cadastrarCondicaoPagamento', ComprasControllers.postCondicaoPagamento)
@@ -934,6 +935,7 @@ routes.post('/finalizar-pedido', ComprasControllers.postFinalizarPedido)
 routes.post('/pedido', ComprasControllers.postPedido)
 routes.post('/detalhe-pedido', ComprasControllers.postDetalhePedido)
 routes.post('/clonar-pedido', ComprasControllers.postClonarPedido)
+routes.post('/criar-lista-promocao', ComprasControllers.postListaPromocao)
 
 
 // Cadastro

@@ -777,6 +777,42 @@ export class ComprasService {
         return response.data;
     }
 
+    async updateListaPromocao(
+        DSPROMOCAOMARKETING,
+        DTHORAINICIO,
+        DTHORAFIM,
+        TPAPLICADOA,
+        APARTIRDEQTD,
+        APARTIRDOVLR,
+        TPFATORPROMO,
+        FATORPROMOVLR,
+        FATORPROMOPERC,
+        TPAPARTIRDE,
+        VLPRECOPRODUTO,
+        STEMPRESAPROMO,
+        STDETPROMOORIGEM,
+        STDETPROMODESTINO
+    ) {
+        
+        const response = await this.client.atualizarListaPromocao(
+            DSPROMOCAOMARKETING,
+            DTHORAINICIO,
+            DTHORAFIM,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO
+        );
+        return response.data;
+    }
+
     async createDetalhePedido(
         IDRESUMOPEDIDO,
         IDCOR,
@@ -1233,6 +1269,42 @@ export class ComprasService {
             IMAGEM,
             STATIVO,
             IDPRODIMAGEM
+        );
+        return response.data;
+    }
+
+     async createListaPromocao(
+        DSPROMOCAOMARKETING,
+        DTHORAINICIO,
+        DTHORAFIM,
+        TPAPLICADOA,
+        APARTIRDEQTD,
+        APARTIRDOVLR,
+        TPFATORPROMO,
+        FATORPROMOVLR,
+        FATORPROMOPERC,
+        TPAPARTIRDE,
+        VLPRECOPRODUTO,
+        STEMPRESAPROMO,
+        STDETPROMOORIGEM,
+        STDETPROMODESTINO
+    ) {
+        
+        const response = await this.client.criarListaPromocao(
+            DSPROMOCAOMARKETING,
+            DTHORAINICIO,
+            DTHORAFIM,
+            TPAPLICADOA,
+            APARTIRDEQTD,
+            APARTIRDOVLR,
+            TPFATORPROMO,
+            FATORPROMOVLR,
+            FATORPROMOPERC,
+            TPAPARTIRDE,
+            VLPRECOPRODUTO,
+            STEMPRESAPROMO,
+            STDETPROMOORIGEM,
+            STDETPROMODESTINO
         );
         return response.data;
     }
