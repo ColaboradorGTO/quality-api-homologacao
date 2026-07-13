@@ -98,7 +98,7 @@ class FinanceiroControllers {
     pageSize = pageSize ? pageSize : '';
    
     try {
-      const apiUrl = `${url}/api/financeiro/extrato-loja-periodo.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
+      const apiUrl = `${url}/api/financeiro/extrato-loja-periodo.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&pageSize=${pageSize}&page=${page}`
      
       const response = await axios.get(apiUrl)
   
