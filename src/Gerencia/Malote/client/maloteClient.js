@@ -30,7 +30,7 @@ export class MaloteClient {
         IDUSERULTIMAALTERACAO,
         IDUSERENVIO
     ) {
-        const response = await this.api.post(`${url}/api/gerencia/malotes-por-loja.xsjs`, {
+        const response = await this.api.post(`${url}/api/gerencia/malotes-por-loja.xsjs`, [{
             IDEMPRESA,
             DATAMOVIMENTOCAIXA,
             VRDINHEIRO,
@@ -48,7 +48,7 @@ export class MaloteClient {
             IDUSERCRIACAO,
             IDUSERULTIMAALTERACAO,
             IDUSERENVIO
-        });
+        }]);
         return response.data;
     }
 
