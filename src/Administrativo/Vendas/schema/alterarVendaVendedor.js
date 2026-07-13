@@ -1,17 +1,22 @@
 import Joi from 'joi';
 
 const alterarVendaVendedorSchema = Joi.object({
-    IDVENDEDOR: Joi.number().allow(0).required()
-    .messages({
-        'string.base': 'IDVENDA deve ser uma string.',
-        'any.required': 'IDVENDA é um campo obrigatório.'
-    }),
-    IDVENDADETALHE: Joi.string().required()
-    .messages({
-        'string.base': 'IDVENDADETALHE deve ser uma string.',
-        'any.required': 'IDVENDADETALHE é um campo obrigatório.'
-    }),
-})
+    IDVENDEDOR: Joi.number()
+        .required()
+        .messages({
+            'number.base': 'IDVENDEDOR deve ser um número.',
+            'any.required': 'IDVENDEDOR é um campo obrigatório.'
+        }),
+
+    IDVENDADETALHE: Joi.array()
+        .items(Joi.string().required())
+        .min(1)
+        .required()
+        .messages({
+            'array.base': 'IDVENDADETALHE deve ser um array.',
+            'array.min': 'Informe pelo menos um IDVENDADETALHE.',
+            'any.required': 'IDVENDADETALHE é um campo obrigatório.'
+        })
+});
 
 export default alterarVendaVendedorSchema;
-
