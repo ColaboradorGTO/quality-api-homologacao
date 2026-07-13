@@ -122,7 +122,7 @@ class ClienteControllers {
                 value.NUIBGE,
                 value.EENDERECO,
                 value.NUENDERECO,
-                value.ECOMPLEMENTO,
+                String(value.ECOMPLEMENTO),
                 value.EBAIRRO,
                 value.ECIDADE,
                 value.SGUF,
