@@ -416,7 +416,7 @@ class AdmVendasControllers {
         uf = uf ? uf : '';
 
         try {
-            const apiUrl = `${url}/api/administrativo/venda-vendedor.xsjs?idGrupo=${idGrupo}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&uf=${uf}`
+            const apiUrl = `${url}/api/administrativo/venda-vendedor.xsjs?idGrupo=${idGrupo}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&uf=${uf}&page=${page}&pageSize=${pageSize}&byId=${byId}`
             const response = await axios.get(apiUrl)
 
             return res.json(response.data); // Retorna
