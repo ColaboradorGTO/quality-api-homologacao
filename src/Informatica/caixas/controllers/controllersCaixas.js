@@ -1,3 +1,5 @@
+import axios from "axios";
+import 'dotenv/config';
 import { CaixaClient } from "../client/index.js";
 import { caixaPutSchema } from "../schema/caixaPutSchema.js";
 import { empresaDiarioSchema } from "../schema/empresaDiario.js";
@@ -5,10 +7,27 @@ import { caixaSchema } from "../schema/index.js";
 import { todosCaixasSchema } from "../schema/todosCaixas.js";
 import { caixaServices as CaixaServices } from "../services/index.js";
 
+const url = process.env.API_URL;
 const caixaClient = new CaixaClient(process.env.API_URL);
 const caixaServices = new CaixaServices(caixaClient);
 
 class CaixaControllers {
+
+
+    async getUf(req, res,) {
+
+        try {
+            const apiUrl = `${url}/api/informatica/uf-empresa.xsjs`
+            const response = await axios.get(apiUrl);
+
+
+            return res.json(response.data); // Retorna
+        } catch (error) {
+            console.error("Unable to connect to the database:", error);
+            throw error; // Lança o erro para tratamento posterior, se necessário
+        }
+    }
+
     async postCaixaLojas(req, res) {
 
         try {

@@ -95,6 +95,7 @@ import DashBoardAdiantamentoControllers from './DashBoard/AdiantamentoSalarial/c
 import DashBoardExtratoControllers from './DashBoard/Extrato/controller/index.js';
 import DashBoardRelatorioControllers from './DashBoard/relatorio/controller/index.js';
 
+import FuncionarioController from './Informatica/Funcionarios/controller/index.js';
 
 const routes = new Router();
 // routes.use(authMiddleware)
@@ -647,6 +648,7 @@ routes.get('/listaEmpresasControleTransferencia', InformaticaControllers.getList
 routes.get('/listaEmpresasIformatica', InformaticaControllers.getListaEmpresasInformatica);
 routes.get('/listaProdutoPreco', InformaticaControllers.getListaProdutoPreco)
 routes.get('/lista-caixas', InformaticaControllers.getListaCaixas)
+routes.get('/uf-empresa', CaixaControllers.getUf)
 // routes.get('/listaCaixasID', InformaticaControllers.getListaCaixasID)
 routes.get('/atualiza-empresa-diario', InformaticaControllers.getListaAtualizaEmpresaDiario)
 routes.get('/vendas-loja-informatica', InformaticaControllers.getListaVendasLojaInformatica)
@@ -677,7 +679,8 @@ routes.post('/criarlinkRelatorioBI', LinkRelatorioBiController.postLinkRelatorio
 routes.post('/criar-caixas', CaixaControllers.postCaixaLojas)
 
 // PUT
-routes.put('/inativar-funcionario', InformaticaControllers.putInativarFuncionario)
+//routes.put('/inativar-funcionario', InformaticaControllers.putInativarFuncionario)
+routes.put('/inativar-funcionario', FuncionarioController.putInativarFuncionario)
 //routes.put('/relatorioInformaticaBI/:id', InformaticaControllers.putRelatorioBI)
 routes.put('/linkRelatorioBI/:id', LinkRelatorioBiController.putLinkRelatorioBi)
 routes.put('/relatorioInformaticaBI/:id', RelatorioBIController.putRelatorioBi)
@@ -688,8 +691,10 @@ routes.put('/atualiza-empresa-diario/:id', CaixaControllers.putAtualizaEmpresaDi
 routes.put('/atualizar-todos-caixa', CaixaControllers.putAtualizarTodosCaixas)
 routes.put('/lista-caixas/:id', CaixaControllers.putCaixaLoja)
 // routes.put('/atualizaStatusCaixa', InformaticaControllers.updateAtualizaSTCaixasInformatica)
-routes.put('/funcionarios-loja/:id', InformaticaControllers.putFuncionarioLoja)
-routes.post('/criar-funcionarios-loja', InformaticaControllers.postFuncionarioLoja)
+routes.put('/funcionarios-loja/:id', FuncionarioController.putFuncionarioLoja)
+//routes.put('/funcionarios-loja/:id', InformaticaControllers.putFuncionarioLoja)
+//routes.post('/criar-funcionarios-loja', InformaticaControllers.postFuncionarioLoja)
+routes.post('/criar-funcionarios-loja', FuncionarioController.postFuncionarioLoja)
 // routes.put('/lista-caixas/:id', InformaticaControllers.putCaixaLoja)
 routes.put('/funcionarios-desconto/:id', InformaticaControllers.putFuncionarioDesconto)
 // routes.post('/consulta-nfec', ConsultaNfeController.consultar)

@@ -14,6 +14,11 @@ const atualizarPerfilUsuarioMenuSchema = Joi.object({
         .messages({
             "string.base": "ALTERAR deve ser uma string"
         }),
+    IDMODULO: Joi.string().allow('')
+        .messages({
+            "string.base": "O IDMODULO deve ser uma string"
+        }),
+
     IDMODULOADMINISTRATIVO: Joi.string().allow('')
         .messages({
             "string.base": "A IDMODULOADMINISTRATIVO deve ser uma string"
@@ -127,7 +132,7 @@ const atualizarPerfilUsuarioMenuSchema = Joi.object({
             "number.base": "A IDMENU deve ser um número"
         }),
 
-    IDMENUFILHO: Joi.number()
+    IDMENUFILHO: Joi.number().required()
         .messages({
             "number.base": "A IDMENUFILHO deve ser um número"
         }),

@@ -21,13 +21,15 @@ class InformaticaControllers {
 
     async getListaEmpresasInformatica(req, res) {
         let {
-            idEmpresa
-
-        } = req.query;
+            idEmpresa, uf, marcaEmpresa, stAtivo, stAberto } = req.query;
         idEmpresa = idEmpresa ? idEmpresa : '';
+        uf = uf ? uf : '';
+        marcaEmpresa = marcaEmpresa ? marcaEmpresa : '';
+        stAtivo = stAtivo ? stAtivo : '';
+        stAberto = stAberto ? stAberto : '';
         try {
 
-            const apiUrl = `${url}/api/informatica/empresa.xsjs?id=${idEmpresa}`
+            const apiUrl = `${url}/api/informatica/empresa.xsjs?id=${idEmpresa}&uf=${uf}&marcaEmpresa=${marcaEmpresa}&stAtivo=${stAtivo}&stAberto=${stAberto}`
 
             const response = await axios.get(apiUrl)
 
@@ -36,7 +38,6 @@ class InformaticaControllers {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
-
     }
 
     async getListaMarcas(req, res) {
