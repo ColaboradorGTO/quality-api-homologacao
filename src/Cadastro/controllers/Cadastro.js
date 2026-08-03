@@ -242,7 +242,6 @@ class CadastroControllers  {
             throw error;
         } 
     }
-
     
     async putStatusProdutoAvulso(req, res) {
         try {
