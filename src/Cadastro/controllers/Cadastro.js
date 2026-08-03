@@ -1,8 +1,17 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-// const url = process.env.API_URL;
-const url = process.env.API_URL_HML;
+const url = process.env.API_URL;
+// const url = process.env.API_URL_HML;
+import atualizarStatusProdutoAvulsoSchema from "../schema/atualizarStatusProdutoAvulso.js";
+import atualizarDesvincularNFPedidoSchema from "../schema/atualizarDesvincularNFPedido.js";
+import criarVinculoNFPedidoSchema  from "../schema/criarVinculoNFPedido.js";
+
+import { CadastroClient } from "../client/index.js";
+import { CadastroService } from "../services/index.js";
+const cadastroClient = new CadastroClient(process.env.API_URL)
+const cadastroService = new CadastroService(cadastroService)
+
 
 class CadastroControllers  {
 
@@ -325,7 +334,7 @@ class CadastroControllers  {
                 STATIVO
             } =  req.body; 
 
-            const response = await axios.post(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
+            const response = await axios.put(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
                 IDRESUMOPEDIDO,
                 IDRESUMOENTRADA,
                 STATIVO

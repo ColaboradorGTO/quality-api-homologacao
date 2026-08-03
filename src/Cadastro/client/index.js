@@ -28,5 +28,31 @@ export class CadastroClient {
         return response.data;
     }
 
+    async atualizarDesvincularNFPedido(
+        IDRESUMOPEDIDO,
+        IDRESUMOENTRADA,
+        STATIVO  
+    ) {
+        const response = await this.api.put(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{       
+            IDRESUMOPEDIDO,
+            IDRESUMOENTRADA,
+            STATIVO
+        }]);
+      
+        return response.data;
+    }
+  
+    async criarVinculoNFPedido(
+        IDRESUMOPEDIDO,
+        IDRESUMOENTRADA
+    ) {
+        const response = await this.api.put(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{       
+            IDRESUMOPEDIDO,
+            IDRESUMOENTRADA
+        }]);
+      
+        return response.data;
+    }
+
 }
 

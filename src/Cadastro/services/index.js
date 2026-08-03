@@ -27,6 +27,42 @@ export class CadastroService {
         );
         return response.data;
     }
+  
+    async updateDesvincularNFPedido(
+        IDRESUMOPEDIDO,
+        IDRESUMOENTRADA,
+        STATIVO
+    ) {
+        if (!IDRESUMOPEDIDO) {
+            throw new Error('ID do Resumo do pedido é obrigatório.');
+        }
+
+
+        const response = await this.client.atualizarDesvincularNFPedido(
+            IDRESUMOPEDIDO,
+            IDRESUMOENTRADA,
+            STATIVO
+        );
+        return response.data;
+    }
+
+    async createVinculoNFPedido(
+        IDRESUMOPEDIDO,
+        IDRESUMOENTRADA,
+        STATIVO
+    ) {
+        if (!IDRESUMOPEDIDO) {
+            throw new Error('ID do Resumo do pedido é obrigatório.');
+        }
+
+
+        const response = await this.client.criarVinculoNFPedido(
+            IDRESUMOPEDIDO,
+            IDRESUMOENTRADA,
+            STATIVO
+        );
+        return response.data;
+    }
 
 }
 
