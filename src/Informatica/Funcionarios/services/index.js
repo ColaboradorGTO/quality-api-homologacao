@@ -1,49 +1,162 @@
 export class FuncionarioService {
-    constructor(client) {
-        this.client = client;
-    }       
-    async updateFuncionario(IDFUNCIONARIO, NUCPF, IDFUNCALTERACAO, IDEMPRESA, ID) {
-        if (!IDFUNCIONARIO) {
-            throw new Error('ID do funcionário é obrigatório.');
-        }
-
-         if (!NUCPF) {
-            throw new Error('CPF do funcionário é obrigatório.');
-        }
-
-         if (!IDFUNCALTERACAO) {
-            throw new Error('ID do usuário da última alteração é obrigatório.');
-        }
-
-          if (!IDEMPRESA) {
-            throw new Error('ID da empresa é obrigatório.');
-        }
-           if (!ID) {
-            throw new Error('ID é obrigatório.');
-        }
-
-         const result = await this.client.criarFuncionario( IDFUNCIONARIO,
-            NUCPF,
-            IDFUNCALTERACAO,
-            IDEMPRESA,
-            ID
-        );
-        
-        return result;
+  constructor(client) {
+    this.client = client;
   }
 
-          async inativarFuncionario(DATAULTIMAALTERACAO, STATIVO, DATA_DEMISSAO, ID) {
-            if (!ID) {
-              throw new Error("ID é obrigatório para inativar funcionário.");
-            }
+  async updateFuncionario(
+    NOFUNCIONARIO,
+    NUCPF,
+    NOLOGIN,
+    PWSENHA,
+    IDEMPRESA,
+    IDSUBGRUPOEMPRESARIAL,
+    DSFUNCAO,
+    IDFUNCIONARIO,
+    DSTIPO,
+    PERC,
+    VALORSALARIO,
+    VALORDISPONIVEL,
+    MOTIVODESC,
+    IDFUNCALTERACAO,
+    STCONVENIO,
+    STDESCONTOFOLHA,
+    STLOJA,
+    DATA_ADMISSAO,
+    TELEFONE,
+    DEPARTAMENTO,
+    ID
 
-          return await this.client.inativarFuncionario(
-            DATAULTIMAALTERACAO,
-            STATIVO,
-            DATA_DEMISSAO,
-            ID
-          );
-        }
+  ) {
 
+    if (!ID) {
+      throw new Error('ID é obrigatório.');
+    }
+
+    const result = await this.client.atualizarFuncionario(
+      NOFUNCIONARIO,
+      NUCPF,
+      NOLOGIN,
+      PWSENHA,
+      IDEMPRESA,
+      IDSUBGRUPOEMPRESARIAL,
+      DSFUNCAO,
+      IDFUNCIONARIO,
+      DSTIPO,
+      PERC,
+      VALORSALARIO,
+      VALORDISPONIVEL,
+      MOTIVODESC,
+      IDFUNCALTERACAO,
+      STCONVENIO,
+      STDESCONTOFOLHA,
+      STLOJA,
+      DATA_ADMISSAO,
+      TELEFONE,
+      DEPARTAMENTO,
+      ID
+    );
+
+    return result;
+  }
+
+
+  async createFuncionario(
+    ID,
+    IDFUNCIONARIO,
+    IDSUBGRUPOEMPRESARIAL,
+    IDEMPRESA,
+    NOFUNCIONARIO,
+    NUCPF,
+    NOLOGIN,
+    PWSENHA,
+    DSFUNCAO,
+    VALORSALARIO,
+    PERC,
+    STATIVO,
+    DSTIPO,
+    VALORDISPONIVEL,
+    STCONVENIO,
+    STDESCONTOFOLHA,
+    STLOJA,
+    DATA_ADMISSAO,
+    TELEFONE,
+    DEPARTAMENTO
+
+  ) {
+
+    if (!IDEMPRESA) {
+      throw new Error('IDEMPRESA é obrigatório.');
+    }
+
+    const result = await this.client.criarFuncionario(
+      ID,
+      IDFUNCIONARIO,
+      IDSUBGRUPOEMPRESARIAL,
+      IDEMPRESA,
+      NOFUNCIONARIO,
+      NUCPF,
+      NOLOGIN,
+      PWSENHA,
+      DSFUNCAO,
+      VALORSALARIO,
+      PERC,
+      STATIVO,
+      DSTIPO,
+      VALORDISPONIVEL,
+      STCONVENIO,
+      STDESCONTOFOLHA,
+      STLOJA,
+      DATA_ADMISSAO,
+      TELEFONE,
+      DEPARTAMENTO
+    );
+
+    return result;
+  }
+
+  async updateFuncionarioDesconto(
+    DTINICIODESC,
+    DTFIMDESC,
+    PERCDESCUSUAUTORIZADO,
+    MOTIVODESC,
+    IDFUNCALTERACAO,
+    ID
+
+  ) {
+
+    if (!ID) {
+      throw new Error('ID é obrigatório.');
+    }
+
+    const result = await this.client.atualizarFuncionarioDesconto(
+      DTINICIODESC,
+      DTFIMDESC,
+      PERCDESCUSUAUTORIZADO,
+      MOTIVODESC,
+      IDFUNCALTERACAO,
+      ID
+
+    );
+
+    return result;
+  }
+
+  async inativarFuncionario(
+    DATAULTIMAALTERACAO,
+    DATA_DEMISSAO,
+    STATIVO,
+    ID
+  ) {
+    if (!ID) {
+      throw new Error("ID é obrigatório para inativar funcionário.");
+    }
+
+    return await this.client.inativarFuncionario(
+      DATAULTIMAALTERACAO,
+      DATA_DEMISSAO,
+      STATIVO,
+      ID
+    );
+  }
 
 }

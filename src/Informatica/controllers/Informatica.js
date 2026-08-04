@@ -5,6 +5,7 @@ const url = process.env.API_URL
 
 class InformaticaControllers {
 
+    
     async getListaEmpresas(req, res) {
         let { } = req.query;
 
@@ -21,13 +22,15 @@ class InformaticaControllers {
 
     async getListaEmpresasInformatica(req, res) {
         let {
-            idEmpresa
-
-        } = req.query;
+            idEmpresa, uf, marcaEmpresa, stAtivo, stAberto } = req.query;
         idEmpresa = idEmpresa ? idEmpresa : '';
+        uf = uf ? uf : '';
+        marcaEmpresa = marcaEmpresa ? marcaEmpresa : '';
+        stAtivo = stAtivo ? stAtivo : '';
+        stAberto = stAberto ? stAberto : '';
         try {
 
-            const apiUrl = `${url}/api/informatica/empresa.xsjs?id=${idEmpresa}`
+            const apiUrl = `${url}/api/informatica/empresa.xsjs?id=${idEmpresa}&uf=${uf}&marcaEmpresa=${marcaEmpresa}&stAtivo=${stAtivo}&stAberto=${stAberto}`
 
             const response = await axios.get(apiUrl)
 
@@ -36,7 +39,6 @@ class InformaticaControllers {
             console.error("Unable to connect to the database:", error);
             throw error;
         }
-
     }
 
     async getListaMarcas(req, res) {
@@ -89,6 +91,7 @@ class InformaticaControllers {
             }
         }
     }
+    
     async getListaProdutoPrecoInformatica(req, res) {
         let { idEmpresa, descricaoProduto, page, pageSize } = req.query;
 
@@ -417,6 +420,7 @@ class InformaticaControllers {
             throw error;
         }
     }
+
     async getListaParceriaCredSystem(req, res) {
         let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
 
@@ -438,8 +442,6 @@ class InformaticaControllers {
 
     // Create
 
-
-
     // Update
     async putInativarFuncionario(req, res) {
         try {
@@ -457,6 +459,7 @@ class InformaticaControllers {
             return res.status(500).json({ error: error.message });
         }
     }
+
     async putRelatorioBI(req, res) {
         try {
             const dados = Array.isArray(req.body) ? req.body : [req.body];
@@ -530,6 +533,7 @@ class InformaticaControllers {
             throw error;
         }
     }
+
     async postFuncionarioLoja(req, res) {
         try {
             let {

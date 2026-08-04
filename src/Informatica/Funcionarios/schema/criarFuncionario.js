@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const funcionarioSchemaPut = Joi.object({
+const CriarFuncionarioSchema = Joi.object({
 
     NOFUNCIONARIO: Joi.string().required()
         .messages({
@@ -11,10 +11,10 @@ const funcionarioSchemaPut = Joi.object({
     NUCPF: Joi.string().required()
         .messages({
             'string.base': 'NUCPF deve ser uma string',
-            'any.required': 'CPF do funcionario é obrigatório'
+            'any.required': 'NUCPF do funcionario é obrigatório'
         }),
 
-    NOLOGIN: Joi.string().required()
+    NOLOGIN: Joi.string().allow("", null)
         .messages({
             'string.base': 'NOLOGIN deve ser uma string',
             'any.required': 'NOLOGIN do funcionario é obrigatório'
@@ -32,7 +32,7 @@ const funcionarioSchemaPut = Joi.object({
             'any.required': 'IDEMPRESA é obrigatório'
         }),
 
-    IDSUBGRUPOEMPRESARIAL: Joi.number().allow('', null)
+    IDSUBGRUPOEMPRESARIAL: Joi.number().required()
         .messages({
             'number.base': 'IDSUBGRUPOEMPRESARIAL deve ser um número inteiro',
             'any.required': 'IDSUBGRUPOEMPRESARIAL do funcionario é obrigatório'
@@ -62,6 +62,12 @@ const funcionarioSchemaPut = Joi.object({
             'any.required': 'PERC é obrigatório'
         }),
 
+    STATIVO: Joi.string().required()
+        .messages({
+            'string.base': 'STATIVO deve ser uma string',
+            'any.required': 'STATIVO é obrigatório'
+        }),
+
     VALORSALARIO: Joi.number().required()
         .messages({
             'number.base': 'VALORSALARIO deve ser um número',
@@ -79,7 +85,7 @@ const funcionarioSchemaPut = Joi.object({
             'string.base': 'MOTIVODESC deve ser uma string',
         }),
 
-    IDFUNCALTERACAO: Joi.number().required()
+    IDFUNCALTERACAO: Joi.number().allow('', null)
         .messages({
             'number.base': 'IDFUNCALTERACAO deve ser um número',
             'any.required': 'IDFUNCALTERACAO é obrigatório'
@@ -121,14 +127,14 @@ const funcionarioSchemaPut = Joi.object({
             'any.required': 'DEPARTAMENTO do funcionario é obrigatório'
         }),
 
-    ID: Joi.number().required()
+    ID: Joi.number().allow('', null)
         .messages({
             'number.base': 'ID deve ser um número',
             'any.required': 'ID do funcionario é obrigatório'
         }),
 
 })
-export default funcionarioSchemaPut;
+export default CriarFuncionarioSchema;
 
 /* ID
 IDFUNCIONARIO

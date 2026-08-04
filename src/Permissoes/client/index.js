@@ -76,7 +76,7 @@ export class PermissaoClient {
         }]);
         return response.data;
     }
-
+/* 
     async atualizarPerfilUsuarioMenu(
         IDUSUARIO,
         CRIAR,
@@ -150,10 +150,10 @@ export class PermissaoClient {
             IDMENUFILHO,
         }])
         return response.data;
-    }
+    } */
 
 
-    async atualizarPerfilUsuarioMenu(
+     async atualizarPerfilUsuarioMenu(
         IDUSUARIO,
         CRIAR,
         ALTERAR,
@@ -226,7 +226,7 @@ export class PermissaoClient {
             IDMENUFILHO,
         }])
         return response.data;
-    }
+    } 
 
     async atualizarFuncionarioDepartamento(
         ID,
@@ -244,26 +244,30 @@ export class PermissaoClient {
         IDMENUPAI,
         URL,
     ) {
-        const response = await this.api.post(`${url}/api/perfilUsuario/menuFilhos.xsjs`,[{
+        const response = await this.api.post(`${url}/api/perfilUsuario/menuFilhos.xsjs`, [{
             DSNOME,
             IDMENUPAI,
             URL
         }])
+        return response.data;
+
     }
 
-        async atualizarMenuFilho(
+    async atualizarMenuFilho(
         ID,
         DSNOME,
         IDMENUPAI,
         URL,
     ) {
-        const response = await this.api.put(`${url}/api/perfilUsuario/menuPai.xsjs`,[{
+        const response = await this.api.put(`${url}/api/perfilUsuario/menuFilhos.xsjs`, [{
             ID,
             DSNOME,
             IDMENUPAI,
             URL
         }])
+        return response.data;
+
     }
 
-    
+
 }

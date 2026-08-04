@@ -12,7 +12,7 @@ const url = process.env.API_URL;
 const permissaoClient = new PermissaoClient(url);
 const permissaoService = new PermissaoService(permissaoClient);
 
-//const url = 'http://164.152.245.77:8000/quality/concentrador_node';
+// const url = 'http://164.152.245.77:8000/quality/concentrador_node';
 class PermissaoControllers {
 
     async getMenuPai(req, res) {
@@ -33,11 +33,12 @@ class PermissaoControllers {
     }
 
     async getListaMenusFilhos(req, res) {
-        let { idMenuFilho, idMenuPai } = req.query;
+        let { idMenuFilho, idMenuPai, urlMenu } = req.query;
         idMenuFilho = idMenuFilho ? idMenuFilho : '';
         idMenuPai = idMenuPai ? idMenuPai : '';
+        urlMenu = urlMenu ? urlMenu : '';
         try {
-            const response = await axios.get(`${url}/api/perfilUsuario/menuFilhos.xsjs?id=${idMenuFilho}&idMenuPai=${idMenuPai}`)
+            const response = await axios.get(`${url}/api/perfilUsuario/menuFilhos.xsjs?id=${idMenuFilho}&idMenuPai=${idMenuPai}&urlMenu=${urlMenu}`)
 
             return res.json(response.data); // Retorna
         } catch (error) {
@@ -52,7 +53,9 @@ class PermissaoControllers {
                 abortEarly: false,
                 stripUnknown: true
             });
-
+            console.log("IDMENU:", value.IDMENU);
+            console.log("IDMENUFILHO:", value.IDMENUFILHO);
+            console.log(value);
             if (error) {
                 return res.status(400).json({
                     message: 'Dados inválidos',
@@ -71,6 +74,7 @@ class PermissaoControllers {
                 value.STATIVO,
                 value.DATAULTIMAALTERACAO,
                 value.DATA_CRIACAO,
+                value.IDMODULO,
                 String(value.IDMODULOADMINISTRATIVO),
                 String(value.IDMODULOCOMERCIAL),
                 String(value.IDMODULOCONTABILIDADE),
@@ -97,10 +101,11 @@ class PermissaoControllers {
                 value.N2,
                 value.N1,
                 value.IDMENU,
-                value.IDMENUFILHO,
+                value.IDMENUFILHO
             );
 
             return res.status(200).json(response);
+
         } catch (error) {
             console.log('Erro no PermissaoControllers.putPerfilUsuarioMenu:', error);
             return res.status(500).json({ message: 'Erro no PermissaoControllers.putPerfilUsuarioMenu' });

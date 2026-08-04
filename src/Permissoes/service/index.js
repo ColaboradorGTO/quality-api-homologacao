@@ -90,6 +90,7 @@ export class PermissaoService {
             IDMENUFILHO,
             IDMODULOPROMOCAO,
         )
+
         return result;
     }
 
@@ -127,7 +128,7 @@ export class PermissaoService {
         N2,
         N1,
         IDMENU,
-        IDMENUFILHO,
+        IDMENUFILHO
     ) {
         if (!IDUSUARIO)
             throw new Error("IDUSUARIO is required, services");
@@ -170,8 +171,11 @@ export class PermissaoService {
             N2,
             N1,
             IDMENU,
-            IDMENUFILHO,
+            IDMENUFILHO
         )
+        //console.log("RESULT:", result);
+
+
         return result;
     }
 
