@@ -38,7 +38,7 @@ export class caixaServices {
         STATUALIZA,
         STLIMPA
     }) {
-        //console.log('NUNFCEPROD no service:', NUNFCEPROD);
+
         if (!IDEMPRESA) {
             throw new Error('IDEMPRESA obrigatorio');
         }
@@ -168,7 +168,6 @@ export class caixaServices {
             IDCAIXAWEB
         );
 
-        //console.log(IDCAIXAWEB, 'idcaixaweb');
         return result
     }
 
@@ -204,7 +203,6 @@ export class caixaServices {
             IDFUNCIONARIOSUPERVISOR,
         );
 
-        //console.log(IDCAIXAWEB, 'idcaixaweb');
         return result
     }
 
@@ -237,21 +235,21 @@ export class caixaServices {
             IDFUNCIONARIOSUPERVISOR,
         );
 
-        //console.log(IDCAIXAWEB, 'idcaixaweb');
         return result
     }
 
     async updaterTodosCaixas({
+        
         STATUALIZA,
         STLIMPAR,
     }
+
     ) {
 
         const result = await this.client.atualizarTodosCaixas(
             STATUALIZA,
             STLIMPAR,
         );
-        //console.log(IDCAIXAWEB, 'idcaixaweb');
         return result
     }
 

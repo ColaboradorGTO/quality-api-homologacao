@@ -5,6 +5,7 @@ const url = process.env.API_URL
 
 class InformaticaControllers {
 
+    
     async getListaEmpresas(req, res) {
         let { } = req.query;
 
@@ -90,6 +91,7 @@ class InformaticaControllers {
             }
         }
     }
+    
     async getListaProdutoPrecoInformatica(req, res) {
         let { idEmpresa, descricaoProduto, page, pageSize } = req.query;
 
@@ -418,6 +420,7 @@ class InformaticaControllers {
             throw error;
         }
     }
+
     async getListaParceriaCredSystem(req, res) {
         let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
 
@@ -439,8 +442,6 @@ class InformaticaControllers {
 
     // Create
 
-
-
     // Update
     async putInativarFuncionario(req, res) {
         try {
@@ -458,6 +459,7 @@ class InformaticaControllers {
             return res.status(500).json({ error: error.message });
         }
     }
+
     async putRelatorioBI(req, res) {
         try {
             const dados = Array.isArray(req.body) ? req.body : [req.body];
@@ -531,6 +533,7 @@ class InformaticaControllers {
             throw error;
         }
     }
+
     async postFuncionarioLoja(req, res) {
         try {
             let {

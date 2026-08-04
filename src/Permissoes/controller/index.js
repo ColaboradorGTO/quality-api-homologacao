@@ -12,7 +12,7 @@ const url = process.env.API_URL;
 const permissaoClient = new PermissaoClient(url);
 const permissaoService = new PermissaoService(permissaoClient);
 
-//const url = 'http://164.152.245.77:8000/quality/concentrador_node';
+// const url = 'http://164.152.245.77:8000/quality/concentrador_node';
 class PermissaoControllers {
 
     async getMenuPai(req, res) {

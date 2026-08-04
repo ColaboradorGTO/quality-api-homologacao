@@ -114,6 +114,32 @@ export class FuncionarioService {
     return result;
   }
 
+  async updateFuncionarioDesconto(
+    DTINICIODESC,
+    DTFIMDESC,
+    PERCDESCUSUAUTORIZADO,
+    MOTIVODESC,
+    IDFUNCALTERACAO,
+    ID
+
+  ) {
+
+    if (!ID) {
+      throw new Error('ID é obrigatório.');
+    }
+
+    const result = await this.client.atualizarFuncionarioDesconto(
+      DTINICIODESC,
+      DTFIMDESC,
+      PERCDESCUSUAUTORIZADO,
+      MOTIVODESC,
+      IDFUNCALTERACAO,
+      ID
+
+    );
+
+    return result;
+  }
 
   async inativarFuncionario(
     DATAULTIMAALTERACAO,
@@ -132,6 +158,5 @@ export class FuncionarioService {
       ID
     );
   }
-
 
 }

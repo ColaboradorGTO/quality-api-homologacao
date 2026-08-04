@@ -23,7 +23,7 @@ export class FuncionarioClient {
         PERC,
         VALORSALARIO,
         VALORDISPONIVEL,
-        MOTIVODESC,
+        TXTMOTIVODESCONTO,
         IDFUNCALTERACAO,
         STCONVENIO,
         STDESCONTOFOLHA,
@@ -46,7 +46,7 @@ export class FuncionarioClient {
             PERC,
             VALORSALARIO,
             VALORDISPONIVEL,
-            MOTIVODESC,
+            TXTMOTIVODESCONTO,
             IDFUNCALTERACAO,
             STCONVENIO,
             STDESCONTOFOLHA,
@@ -106,6 +106,25 @@ export class FuncionarioClient {
         return response.data;
     }
 
+    async atualizarFuncionarioDesconto(
+        DTINICIODESC,
+        DTFIMDESC,
+        PERCDESCUSUAUTORIZADO,
+        MOTIVODESC,
+        IDFUNCALTERACAO,
+        ID
+    ) {
+        const response = await this.api.put(`${url}/api/informatica/funcionario-desconto.xsjs`, [{
+            DTINICIODESC,
+            DTFIMDESC,
+            PERCDESCUSUAUTORIZADO,
+            MOTIVODESC,
+            IDFUNCALTERACAO,
+            ID
+        }]);
+        return response.data;
+    }
+
     async inativarFuncionario(
         DATAULTIMAALTERACAO,
         DATA_DEMISSAO,
@@ -123,3 +142,4 @@ export class FuncionarioClient {
 
 
 }
+

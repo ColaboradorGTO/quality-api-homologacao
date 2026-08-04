@@ -1,19 +1,86 @@
+import axios from "axios";
+import 'dotenv/config';
 import { FuncionarioClient } from '../client/index.js';
 import { FuncionarioService } from '../services/index.js';
 import funcionarioSchema from '../schema/index.js';
 import { inativarFuncionarioSchema } from '../schema/funcionarioInativarSchema.js';
 import funcionarioSchemaPut from '../schema/index.js';
 import CriarFuncionarioSchema from '../schema/criarFuncionario.js';
+import { funcionarioDescontoSchema } from '../schema/funcionarioDescontoSchema.js';
+import { dataFormatada } from "../../../utils/dataFormatada.js";
 
 const url = process.env.API_URL;
-
 const funcionarioClient = new FuncionarioClient(url)
 const funcionarioService = new FuncionarioService(funcionarioClient);
 
-/* const funcionarioClient = new FuncionarioClient(process.env.INFORMATICA_API_URL);
-const funcionarioService = new FuncionarioService(funcionarioClient); */
-
 class FuncionarioController {
+
+  async getListaAtualizarFuncionario(req, res) {
+    let { idFuncionario, page, pageSize } = req.query;
+    idFuncionario = idFuncionario ? idFuncionario : '';
+    page = page ? page : '';
+    pageSize = pageSize ? pageSize : '';
+
+    try {
+
+      const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?page=${page}&pageSize=${pageSize}&id=${idFuncionario}`
+      const response = await axios.get(apiUrl)
+      if (response.status === 200) {
+        return res.json(response.data);
+      } else {
+        return res.status(500).json({ message: "Erro ao buscar caixas." });
+      }
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
+
+  async getListaFuncionariosLoja(req, res) {
+    let { byId, idEmpresa, cpf, noFuncionarioCPF, situacao, page, pageSize } = req.query;
+
+    try {
+      byId = byId ? byId : '';
+      idEmpresa = idEmpresa ? idEmpresa : '';
+      cpf = cpf ? cpf : '';
+      noFuncionarioCPF = noFuncionarioCPF ? noFuncionarioCPF : '';
+      situacao = situacao ? situacao : '';
+      page = page ? page : '';
+      pageSize = pageSize ? pageSize : '';
+      const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?id=${byId}&idEmpresa=${idEmpresa}&dsNomeFunc=${noFuncionarioCPF}&nuCPF=${cpf}&situacao=${situacao}&page=${page}&pagesize=${pageSize}`;
+
+      const response = await axios.get(apiUrl)
+
+      return res.json(response.data);
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
+
+  async getListaVendasContigenciaIformatica(req, res) {
+    let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+    idEmpresa = idEmpresa ? idEmpresa : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : '';
+    dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+    page = page ? page : '';
+    pageSize = pageSize ? pageSize : '';
+
+    try {
+
+      const apiUrl = `${url}/api/informatica/lista-vendas-contingencia.xsjs?idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
+      const response = await axios.get(apiUrl)
+
+      return res.json(response.data);
+
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
 
   async putFuncionarioLoja(req, res) {
 
@@ -146,6 +213,39 @@ class FuncionarioController {
     }
   }
 
+  async putFuncionarioDesconto(req, res) {
+    try {
+      const { error, value } = funcionarioDescontoSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
+
+      if (error) {
+        return res.status(400).json({
+          message: "Dados inválidos",
+          errors: error.details.map(detail => ({
+            field: detail.path.join("."),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await funcionarioService.updateFuncionarioDesconto(
+        value.DTINICIODESC,
+        value.DTFIMDESC,
+        value.PERCDESCUSUAUTORIZADO,
+        value.MOTIVODESC,
+        value.IDFUNCALTERACAO,
+        value.ID
+
+      );
+
+      return res.status(200).json(response);
+    } catch (error) {
+      console.error("Erro no FuncionarioController.putFuncionarioDesconto:", error);
+      return res.status(500).json({ error: "Erro no servidor" });
+    }
+  }
 
 }
 
