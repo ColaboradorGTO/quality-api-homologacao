@@ -32,8 +32,6 @@ import ListaPrecoControllers from './controllers/ListaPreco.js';
 import LogsControllers from './LogsUsuario/controllers/log.js';
 import PromocaoControllers from './Promocao/controllers/Promocao.js'
 import CaixaControllers from './Informatica/caixas/controllers/controllersCaixas.js'
-import RelatorioBIController from './Informatica/relatorio/ralatoriaBI/controller/controllerRelatorioBi.js';
-import LinkRelatorioBiController from './Informatica/relatorio/linkRelatorioBI/controllers/controllersLinkRelatorioBi.js'
 import RelatorioBiController from './Informatica/RelatorioBI/controller/index.js'
 // import ConsultaNFceController  from './Informatica/ConsultaNFCE/controllers/index.js'
 // import ConsultaNFeController from './Informatica/ConsultaNFCE/controllers/nfe.js'
