@@ -9,9 +9,7 @@ export class PermissaoService {
     ) {
         if (!ID)
             throw new Error("ID is required, services");
-        if (!DEPARTAMENTO)
-            throw new Error("DEPARTAMENTO is required, services");
-
+    
         const result = await this.client.atualizarFuncionarioDepartamento(
             ID,
             DEPARTAMENTO,
