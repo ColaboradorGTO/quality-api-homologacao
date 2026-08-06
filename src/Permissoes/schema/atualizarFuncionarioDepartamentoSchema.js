@@ -1,9 +1,8 @@
 import Joi from "joi";
 
 const atualizarFuncionarioDepartamentoSchema = Joi.object({
-    DEPARTAMENTO: Joi.string().required()
+    DEPARTAMENTO: Joi.string().allow('', null)
         .messages({
-            "any.required": "O DEPARTAMENTO obrigatório",
             "string.base": "O DEPARTAMENTO deve ser uma string"
         }),
     ID: Joi.number().required()
