@@ -4,6 +4,15 @@ import 'dotenv/config';
 const url = process.env.API_URL;
 //const url = process.env.API_URL_HML;
 
+import schemaCriarAlteracaoPrecoProduto from "../schema/criarAlteracaoPrecoProduto.js";
+import schemaAtualizarProdutoAvulso from "../schema/atualizarProdutoAvulso.js";
+import schemaCriarProdutoAvulso from "../schema/criarProdutoAvulso.js";
+
+import { ProdutosClient } from "../client/index.js.js";
+import { ProdutosServices } from "../service/index.js";
+const produtosClient = new ProdutosClient(url);
+const produtosServices = new ProdutosServices(produtosClient);
+
 class ProdutoControllers {
 
     async getListaPedidos(req, res) {
@@ -287,7 +296,7 @@ class ProdutoControllers {
 
             const apiUrl = `${url}/api/produtos/grupo-estrutura-mercadologica.xsjs?dsGrupoEstrutura=${dsGrupoEstrutura}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-            console.log(apiUrl, 'url')
+           
             return res.json(response.data);
         } catch (error) {
             console.error("Erro no ProdutoControllers.getProdutosEstruturaMercadologica:", error);
@@ -306,7 +315,75 @@ class ProdutoControllers {
 
             const apiUrl = `${url}/api/produtos/subgrupo-estrutura-mercadologica.xsjs?idsGrpEstruturas=${idSubGrupo}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-            console.log(apiUrl, 'url')
+     
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica:", error);
+            throw error;
+        }
+    }
+
+    async getListaProdutosCadastradosAvulso(req, res) {
+        let { idProduto, nomeProduto, codBarras, dataPesquisaInicio, dataPesquisaFim, stAtivo, nomeCodBarras, page, pageSize } = req.query;
+
+        idProduto = idProduto ? idProduto : '';
+        nomeProduto = nomeProduto ? nomeProduto : '';
+        codBarras = codBarras ? codBarras : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        stAtivo = stAtivo ? stAtivo : '';
+        nomeCodBarras = nomeCodBarras ? nomeCodBarras : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/produtos/produto.xsjs?id=${idProduto}&nome=${nomeProduto}&codBarras=${codBarras}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&stAtivo=${stAtivo}&NomeOuCodBarras=${nomeCodBarras}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+     
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica:", error);
+            throw error;
+        }
+    }
+
+    async getListaProdutosParaAlterar(req, res) {
+        let { 
+            dataPesquisaInicio,
+            dataPesquisaFim, 
+            idProduto,
+            idEmpresa, 
+            idGrupoEmpresarial, 
+            codBarras, 
+            descricaoProduto,
+            idGrupoEstrutura,
+            idSubGrupo,
+            precoInicial,
+            precoFinal,
+            page, 
+            pageSize 
+        } = req.query;
+
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        idProduto = idProduto ? idProduto : '';
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idGrupoEmpresarial = idGrupoEmpresarial ? idGrupoEmpresarial : '';
+        codBarras = codBarras ? codBarras : '';
+        descricaoProduto = descricaoProduto ? descricaoProduto : '';
+        idGrupoEstrutura = idGrupoEstrutura ? idGrupoEstrutura : '';
+        idSubGrupo = idSubGrupo ? idSubGrupo : '';
+        precoInicial = precoInicial ? precoInicial : '';
+        precoFinal = precoFinal ? precoFinal : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/produtos/busca-produtos-para-alterar.xsjs?dtCadProdInicio=${dataPesquisaInicio}&dtCadProdFim=${dataPesquisaFim}&id=${idProduto}&idEmpresa=${idEmpresa}&idGrupoEmpresarial=${idGrupoEmpresarial}&codeBars=${codBarras}&descProd=${descricaoProduto}&idGrpEstrutura=${idGrupoEstrutura}&idsSubgrpEstrutura=${idSubGrupo}&precoInicial=${precoInicial}&precoFinal=${precoFinal}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+            
             return res.json(response.data);
         } catch (error) {
             console.error("Erro no ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica:", error);
@@ -332,6 +409,148 @@ class ProdutoControllers {
             },)
 
             return res.json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
+            throw error;
+        }
+    }
+
+    async putProdutoAvulso(req, res) {
+
+        try {
+            const { error, value } = schemaAtualizarProdutoAvulso.validate(req.body, {
+
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await produtosServices.updateProdutoAvulso(
+                value.IDPRODUTO,
+                value.DSNOME,
+                value.IDGRUPOEMPRESARIAL,
+                value.NUNCM,
+                value.IDUND,
+                value.UND,
+                value.PRECOCUSTO,
+                value.PRECOVENDA,
+                value.IDSUBGRUPO,
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.NUREFERENCIA,
+                value.IDCOR,
+                value.IDTAMANHO,
+                value.IDCATEGORIAPEDIDO,
+                value.IDTIPOTECIDO,
+                value.IDESTILO,
+                value.IDLOCALEXPOSICAO,
+                value.IDCATEGORIAS,
+                value.IDTIPOPRODUTOFISCAL,
+                value.IDFONTEPRODUTOFISCAL,
+                value.STECOMMERCE,
+                value.STREDESOCIAL
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("erro no ProdutoControllers  putProdutoAvulso:", error);
+            throw error;
+        }
+    }
+
+    async postProdutoAvulso(req, res) {
+
+        try {
+            const { error, value } = schemaCriarProdutoAvulso.validate(req.body, {
+
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await produtosServices.createProdutoAvulso(
+                value.DSNOME,
+                value.IDGRUPOEMPRESARIAL,
+                value.NUNCM,
+                value.IDUND,
+                value.UND,
+                value.PRECOCUSTO,
+                value.PRECOVENDA,
+                value.IDSUBGRUPO,
+                value.IDFABRICANTE,
+                value.IDFORNECEDOR,
+                value.NUREFERENCIA,
+                value.IDCOR,
+                value.IDTAMANHO,
+                value.IDCATEGORIAPEDIDO,
+                value.IDTIPOTECIDO,
+                value.IDESTILO,
+                value.IDLOCALEXPOSICAO,
+                value.IDCATEGORIAS,
+                value.IDTIPOPRODUTOFISCAL,
+                value.IDFONTEPRODUTOFISCAL,
+                value.STECOMMERCE,
+                value.STREDESOCIAL
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("erro no ProdutoControllers  postProdutoAvulso:", error);
+            throw error;
+        }
+    }
+
+    async postAlteracoesPrecoProduto(req, res) {
+
+        try {
+            const { error, value } = schemaCriarAlteracaoPrecoProduto.validate(req.body, {
+
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await produtosServices.createAlteracoesPrecoProduto(
+                value.IDPRODUTO,
+                value.IDEMPRESA,
+                value.IDLISTAPRECO,
+                value.PRECOVENDAANTIGO,
+                value.PRECOVENDANOVO,
+                value.IDUSER,
+                value.STAGENDAMENTOPADRAO,
+                value.STAGENDAMENTOIMEDIATO,
+                value.STAGENDAMENTOPERSONALIZADO,
+                value.DTAGENDAMENTOPERSONALIZADO
+            );
+
+            return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
             throw error;

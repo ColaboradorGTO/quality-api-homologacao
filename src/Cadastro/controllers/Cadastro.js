@@ -2,7 +2,6 @@ import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
 const url = process.env.API_URL;
-// const url = process.env.API_URL_HML;
 import atualizarStatusProdutoAvulsoSchema from "../schema/atualizarStatusProdutoAvulso.js";
 import atualizarDesvincularNFPedidoSchema from "../schema/atualizarDesvincularNFPedido.js";
 import criarVinculoNFPedidoSchema  from "../schema/criarVinculoNFPedido.js";
@@ -10,7 +9,7 @@ import criarVinculoNFPedidoSchema  from "../schema/criarVinculoNFPedido.js";
 import { CadastroClient } from "../client/index.js";
 import { CadastroService } from "../services/index.js";
 const cadastroClient = new CadastroClient(process.env.API_URL)
-const cadastroService = new CadastroService(cadastroService)
+const cadastroService = new CadastroService(cadastroClient)
 
 
 class CadastroControllers  {
@@ -104,6 +103,7 @@ class CadastroControllers  {
             throw error;
         } 
     }
+    
     async getListaTipoProdutos(req, res) {
         let { } = req.query;
 
@@ -145,9 +145,9 @@ class CadastroControllers  {
         } 
     }
 
-    async getListaNFPedido(req, res) {
-        let { idNoata,  idFonecedor, numSerie, numNFE, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
-        idNoata = idNoata ? idNoata : '';
+    async getListaNotaFiscalEntrada(req, res) {
+        let { idNota,  idFonecedor, numSerie, numNFE, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+        idNota = idNota ? idNota : '';
         idFonecedor = idFonecedor ? idFonecedor : '';
         numSerie = numSerie ? numSerie : '';
         numNFE = numNFE ? numNFE : '';
@@ -157,7 +157,7 @@ class CadastroControllers  {
         pageSize = pageSize ? pageSize : '';
         try {
            
-            const apiUrl = `${url}/api/cadastro/cadastrar-nota-fiscal-entrada.xsjs?id=${idNoata}&idFonecedor=${idFonecedor}&numSerie=${numSerie}&numNFE=${numNFE}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/cadastro/cadastrar-nota-fiscal-entrada.xsjs?id=${idNota}&idFonecedor=${idFonecedor}&numSerie=${numSerie}&numNFE=${numNFE}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
           
             return res.json(response.data); // Retorna
@@ -168,15 +168,20 @@ class CadastroControllers  {
     }
   
     async getListaCadastroNFPedido(req, res) {
-        let { idPedido,  page, pageSize } = req.query;
+        let { idPedido, numSerie, idFornecedor, numNFE, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
         idPedido = idPedido ? idPedido : '';
+        numSerie = numSerie ? numSerie : '';
+        idFornecedor = idFornecedor ? idFornecedor : '';
+        numNFE = numNFE ? numNFE : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
         try {
            
-            const apiUrl = `${url}/api/cadastro/cadastro_nfpedido.xsjs?id=${idPedido}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/cadastro/cadastro_nfpedido.xsjs?id=${idPedido}&idFornecedor=${idFornecedor}&numSerie=${numSerie}&numNFE=${numNFE}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
-          
+    
             return res.json(response.data); // Retorna
         } catch(error) {
             console.error("Erro no CadastroControllers.getListaCadastroNFPedido:", error);
@@ -225,7 +230,7 @@ class CadastroControllers  {
         pageSize = pageSize ? pageSize : '';
         try {
            
-            const apiUrl = `${url}/api/cadastro/vinculo_nfpedidos.xsjs?idNota=${idNota}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/cadastro/vinculo_nfpedidos.xsjs?idnota=${idNota}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
           
             return res.json(response.data); // Retorna
@@ -314,9 +319,9 @@ class CadastroControllers  {
                 return res.status(400).json({ error: "IDRESUMOENTRADA é obrigatório" });
             }
 
-            const response = await axios.put(`${url}/api/cadastro/cadastro_nfAvulsa.xsjs`, {
+            const response = await axios.put(`${url}/api/cadastro/cadastro_nfAvulsa.xsjs`, [{
                 IDRESUMOENTRADA,
-            });
+            }]);
 
             return res.json(response.data);
         } catch (error) {
@@ -328,19 +333,28 @@ class CadastroControllers  {
 
     async putDesvincularNFPedido(req, res) {
         try {
-            const { 
-                IDRESUMOPEDIDO,
-                IDRESUMOENTRADA,
-                STATIVO
-            } =  req.body; 
+            const { error, value } = await atualizarDesvincularNFPedidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+            
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
 
-            const response = await axios.put(`${url}/api/cadastro/vincula_nfpedido.xsjs`, [{
-                IDRESUMOPEDIDO,
-                IDRESUMOENTRADA,
-                STATIVO
-            }]);
+            const response = await cadastroService.updateDesvincularNFPedido(
+                value.IDRESUMOPEDIDO,
+                value.IDRESUMOENTRADA,
+                value.STATIVO
+            );
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Erro no CadastroControllers.putDesvincularNFPedido:", error);
             return res.status(500).json({ error: error.message });

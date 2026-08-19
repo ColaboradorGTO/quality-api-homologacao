@@ -28,7 +28,7 @@ import MarketingControllers from './Marketing/controllers/Marketing.js';
 import ContabilidadeControllers from './Contabilidade/controllers/Contabilidade.js';
 import ConfiguracaoPixPDVControllers from './ConfiguracaoPIX/controllers/ConfiguracaoPixPDV.js';
 import ConferenciaCegaControllers from './ConferenciaCega/controllers/ConferenciaCega.js';
-import ListaPrecoControllers from './controllers/ListaPreco.js';
+import ListaPrecoControllers from './ListaPreco/controllers/index.js';
 import LogsControllers from './LogsUsuario/controllers/log.js';
 import PromocaoControllers from './Promocao/controllers/Promocao.js'
 import CaixaControllers from './Informatica/caixas/controllers/controllersCaixas.js'
@@ -944,22 +944,23 @@ routes.get('/categoriasProdutos', CadastroControllers.getListaCategorias)
 routes.get('/tipoProduto', CadastroControllers.getListaTipoProdutos)
 routes.get('/tipoFiscalProduto', CadastroControllers.getListaTipoFiscalProdutos)
 routes.get('/consultaProdutos', CadastroControllers.getConsultaProdutos)
-routes.get('/nfPedido', CadastroControllers.getListaNFPedido)
+routes.get('/nota-fiscal-entrada', CadastroControllers.getListaNotaFiscalEntrada)
 routes.get('/ncm', CadastroControllers.getListaNCM)
 routes.get('/cadastro-nfpedido', CadastroControllers.getListaCadastroNFPedido)
 routes.get('/uso-principal', CadastroControllers.getListaUsoPrincipal)
 routes.get('/pedidos-sem-vinculo-nfe', CadastroControllers.getListaPedidosSemVinculoNFE)
 routes.get('/desvincular-pedidos-nfe', CadastroControllers.getListaDesVincularPedidosNFE)
 routes.get('/produto-nf-pedidos', CadastroControllers.getListaProdutoNFPedido)
-
-
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
+
+
 // routes.put('/produtoAvulso/:id', CadastroControllers.getListaTipoFiscalProdutos)
 routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvulso)
 routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
 routes.put('/nf-avulsa/:id', CadastroControllers.putNFAvulsa)
 routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
 routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
+
 routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
 
 // Movimento Caixa
@@ -991,8 +992,13 @@ routes.get('/alteracoes-de-precos-resumo', ProdutoControllers.getListaAlteracaoP
 routes.get('/alteracoes-de-precos-detalhes', ProdutoControllers.getListaAlteracaoPrecoDetalhe)
 routes.get('/grupo-estrutura-mercadologica', ProdutoControllers.getProdutosEstruturaMercadologica)
 routes.get('/subgrupo-estrutura-mercadologica', ProdutoControllers.getProdutosSubGrupoEstruturaMercadologica)
+routes.get('/busca-produtos-para-alterar', ProdutoControllers.getListaProdutosParaAlterar)
+routes.get('/produtos-cadastrados-avulso', ProdutoControllers.getListaProdutosCadastradosAvulso)
 
+routes.put('/produto-avulso/:id', ProdutoControllers.putProdutoAvulso) 
 routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
+routes.post('/criar-produto-avulso', ProdutoControllers.postProdutoAvulso) 
+routes.post('/alteracao-preco-produto', ProdutoControllers.postAlteracoesPrecoProduto)
 
 //  Depositos Loja
 routes.get('/depositosLoja', DepositosLojaControllers.getListaDepositosLojaEmpresa)
@@ -1090,7 +1096,7 @@ routes.post('/inserir-status-divergencia', ConferenciaCegaControllers.postStatus
 // Lista de Preço
 routes.get('/lista-de-preco', ListaPrecoControllers.getListaPrecoPorMarca)
 routes.put('/lista-de-preco/:id', ListaPrecoControllers.putListasDePrecos)
-routes.get('/criar-lista-de-preco', ListaPrecoControllers.postListasDePrecos)
+routes.post('/criar-lista-de-preco', ListaPrecoControllers.postListasDePrecos)
 
 
 routes.get('/promocoes-ativas', PromocaoControllers.getListaPromocoesAtivas)
@@ -1101,19 +1107,21 @@ routes.get('/produto-promocao-origem', PromocaoControllers.getListaProdutosOrige
 routes.get('/mecanicas-ativas', PromocaoControllers.getListaMecanicaAtivas)
 routes.get('/detalhe-promocoes-ativas', PromocaoControllers.getListaDetalhesPromocoesAtivas)
 routes.get('/empresa-promocoes-ativas', PromocaoControllers.getListaEmpresasPromocoesAtiva)
-routes.post('/criar-promocoes-ativas', PromocaoControllers.postPromocao)
-routes.post('/criar-promocoes-ativas-subGrupo-produto', PromocaoControllers.postPromocaoProdutoSubGrupo)
-routes.post('/criar-promocoes-ativas-subGrupo', PromocaoControllers.postPromocaoSubGrupo)
+
 routes.put('/promocoes-ativas/:id', PromocaoControllers.putPromocao)
-routes.post('/criar-mecanica', PromocaoControllers.postMecanicaAtivas)
 routes.put('/desativar-produto-promocao-destino', PromocaoControllers.putProdutoDestinoPromocao)
 routes.put('/desativar-produto-promocao-origem', PromocaoControllers.putProdutoOrigemPromocao)
 routes.put('/desativar-empresa-promocao', PromocaoControllers.putEmpresaPromocao)
 routes.put('/desativar-status-promocao', PromocaoControllers.putStatusPromocao)
 routes.put('/promocoes-ativas-subGrupo/:id', PromocaoControllers.putPromocaoSubGrupo)
 routes.put('/criar-promocoes-ativas-subGrupo-produto/:id', PromocaoControllers.putPromocaoProdutoSubGrupo)
+
+routes.post('/criar-promocoes-ativas', PromocaoControllers.postPromocao)
+routes.post('/criar-promocoes-ativas-subGrupo-produto', PromocaoControllers.postPromocaoProdutoSubGrupo)
+routes.post('/criar-promocoes-ativas-subGrupo', PromocaoControllers.postPromocaoSubGrupo)
+routes.post('/criar-mecanica', PromocaoControllers.postMecanicaAtivas)
 routes.post('/criar-produto-promocao-ativa', PromocaoControllers.postListaProdutosPromocoesAtiva)
-// routes.post('/criar-mecanica', PromocaoControllers.postMecanicaAtivas)
+
 
 routes.post('/deposito-integracao', ServiceLayerControllers.postDepositoIntegrarNoSAP)
 routes.post('/adiantamentos-salariais-integracao', ServiceLayerControllers.postIntegrarAdiantamentoSalarial)
