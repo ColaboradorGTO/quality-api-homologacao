@@ -1,139 +1,154 @@
 import Joi from "joi";
 
 const criarClienteSchema = Joi.object({
-    IDEMPRESA: Joi.number().required()
+    IDEMPRESA: Joi.number().integer().positive().required()
         .messages({
-            "any.required": "O IDEMPRESA do resumo da OT é obrigatório",
-            "number.base": "O IDEMPRESA do resumo da OT deve ser um número"
-        }),
-    DSNOMERAZAOSOCIAL: Joi.string().required()
-        .messages({
-            "any.required": "O DSNOMERAZAOSOCIAL do resumo da OT é obrigatório",
-            "string.base": "O DSNOMERAZAOSOCIAL da empresa de origem deve ser um string"
-        }),
-    DSAPELIDONOMEFANTASIA: Joi.string().allow('')
-        .messages({
-            "string.base": "O DSAPELIDONOMEFANTASIA da empresa de destino deve ser uma string"
-        }),
-    NUCPFCNPJ: Joi.string().required()
-        .messages({
-            "any.required": "O NUCPFCNPJ do resumo da OT é obrigatório",
-            "string.base": "A NUCPFCNPJ deve ser uma string"
-        }),
-    NURGINSCESTADUAL: Joi.string().allow('')
-        .messages({
-            "string.base": "O NURGINSCESTADUAL do operador de expedição deve ser uma string"
-        }),
-    NUINSCMUNICIPAL: Joi.string().allow('')
-        .messages({
-            "string.base": "O NUINSCMUNICIPAL deve ser uma string"
-        }),
-    NUINSCRICAOSUFRAMA: Joi.string().allow('')
-        .messages({
-            "string.base": "A NUINSCRICAOSUFRAMA deve ser uma string"
-        }),
-    TPINDICADORINSCESTADUAL: Joi.string().allow('')
-        .messages({
-            "string.base": "A TPINDICADORINSCESTADUAL deve ser uma string"
-        }),
-    STOPTANTESIMPLES: Joi.string().allow('')
-        .messages({
-            "string.base": "A STOPTANTESIMPLES deve ser uma string"
-        }),
-    NUCEP: Joi.string().allow('')
-        .messages({
-            "string.base": "O NUCEP deve ser uma string"
-        }),
-    NUIBGE: Joi.number().allow('')
-        .messages({
-            "number.base": "O NUIBGE deve ser um numero"
-        }),
-    EENDERECO: Joi.string().allow('')
-        .messages({
-            "string.base": "O EENDERECO deve ser uma string"
-        }),
-    NUENDERECO: Joi.string().allow('')
-        .messages({
-            "string.base": "O NUENDERECO deve ser uma string"
-        }),
-    ECOMPLEMENTO: Joi.string().allow('')
-        .messages({
-            "string.base": "O ECOMPLEMENTO deve ser uma string"
-        }),
-    EBAIRRO: Joi.string().allow('')
-        .messages({
-            "string.base": "A EBAIRRO deve ser uma string"
-        }),
-    ECIDADE: Joi.string().allow('')
-        .messages({
-            "string.base": "O ECIDADE deve ser uma string"
-        }),
-    SGUF: Joi.string().allow('')
-        .messages({
-            "string.base": "A SGUF deve ser uma string"
-        }),
-    EEMAIL: Joi.string().allow('')
-        .messages({
-            "string.base": "O EEMAIL do usuário de cancelamento deve ser uma string"
-        }),
-    NUTELCOMERCIAL: Joi.string().allow('')
-        .messages({
-            "string.base": "A NUTELCOMERCIAL deve ser uma string"
-        }),
-    NUTELCELULAR: Joi.string().allow('')
-        .messages({
-            "string.base": "O NUTELCELULAR deve ser uma string"
-        }),
-    DTNASCFUNDACAO: Joi.string().allow('')
-        .messages({
-            "string.base": "A DTNASCFUNDACAO uma string"
-        }),
-    DSOBSERVACAO: Joi.string().allow('')
-        .messages({
-            "string.base": "A DSOBSERVACAO deve ser uma string"
-        }),
-    NOCONTATOCLIENTE01: Joi.string().allow('')
-        .messages({
-            "string.base": "O NOCONTATOCLIENTE01 deve ser uma string"
-        }),
-    EEMAILCONTATOCLIENTE01: Joi.string().allow('')
-        .messages({
-            "string.base": "A EEMAILCONTATOCLIENTE01 deve ser uma string"
-        }),
-    FONECONTATOCLIENTE01: Joi.string().allow('')
-        .messages({
-            "string.base": "A FONECONTATOCLIENTE01 deve ser uma string"
+            "any.required": "O campo IDEMPRESA é obrigatório",
+            "number.base": "O campo IDEMPRESA deve ser um número",
+            "number.integer": "O campo IDEMPRESA deve ser um número inteiro",
+            "number.positive": "O campo IDEMPRESA deve ser maior que zero"
         }),
 
-    DSCARGOCONTATOCLIENTE01: Joi.string().allow('')
+    DSNOMERAZAOSOCIAL: Joi.string().trim().required()
         .messages({
-            "string.base": "A DSCARGOCONTATOCLIENTE01 deve ser um string"
+            "any.required": "O campo DSNOMERAZAOSOCIAL é obrigatório",
+            "string.base": "O campo DSNOMERAZAOSOCIAL deve ser uma string",
+            "string.empty": "O campo DSNOMERAZAOSOCIAL é obrigatório"
         }),
 
-    NOCONTATOCLIENTE02: Joi.string().allow('')
+    DSAPELIDONOMEFANTASIA: Joi.string().trim().allow('').required()
         .messages({
-            "string.base": "NOCONTATOCLIENTE02 deve ser um string"
+            "any.required": "O campo DSAPELIDONOMEFANTASIA é obrigatório",
+            "string.base": "O campo DSAPELIDONOMEFANTASIA deve ser uma string"
         }),
 
-    EEMAILCONTATOCLIENTE02: Joi.string().allow('')
+    TPCLIENTE: Joi.string().trim().required()
         .messages({
-            "string.base": "A quantidade de conferência deve ser uma string"
+            "any.required": "O campo TPCLIENTE é obrigatório",
+            "string.base": "O campo TPCLIENTE deve ser uma string",
+            "string.empty": "O campo TPCLIENTE é obrigatório"
         }),
 
-    FONECONTATOCLIENTE02: Joi.string().allow('')
+    NUCPFCNPJ: Joi.string().trim().pattern(/^\d{11}(?:\d{3})?$/).required()
         .messages({
-            "string.base": "FONECONTATOCLIENTE02 deve ser uma string"
+            "any.required": "O campo NUCPFCNPJ é obrigatório",
+            "string.base": "O campo NUCPFCNPJ deve ser uma string",
+            "string.empty": "O campo NUCPFCNPJ é obrigatório",
+            "string.pattern.base": "O campo NUCPFCNPJ deve conter 11 dígitos para CPF ou 14 dígitos para CNPJ"
         }),
 
-    DSCARGOCONTATOCLIENTE02: Joi.string().allow('')
+    NURGINSCESTADUAL: Joi.string().trim().allow('').required()
         .messages({
-            "string.base": "A DSCARGOCONTATOCLIENTE02 deve ser uma string"
+            "any.required": "O campo NURGINSCESTADUAL é obrigatório",
+            "string.base": "O campo NURGINSCESTADUAL deve ser uma string"
         }),
 
-    STATIVO: Joi.string().allow('')
+    NUINSCMUNICIPAL: Joi.string().trim().allow('').required()
         .messages({
-            "string.base": "A STATIVO deve ser uma string"
+            "any.required": "O campo NUINSCMUNICIPAL é obrigatório",
+            "string.base": "O campo NUINSCMUNICIPAL deve ser uma string"
         }),
-})
+
+    NUCEP: Joi.string().trim().allow('').pattern(/^\d{8}$/).required()
+        .messages({
+            "any.required": "O campo NUCEP é obrigatório",
+            "string.base": "O campo NUCEP deve ser uma string",
+            "string.pattern.base": "O campo NUCEP deve conter 8 dígitos"
+        }),
+
+    NUIBGE: Joi.number().integer().positive().required()
+        .messages({
+            "any.required": "O campo NUIBGE é obrigatório",
+            "number.base": "O campo NUIBGE deve ser um número",
+            "number.integer": "O campo NUIBGE deve ser um número inteiro",
+            "number.positive": "O campo NUIBGE deve ser maior que zero"
+        }),
+
+    EENDERECO: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo EENDERECO é obrigatório",
+            "string.base": "O campo EENDERECO deve ser uma string"
+        }),
+
+    NUENDERECO: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo NUENDERECO é obrigatório",
+            "string.base": "O campo NUENDERECO deve ser uma string"
+        }),
+
+    ECOMPLEMENTO: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo ECOMPLEMENTO é obrigatório",
+            "string.base": "O campo ECOMPLEMENTO deve ser uma string"
+        }),
+
+    EBAIRRO: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo EBAIRRO é obrigatório",
+            "string.base": "O campo EBAIRRO deve ser uma string"
+        }),
+
+    ECIDADE: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo ECIDADE é obrigatório",
+            "string.base": "O campo ECIDADE deve ser uma string"
+        }),
+
+    SGUF: Joi.string().trim().length(2).required()
+        .messages({
+            "any.required": "O campo SGUF é obrigatório",
+            "string.base": "O campo SGUF deve ser uma string",
+            "string.empty": "O campo SGUF é obrigatório",
+            "string.length": "O campo SGUF deve conter 2 caracteres"
+        }),
+
+    EEMAIL: Joi.string().trim().allow('').email({ tlds: { allow: false } }).required()
+        .messages({
+            "any.required": "O campo EEMAIL é obrigatório",
+            "string.base": "O campo EEMAIL deve ser uma string",
+            "string.email": "O campo EEMAIL deve conter um e-mail válido"
+        }),
+
+    NUTELCOMERCIAL: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo NUTELCOMERCIAL é obrigatório",
+            "string.base": "O campo NUTELCOMERCIAL deve ser uma string"
+        }),
+
+    NUTELCELULAR: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo NUTELCELULAR é obrigatório",
+            "string.base": "O campo NUTELCELULAR deve ser uma string"
+        }),
+
+    DTNASCFUNDACAO: Joi.string().trim().allow('').required()
+        .messages({
+            "any.required": "O campo DTNASCFUNDACAO é obrigatório",
+            "string.base": "O campo DTNASCFUNDACAO deve ser uma string"
+        }),
+
+    IDINDICACAOIE: Joi.number().integer().positive().required()
+        .messages({
+            "any.required": "O campo IDINDICACAOIE é obrigatório",
+            "number.base": "O campo IDINDICACAOIE deve ser um número",
+            "number.integer": "O campo IDINDICACAOIE deve ser um número inteiro",
+            "number.positive": "O campo IDINDICACAOIE deve ser maior que zero"
+        }),
+
+    DSINDICACAOIE: Joi.string().trim().required()
+        .messages({
+            "any.required": "O campo DSINDICACAOIE é obrigatório",
+            "string.base": "O campo DSINDICACAOIE deve ser uma string",
+            "string.empty": "O campo DSINDICACAOIE é obrigatório"
+        }),
+
+    IDFUNCIONARIO: Joi.number().integer().positive().required()
+        .messages({
+            "any.required": "O campo IDFUNCIONARIO é obrigatório",
+            "number.base": "O campo IDFUNCIONARIO deve ser um número",
+            "number.integer": "O campo IDFUNCIONARIO deve ser um número inteiro",
+            "number.positive": "O campo IDFUNCIONARIO deve ser maior que zero"
+        })
+});
 
 export default criarClienteSchema;

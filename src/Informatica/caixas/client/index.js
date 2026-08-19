@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import 'dotenv/config';
 const url = process.env.API_URL;
@@ -44,7 +43,7 @@ export class CaixaClient {
         STATUALIZA,
         STLIMPA
     ) {
-        const response = await this.api.post(`${url}/api/informatica/caixa.xsjs`, {
+        const response = await this.api.post(`${url}/api/informatica/caixa.xsjs`, [{
             IDEMPRESA,
             DSCAIXA,
             NUULTNFCE,
@@ -78,7 +77,7 @@ export class CaixaClient {
             VSSISTEMA,
             STATUALIZA,
             STLIMPA
-        })
+        }])
         return response.data;
     }
 
@@ -95,7 +94,7 @@ export class CaixaClient {
         STLIMPA,
         IDCAIXAWEB
     ) {
-        const response = await this.api.put(`${url}/api/informatica/caixa.xsjs`, {
+        const response = await this.api.put(`${url}/api/informatica/caixa.xsjs`, [{
             DSCAIXAWEB,
             TBEMISSAOFISCAL,
             NOIMPRESSORA,
@@ -107,7 +106,7 @@ export class CaixaClient {
             STATUALIZA,
             STLIMPA,
             IDCAIXAWEB
-        })
+        }])
         return response.data;
     }
 
@@ -118,13 +117,13 @@ export class CaixaClient {
         STLOJAABERTA,
         IDFUNCIONARIOSUPERVISOR
     ) {
-        const response = await this.api.put(`${url}/api/informatica/atualiza-empresa-diario.xsjs`, {
+        const response = await this.api.put(`${url}/api/informatica/atualiza-empresa-diario.xsjs`, [{
             IDEMPRESA,
             HORAATUALIZA,
             STATUALIZADIARIO,
             STLOJAABERTA,
             IDFUNCIONARIOSUPERVISOR
-        })
+        }])
         return response.data;
     }
 

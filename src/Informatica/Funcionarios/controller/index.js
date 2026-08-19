@@ -1,16 +1,91 @@
-import { FuncionarioClient } from '../../Clients/FuncionarioClient.js';
-import { FuncionarioService } from '../../Services/FuncionarioService.js';
+import axios from "axios";
+import 'dotenv/config';
+import { FuncionarioClient } from '../client/index.js';
+import { FuncionarioService } from '../services/index.js';
 import funcionarioSchema from '../schema/index.js';
 import { inativarFuncionarioSchema } from '../schema/funcionarioInativarSchema.js';
-const funcionarioClient = new FuncionarioClient(process.env.INFORMATICA_API_URL);
+import funcionarioSchemaPut from '../schema/index.js';
+import CriarFuncionarioSchema from '../schema/criarFuncionario.js';
+import { funcionarioDescontoSchema } from '../schema/funcionarioDescontoSchema.js';
+import { dataFormatada } from "../../../utils/dataFormatada.js";
+
+const url = process.env.API_URL;
+const funcionarioClient = new FuncionarioClient(url)
 const funcionarioService = new FuncionarioService(funcionarioClient);
 
+class FuncionarioController {
 
+  async getListaAtualizarFuncionario(req, res) {
+    let { idFuncionario, page, pageSize } = req.query;
+    idFuncionario = idFuncionario ? idFuncionario : '';
+    page = page ? page : '';
+    pageSize = pageSize ? pageSize : '';
 
-export class FuncionarioController {
-  async putFuncionarioLoja(req, res) {
     try {
-      const { error, value } = funcionarioSchema.validate(req.body, {
+
+      const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?page=${page}&pageSize=${pageSize}&id=${idFuncionario}`
+      const response = await axios.get(apiUrl)
+      if (response.status === 200) {
+        return res.json(response.data);
+      } else {
+        return res.status(500).json({ message: "Erro ao buscar caixas." });
+      }
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
+
+  async getListaFuncionariosLoja(req, res) {
+    let { byId, idEmpresa, cpf, noFuncionarioCPF, situacao, page, pageSize } = req.query;
+
+    try {
+      byId = byId ? byId : '';
+      idEmpresa = idEmpresa ? idEmpresa : '';
+      cpf = cpf ? cpf : '';
+      noFuncionarioCPF = noFuncionarioCPF ? noFuncionarioCPF : '';
+      situacao = situacao ? situacao : '';
+      page = page ? page : '';
+      pageSize = pageSize ? pageSize : '';
+      const apiUrl = `${url}/api/informatica/funcionario-loja.xsjs?id=${byId}&idEmpresa=${idEmpresa}&dsNomeFunc=${noFuncionarioCPF}&nuCPF=${cpf}&situacao=${situacao}&page=${page}&pagesize=${pageSize}`;
+
+      const response = await axios.get(apiUrl)
+
+      return res.json(response.data);
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
+
+  async getListaVendasContigenciaIformatica(req, res) {
+    let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+    idEmpresa = idEmpresa ? idEmpresa : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataFormatada(dataPesquisaInicio) : '';
+    dataPesquisaFim = dataPesquisaFim ? dataFormatada(dataPesquisaFim) : '';
+    page = page ? page : '';
+    pageSize = pageSize ? pageSize : '';
+
+    try {
+
+      const apiUrl = `${url}/api/informatica/lista-vendas-contingencia.xsjs?idEmpresa=${idEmpresa}&dataPesquisaInic=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
+      const response = await axios.get(apiUrl)
+
+      return res.json(response.data);
+
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+      throw error;
+    }
+
+  }
+
+  async putFuncionarioLoja(req, res) {
+
+    try {
+      const { error, value } = funcionarioSchemaPut.validate(req.body, {
         abortEarly: false,
         stripUnknown: true
       });
@@ -26,22 +101,29 @@ export class FuncionarioController {
       }
 
       const response = await funcionarioService.updateFuncionario(
-        value.IDFUNCIONARIO,
-        value.IDSUBGRUPOEMPRESARIAL,
+
         value.NOFUNCIONARIO,
         value.NUCPF,
+        value.NOLOGIN,
         value.PWSENHA,
-        value.DSTIPO,
-        value.DTADMISSAO,
-        value.IDPERFIL,
+        value.IDEMPRESA,
+        value.IDSUBGRUPOEMPRESARIAL,
         value.DSFUNCAO,
+        value.IDFUNCIONARIO,
+        value.DSTIPO,
+        value.PERC,
+        value.VALORSALARIO,
+        value.VALORDISPONIVEL,
+        value.MOTIVODESC,
+        value.IDFUNCALTERACAO,
         value.STCONVENIO,
         value.STDESCONTOFOLHA,
         value.STLOJA,
-        value.STATIVO,
-        value.IDFUNCALTERACAO,
-        value.MOTIVODESC,
+        value.DATA_ADMISSAO,
+        value.TELEFONE,
+        value.DEPARTAMENTO,
         value.ID
+
       );
 
       return res.status(200).json(response);
@@ -53,7 +135,7 @@ export class FuncionarioController {
 
   async postFuncionarioLoja(req, res) {
     try {
-      const { error, value } = funcionarioSchema.validate(req.body, {
+      const { error, value } = CriarFuncionarioSchema.validate(req.body, {
         abortEarly: false,
         stripUnknown: true
       });
@@ -69,22 +151,27 @@ export class FuncionarioController {
       }
 
       const response = await funcionarioService.createFuncionario(
+
+        value.ID,
         value.IDFUNCIONARIO,
         value.IDSUBGRUPOEMPRESARIAL,
+        value.IDEMPRESA,
         value.NOFUNCIONARIO,
         value.NUCPF,
+        value.NOLOGIN,
         value.PWSENHA,
-        value.DSTIPO,
-        value.DTADMISSAO,
-        value.IDPERFIL,
         value.DSFUNCAO,
+        value.VALORSALARIO,
+        value.PERC,
+        value.STATIVO,
+        value.DSTIPO,
+        value.VALORDISPONIVEL,
         value.STCONVENIO,
         value.STDESCONTOFOLHA,
         value.STLOJA,
-        value.STATIVO,
-        value.IDFUNCALTERACAO,
-        value.MOTIVODESC,
-        value.ID
+        value.DATA_ADMISSAO,
+        value.TELEFONE,
+        value.DEPARTAMENTO
       );
 
       return res.status(201).json(response);
@@ -113,9 +200,10 @@ export class FuncionarioController {
 
       const response = await funcionarioService.inativarFuncionario(
         value.DATAULTIMAALTERACAO,
-        value.STATIVO,
         value.DATA_DEMISSAO,
+        value.STATIVO,
         value.ID
+
       );
 
       return res.status(200).json(response);
@@ -125,10 +213,41 @@ export class FuncionarioController {
     }
   }
 
+  async putFuncionarioDesconto(req, res) {
+    try {
+      const { error, value } = funcionarioDescontoSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
+
+      if (error) {
+        return res.status(400).json({
+          message: "Dados inválidos",
+          errors: error.details.map(detail => ({
+            field: detail.path.join("."),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await funcionarioService.updateFuncionarioDesconto(
+        value.DTINICIODESC,
+        value.DTFIMDESC,
+        value.PERCDESCUSUAUTORIZADO,
+        value.MOTIVODESC,
+        value.IDFUNCALTERACAO,
+        value.ID
+
+      );
+
+      return res.status(200).json(response);
+    } catch (error) {
+      console.error("Erro no FuncionarioController.putFuncionarioDesconto:", error);
+      return res.status(500).json({ error: "Erro no servidor" });
+    }
+  }
 
 }
-
-
 
 
 export default new FuncionarioController();

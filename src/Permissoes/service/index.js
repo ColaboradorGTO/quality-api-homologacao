@@ -9,9 +9,7 @@ export class PermissaoService {
     ) {
         if (!ID)
             throw new Error("ID is required, services");
-        if (!DEPARTAMENTO)
-            throw new Error("DEPARTAMENTO is required, services");
-
+    
         const result = await this.client.atualizarFuncionarioDepartamento(
             ID,
             DEPARTAMENTO,
@@ -90,6 +88,7 @@ export class PermissaoService {
             IDMENUFILHO,
             IDMODULOPROMOCAO,
         )
+
         return result;
     }
 
@@ -127,7 +126,7 @@ export class PermissaoService {
         N2,
         N1,
         IDMENU,
-        IDMENUFILHO,
+        IDMENUFILHO
     ) {
         if (!IDUSUARIO)
             throw new Error("IDUSUARIO is required, services");
@@ -170,8 +169,11 @@ export class PermissaoService {
             N2,
             N1,
             IDMENU,
-            IDMENUFILHO,
+            IDMENUFILHO
         )
+        //console.log("RESULT:", result);
+
+
         return result;
     }
 
