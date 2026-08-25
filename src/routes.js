@@ -857,6 +857,7 @@ routes.put('/funcionario-loja-comercial/:id', ComercialProdutoControllers.putFun
 routes.get('/lista-pedidos', ComprasControllers.getListaPedidos)
 routes.get('/ultimo-pedido', ComprasControllers.getListaUltimoPedido)
 routes.get('/lista-detalhe-pedidos', ComprasControllers.getListaDetalhePedidos)
+routes.get('/pedido-compras-detalhado', ComprasControllers.getListaPedidoDetalhado)
 routes.get('/lista-detalhe-pedidos-grade', ComprasControllers.getListaDetalhePedidoGrade)
 routes.get('/listaTodosPedidos', ComprasControllers.getListaTodosPedidos)
 routes.get('/fornecedores', ComprasControllers.getListaFornecedores)

@@ -16,10 +16,10 @@ class FinanceiroControllers {
     idEmpresa = idEmpresa ? idEmpresa : '';
     idMalote = idMalote ? idMalote : '';
     idHistoricoMalote = idHistoricoMalote ? idHistoricoMalote : '';
-    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
-    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
-    dataConferenciaInicio = dataFormatada(dataConferenciaInicio) ? dataFormatada(dataConferenciaInicio) : '';
-    dataConferenciaFim = dataFormatada(dataConferenciaFim) ? dataFormatada(dataConferenciaFim) : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+    dataConferenciaInicio = dataConferenciaInicio ? dataConferenciaInicio : '';
+    dataConferenciaFim = dataConferenciaFim ? dataConferenciaFim : '';
     page = page ? page : '';
     pageSize = pageSize ? pageSize : '';
 

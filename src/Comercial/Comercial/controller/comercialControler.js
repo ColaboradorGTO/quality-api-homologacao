@@ -19,10 +19,12 @@ class ComercialControllers {
         pageSize = pageSize ? pageSize : '';
         try {
             const apiUrl = `${url}/api/comercial/empresa.xsjs?idmarca=${idMarca}`;
+            
             const response = await axios.get(apiUrl)
+            
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
+            console.error("ComercialControllers.getListaEmpresaComercial:", error);
             throw error;
         }
 

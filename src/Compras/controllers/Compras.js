@@ -112,6 +112,25 @@ class ComprasControllers {
         }
     }
 
+    async getListaPedidoDetalhado(req, res) {
+        let { idPedido, page, pageSize } = req.query;
+        idPedido = idPedido ? idPedido : '';
+
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/compras/pedido-compras-detalhado.xsjs?id=${idPedido}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+       
+            return res.json(response.data); 
+        } catch (error) {
+            console.error("Erro no ComprasControllers.getListaPedidoDetalhado:", error);
+            throw error;
+        }
+    }
+
     async getListaDetalhePedidoGrade(req, res) {
         let { idDetalhePedido } = req.query;
         idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
