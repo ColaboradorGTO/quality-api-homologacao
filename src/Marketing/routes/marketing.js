@@ -1,19 +1,19 @@
 import { Router } from 'express';
 import MarketingControllers from '../controllers/Marketing.js';
 
-const routes = new Router();
+const MarketingRoutes = new Router();
 
-routes.get('/produto-promocao', MarketingControllers.getListaProdutosPromocao)
-routes.get('/listaPromocao', MarketingControllers.getListaPromocao)
-routes.get('/campanha', MarketingControllers.getListaCampanha)
-routes.get('/campanha-cliente', MarketingControllers.getListaCampanhaCliente)
+MarketingRoutes.get('/produto-promocao', MarketingControllers.getListaProdutosPromocao)
+MarketingRoutes.get('/listaPromocao', MarketingControllers.getListaPromocao)
+MarketingRoutes.get('/campanha', MarketingControllers.getListaCampanha)
+MarketingRoutes.get('/campanha-cliente', MarketingControllers.getListaCampanhaCliente)
 
-routes.put('/campanha/:id', MarketingControllers.putCampanhaEmpresa)
-routes.put('/campanha-cliente/:id', MarketingControllers.putCampanhaCliente)
-routes.put('/produto-promocao/:id', MarketingControllers.putProdutoPromocao)
+MarketingRoutes.put('/campanha/:id', MarketingControllers.putCampanhaEmpresa)
+MarketingRoutes.put('/campanha-cliente/:id', MarketingControllers.putCampanhaCliente)
+MarketingRoutes.put('/produto-promocao/:id', MarketingControllers.putProdutoPromocao)
 
-routes.post('/cadastrar-campanha-cliente', MarketingControllers.postCampanhaCliente)
-routes.post('/cadastra-campanha', MarketingControllers.postCampanhaEmpresa)
-routes.post('/cadastrar-produto-promocao', MarketingControllers.postProdutoPromocao)
+MarketingRoutes.post('/cadastrar-campanha-cliente', MarketingControllers.postCampanhaCliente)
+MarketingRoutes.post('/cadastra-campanha', MarketingControllers.postCampanhaEmpresa)
+MarketingRoutes.post('/cadastrar-produto-promocao', MarketingControllers.postProdutoPromocao)
 
-export default routes;
+export default MarketingRoutes;

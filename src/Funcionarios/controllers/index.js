@@ -67,6 +67,7 @@ class FuncionariosControllers {
             throw error; // Lança o erro para tratamento posterior, se necessário
         }
     }
+    
     async getAdiantamentoFuncionario(req, res,) {
         let { idFuncionario } = req.query;
         

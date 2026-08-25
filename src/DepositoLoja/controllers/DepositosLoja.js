@@ -4,6 +4,8 @@ import 'dotenv/config';
 const url = process.env.API_URL;
 import createDepositoSchema from '../schema/createDeposito.js';
 import updateDepositoSchema from '../schema/updateDeposito.js';
+import updateStatusConferidoSchema from '../schema/updateStatusConferido.js';
+import updateStatusDepositoSchema from '../schema/updateStatusDeposito.js';
 
 import { DepositoClient } from "../client/index.js";
 import { DepositoService } from "../services/index.js";
@@ -66,62 +68,86 @@ class DepositosLojaControllers  {
                 });
             }
 
-            const response = await depositoService.updateDeposito(
-                value.IDDEPOSITOLOJA,
-                value.IDEMPRESA,
-                value.IDUSR,
-                value.IDCONTABANCO,
-                value.DTDEPOSITO,
-                value.DTMOVIMENTOCAIXA,
-                value.DSHISTORIO,
-                value.NUDOCDEPOSITO,
-                value.VRDEPOSITO,
-                value.STATIVO,
-                value.STCANCELADO,
-            )
-            return res.status(201).json(response);
+            const response = await depositoService.updateDeposito({
+                IDDEPOSITOLOJA: value.IDDEPOSITOLOJA,
+                IDEMPRESA: value.IDEMPRESA,
+                IDUSR: value.IDUSR,
+                IDCONTABANCO: value.IDCONTABANCO,
+                DTDEPOSITO: value.DTDEPOSITO,
+                DTMOVIMENTOCAIXA: value.DTMOVIMENTOCAIXA,
+                DSHISTORIO: value.DSHISTORIO,
+                NUDOCDEPOSITO: value.NUDOCDEPOSITO,
+                VRDEPOSITO: value.VRDEPOSITO,
+                STATIVO: value.STATIVO,
+                STCANCELADO: value.STCANCELADO,
+            })
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            return res.status(500).json({ error: error.message });
+            console.error("Erro no DepositosLojaControllers.putListaDepositosLoja:", error);
+            res.status(500).json({ error: "Erro ao atualizar depósito loja" });
+            throw error;
         }
        
     }
     
     async putAtualizarStatusConferido(req, res) {
         try {
-            let {IDDEPOSITOLOJA, STCONFERIDO, DTCOMPENSACAO } = req.body;
-
-            if(!IDDEPOSITOLOJA) {
-                return res.status(400).json({ error: "IDDEPOSITOLOJA is required." });
-            }
-            const response = await axios.put(`${url}/api/deposito-loja/atualizacao-status-conferido.xsjs`, {
-                IDDEPOSITOLOJA,
-                STCONFERIDO,
-                DTCOMPENSACAO
+            const { error, value } = updateStatusConferidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
             });
 
-            return res.status(201).json(response.data);
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await depositoService.updateStatusConferido({
+                IDDEPOSITOLOJA: value.IDDEPOSITOLOJA,
+                STCONFERIDO: value.STCONFERIDO,
+                DTCOMPENSACAO: value.DTCOMPENSACAO,
+            });
+
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no servidor:", error);
-            return res.status(500).json({ error: error.message });
+            console.error("Erro no DepositosLojaControllers.putAtualizarStatusConferido:", error);
+            res.status(500).json({ error: "Erro ao atualizar status conferido" });
+            throw error;
         }
        
     }
     async putAtualizarStatusDepositoLoja(req, res) {
         try {
-            let {IDDEPOSITOLOJA, STCANCELADO } = req.body;
-
-            if(!IDDEPOSITOLOJA) {
-                return res.status(400).json({ error: "IDDEPOSITOLOJA is required." });
-            }
-            const response = await axios.put(`${url}/api/deposito-loja/atualizacao-status.xsjs`, {
-                IDDEPOSITOLOJA,
-                STCANCELADO
+            const { error, value } = updateStatusDepositoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
             });
-            return res.status(201).json(response.data);
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await depositoService.updateStatusDepositoLoja({
+                IDDEPOSITOLOJA: value.IDDEPOSITOLOJA,
+                STCANCELADO: value.STCANCELADO,
+            });
+
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no servidor:", error);
-            return res.status(500).json({ error: error.message });
+            console.error("Erro no DepositosLojaControllers.putAtualizarStatusDepositoLoja:", error);
+            res.status(500).json({ error: "Erro ao atualizar status do depósito loja" });
+            throw error;
         }
        
     }
@@ -144,27 +170,28 @@ class DepositosLojaControllers  {
                 });
             }
 
-            const response = await depositoService.createDeposito(
-                value.DTDEPOSITO,
-                value.DTMOVIMENTOCAIXA,
-                value.IDEMPRESA,
-                value.IDUSR,
-                value.IDCONTABANCO,
-                value.VRDEPOSITO,
-                value.DSHISTORIO,
-                value.NUDOCDEPOSITO,
-                value.DSPATHDOCDEPOSITO,
-                value.STATIVO,
-                value.STCANCELADO,
-                value.IDUSRCACELAMENTO,
-                value.DSMOTIVOCANCELAMENTO,
-            );
+            const response = await depositoService.createDeposito({
+                DTDEPOSITO: value.DTDEPOSITO,
+                DTMOVIMENTOCAIXA: value.DTMOVIMENTOCAIXA,
+                IDEMPRESA: value.IDEMPRESA,
+                IDUSR: value.IDUSR,
+                IDCONTABANCO: value.IDCONTABANCO,
+                VRDEPOSITO: value.VRDEPOSITO,
+                DSHISTORIO: value.DSHISTORIO,
+                NUDOCDEPOSITO: value.NUDOCDEPOSITO,
+                DSPATHDOCDEPOSITO: value.DSPATHDOCDEPOSITO,
+                STATIVO: value.STATIVO,
+                STCANCELADO: value.STCANCELADO,
+                IDUSRCACELAMENTO: value.IDUSRCACELAMENTO,
+                DSMOTIVOCANCELAMENTO: value.DSMOTIVOCANCELAMENTO,
+            });
                
 
             return res.status(200).json(response);
         } catch (error) {
-        throw error;
-            return res.status(error.response?.status || 500).json({ error: error.message });
+            console.error("Erro no DepositosLojaControllers.postDepositoLoja:", error);
+            res.status(500).json({ error: "Erro ao cadastrar depósito loja" });
+            throw error;
         }
     }
  

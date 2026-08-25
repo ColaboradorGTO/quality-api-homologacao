@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import PedidosControllers from '../controllers/pedidos.js';
 
-const FinanceiroPedidos = new Router();
-FinanceiroPedidos.get('/pedido-compras', PedidosControllers.getListaPedidosCompras)
+const FinanceiroPedidosRoutes = new Router();
+FinanceiroPedidosRoutes.get('/pedido-compras', PedidosControllers.getListaPedidosCompras)
+FinanceiroPedidosRoutes.get('/financeiro-lista-pedidos', PedidosControllers.getListaPedidosFinanceiro)
 
-
-export default FinanceiroPedidos;
+export default FinanceiroPedidosRoutes;

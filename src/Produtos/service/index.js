@@ -3,149 +3,81 @@ export class ProdutosServices {
         this.client = client;
     }
 
-    async updateProdutoAvulso(
-        IDPRODUTO,
-        DSNOME,
-        IDGRUPOEMPRESARIAL,
-        NUNCM,
-        IDUND,
-        UND,
-        PRECOCUSTO,
-        PRECOVENDA,
-        IDSUBGRUPO,
-        IDFABRICANTE,
-        IDFORNECEDOR,
-        NUREFERENCIA,
-        IDCOR,
-        IDTAMANHO,
-        IDCATEGORIAPEDIDO,
-        IDTIPOTECIDO,
-        IDESTILO,
-        IDLOCALEXPOSICAO,
-        IDCATEGORIAS,
-        IDTIPOPRODUTOFISCAL,
-        IDFONTEPRODUTOFISCAL,
-        STECOMMERCE,
-        STREDESOCIAL,
-
-    ) {
+    async updateProdutoAvulso({
+        IDPRODUTO, DSNOME, IDGRUPOEMPRESARIAL, NUNCM, IDUND, UND,
+        PRECOCUSTO, PRECOVENDA, IDSUBGRUPO, IDFABRICANTE, IDFORNECEDOR,
+        NUREFERENCIA, IDCOR, IDTAMANHO, IDCATEGORIAPEDIDO, IDTIPOTECIDO,
+        IDESTILO, IDLOCALEXPOSICAO, IDCATEGORIAS, IDTIPOPRODUTOFISCAL,
+        IDFONTEPRODUTOFISCAL, STECOMMERCE, STREDESOCIAL
+    }) {
         if (!IDPRODUTO) {
-            throw new Error("IDPRODUTO is required, services");
+            throw new Error('IDPRODUTO é obrigatório.');
         }
-         
-       
-        const result = await this.client.atualizarProdutoAvulso(
-            IDPRODUTO,
-            DSNOME,
-            IDGRUPOEMPRESARIAL,
-            NUNCM,
-            IDUND,
-            UND,
-            PRECOCUSTO,
-            PRECOVENDA,
-            IDSUBGRUPO,
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            NUREFERENCIA,
-            IDCOR,
-            IDTAMANHO,
-            IDCATEGORIAPEDIDO,
-            IDTIPOTECIDO,
-            IDESTILO,
-            IDLOCALEXPOSICAO,
-            IDCATEGORIAS,
-            IDTIPOPRODUTOFISCAL,
-            IDFONTEPRODUTOFISCAL,
-            STECOMMERCE,
-            STREDESOCIAL,
-        )
-        return result;
+
+        return this.client.atualizarProdutoAvulso(
+            IDPRODUTO, DSNOME, IDGRUPOEMPRESARIAL, NUNCM, IDUND, UND,
+            PRECOCUSTO, PRECOVENDA, IDSUBGRUPO, IDFABRICANTE, IDFORNECEDOR,
+            NUREFERENCIA, IDCOR, IDTAMANHO, IDCATEGORIAPEDIDO, IDTIPOTECIDO,
+            IDESTILO, IDLOCALEXPOSICAO, IDCATEGORIAS, IDTIPOPRODUTOFISCAL,
+            IDFONTEPRODUTOFISCAL, STECOMMERCE, STREDESOCIAL
+        );
     }
 
-    async createProdutoAvulso(
-        DSNOME,
-        IDGRUPOEMPRESARIAL,
-        NUNCM,
-        IDUND,
-        UND,
-        PRECOCUSTO,
-        PRECOVENDA,
-        IDSUBGRUPO,
-        IDFABRICANTE,
-        IDFORNECEDOR,
-        NUREFERENCIA,
-        IDCOR,
-        IDTAMANHO,
-        IDCATEGORIAPEDIDO,
-        IDTIPOTECIDO,
-        IDESTILO,
-        IDLOCALEXPOSICAO,
-        IDCATEGORIAS,
-        IDTIPOPRODUTOFISCAL,
-        IDFONTEPRODUTOFISAL,
-        STECOMMERCE,
-        STREDESOCIAL,
-
-    ) {
-          
-        const result = await this.client.criarProdutoAvulso(
-            DSNOME,
-            IDGRUPOEMPRESARIAL,
-            NUNCM,
-            IDUND,
-            UND,
-            PRECOCUSTO,
-            PRECOVENDA,
-            IDSUBGRUPO,
-            IDFABRICANTE,
-            IDFORNECEDOR,
-            NUREFERENCIA,
-            IDCOR,
-            IDTAMANHO,
-            IDCATEGORIAPEDIDO,
-            IDTIPOTECIDO,
-            IDESTILO,
-            IDLOCALEXPOSICAO,
-            IDCATEGORIAS,
-            IDTIPOPRODUTOFISCAL,
-            IDFONTEPRODUTOFISAL,
-            STECOMMERCE,
-            STREDESOCIAL,
-        )
-        return result;
+    async createProdutoAvulso({
+        DSNOME, IDGRUPOEMPRESARIAL, NUNCM, IDUND, UND, PRECOCUSTO,
+        PRECOVENDA, IDSUBGRUPO, IDFABRICANTE, IDFORNECEDOR, NUREFERENCIA,
+        IDCOR, IDTAMANHO, IDCATEGORIAPEDIDO, IDTIPOTECIDO, IDESTILO,
+        IDLOCALEXPOSICAO, IDCATEGORIAS, IDTIPOPRODUTOFISCAL,
+        IDFONTEPRODUTOFISCAL, STECOMMERCE, STREDESOCIAL
+    }) {
+        return this.client.criarProdutoAvulso(
+            DSNOME, IDGRUPOEMPRESARIAL, NUNCM, IDUND, UND, PRECOCUSTO,
+            PRECOVENDA, IDSUBGRUPO, IDFABRICANTE, IDFORNECEDOR, NUREFERENCIA,
+            IDCOR, IDTAMANHO, IDCATEGORIAPEDIDO, IDTIPOTECIDO, IDESTILO,
+            IDLOCALEXPOSICAO, IDCATEGORIAS, IDTIPOPRODUTOFISCAL,
+            IDFONTEPRODUTOFISCAL, STECOMMERCE, STREDESOCIAL
+        );
     }
 
-    async createAlteracoesPrecoProduto(
-        IDPRODUTO,
-        IDEMPRESA,
-        IDLISTAPRECO,
-        PRECOVENDAANTIGO,
-        PRECOVENDANOVO,
-        IDUSER,
-        STAGENDAMENTOPADRAO,
+    async updateAlteracoesPrecoProduto({
+        IDRESUMOALTERACAOPRECO,
         STAGENDAMENTOIMEDIATO,
         STAGENDAMENTOPERSONALIZADO,
-        DTAGENDAMENTOPERSONALIZADO
-
-    ) {
-        if (!IDPRODUTO) {
-            throw new Error("IDPRODUTO is required, services");
+        DTAGENDAMENTOPERSONALIZADO,
+        STATIVO
+    }) {
+        if (!IDRESUMOALTERACAOPRECO) {
+            throw new Error('IDRESUMOALTERACAOPRECO é obrigatório.');
         }
-         
-       
-        const result = await this.client.criarAlteracoesPrecoProduto(
-            IDPRODUTO,
-            IDEMPRESA,
-            IDLISTAPRECO,
-            PRECOVENDAANTIGO,
-            PRECOVENDANOVO,
-            IDUSER,
-            STAGENDAMENTOPADRAO,
+
+        return this.client.atualizarAlteracoesPrecoProduto(
+            IDRESUMOALTERACAOPRECO,
             STAGENDAMENTOIMEDIATO,
             STAGENDAMENTOPERSONALIZADO,
-            DTAGENDAMENTOPERSONALIZADO
-        )
-        return result;
+            DTAGENDAMENTOPERSONALIZADO,
+            STATIVO
+        );
     }
 
+    async createAlteracoesPrecoProduto({
+        IDPRODUTO, IDEMPRESA, IDLISTAPRECO, PRECOVENDAANTIGO,
+        PRECOVENDANOVO, IDUSER, STAGENDAMENTOPADRAO,
+        STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO,
+        DTAGENDAMENTOPERSONALIZADO
+    }) {
+        if (!IDPRODUTO) {
+            throw new Error('IDPRODUTO é obrigatório.');
+        }
+
+        if (!IDEMPRESA) {
+            throw new Error('IDEMPRESA é obrigatório.');
+        }
+
+        return this.client.criarAlteracoesPrecoProduto(
+            IDPRODUTO, IDEMPRESA, IDLISTAPRECO, PRECOVENDAANTIGO,
+            PRECOVENDANOVO, IDUSER, STAGENDAMENTOPADRAO,
+            STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO,
+            DTAGENDAMENTOPERSONALIZADO
+        );
+    }
 }

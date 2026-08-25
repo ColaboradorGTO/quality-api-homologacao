@@ -1,25 +1,25 @@
 import { Router } from 'express';
 import FaturasControllers from '../controllers/faturas.js';
 
-const FinanceiroFaturas = new Router();
+const FinanceiroFaturasRoutes = new Router();
 
-FinanceiroFaturas.get('/fatura-pix-periodo', FaturasControllers.getListaFaturasPixPeriodo)
-FinanceiroFaturas.get('/detalhe-faturas', FaturasControllers.getDetalheFaturaFinanceiro)
-FinanceiroFaturas.get('/venda-total-fatura-pix-empresa', FaturasControllers.getListaVendaFaturaPixPeriodo)
-FinanceiroFaturas.get('/venda-total-fatura-pix-empresa-compensada', FaturasControllers.getListaVendaFaturaPixPeriodoCompensacao)
-FinanceiroFaturas.get('/faturaPixPeriodo', FaturasControllers.getListaVendaFaturaPixPeriodo) 
-FinanceiroFaturas.get('/faturaPixConsolidadoLoja', FaturasControllers.getListaFaturaPixConsolidadoLoja) 
-FinanceiroFaturas.get('/previa-consolidacao-faturas', FaturasControllers.getPreviaFaturasConsolidadas) 
-FinanceiroFaturas.get('/consolidacao-faturas', FaturasControllers.getConsolidacaoFaturas) 
+FinanceiroFaturasRoutes.get('/fatura-pix-periodo', FaturasControllers.getListaFaturasPixPeriodo)
+FinanceiroFaturasRoutes.get('/detalhe-faturas', FaturasControllers.getDetalheFaturaFinanceiro)
+FinanceiroFaturasRoutes.get('/venda-total-fatura-pix-empresa', FaturasControllers.getListaVendaFaturaPixPeriodo)
+FinanceiroFaturasRoutes.get('/venda-total-fatura-pix-empresa-compensada', FaturasControllers.getListaVendaFaturaPixPeriodoCompensacao)
+FinanceiroFaturasRoutes.get('/faturaPixPeriodo', FaturasControllers.getListaVendaFaturaPixPeriodo) 
+FinanceiroFaturasRoutes.get('/faturaPixConsolidadoLoja', FaturasControllers.getListaFaturaPixConsolidadoLoja) 
+FinanceiroFaturasRoutes.get('/previa-consolidacao-faturas', FaturasControllers.getPreviaFaturasConsolidadas) 
+FinanceiroFaturasRoutes.get('/consolidacao-faturas', FaturasControllers.getConsolidacaoFaturas) 
 
-FinanceiroFaturas.put('/atualizar-status-fatura-pix', FaturasControllers.putListaFaturaVendaPixStatusConferido) 
-FinanceiroFaturas.put('/atualizar-recompra', FaturasControllers.putListaAtualizarRecompra) 
-FinanceiroFaturas.put('/fatura-loja-atualizar', FaturasControllers.putListaAtualizarFatura) 
-FinanceiroFaturas.put('/atualizarFatura/:id', FaturasControllers.putFaturaFinanceiro)
+FinanceiroFaturasRoutes.put('/atualizar-status-fatura-pix', FaturasControllers.putListaFaturaVendaPixStatusConferido) 
+FinanceiroFaturasRoutes.put('/atualizar-recompra', FaturasControllers.putListaAtualizarRecompra) 
+FinanceiroFaturasRoutes.put('/fatura-loja-atualizar', FaturasControllers.putListaAtualizarFatura) 
+FinanceiroFaturasRoutes.put('/atualizarFatura/:id', FaturasControllers.putFaturaFinanceiro)
 
-FinanceiroFaturas.put('/consolidacao-faturas/:id', FaturasControllers.putConsolidacaoFatura)
-FinanceiroFaturas.post('/consolidacao-faturas', FaturasControllers.postConsolidacaoFatura)
-FinanceiroFaturas.post('/consolidacao-faturas-integracao', FaturasControllers.postConsolidacaoFaturaSAP)
+FinanceiroFaturasRoutes.put('/consolidacao-faturas/:id', FaturasControllers.putConsolidacaoFatura)
+FinanceiroFaturasRoutes.post('/consolidacao-faturas', FaturasControllers.postConsolidacaoFatura)
+FinanceiroFaturasRoutes.post('/consolidacao-faturas-integracao', FaturasControllers.postConsolidacaoFaturaSAP)
 
-export default FinanceiroFaturas;
+export default FinanceiroFaturasRoutes;
 

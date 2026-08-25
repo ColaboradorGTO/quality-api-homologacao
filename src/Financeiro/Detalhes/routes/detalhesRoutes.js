@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import DetalhesControllers from '../controller/controller.js';
 
-const FinanceiroDetalhes = new Router();
+const FinanceiroDetalhesRoutes = new Router();
 
-FinanceiroDetalhes.get('/detalheFechamento', DetalhesControllers.getListaDetalheFechamento)
+FinanceiroDetalhesRoutes.get('/detalheFechamento', DetalhesControllers.getListaDetalheFechamento)
 
 
-export default FinanceiroDetalhes;
+export default FinanceiroDetalhesRoutes;

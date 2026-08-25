@@ -10,6 +10,7 @@ import autorizacaoEditarStatusVoucherSchema from '../schema/autorizacaoEditarSta
 import criarResumoVoucherSchema from '../schema/criarResumoVoucherSchema.js';
 import atualizarResumoVoucherSchema from '../schema/atualizarResumoVoucherSchema.js';
 import autorizacaoEditarCriarVoucherSchema from '../schema/autorizacaoEditarCriarVoucherSchema.js';
+
 const url = process.env.API_URL;
 
 const resumoVoucherClient = new ResumoVoucherClient(url)

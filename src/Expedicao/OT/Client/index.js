@@ -143,6 +143,61 @@ export class OTClient {
         return response.data;
     }
 
+    async atualizarOrdemTransferencia(
+        IDPRODUTO,
+        QTDEXPEDICAO,
+        QTDRECEPCAO,
+        QTDDIFERENCA,
+        QTDAJUSTE,
+        VLRUNITVENDA,
+        VLRUNITCUSTO,
+        STFALTA,
+        STSOBRA,
+        IDSTATUSOT,
+        IDRESUMOOT
+    ) {
+        const response = await this.api.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
+            IDPRODUTO,
+            QTDEXPEDICAO,
+            QTDRECEPCAO,
+            QTDDIFERENCA,
+            QTDAJUSTE,
+            VLRUNITVENDA,
+            VLRUNITCUSTO,
+            STFALTA,
+            STSOBRA,
+            IDSTATUSOT,
+            IDRESUMOOT
+        });
+        return response.data;
+    }
+
+    async atualizarStatusDivergencia(
+        IDSTATUSDIVERGENCIA,
+        DESCRICAODIVERGENCIA,
+        STATIVO
+    ) {
+        const response = await this.api.put(`${url}/api/expedicao/status-divergencia.xsjs`, {
+            IDSTATUSDIVERGENCIA,
+            DESCRICAODIVERGENCIA,
+            STATIVO
+        });
+        return response.data;
+    }
+
+    async criarStatusDivergencia(
+        DESCRICAODIVERGENCIA,
+        IDUSRCRIACAO,
+        STATIVO
+    ) {
+        const response = await this.api.post(`${url}/api/expedicao/status-divergencia.xsjs`, {
+            DESCRICAODIVERGENCIA,
+            IDUSRCRIACAO,
+            STATIVO
+        });
+        return response.data;
+    }
+
 
     async consultaNFESaida(
         IDSAPORIGEM

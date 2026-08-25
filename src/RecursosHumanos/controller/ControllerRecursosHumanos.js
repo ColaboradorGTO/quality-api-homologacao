@@ -7,7 +7,6 @@ import updateFuncionarioDescontoSchema from "../schema/updateFuncionarioDesconto
 import updateFuncionarioLojaSchema from "../schema/updateFuncionarioLoja.js";
 
 const url = process.env.API_URL;
-//const url = process.env.API_URL_HML;
 
 const recursosHumanosClient = new RecursosHumanosClient(url)
 const recursosHumanosService = new RecursosHumanosServices(recursosHumanosClient);

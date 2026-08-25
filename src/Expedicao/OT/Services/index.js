@@ -3,7 +3,7 @@ export class OTService {
         this.client = client;
     }
 
-    async createOT(
+    async createOT({
         IDRESUMOOT,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
@@ -34,7 +34,15 @@ export class OTService {
         IDROTINA,
         DATAENTREGA,
         dadosdetalheot,
-    ) {
+    }) {
+
+        if (!IDEMPRESAORIGEM) {
+            throw new Error("IDEMPRESAORIGEM é Obrigatorio.")
+        }
+
+        if (!IDEMPRESADESTINO) {
+            throw new Error("IDEMPRESADESTINO é Obrigatorio.")
+        }
 
         const result = await this.client.criarOT(
             IDRESUMOOT,
@@ -137,6 +145,78 @@ export class OTService {
             dadosdetalheot
         );
         return result;
+    }
+
+    async updateOrdemTransferencia({
+        IDPRODUTO,
+        QTDEXPEDICAO,
+        QTDRECEPCAO,
+        QTDDIFERENCA,
+        QTDAJUSTE,
+        VLRUNITVENDA,
+        VLRUNITCUSTO,
+        STFALTA,
+        STSOBRA,
+        IDSTATUSOT,
+        IDRESUMOOT
+    }) {
+        if (!IDPRODUTO) {
+            throw new Error("IDPRODUTO é Obrigatorio.")
+        }
+
+        if (!IDRESUMOOT) {
+            throw new Error("IDRESUMOOT é Obrigatorio.")
+        }
+
+        return this.client.atualizarOrdemTransferencia(
+            IDPRODUTO,
+            QTDEXPEDICAO,
+            QTDRECEPCAO,
+            QTDDIFERENCA,
+            QTDAJUSTE,
+            VLRUNITVENDA,
+            VLRUNITCUSTO,
+            STFALTA,
+            STSOBRA,
+            IDSTATUSOT,
+            IDRESUMOOT
+        );
+    }
+
+    async updateStatusDivergencia({
+        IDSTATUSDIVERGENCIA,
+        DESCRICAODIVERGENCIA,
+        STATIVO
+    }) {
+        if (!IDSTATUSDIVERGENCIA) {
+            throw new Error("IDSTATUSDIVERGENCIA é Obrigatorio.")
+        }
+
+        return this.client.atualizarStatusDivergencia(
+            IDSTATUSDIVERGENCIA,
+            DESCRICAODIVERGENCIA,
+            STATIVO
+        );
+    }
+
+    async createStatusDivergencia({
+        DESCRICAODIVERGENCIA,
+        IDUSRCRIACAO,
+        STATIVO
+    }) {
+        if (!DESCRICAODIVERGENCIA) {
+            throw new Error("DESCRICAODIVERGENCIA é Obrigatorio.")
+        }
+
+        if (!IDUSRCRIACAO) {
+            throw new Error("IDUSRCRIACAO é Obrigatorio.")
+        }
+
+        return this.client.criarStatusDivergencia(
+            DESCRICAODIVERGENCIA,
+            IDUSRCRIACAO,
+            STATIVO
+        );
     }
 
     async consultaNFESaidaService({

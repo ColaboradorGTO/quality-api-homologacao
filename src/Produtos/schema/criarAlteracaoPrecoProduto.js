@@ -24,15 +24,19 @@ const schemaCriarAlteracaoPrecoProduto = Joi.object({
     .messages({
         "number.base": "PRECOVENDANOVO  deve ser um number"
     }),
-    STAGENDAMENTOPADRAO: Joi.string().allow('')
+    IDUSER: Joi.number().optional().allow(null)
+    .messages({
+        "number.base": "IDUSER deve ser um number"
+    }),
+    STAGENDAMENTOPADRAO: Joi.alternatives().try(Joi.string(), Joi.boolean()).allow('')
     .messages({
         "string.base": "STAGENDAMENTOPADRAO deve ser uma string"
     }),
-    STAGENDAMENTOIMEDIATO: Joi.string().allow('')
+    STAGENDAMENTOIMEDIATO: Joi.alternatives().try(Joi.string(), Joi.boolean()).allow('')
     .messages({
         "string.base": "STAGENDAMENTOIMEDIATO deve ser uma string"
     }),
-    STAGENDAMENTOPERSONALIZADO: Joi.string().allow('')
+    STAGENDAMENTOPERSONALIZADO: Joi.alternatives().try(Joi.string(), Joi.boolean()).allow('')
     .messages({
         "string.base": "STAGENDAMENTOPERSONALIZADO deve ser uma string"
     }),

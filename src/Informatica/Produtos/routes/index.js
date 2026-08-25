@@ -1,8 +1,9 @@
 import { Router } from 'express' ;
 import ProdutosInformaticaControllers from '../controllers/index.js'
-const routes = new Router();
 
-routes.get('/listaProdutoPreco', ProdutosInformaticaControllers.getListaProdutoPreco)
-routes.get('/listaProdutoPrecoInformatica', ProdutosInformaticaControllers.getListaProdutoPrecoInformatica)
+const InformaticaProdutosRoutes = new Router();
 
-export default routes
+InformaticaProdutosRoutes.get('/listaProdutoPreco', ProdutosInformaticaControllers.getListaProdutoPreco)
+InformaticaProdutosRoutes.get('/listaProdutoPrecoInformatica', ProdutosInformaticaControllers.getListaProdutoPrecoInformatica)
+
+export default InformaticaProdutosRoutes

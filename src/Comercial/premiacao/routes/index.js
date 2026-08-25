@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import PremiacaoControllers from '../controller/ControllerPermiacao';
 
-const routes = new Router();
+const ComercialPremiacaoRoutes = new Router();
 
-routes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)
-routes.get('/lista-premios-gerente', PremiacaoControllers.getListaPremiosGerente)
-routes.get('/lista-premiacao-cadastrada', PremiacaoControllers.getListaPremiacaoCadastrada)
-routes.get('/cadastra-premiacoes', PremiacaoControllers.postCadastrarPremiacoes)
+ComercialPremiacaoRoutes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)
+ComercialPremiacaoRoutes.get('/lista-premios-gerente', PremiacaoControllers.getListaPremiosGerente)
+ComercialPremiacaoRoutes.get('/lista-premiacao-cadastrada', PremiacaoControllers.getListaPremiacaoCadastrada)
+ComercialPremiacaoRoutes.get('/cadastra-premiacoes', PremiacaoControllers.postCadastrarPremiacoes)
 
-export default routes;
+export default ComercialPremiacaoRoutes;

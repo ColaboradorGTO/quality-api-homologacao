@@ -1,17 +1,16 @@
 import { Router } from 'express';
 import VendasControllers from '../controllers/Vendas.js';
 
+const VendasRoutes = new Router();
 
-const routes = new Router();
+VendasRoutes.get('/movimentacao-saldo', VendasControllers.getListaVendasSaldo);
+VendasRoutes.get('/rotatividadeVendas', VendasControllers.getListaRotatividade);
+VendasRoutes.get('/listaDetalheVendaCliente', VendasControllers.getListaDetalheVendaCliente);
+VendasRoutes.get('/venda-xml', VendasControllers.getListaVendaXML);
+VendasRoutes.get('/venda-cliente', VendasControllers.getListaVendaClienteGerencia);
+VendasRoutes.get('/vendas-prazo-excedido', VendasControllers.getListaVendasPrazoExcedido);
+VendasRoutes.get('/vendas-gnre', VendasControllers.getListaVendasGnre);
 
+VendasRoutes.post('/alterar-vendas-prazo-excedido', VendasControllers.postAlterarVendasPrazoExcedido);
 
-// routes.get('/listaVendas', FinanceiroVendasControllers.getListaVendas)
-
-// routes.get('/listaVendaCliente', Vendas.getListaVendaCliente)
-routes.get('/movimentacaoSaldo', VendasControllers.getListaVendasSaldo)
-routes.get('/rotatividadeVendas', VendasControllers.getListaRotatividade)
-routes.get('/listaDetalheVendaCliente', VendasControllers.getListaDetalheVendaCliente)
-routes.get('/venda-xml', VendasControllers.getListaVendaXML)
-routes.get('/venda-cliente', VendasControllers.getListaVendaClienteGerencia)
-
-export default routes;
+export default VendasRoutes;

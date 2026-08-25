@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import RecursosHumanosControllers from '../controller/ControllerRecursosHumanos';
-const routes = new Router();
 
-routes.post('/criarFuncionariosLojaRH', RecursosHumanosControllers.postFuncionarioLojaRH);
+const RecursosHumanosRoutes = new Router();
 
-routes.put('/funcionarioLojaRH', RecursosHumanosControllers.putFuncionarioLojaRH);
-routes.put('/inativarFuncionarioRH', RecursosHumanosControllers.putInativarFuncionarioRH);
-routes.put('/funcionarioDescontoRH', RecursosHumanosControllers.putFuncionarioDescontoRH);
+RecursosHumanosRoutes.post('/criarFuncionariosLojaRH', RecursosHumanosControllers.postFuncionarioLojaRH);
+RecursosHumanosRoutes.put('/funcionarioLojaRH', RecursosHumanosControllers.putFuncionarioLojaRH);
+RecursosHumanosRoutes.put('/inativarFuncionarioRH', RecursosHumanosControllers.putInativarFuncionarioRH);
+RecursosHumanosRoutes.put('/funcionarioDescontoRH', RecursosHumanosControllers.putFuncionarioDescontoRH);
 
-export default routes;
+export default RecursosHumanosRoutes;

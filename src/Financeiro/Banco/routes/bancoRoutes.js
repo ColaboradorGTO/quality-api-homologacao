@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import BancoControllers from '../controller/controller.js';
-const FinanceiroBanco = new Router();
 
-FinanceiroBanco.get('/banco', BancoControllers.getListaBanco)
-FinanceiroBanco.get('/conta-banco', BancoControllers.getListaContaBanco)
-FinanceiroBanco.put('/conta-banco/:id', BancoControllers.putContaBanco)
-FinanceiroBanco.post('/cadastrar-conta-banco', BancoControllers.postContaBanco)
+const FinanceiroBancoRoutes = new Router();
 
-export default FinanceiroBanco;
+FinanceiroBancoRoutes.get('/banco', BancoControllers.getListaBanco)
+FinanceiroBancoRoutes.get('/conta-banco', BancoControllers.getListaContaBanco)
+FinanceiroBancoRoutes.put('/conta-banco/:id', BancoControllers.putContaBanco)
+FinanceiroBancoRoutes.post('/cadastrar-conta-banco', BancoControllers.postContaBanco)
 
+export default FinanceiroBancoRoutes;

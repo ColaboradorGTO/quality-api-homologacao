@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import DespesasControllers from '../controller/despesasController.js';
+import DespesasControllersADM from '../controller/despesaController';
 
 const AdministrativoDespesas  = new Router();
 
-AdministrativoDespesas.get('/despesasLojaADM', DespesasControllers.getListaDespesasLojaADM)
-AdministrativoDespesas.get('/detalheDespesas', DespesasControllers.getDetalheDespesas)
+AdministrativoDespesas.get('/despesasLojaADM', DespesasControllersADM.getListaDespesasLojaADM)
+AdministrativoDespesas.get('/detalheDespesas', DespesasControllersADM.getDetalheDespesas)
  
 export default AdministrativoDespesas;
 

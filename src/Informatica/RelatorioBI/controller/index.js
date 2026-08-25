@@ -1,13 +1,12 @@
 import axios from "axios";
 import 'dotenv/config';
-const url = process.env.API_URL;
-
 import { RelatorioBiClient } from "../client/index.js"
 import { RelatorioBIService } from "../service/index.js"
 import { linkRelatorioBiSchema } from "../schema/index.js";
 import { relatorioBiSchema } from "../schema/schemaRelatorioBi.js";
 import { putRelatorioBiSchema } from "../schema/putSchemaRelatorioBi.js";
 
+const url = process.env.API_URL;
 const relatorioBiClient = new RelatorioBiClient(url);
 const relatorioBIService = new RelatorioBIService(relatorioBiClient);
 

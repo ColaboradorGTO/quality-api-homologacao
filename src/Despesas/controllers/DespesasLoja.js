@@ -1,7 +1,14 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
+import createDespesaLojaSchema from "../schema/createDespesaLoja.js";
+import updateDespesasLojaSchema from "../schema/updateDespesasLoja.js";
+import { DespesasLojaClient } from "../client/index.js";
+import { DespesasLojaServices } from "../service/index.js";
+
 const url = process.env.API_URL;
+const despesasLojaClient = new DespesasLojaClient(url);
+const despesasLojaService = new DespesasLojaServices(despesasLojaClient);
 
 class DespesasLojaControllers {
 
@@ -87,73 +94,70 @@ class DespesasLojaControllers {
         try {
             const despesas = Array.isArray(req.body) ? req.body : [req.body];
 
-            const response = await axios.post(`${url}/api/despesa-loja/todos.xsjs`, despesas)
-            return res.json(response.data);
+            const { error, value } = updateDespesasLojaSchema.validate(despesas, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await despesasLojaService.updateDespesasLoja({
+                despesas: value,
+            });
+
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            return res.status(500).json({ error: error.message });
+            console.error("Erro no DespesasLojaControllers.putDespesasLoja:", error);
+            res.status(500).json({ error: "Erro ao atualizar despesa loja" });
+            throw error;
         }
 
     }
 
     async postCadastrarDespesasLoja(req, res) {
-        let {
-            IDEMPRESA,
-            IDUSR,
-            DTDESPESA,
-            IDCATEGORIARECEITADESPESA,
-            DSHISTORIO,
-            DSPAGOA,
-            IDFUNCIONARIO,
-            TPNOTA,
-            NUNOTAFISCAL,
-            VRDESPESA,
-            STATIVO,
-            STCANCELADO,
-
-        } = req.body;
-
-
-
         try {
+            const { error, value } = createDespesaLojaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
 
-            if (!IDEMPRESA) {
-                return res.status(400).json({ message: 'IDEMPRESA é obrigatório!' });
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
             }
 
-            if (!IDUSR) {
-                return res.status(400).json({ message: 'IDUSR é obrigatório!' });
-            }
+            const response = await despesasLojaService.createDespesaLoja({
+                IDEMPRESA: value.IDEMPRESA,
+                IDUSR: value.IDUSR,
+                DTDESPESA: value.DTDESPESA,
+                IDCATEGORIARECEITADESPESA: value.IDCATEGORIARECEITADESPESA,
+                DSHISTORIO: value.DSHISTORIO,
+                DSPAGOA: value.DSPAGOA,
+                IDFUNCIONARIO: value.IDFUNCIONARIO,
+                TPNOTA: value.TPNOTA,
+                NUNOTAFISCAL: value.NUNOTAFISCAL,
+                VRDESPESA: value.VRDESPESA,
+                STATIVO: value.STATIVO,
+                STCANCELADO: value.STCANCELADO,
+            });
 
-            if (!DTDESPESA) {
-                return res.status(400).json({ message: 'DTDESPESA é obrigatório!' });
-            }
-
-            if (!IDCATEGORIARECEITADESPESA) {
-                return res.status(400).json({ message: 'IDCATEGORIARECEITADESPESA é obrigatório!' });
-            }
-
-            if (!DSHISTORIO) {
-                return res.status(400).json({ message: 'DSHISTORIO é obrigatório!' });
-            }
-            const response = await axios.post(`${url}/api/despesa-loja/todos.xsjs`, [{
-                IDEMPRESA,
-                IDUSR,
-                DTDESPESA,
-                IDCATEGORIARECEITADESPESA,
-                DSHISTORIO,
-                DSPAGOA,
-                IDFUNCIONARIO,
-                TPNOTA,
-                NUNOTAFISCAL,
-                VRDESPESA,
-                STATIVO,
-                STCANCELADO
-            }])
-
-            return res.status(200).json({ message: 'Despesa cadastrada com sucesso!' })
+            return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro Verifique os campos do formulário:", error);
+            console.error("Erro no DespesasLojaControllers.postCadastrarDespesasLoja:", error);
+            res.status(500).json({ error: "Erro ao cadastrar despesa loja" });
             throw error;
         }
     }

@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import DashBoardExtratoControllers from '../controller/index.js';
-const routes = new Router();
 
-routes.get('/extrato-loja-periodo', DashBoardExtratoControllers.getListaExtratoDaLojaPeriodo)
-routes.get('/extrato-loja-periodo-adm', DashBoardExtratoControllers.getListaExtratoDaLojaPeriodoADM)
+const DashBoardExtratoRoutes = new Router();
 
-export default routes;
+DashBoardExtratoRoutes.get('/extrato-loja-periodo', DashBoardExtratoControllers.getListaExtratoDaLojaPeriodo)
+DashBoardExtratoRoutes.get('/extrato-loja-periodo-adm', DashBoardExtratoControllers.getListaExtratoDaLojaPeriodoADM)
+
+export default DashBoardExtratoRoutes;

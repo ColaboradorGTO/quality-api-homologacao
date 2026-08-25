@@ -1,31 +1,31 @@
 import { Router } from 'express';
 import FinanceiroVendasControllers from '../controllers/vendas';
 
-const VendasRoutes = new Router();
-VendasRoutes.get('/vendaLojaPeriodo', FinanceiroVendasControllers.getListaVendasLojaPeriodo)
-VendasRoutes.get('/venda-digital', FinanceiroVendasControllers.getListaVendasDigital)
-VendasRoutes.get('/venda-digital-marca', FinanceiroVendasControllers.getListaVendasDigitalMarca)
-VendasRoutes.get('/venda-conciliacao', FinanceiroVendasControllers.getListaVendasConciliar)
-VendasRoutes.get('/venda-total', FinanceiroVendasControllers.getListaVendasTotal)
-VendasRoutes.get('/remessa-vendas', FinanceiroVendasControllers.getListaRemessaVendas)
-VendasRoutes.get('/venda-pagamentos', FinanceiroVendasControllers.getListaVendasPagamentos)
-VendasRoutes.get('/vendaPixConsolidado', FinanceiroVendasControllers.getListaVendasPixConsolidado)
-VendasRoutes.get('/venda-pix-periodo', FinanceiroVendasControllers.getListaVendasPixPeriodo)
-VendasRoutes.get('/venda-total-empresa', FinanceiroVendasControllers.getListaVendasEmpresa)
-VendasRoutes.get('/venda-recebido-eletronico', FinanceiroVendasControllers.getListaRecebimentosEletronico)
-VendasRoutes.get('/venda-total-recebido-periodo', FinanceiroVendasControllers.getListaRecebimentos)
-VendasRoutes.get('/vendas-marca-periodo', FinanceiroVendasControllers.getListaVendasMarca)
-VendasRoutes.get('/vendas-total-mes', FinanceiroVendasControllers.getListaVendasTotalMes)
-VendasRoutes.get('/vendas-total-loja-hora', FinanceiroVendasControllers.getListaVendasTotalLojaHora)
-VendasRoutes.get('/vendas-total-loja-hora-ano-passado', FinanceiroVendasControllers.getListaVendasTotalLojaHoraAnoPassado)
-VendasRoutes.get('/vendas-total-to', FinanceiroVendasControllers.getListaVendasTotalTO)
-VendasRoutes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroVendasControllers.getListaVendasMarcaFinanceiro)
-VendasRoutes.get('/vendaMarcaRob', FinanceiroVendasControllers.getListaVendasMarcaROB)
-VendasRoutes.get('/vendaMarcaMarckup', FinanceiroVendasControllers.getListaVendasMarcaMarckup)
-VendasRoutes.get('/venda-detalhe-recebimento-eletronico', FinanceiroVendasControllers.getListaDetalheRecebimentosEletronico)
-VendasRoutes.get('/resumoVendaFinanceiro', FinanceiroVendasControllers.getListaVendasResumidaFinanceiro)
-VendasRoutes.put('/venda-pix-status-conferido', FinanceiroVendasControllers.putListaVendaPixStatusConferido)
+const FinanceiroVendasRoutes = new Router();
+FinanceiroVendasRoutes.get('/vendaLojaPeriodo', FinanceiroVendasControllers.getListaVendasLojaPeriodo)
+FinanceiroVendasRoutes.get('/venda-digital', FinanceiroVendasControllers.getListaVendasDigital)
+FinanceiroVendasRoutes.get('/venda-digital-marca', FinanceiroVendasControllers.getListaVendasDigitalMarca)
+FinanceiroVendasRoutes.get('/venda-conciliacao', FinanceiroVendasControllers.getListaVendasConciliar)
+FinanceiroVendasRoutes.get('/venda-total', FinanceiroVendasControllers.getListaVendasTotal)
+FinanceiroVendasRoutes.get('/remessa-vendas', FinanceiroVendasControllers.getListaRemessaVendas)
+FinanceiroVendasRoutes.get('/venda-pagamentos', FinanceiroVendasControllers.getListaVendasPagamentos)
+FinanceiroVendasRoutes.get('/vendaPixConsolidado', FinanceiroVendasControllers.getListaVendasPixConsolidado)
+FinanceiroVendasRoutes.get('/venda-pix-periodo', FinanceiroVendasControllers.getListaVendasPixPeriodo)
+FinanceiroVendasRoutes.get('/venda-total-empresa', FinanceiroVendasControllers.getListaVendasEmpresa)
+FinanceiroVendasRoutes.get('/venda-recebido-eletronico', FinanceiroVendasControllers.getListaRecebimentosEletronico)
+FinanceiroVendasRoutes.get('/venda-total-recebido-periodo', FinanceiroVendasControllers.getListaRecebimentos)
+FinanceiroVendasRoutes.get('/vendas-marca-periodo', FinanceiroVendasControllers.getListaVendasMarca)
+FinanceiroVendasRoutes.get('/vendas-total-mes', FinanceiroVendasControllers.getListaVendasTotalMes)
+FinanceiroVendasRoutes.get('/vendas-total-loja-hora', FinanceiroVendasControllers.getListaVendasTotalLojaHora)
+FinanceiroVendasRoutes.get('/vendas-total-loja-hora-ano-passado', FinanceiroVendasControllers.getListaVendasTotalLojaHoraAnoPassado)
+FinanceiroVendasRoutes.get('/vendas-total-to', FinanceiroVendasControllers.getListaVendasTotalTO)
+FinanceiroVendasRoutes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroVendasControllers.getListaVendasMarcaFinanceiro)
+FinanceiroVendasRoutes.get('/vendaMarcaRob', FinanceiroVendasControllers.getListaVendasMarcaROB)
+FinanceiroVendasRoutes.get('/vendaMarcaMarckup', FinanceiroVendasControllers.getListaVendasMarcaMarckup)
+FinanceiroVendasRoutes.get('/venda-detalhe-recebimento-eletronico', FinanceiroVendasControllers.getListaDetalheRecebimentosEletronico)
+FinanceiroVendasRoutes.get('/resumoVendaFinanceiro', FinanceiroVendasControllers.getListaVendasResumidaFinanceiro)
+FinanceiroVendasRoutes.put('/venda-pix-status-conferido', FinanceiroVendasControllers.putListaVendaPixStatusConferido)
 
 
 
-export default VendasRoutes;
+export default FinanceiroVendasRoutes;
