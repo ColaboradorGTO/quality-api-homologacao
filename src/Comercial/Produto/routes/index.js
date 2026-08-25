@@ -1,15 +1,19 @@
 import { Router } from 'express';
 import ComercialProdutoControllers from '../controllers/index.js';
 
-const comercialProdutoRoutes = new Router();
+const ComercialProdutoRoutes = new Router();
 
-comercialProdutoRoutes.get('/lista-marca-produto', ComercialProdutoControllers.getListaMarcaProduto)
-comercialProdutoRoutes.get('/lista-fornecedor-produto', ComercialProdutoControllers.getListaFornecedorProduto)
-comercialProdutoRoutes.get('/grupo-produto', ComercialProdutoControllers.getListaGrupoProduto)
-comercialProdutoRoutes.get('/subgrupo-produto', ComercialProdutoControllers.getListaSubGrupoProduto)
-comercialProdutoRoutes.get('/vendas-por-produtos', ComercialProdutoControllers.getListaVendasPorProduto)
-comercialProdutoRoutes.get('/vendas-vendedor-estrutura', ComercialProdutoControllers.getListaVendasVendedorEstrutura)
-comercialProdutoRoutes.get('/produtos-mais-vendidos', ComercialProdutoControllers.getListaProdutosMaisVendidosEstrutura)
-comercialProdutoRoutes.get('/vendas-por-estrutura', ComercialProdutoControllers.getListaVendasIndicadoresEstrutura)
+ComercialProdutoRoutes.get('/lista-marca-produto', ComercialProdutoControllers.getListaMarcaProduto)
+ComercialProdutoRoutes.get('/lista-fornecedor-produto', ComercialProdutoControllers.getListaFornecedorProduto)
+ComercialProdutoRoutes.get('/grupo-produto', ComercialProdutoControllers.getListaGrupoProduto)
+ComercialProdutoRoutes.get('/subgrupo-produto', ComercialProdutoControllers.getListaSubGrupoProduto)
+ComercialProdutoRoutes.get('/vendas-por-produtos', ComercialProdutoControllers.getListaVendasPorProduto)
+ComercialProdutoRoutes.get('/vendas-vendedor-estrutura', ComercialProdutoControllers.getListaVendasVendedorEstrutura)
+ComercialProdutoRoutes.get('/produtos-mais-vendidos', ComercialProdutoControllers.getListaProdutosMaisVendidosEstrutura)
+ComercialProdutoRoutes.get('/vendas-por-estrutura', ComercialProdutoControllers.getListaVendasIndicadoresEstrutura)
+ComercialProdutoRoutes.get('/listaVendasPorProduto', ComercialProdutoControllers.getListaVendasEstruturaProdutos)
+ComercialProdutoRoutes.get('/colaboradorProdutosVendidos', ComercialProdutoControllers.getListaColaboradorProdutosVendidos)
+ComercialProdutoRoutes.get('/listaProdutoSap', ComercialProdutoControllers.getListaProdutoSap)
+ComercialProdutoRoutes.get('/funcionario-loja-comercial/:id', ComercialProdutoControllers.putFuncionarios)
 
-export default comercialProdutoRoutes;
+export default ComercialProdutoRoutes;

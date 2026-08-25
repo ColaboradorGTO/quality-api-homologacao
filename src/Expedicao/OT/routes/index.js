@@ -2,27 +2,27 @@ import { Router } from 'express';
 import OrdemTransferenciaControllers from '../controllers/index.js';
 
 
-const routes = new Router();
+const ExpedicaoOTRoutes = new Router();
 
-routes.get('/listaProdutos', ExpedicaoControllers.getListaProdutosExpedicao)
-routes.get('/resumoOrdemTransferenciaExpedicao', ExpedicaoControllers.getListaOrdemTransferenciaExpedicao)
-routes.get('/detalhe-ordem-transferencia', ExpedicaoControllers.getListaDetalheOT)
+ExpedicaoOTRoutes.get('/listaProdutos', OrdemTransferenciaControllers.getListaProdutosExpedicao)
+ExpedicaoOTRoutes.get('/resumoOrdemTransferenciaExpedicao', OrdemTransferenciaControllers.getListaOrdemTransferenciaExpedicao)
+ExpedicaoOTRoutes.get('/detalhe-ordem-transferencia', OrdemTransferenciaControllers.getListaDetalheOT)
 
-routes.get('/statusDivergencia', ExpedicaoControllers.getListaSD)
-routes.get('/statusOrdemTransferencia', ExpedicaoControllers.getListaStatusOT)
-routes.get('/faturasOT', ExpedicaoControllers.getListaFaturasOT)
-routes.get('/rotinaMovimentacao', ExpedicaoControllers.getListaRotinaMovimentacao)
-routes.get('/otTransferencia', ExpedicaoControllers.getListaOTDepLoja)
-routes.get('/impressao-etiqueta-ot', ExpedicaoControllers.getListaImpressaoEtiquetaOT)
-routes.get('/consulta-nfe-saida-tranferencia', ExpedicaoControllers.getListaNFESaidaTransferencia)
-routes.put('/updateOrdemTransferencia', ExpedicaoControllers.updateOrdemTransferencia)
-routes.put('/updateStatusDivergencia', ExpedicaoControllers.updateAlterarSD)
+ExpedicaoOTRoutes.get('/statusDivergencia', OrdemTransferenciaControllers.getListaSD)
+ExpedicaoOTRoutes.get('/statusOrdemTransferencia', OrdemTransferenciaControllers.getListaStatusOT)
+ExpedicaoOTRoutes.get('/faturasOT', OrdemTransferenciaControllers.getListaFaturasOT)
+ExpedicaoOTRoutes.get('/rotinaMovimentacao', OrdemTransferenciaControllers.getListaRotinaMovimentacao)
+ExpedicaoOTRoutes.get('/otTransferencia', OrdemTransferenciaControllers.getListaOTDepLoja)
+ExpedicaoOTRoutes.get('/impressao-etiqueta-ot', OrdemTransferenciaControllers.getListaImpressaoEtiquetaOT)
+ExpedicaoOTRoutes.get('/consulta-nfe-saida-tranferencia', OrdemTransferenciaControllers.getListaNFESaidaTransferencia)
+ExpedicaoOTRoutes.put('/updateOrdemTransferencia', OrdemTransferenciaControllers.updateOrdemTransferencia)
+ExpedicaoOTRoutes.put('/updateStatusDivergencia', OrdemTransferenciaControllers.updateAlterarSD)
 
-routes.put('/inserirSD', ExpedicaoControllers.storeInserirSD)
+ExpedicaoOTRoutes.put('/inserirSD', OrdemTransferenciaControllers.storeInserirSD)
 
-routes.get('/resumo-ordem-transferencia', ExpedicaoControllers.getListaOrdemTransferencia)
-routes.put('/resumo-ordem-transferencia/:id', ExpedicaoControllers.putResumoOrdemTransferencia)
-routes.post('/criar-resumo-ordem-transferencia', ExpedicaoControllers.postResumoOrdemTransferencia)
-routes.post('/consulta-nfe-saida-tranferencia-varias', ExpedicaoControllers.postConsultaNFESaidaTrasferenciaVarias)
+ExpedicaoOTRoutes.get('/resumo-ordem-transferencia', OrdemTransferenciaControllers.getListaOrdemTransferencia)
+ExpedicaoOTRoutes.put('/resumo-ordem-transferencia/:id', OrdemTransferenciaControllers.putResumoOrdemTransferencia)
+ExpedicaoOTRoutes.post('/criar-resumo-ordem-transferencia', OrdemTransferenciaControllers.postResumoOrdemTransferencia)
+ExpedicaoOTRoutes.post('/consulta-nfe-saida-tranferencia-varias', OrdemTransferenciaControllers.postConsultaNFESaidaTrasferenciaVarias)
 
-export default routes;
+export default ExpedicaoOTRoutes;

@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import FuncionarioController from "../controller/index"
 
-const routes = new Router();
+const InformaticaFuncionariosRoutes = new Router();
 
-routes.get('/atualizarFuncionario', FuncionarioController.getListaAtualizarFuncionario)
-routes.get('/funcionarios-loja', FuncionarioController.getListaFuncionariosLoja)
-routes.get('/vendas-contigencia', FuncionarioController.getListaVendasContigenciaIformatica)
-routes.put('/funcionarios-loja/:id', FuncionarioController.putFuncionarioLoja)
-routes.post('/criar-funcionarios-loja', FuncionarioController.postFuncionarioLoja)
-routes.put('/inativar-funcionario', FuncionarioController.putInativarFuncionario)
-routes.put('/funcionarios-desconto/:id', FuncionarioController.putFuncionarioDesconto)
+InformaticaFuncionariosRoutes.get('/atualizarFuncionario', FuncionarioController.getListaAtualizarFuncionario)
+InformaticaFuncionariosRoutes.get('/funcionarios-loja', FuncionarioController.getListaFuncionariosLoja)
+InformaticaFuncionariosRoutes.get('/vendas-contigencia', FuncionarioController.getListaVendasContigenciaIformatica)
+InformaticaFuncionariosRoutes.put('/funcionarios-loja/:id', FuncionarioController.putFuncionarioLoja)
+InformaticaFuncionariosRoutes.post('/criar-funcionarios-loja', FuncionarioController.postFuncionarioLoja)
+InformaticaFuncionariosRoutes.put('/inativar-funcionario', FuncionarioController.putInativarFuncionario)
+InformaticaFuncionariosRoutes.put('/funcionarios-desconto/:id', FuncionarioController.putFuncionarioDesconto)
 
-export default routes;
+export default InformaticaFuncionariosRoutes;

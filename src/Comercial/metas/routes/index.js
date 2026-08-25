@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import MetasControllers from '../controller/MetaController.js';
 
-const routes = new Router();
+const ComercialMetasRoutes = new Router();
 
-routes.get('/listaMetaVendas', MetasControllers.getListaMetasGrupo)
-routes.get('/meta-vendas', MetasControllers.getListaMetasVendas)
-routes.get('/meta-vendas-resumida', MetasControllers.getListaMetasVendasResumida)
+ComercialMetasRoutes.get('/listaMetaVendas', MetasControllers.getListaMetasGrupo)
+ComercialMetasRoutes.get('/meta-vendas', MetasControllers.getListaMetasVendas)
+ComercialMetasRoutes.get('/meta-vendas-resumida', MetasControllers.getListaMetasVendasResumida)
 
-export default routes;
+export default ComercialMetasRoutes;

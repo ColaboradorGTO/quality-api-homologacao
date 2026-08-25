@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import DashBoardAdiantamentoControllers from '../controllers/index';
-const routes = new Router();
 
-routes.get('/adiantamento-loja', DashBoardAdiantamentoControllers.getListaAdiantamentoSalarialLoja)
-routes.get('/adiantamento-funcionarios', DashBoardAdiantamentoControllers.getListaAdiantamentosFuncionarios)
-routes.get('/adiantamentoSalarialFuncionarios', DashBoardAdiantamentoControllers.getListAdiantamentoLoja)
-routes.get('/adiantamentoSalarialData', DashBoardAdiantamentoControllers.getListAdiantamentoSalarialData)
-routes.get('/adiantamento-salarial-gerencia', DashBoardAdiantamentoControllers.getAdiantamentoSalarialFuncionario)
-routes.get('/adiantamentos-salarial', DashBoardAdiantamentoControllers.getListaAdiantamentosSalarialDashBoard)
-routes.put('/atualizacao-adiantamento-status', DashBoardAdiantamentoControllers.putAdiantamentoStatus)
-routes.put('/adiantamento-salarial/:id', DashBoardAdiantamentoControllers.putAdiantamentoSalarial)
-routes.post('/cadastrar-adiantamento-salarial', DashBoardAdiantamentoControllers.postAdiantamentoSalarial)
+const DashBoardAdiantamentoRoutes = new Router();
 
-export default routes;
+DashBoardAdiantamentoRoutes.get('/adiantamento-loja', DashBoardAdiantamentoControllers.getListaAdiantamentoSalarialLoja)
+DashBoardAdiantamentoRoutes.get('/adiantamento-funcionarios', DashBoardAdiantamentoControllers.getListaAdiantamentosFuncionarios)
+DashBoardAdiantamentoRoutes.get('/adiantamentoSalarialFuncionarios', DashBoardAdiantamentoControllers.getListAdiantamentoLoja)
+DashBoardAdiantamentoRoutes.get('/adiantamentoSalarialData', DashBoardAdiantamentoControllers.getListAdiantamentoSalarialData)
+DashBoardAdiantamentoRoutes.get('/adiantamento-salarial-gerencia', DashBoardAdiantamentoControllers.getAdiantamentoSalarialFuncionario)
+DashBoardAdiantamentoRoutes.get('/adiantamentos-salarial', DashBoardAdiantamentoControllers.getListaAdiantamentosSalarialDashBoard)
+DashBoardAdiantamentoRoutes.put('/atualizacao-adiantamento-status', DashBoardAdiantamentoControllers.putAdiantamentoStatus)
+DashBoardAdiantamentoRoutes.put('/adiantamento-salarial/:id', DashBoardAdiantamentoControllers.putAdiantamentoSalarial)
+DashBoardAdiantamentoRoutes.post('/cadastrar-adiantamento-salarial', DashBoardAdiantamentoControllers.postAdiantamentoSalarial)
+
+export default DashBoardAdiantamentoRoutes;

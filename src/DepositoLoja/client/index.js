@@ -73,4 +73,30 @@ export class DepositoClient {
 
         return response.data;
     }
+
+    async atualizarStatusConferido(
+        IDDEPOSITOLOJA,
+        STCONFERIDO,
+        DTCOMPENSACAO
+    ) {
+        const response = await this.client.put(`${url}/api/deposito-loja/atualizacao-status-conferido.xsjs`, {
+            IDDEPOSITOLOJA,
+            STCONFERIDO,
+            DTCOMPENSACAO
+        });
+
+        return response.data;
+    }
+
+    async atualizarStatusDepositoLoja(
+        IDDEPOSITOLOJA,
+        STCANCELADO
+    ) {
+        const response = await this.client.put(`${url}/api/deposito-loja/atualizacao-status.xsjs`, {
+            IDDEPOSITOLOJA,
+            STCANCELADO
+        });
+
+        return response.data;
+    }
 }

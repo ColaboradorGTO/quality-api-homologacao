@@ -72,9 +72,6 @@ class EmpresaControllers {
         }
 
     }
-    async getById(req, res) {
-
-    }
 
     async putListaEmpresas(req, res) {
         try {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
+
 const url = process.env.API_URL;
 
 export class ProdutosClient {
@@ -33,10 +34,8 @@ export class ProdutosClient {
         IDTIPOPRODUTOFISCAL,
         IDFONTEPRODUTOFISCAL,
         STECOMMERCE,
-        STREDESOCIAL,
-
+        STREDESOCIAL
     ) {
-
         const response = await this.api.put(`${url}/api/produtos/produto.xsjs`, [{
             IDPRODUTO,
             DSNOME,
@@ -60,11 +59,11 @@ export class ProdutosClient {
             IDTIPOPRODUTOFISCAL,
             IDFONTEPRODUTOFISCAL,
             STECOMMERCE,
-            STREDESOCIAL,
+            STREDESOCIAL
         }]);
         return response.data;
     }
-   
+
     async criarProdutoAvulso(
         DSNOME,
         IDGRUPOEMPRESARIAL,
@@ -87,10 +86,8 @@ export class ProdutosClient {
         IDTIPOPRODUTOFISCAL,
         IDFONTEPRODUTOFISCAL,
         STECOMMERCE,
-        STREDESOCIAL,
-
+        STREDESOCIAL
     ) {
-
         const response = await this.api.post(`${url}/api/produtos/produto.xsjs`, [{
             DSNOME,
             IDGRUPOEMPRESARIAL,
@@ -113,11 +110,28 @@ export class ProdutosClient {
             IDTIPOPRODUTOFISCAL,
             IDFONTEPRODUTOFISCAL,
             STECOMMERCE,
-            STREDESOCIAL,
+            STREDESOCIAL
         }]);
         return response.data;
     }
-   
+
+    async atualizarAlteracoesPrecoProduto(
+        IDRESUMOALTERACAOPRECO,
+        STAGENDAMENTOIMEDIATO,
+        STAGENDAMENTOPERSONALIZADO,
+        DTAGENDAMENTOPERSONALIZADO,
+        STATIVO
+    ) {
+        const response = await this.api.post(`${url}/api/produtos/alteracoes-de-precos-resumo.xsjs`, {
+            IDRESUMOALTERACAOPRECO,
+            STAGENDAMENTOIMEDIATO,
+            STAGENDAMENTOPERSONALIZADO,
+            DTAGENDAMENTOPERSONALIZADO,
+            STATIVO
+        });
+        return response.data;
+    }
+
     async criarAlteracoesPrecoProduto(
         IDPRODUTO,
         IDEMPRESA,
@@ -129,9 +143,7 @@ export class ProdutosClient {
         STAGENDAMENTOIMEDIATO,
         STAGENDAMENTOPERSONALIZADO,
         DTAGENDAMENTOPERSONALIZADO
-
     ) {
-
         const response = await this.api.post(`${url}/api/produtos/alteracao-preco-produto.xsjs`, [{
             IDPRODUTO,
             IDEMPRESA,

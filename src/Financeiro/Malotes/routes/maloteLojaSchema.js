@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import MaloteFinanceiroController from '../controllers/index.js';
 
-const FinanceiroMalotes = new Router();
-FinanceiroMalotes.get('/malotes-loja', MaloteFinanceiroController.getListasMalotesLojas)
-FinanceiroMalotes.get('/malotes-por-loja', MaloteFinanceiroController.getListaMalortesPorLoja)
-FinanceiroMalotes.get('/detalhe-malotes-por-loja', MaloteFinanceiroController.getListaDetalhesMalortesPorLoja)
-FinanceiroMalotes.get('/pendencias-malotes', MaloteFinanceiroController.getListaPendenciasMalotes)
-FinanceiroMalotes.get('/historicos-malotes', MaloteFinanceiroController.getListasHistoricosMalotes)
+const FinanceiroMalotesRoutes = new Router();
+FinanceiroMalotesRoutes.get('/malotes-loja', MaloteFinanceiroController.getListasMalotesLojas)
+FinanceiroMalotesRoutes.get('/malotes-por-loja', MaloteFinanceiroController.getListaMalortesPorLoja)
+FinanceiroMalotesRoutes.get('/detalhe-malotes-por-loja', MaloteFinanceiroController.getListaDetalhesMalortesPorLoja)
+FinanceiroMalotesRoutes.get('/pendencias-malotes', MaloteFinanceiroController.getListaPendenciasMalotes)
+FinanceiroMalotesRoutes.get('/historicos-malotes', MaloteFinanceiroController.getListasHistoricosMalotes)
 
-FinanceiroMalotes.post('/criar-malotes-por-loja', MaloteFinanceiroController.postMalotesPorLoja)
-FinanceiroMalotes.put('/malotes-loja/:id', MaloteFinanceiroController.putMalotesLoja)
+FinanceiroMalotesRoutes.post('/criar-malotes-por-loja', MaloteFinanceiroController.postMalotesPorLoja)
+FinanceiroMalotesRoutes.put('/malotes-loja/:id', MaloteFinanceiroController.putMalotesLoja)
 
 
-export default FinanceiroMalotes;
+export default FinanceiroMalotesRoutes;

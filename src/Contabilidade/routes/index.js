@@ -1,29 +1,30 @@
 import { Router } from 'express';
 import ContabilidadeControllers from '../controllers/Contabilidade.js';
 
-const routes = new Router();
+const ContabilidadeRoutes = new Router();
 
-routes.get('/listaVendasContigencia', ContabilidadeControllers.getListaVendasContigencia)
-routes.get('/vendasDetalheContigencia', ContabilidadeControllers.getListaDetalheVendasContigencia)
-routes.get('/vendasPagamentoContigencia', ContabilidadeControllers.getListaPagamentoVendasContigencia)
-routes.get('/vendasEstoqueComercial', ContabilidadeControllers.getListaVendasEstoqueComercial)
-routes.get('/vendasProdutos', ContabilidadeControllers.getListaVendasPeriodo)
-routes.get('/vendasProdutosConsolidado', ContabilidadeControllers.getListaVendasPeriodoConsolidado)
+ContabilidadeRoutes.get('/listaVendasContigencia', ContabilidadeControllers.getListaVendasContigencia)
+ContabilidadeRoutes.get('/vendasDetalheContigencia', ContabilidadeControllers.getListaDetalheVendasContigencia)
+ContabilidadeRoutes.get('/vendasPagamentoContigencia', ContabilidadeControllers.getListaPagamentoVendasContigencia)
+ContabilidadeRoutes.get('/vendasEstoqueComercial', ContabilidadeControllers.getListaVendasEstoqueComercial)
+ContabilidadeRoutes.get('/vendasProdutos', ContabilidadeControllers.getListaVendasPeriodo)
+ContabilidadeRoutes.get('/vendasProdutosConsolidado', ContabilidadeControllers.getListaVendasPeriodoConsolidado)
 
-routes.get('/todas-empresas', ContabilidadeControllers.getTodasEmpresas)
-routes.get('/alvaras', ContabilidadeControllers.getAlvaras)
-routes.get('/alvaras-empresa', ContabilidadeControllers.getAlvaraEmpresas)
-routes.get('/alvaras-empresa-detalhe', ContabilidadeControllers.getEmpresaAlvara)
-routes.get('/vinculo-alvaras-empresa', ContabilidadeControllers.getVinculoAlvaraEmpresa)
-routes.get('/visualizar-anexo-alvara', ContabilidadeControllers.getVisualizarAnexoAlvara)
-routes.get('/status-alvara', ContabilidadeControllers.getStatusAlvara)
-routes.get('/ncm-excecao', ContabilidadeControllers.getNcmExcecao)
-routes.post('/cadastrar-ncm-excecao', ContabilidadeControllers.postNcmExcecao)
-routes.put('/ncm-excecao/:id', ContabilidadeControllers.putNcmExcecao)
+ContabilidadeRoutes.get('/todas-empresas', ContabilidadeControllers.getTodasEmpresas)
+ContabilidadeRoutes.get('/alvaras', ContabilidadeControllers.getAlvaras)
+ContabilidadeRoutes.get('/alvaras-empresa', ContabilidadeControllers.getAlvaraEmpresas)
+ContabilidadeRoutes.get('/alvaras-empresa-detalhe', ContabilidadeControllers.getEmpresaAlvara)
+ContabilidadeRoutes.get('/vinculo-alvaras-empresa', ContabilidadeControllers.getVinculoAlvaraEmpresa)
+ContabilidadeRoutes.get('/visualizar-anexo-alvara', ContabilidadeControllers.getVisualizarAnexoAlvara)
+ContabilidadeRoutes.get('/status-alvara', ContabilidadeControllers.getStatusAlvara)
+ContabilidadeRoutes.get('/buscar-produtos', ContabilidadeControllers.getBuscarProdutos)
+ContabilidadeRoutes.get('/ncm-excecao', ContabilidadeControllers.getNcmExcecao)
+ContabilidadeRoutes.post('/cadastrar-ncm-excecao', ContabilidadeControllers.postNcmExcecao)
+ContabilidadeRoutes.put('/ncm-excecao/:id', ContabilidadeControllers.putNcmExcecao)
 
-routes.put('/vinculoAlvarasEmpresa/:id', ContabilidadeControllers.putVinculoAlvarasEmpresas)
-routes.put('/arquivosAnexosAlvara/:id', ContabilidadeControllers.putArquivosAnexosAlvara)
-routes.post('/arquivosAnexosAlvara', ContabilidadeControllers.postArquivosAnexosAlvara)
-routes.post('/vinculoAlvarasEmpresa', ContabilidadeControllers.postVinculoAlvarasEmpresas)
+ContabilidadeRoutes.put('/vinculoAlvarasEmpresa/:id', ContabilidadeControllers.putVinculoAlvarasEmpresas)
+ContabilidadeRoutes.put('/arquivosAnexosAlvara/:id', ContabilidadeControllers.putArquivosAnexosAlvara)
+ContabilidadeRoutes.post('/arquivosAnexosAlvara', ContabilidadeControllers.postArquivosAnexosAlvara)
+ContabilidadeRoutes.post('/vinculoAlvarasEmpresa', ContabilidadeControllers.postVinculoAlvarasEmpresas)
 
-export default routes;
+export default ContabilidadeRoutes;

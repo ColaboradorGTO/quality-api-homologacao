@@ -17,6 +17,7 @@ class AdmPagamentosControllers {
             return res.status(500).json({ message: 'Erro AdmPagamentosControllers.getListaFormaPagamento', error });
         }  
     }
+
     async getListaPagamentoTef(req, res) {
         let {numeroTef, page, pageSize} = req.query; 
         try {
@@ -34,6 +35,7 @@ class AdmPagamentosControllers {
             return res.status(500).json({ message: 'Erro AdmPagamentosControllers.getListaPagamentoTef', error });
         }  
     }
+    
     async getListaPagamentoPos(req, res) {
         let {numeroPos, page, pageSize} = req.query; 
         try {

@@ -1,21 +1,19 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
 import atualizarStatusProdutoAvulsoSchema from "../schema/atualizarStatusProdutoAvulso.js";
 import atualizarDesvincularNFPedidoSchema from "../schema/atualizarDesvincularNFPedido.js";
 import criarVinculoNFPedidoSchema  from "../schema/criarVinculoNFPedido.js";
-
 import { CadastroClient } from "../client/index.js";
 import { CadastroService } from "../services/index.js";
+
+const url = process.env.API_URL;
 const cadastroClient = new CadastroClient(process.env.API_URL)
 const cadastroService = new CadastroService(cadastroClient)
 
-
 class CadastroControllers  {
 
-    
-    async getListaProdutoCriadoPedidoCompra(req, res) {
+    async  getListaProdutoCriadoPedidoCompra(req, res) {
         let { 
             NuPedidoPesquisa,
             dataPesquisaInicio, 
@@ -116,6 +114,7 @@ class CadastroControllers  {
             throw error;
         } 
     }
+
     async getListaTipoFiscalProdutos(req, res) {
         let { } = req.query;
 

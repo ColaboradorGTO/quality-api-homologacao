@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import AdiantamentosControllers from '../controllers/adiantamentos.js';
 
-const FianceiroAdiantamentos = new Router();
+const FinanceiroAdiantamentosRoutes = new Router();
 
-FianceiroAdiantamentos.get('/adiantamento-salarial', AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro)
-FianceiroAdiantamentos.get('/lista-caixas-movimento', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
-FianceiroAdiantamentos.get('/lista-caixas-status', AdiantamentosControllers.getListaCaixaStatus)
-FianceiroAdiantamentos.get('/lista-caixas-zerados', AdiantamentosControllers.getListaCaixaZerados)
-FianceiroAdiantamentos.put('/atualizacaoAdiantamentoStatus', AdiantamentosControllers.putAdiantamentoStatus)
+FinanceiroAdiantamentosRoutes.get('/adiantamento-salarial', AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro)
+FinanceiroAdiantamentosRoutes.get('/lista-caixas-movimento', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
+FinanceiroAdiantamentosRoutes.get('/lista-caixas-status', AdiantamentosControllers.getListaCaixaStatus)
+FinanceiroAdiantamentosRoutes.get('/lista-caixas-zerados', AdiantamentosControllers.getListaCaixaZerados)
+FinanceiroAdiantamentosRoutes.put('/atualizacaoAdiantamentoStatus', AdiantamentosControllers.putAdiantamentoStatus)
+FinanceiroAdiantamentosRoutes.put('/fechar-caixas-zerados', AdiantamentosControllers.putFecharCaixaZerado)
 
-export default FianceiroAdiantamentos;
-
+export default FinanceiroAdiantamentosRoutes;

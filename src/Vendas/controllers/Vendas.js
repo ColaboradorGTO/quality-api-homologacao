@@ -1,7 +1,13 @@
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import axios from 'axios';
 import 'dotenv/config';
+import { VendasClient } from '../client/index.js';
+import { VendasService } from '../service/index.js';
+import createAlterarVendasPrazoExcedidoSchema from '../schema/createAlterarVendasPrazoExcedido.js';
+
 const url = process.env.API_URL;
+const vendasClient = new VendasClient(url);
+const vendasService = new VendasService(vendasClient);
 
 class VendasControllers {
 
@@ -186,7 +192,6 @@ class VendasControllers {
                 
         try {
 
-            
             const apiUrl = `${url}/api/venda/lista-venda-gnre.xsjs?docEntry=${docEntry}&pageSize=${pageSize}&page=${page}`;
           
             const response = await axios.get(apiUrl)
@@ -200,35 +205,39 @@ class VendasControllers {
 
     async postAlterarVendasPrazoExcedido(req, res) {
         try {
-            let {
-                DIASAPOSCOMPRAR,
-                IDPRODUTO,
-                IDVENDA,
-                IDVENDADETALHE,
-                MOTIVOEXCECAO,
-                QTD,
-                TIPOTROCA,
-                USERAUTORIZADOR,
-                VRPRODUTO,
-                VRTOTALLIQUIDO
-            } = req.body; 
-            
-            const response = await axios.post(`${url}/api/venda/vendas-prazo-excedido-troca.xsjs`, [{
-                DIASAPOSCOMPRAR,
-                IDPRODUTO,
-                IDVENDA,
-                IDVENDADETALHE,
-                MOTIVOEXCECAO,
-                QTD,
-                TIPOTROCA,
-                USERAUTORIZADOR,
-                VRPRODUTO,
-                VRTOTALLIQUIDO
-            }]);
-            return res.json(response.data);
+            const { error, value } = createAlterarVendasPrazoExcedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await vendasService.createAlterarVendasPrazoExcedido({
+                DIASAPOSCOMPRAR: value.DIASAPOSCOMPRAR,
+                IDPRODUTO: value.IDPRODUTO,
+                IDVENDA: value.IDVENDA,
+                IDVENDADETALHE: value.IDVENDADETALHE,
+                MOTIVOEXCECAO: value.MOTIVOEXCECAO,
+                QTD: value.QTD,
+                TIPOTROCA: value.TIPOTROCA,
+                USERAUTORIZADOR: value.USERAUTORIZADOR,
+                VRPRODUTO: value.VRPRODUTO,
+                VRTOTALLIQUIDO: value.VRTOTALLIQUIDO
+            });
+
+            return res.status(200).json(response);
         } catch (error) {
             console.error("Error no VendasControllers.postAlterarVendasPrazoExcedido:", error);
-            return res.status(500).json({ error: error.message });
+            res.status(500).json({ error: 'Erro ao alterar venda com prazo excedido' });
+            throw error;
         }
     }
 }

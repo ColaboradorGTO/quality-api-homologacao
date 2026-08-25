@@ -1,21 +1,41 @@
 import { Router } from 'express';
 import AdmVendasControllers from '../controllers/admVendas.js';
 
+const AdministrativoVendas = new Router();
 
-const admVendasRoutes = new Router();
+AdministrativoVendas.get('/venda-total-forma-pagamento', AdmVendasControllers.getRecebimentosFormaPagamento)
+AdministrativoVendas.get('/venda-total-recebido-periodo-adm', AdmVendasControllers.getListaVendaTotalRecebido)
+AdministrativoVendas.get('/vendaVendedor', AdmVendasControllers.getVendaVendedor)
+AdministrativoVendas.get('/vendaAtiva', AdmVendasControllers.getVendaAtiva)
+AdministrativoVendas.get('/vendaContigencia', AdmVendasControllers.getListaVendasContigenciaPorEmpresa)
+AdministrativoVendas.get('/vendaCanceladaEmpresa', AdmVendasControllers.getVendaCancelada30Minutos)
+AdministrativoVendas.get('/vendaCancelada', AdmVendasControllers.getVendaCancelada)
+AdministrativoVendas.get('/vendaCanceladaResumo', AdmVendasControllers.getVendaCanceladaResumo)
+AdministrativoVendas.get('/listaDetalheVenda', AdmVendasControllers.getListaVendasDetalheAlterar)
+AdministrativoVendas.get('/resumoVendaConvenio', AdmVendasControllers.getResumoVendaConvenio)
 
-admVendasRoutes.get('/lista-venda-cliente', AdmVendasControllers.getListaVendaCliente);
-admVendasRoutes.get('/lista-venda/:id', AdmVendasControllers.getListaVendasById)
-admVendasRoutes.get('/alterar-venda-pagamento', AdmVendasControllers.getListaAlterarVendasPagamento);
-admVendasRoutes.get('/venda-ativa', AdmVendasControllers.getListaVendaAtiva);
-admVendasRoutes.get('/venda-vendedor-adm', AdmVendasControllers.getVendaVendedorAction);
-admVendasRoutes.get('/venda-total-forma-pagamento', AdmVendasControllers.getRecebimentosFormaPagamento)
-admVendasRoutes.get('/venda-total-recebido-periodo-adm', AdmVendasControllers.getListaVendaTotalRecebido)
+AdministrativoVendas.get('/resumoVenda', AdmVendasControllers.getResumoVenda)
+AdministrativoVendas.get('/recebimento-resumo', AdmVendasControllers.getRetornoListaPagamentoVenda)
+AdministrativoVendas.get('/resumoVendaConveniodesconto', AdmVendasControllers.getResumoVendaConvenioDesconto)
+AdministrativoVendas.get('/vendaCanceladaWeb', AdmVendasControllers.getVendaCanceladaWeb)
+AdministrativoVendas.get('/vendaCanceladaEmitidaPDV', AdmVendasControllers.getVendaCanceladaEmitidaPDV)
+AdministrativoVendas.get('/vendaAtivaCliente', AdmVendasControllers.getListaClientesVendas)
+AdministrativoVendas.get('/vendaAtivaResumo', AdmVendasControllers.getVendaAtivaResumo)
+AdministrativoVendas.get('/vendaAtivaAction', AdmVendasControllers.getVendaAtivaAction)
+AdministrativoVendas.get('/venda-ativa', AdmVendasControllers.getListaVendaAtiva);
+AdministrativoVendas.get('/lista-venda', AdmVendasControllers.getListaVendasById)
+AdministrativoVendas.get('/vendaConvenio', AdmVendasControllers.getVendaConvenio)
+AdministrativoVendas.get('/lista-venda-cliente', AdmVendasControllers.getListaVendaCliente);
+AdministrativoVendas.put('/alterar-venda-pagamento/:id', AdmVendasControllers.putAlterarVendasPagamento);
+AdministrativoVendas.put('/atualiza-recebimento-venda/:id', AdmVendasControllers.putAlterarVendaRecebimento);
+AdministrativoVendas.put('/venda-vendedor/:id', AdmVendasControllers.putVendaVendedor);
+AdministrativoVendas.put('/venda-cancelamento/:id', AdmVendasControllers.putVendaCancelamento);
+AdministrativoVendas.post('/alterar-venda-pagamento', AdmVendasControllers.postAlterarVendasPagamento);
 
-admVendasRoutes.put('/alterar-venda-pagamento/:id', AdmVendasControllers.putAlterarVendasPagamento);
-admVendasRoutes.put('/atualiza-recebimento-venda/:id', AdmVendasControllers.putAlterarVendaRecebimento);
-admVendasRoutes.put('/venda-vendedor/:id', AdmVendasControllers.putVendaVendedor);
+// AdministrativoVendas.get('/alterar-venda-pagamento', AdmVendasControllers.getListaAlterarVendasPagamento);
+AdministrativoVendas.get('/venda-vendedor-adm', AdmVendasControllers.getVendaVendedorAction);
 
-admVendasRoutes.post('/alterar-venda-pagamento', AdmVendasControllers.postAlterarVendasPagamento);
 
-export default admVendasRoutes;
+
+
+export default AdministrativoVendas;

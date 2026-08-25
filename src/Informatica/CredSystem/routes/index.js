@@ -1,9 +1,10 @@
 import { Router } from 'express' ;
 import CredSystemInformaticaControllers from '../controller/index'
-const routes = new Router();
 
-routes.get('/uf-empresa', CredSystemInformaticaControllers.getListaCadastroClienteCredSystem)
-routes.get('/lista-caixas', CredSystemInformaticaControllers.getListaMeioPagamentoCredSystem)
-routes.get('/listaCaixasID', CredSystemInformaticaControllers.getListaParceriaCredSystem)
+const InformaticaCredSystemRoutes = new Router();
 
-export default routes
+InformaticaCredSystemRoutes.get('/uf-empresa', CredSystemInformaticaControllers.getListaCadastroClienteCredSystem)
+InformaticaCredSystemRoutes.get('/lista-caixas', CredSystemInformaticaControllers.getListaMeioPagamentoCredSystem)
+InformaticaCredSystemRoutes.get('/listaCaixasID', CredSystemInformaticaControllers.getListaParceriaCredSystem)
+
+export default InformaticaCredSystemRoutes

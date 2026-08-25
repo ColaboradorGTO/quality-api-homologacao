@@ -8,8 +8,8 @@ import { atualizarProdutoEmpresaSchema } from '../schema/atualizarCampanhaEmpres
 import { createProdutoEmpresaSchema } from '../schema/createCampanhaEmpresa.js';
 import { createCampanhaClientSchema } from '../schema/createCampanhaClient.js';
 import { createProdutoPromocaoSchema } from '../schema/createProdutoPromocao.js';
-const url = process.env.API_URL;
 
+const url = process.env.API_URL;
 const marketingClient = new MarketingClient(url)
 const marketingService = new MarketingServices(marketingClient);
 

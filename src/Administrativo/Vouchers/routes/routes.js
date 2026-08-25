@@ -2,10 +2,9 @@ import { Router } from 'express';
 import AdmVouchersControllers from '../controllers/index.js';
 
 
-const admVouchersRoutes = new Router();
+const AdministrativoVouchers = new Router();
 
+AdministrativoVouchers.post('/editar-voucher/:id', AdmVouchersControllers.putEditarVoucher);
 // admVendasRoutes.get('/lista-venda-cliente', AdmVendasControllers.getListaVendaCliente);
 
-admVouchersRoutes.post('/editar-voucher/:id', AdmVouchersControllers.putEditarVoucher);
-
-export default admVouchersRoutes;
+export default AdministrativoVouchers;

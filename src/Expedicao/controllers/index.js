@@ -4,6 +4,9 @@ import { OTClient } from "../OT/Client/index.js";
 import { OTService } from "../OT/Services/index.js";
 import criarOTSchema from '../OT/Schema/criarOTSchema.js';
 import atualizarOTSchema from '../OT/Schema/atualizarOTSchema.js';
+import atualizarOrdemTransferenciaSchema from '../OT/Schema/atualizarOrdemTransferenciaSchema.js';
+import atualizarStatusDivergenciaSchema from '../OT/Schema/atualizarStatusDivergenciaSchema.js';
+import criarStatusDivergenciaSchema from '../OT/Schema/criarStatusDivergenciaSchema.js';
 import 'dotenv/config';
 import consultaNFESchema from "../OT/Schema/consultaNFESchema.js";
 const url = process.env.API_URL;
@@ -261,46 +264,49 @@ class ExpedicaoControllers {
 
     // UPDATE
     async updateOrdemTransferencia(req, res) {
-        let {
-            IDPRODUTO,
-            QTDEXPEDICAO,
-            QTDRECEPCAO,
-            QTDDIFERENCA,
-            QTDAJUSTE,
-            VLRUNITVENDA,
-            VLRUNITCUSTO,
-            STFALTA,
-            STSOBRA,
-            IDSTATUSOT,
-            IDRESUMOOT
-        } = req.body;
+        const body = { ...req.body };
 
-        if (isNaN(QTDAJUSTE)) {
-            QTDAJUSTE = 0;
+        if (isNaN(body.QTDAJUSTE)) {
+            body.QTDAJUSTE = 0;
         }
 
-        if (QTDAJUSTE < 0) {
-            STSOBRA = "True"
+        if (body.QTDAJUSTE < 0) {
+            body.STSOBRA = "True"
         }
 
-        if (QTDAJUSTE > 0) {
-            STFALTA = "True"
+        if (body.QTDAJUSTE > 0) {
+            body.STFALTA = "True"
         }
 
         try {
-            const response = await axios.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
-                IDPRODUTO,
-                QTDEXPEDICAO,
-                QTDRECEPCAO,
-                QTDDIFERENCA,
-                QTDAJUSTE,
-                VLRUNITVENDA,
-                VLRUNITCUSTO,
-                STFALTA,
-                STSOBRA,
-                IDSTATUSOT,
-                IDRESUMOOT
-            })
+            const { error, value } = atualizarOrdemTransferenciaSchema.validate(body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            await otService.updateOrdemTransferencia({
+                IDPRODUTO: value.IDPRODUTO,
+                QTDEXPEDICAO: value.QTDEXPEDICAO,
+                QTDRECEPCAO: value.QTDRECEPCAO,
+                QTDDIFERENCA: value.QTDDIFERENCA,
+                QTDAJUSTE: value.QTDAJUSTE,
+                VLRUNITVENDA: value.VLRUNITVENDA,
+                VLRUNITCUSTO: value.VLRUNITCUSTO,
+                STFALTA: value.STFALTA,
+                STSOBRA: value.STSOBRA,
+                IDSTATUSOT: value.IDSTATUSOT,
+                IDRESUMOOT: value.IDRESUMOOT
+            });
 
             return res.status(200).json({ message: 'Ordem de transferência atualizada com sucesso!' });
         } catch (error) {
@@ -310,18 +316,27 @@ class ExpedicaoControllers {
     }
 
     async updateAlterarSD(req, res,) {
-        let {
-            IDSTATUSDIVERGENCIA,
-            DESCRICAODIVERGENCIA,
-            STATIVO
-        } = req.body;
-
         try {
-            const response = await axios.put(`${url}/api/expedicao/status-divergencia.xsjs`, {
-                IDSTATUSDIVERGENCIA,
-                DESCRICAODIVERGENCIA,
-                STATIVO,
-            })
+            const { error, value } = atualizarStatusDivergenciaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            await otService.updateStatusDivergencia({
+                IDSTATUSDIVERGENCIA: value.IDSTATUSDIVERGENCIA,
+                DESCRICAODIVERGENCIA: value.DESCRICAODIVERGENCIA,
+                STATIVO: value.STATIVO
+            });
 
             return res.status(200).json({ message: 'Atualizado com sucesso' });
         } catch (error) {
@@ -331,18 +346,27 @@ class ExpedicaoControllers {
     }
 
     async storeInserirSD(req, res,) {
-        let {
-            DESCRICAODIVERGENCIA,
-            IDUSRCRIACAO,
-            STATIVO
-        } = req.body;
-
         try {
-            const response = await axios.post(`${url}/api/expedicao/status-divergencia.xsjs`, {
-                DESCRICAODIVERGENCIA,
-                IDUSRCRIACAO,
-                STATIVO
-            })
+            const { error, value } = criarStatusDivergenciaSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            await otService.createStatusDivergencia({
+                DESCRICAODIVERGENCIA: value.DESCRICAODIVERGENCIA,
+                IDUSRCRIACAO: value.IDUSRCRIACAO,
+                STATIVO: value.STATIVO
+            });
 
             return res.status(200).json({ message: 'Cadastrado com sucesso' });
         } catch (error) {
@@ -552,46 +576,39 @@ class ExpedicaoControllers {
                 });
             }
 
-            const response = await otService.createOT(
-                value.IDRESUMOOT,
-                value.IDEMPRESAORIGEM,
-                value.IDEMPRESADESTINO,
-                value.IDOPERADOREXPEDICAO,
-                value.NUTOTALITENS,
-                value.QTDTOTALITENS,
-                value.QTDTOTALITENSRECEPCIONADO,
-                value.QTDTOTALITENSDIVERGENCIA,
-                value.NUTOTALVOLUMES,
-                value.TPVOLUME,
-                value.VRTOTALCUSTO,
-                value.VRTOTALVENDA,
-                value.DTRECEPCAO,
-                value.IDOPERADORRECEPTOR,
-                value.DSOBSERVACAO,
-                value.IDUSRCANCELAMENTO,
-                value.IDSTDIVERGENCIA,
-                value.OBSDIVERGENCIA,
-                value.STEMISSAONFE,
-                value.NUMERONFE,
-                value.STENTRADAINVENTARIO,
-                value.QTDCONFERENCIA,
-                value.IDSTATUSOT,
-                value.IDUSRAJUSTE,
-                value.DTAJUSTE,
-                value.QTDTOTALITENSAJUSTE,
-                value.CONFEREITENS,
-                value.IDROTINA,
-                value.DATAENTREGA,
-                value.dadosdetalheot,
-            );
+            const response = await otService.createOT({
+                IDRESUMOOT: value.IDRESUMOOT,
+                IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
+                IDEMPRESADESTINO: value.IDEMPRESADESTINO,
+                IDOPERADOREXPEDICAO: value.IDOPERADOREXPEDICAO,
+                NUTOTALITENS: value.NUTOTALITENS,
+                QTDTOTALITENS: value.QTDTOTALITENS,
+                QTDTOTALITENSRECEPCIONADO: value.QTDTOTALITENSRECEPCIONADO,
+                QTDTOTALITENSDIVERGENCIA: value.QTDTOTALITENSDIVERGENCIA,
+                NUTOTALVOLUMES: value.NUTOTALVOLUMES,
+                TPVOLUME: value.TPVOLUME,
+                VRTOTALCUSTO: value.VRTOTALCUSTO,
+                VRTOTALVENDA: value.VRTOTALVENDA,
+                DTRECEPCAO: value.DTRECEPCAO,
+                IDOPERADORRECEPTOR: value.IDOPERADORRECEPTOR,
+                DSOBSERVACAO: value.DSOBSERVACAO,
+                IDUSRCANCELAMENTO: value.IDUSRCANCELAMENTO,
+                IDSTDIVERGENCIA: value.IDSTDIVERGENCIA,
+                OBSDIVERGENCIA: value.OBSDIVERGENCIA,
+                STEMISSAONFE: value.STEMISSAONFE,
+                NUMERONFE: value.NUMERONFE,
+                STENTRADAINVENTARIO: value.STENTRADAINVENTARIO,
+                QTDCONFERENCIA: value.QTDCONFERENCIA,
+                IDSTATUSOT: value.IDSTATUSOT,
+                IDUSRAJUSTE: value.IDUSRAJUSTE,
+                DTAJUSTE: value.DTAJUSTE,
+                QTDTOTALITENSAJUSTE: value.QTDTOTALITENSAJUSTE,
+                CONFEREITENS: value.CONFEREITENS,
+                IDROTINA: value.IDROTINA,
+                DATAENTREGA: value.DATAENTREGA,
+                dadosdetalheot: value.dadosdetalheot
+            });
 
-            if (!value.IDEMPRESADESTINO) {
-                return res.status(400).json({ message: 'IDEMPRESADESTINO é obrigatório.' });
-            }
-
-            if (!value.IDEMPRESAORIGEM) {
-                return res.status(400).json({ message: 'IDEMPRESAORIGEM é obrigatório.' });
-            }
             console.log('response', response);
             return res.status(200).json(response);
         } catch (error) {

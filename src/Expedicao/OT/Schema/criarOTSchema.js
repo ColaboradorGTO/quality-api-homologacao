@@ -1,11 +1,11 @@
 import Joi from "joi";
 
 const criarOTSchema = Joi.object({
-    IDEMPRESAORIGEM: Joi.number().allow()
+    IDEMPRESAORIGEM: Joi.number().required()
     .messages({
         "number.base": "O ID da empresa de origem deve ser um número"
     }),
-    IDEMPRESADESTINO: Joi.number().allow()
+    IDEMPRESADESTINO: Joi.number().required()
     .messages({
         "number.base": "O ID da empresa de destino deve ser um número"
     }),

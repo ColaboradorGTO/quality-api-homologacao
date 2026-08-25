@@ -28,7 +28,6 @@ class ComercialProdutoControllers {
     }
   }
 
-
   async getListaColaboradorProdutosVendidos(req, res) {
     let { dataPesquisaInicio, dataPesquisaFim, idMarca, idEmpresa, descricaoProduto, ufPesquisa, idFornecedor, idGrupo, idGrade, idMarcaProduto, idFuncionario } = req.query;
 

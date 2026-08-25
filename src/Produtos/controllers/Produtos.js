@@ -1,15 +1,14 @@
 import axios from "axios";
 import { dataFormatada } from "../../utils/dataFormatada.js";
 import 'dotenv/config';
-const url = process.env.API_URL;
-//const url = process.env.API_URL_HML;
-
 import schemaCriarAlteracaoPrecoProduto from "../schema/criarAlteracaoPrecoProduto.js";
+import schemaAtualizarAlteracaoPrecoProduto from "../schema/atualizarAlteracaoPrecoProduto.js";
 import schemaAtualizarProdutoAvulso from "../schema/atualizarProdutoAvulso.js";
 import schemaCriarProdutoAvulso from "../schema/criarProdutoAvulso.js";
-
-import { ProdutosClient } from "../client/index.js.js";
+import { ProdutosClient } from "../client/index.js";
 import { ProdutosServices } from "../service/index.js";
+
+const url = process.env.API_URL;
 const produtosClient = new ProdutosClient(url);
 const produtosServices = new ProdutosServices(produtosClient);
 
@@ -394,23 +393,33 @@ class ProdutoControllers {
     async putAlteracoesPrecoProduto(req, res) {
 
         try {
-            let { IDRESUMOALTERACAOPRECO, STAGENDAMENTOIMEDIATO, STAGENDAMENTOPERSONALIZADO, DTAGENDAMENTOPERSONALIZADO, STATIVO } = req.body;
+            const { error, value } = schemaAtualizarAlteracaoPrecoProduto.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
 
-            if (!IDRESUMOALTERACAOPRECO) {
-                return res.status(400).json({ error: "Todos os parâmetros IDRESUMOALTERACAOPRECO são obrigatórios." });
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
             }
 
-            const response = await axios.post(`${url}/api/produtos/alteracoes-de-precos-resumo.xsjs`, {
-                IDRESUMOALTERACAOPRECO,
-                STAGENDAMENTOIMEDIATO,
-                STAGENDAMENTOPERSONALIZADO,
-                DTAGENDAMENTOPERSONALIZADO,
-                STATIVO
-            },)
+            const response = await produtosServices.updateAlteracoesPrecoProduto({
+                IDRESUMOALTERACAOPRECO: value.IDRESUMOALTERACAOPRECO,
+                STAGENDAMENTOIMEDIATO: value.STAGENDAMENTOIMEDIATO,
+                STAGENDAMENTOPERSONALIZADO: value.STAGENDAMENTOPERSONALIZADO,
+                DTAGENDAMENTOPERSONALIZADO: value.DTAGENDAMENTOPERSONALIZADO,
+                STATIVO: value.STATIVO
+            });
 
-            return res.json(response.data);
+            return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
+            res.status(500).json({ error: 'Erro ao atualizar alteração de preço' });
             throw error;
         }
     }
@@ -434,35 +443,36 @@ class ProdutoControllers {
                 });
             }
 
-            const response = await produtosServices.updateProdutoAvulso(
-                value.IDPRODUTO,
-                value.DSNOME,
-                value.IDGRUPOEMPRESARIAL,
-                value.NUNCM,
-                value.IDUND,
-                value.UND,
-                value.PRECOCUSTO,
-                value.PRECOVENDA,
-                value.IDSUBGRUPO,
-                value.IDFABRICANTE,
-                value.IDFORNECEDOR,
-                value.NUREFERENCIA,
-                value.IDCOR,
-                value.IDTAMANHO,
-                value.IDCATEGORIAPEDIDO,
-                value.IDTIPOTECIDO,
-                value.IDESTILO,
-                value.IDLOCALEXPOSICAO,
-                value.IDCATEGORIAS,
-                value.IDTIPOPRODUTOFISCAL,
-                value.IDFONTEPRODUTOFISCAL,
-                value.STECOMMERCE,
-                value.STREDESOCIAL
-            );
+            const response = await produtosServices.updateProdutoAvulso({
+                IDPRODUTO: value.IDPRODUTO,
+                DSNOME: value.DSNOME,
+                IDGRUPOEMPRESARIAL: value.IDGRUPOEMPRESARIAL,
+                NUNCM: value.NUNCM,
+                IDUND: value.IDUND,
+                UND: value.UND,
+                PRECOCUSTO: value.PRECOCUSTO,
+                PRECOVENDA: value.PRECOVENDA,
+                IDSUBGRUPO: value.IDSUBGRUPO,
+                IDFABRICANTE: value.IDFABRICANTE,
+                IDFORNECEDOR: value.IDFORNECEDOR,
+                NUREFERENCIA: value.NUREFERENCIA,
+                IDCOR: value.IDCOR,
+                IDTAMANHO: value.IDTAMANHO,
+                IDCATEGORIAPEDIDO: value.IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO: value.IDTIPOTECIDO,
+                IDESTILO: value.IDESTILO,
+                IDLOCALEXPOSICAO: value.IDLOCALEXPOSICAO,
+                IDCATEGORIAS: value.IDCATEGORIAS,
+                IDTIPOPRODUTOFISCAL: value.IDTIPOPRODUTOFISCAL,
+                IDFONTEPRODUTOFISCAL: value.IDFONTEPRODUTOFISCAL,
+                STECOMMERCE: value.STECOMMERCE,
+                STREDESOCIAL: value.STREDESOCIAL
+            });
 
             return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ProdutoControllers  putProdutoAvulso:", error);
+            res.status(500).json({ error: 'Erro ao atualizar produto avulso' });
             throw error;
         }
     }
@@ -486,34 +496,35 @@ class ProdutoControllers {
                 });
             }
 
-            const response = await produtosServices.createProdutoAvulso(
-                value.DSNOME,
-                value.IDGRUPOEMPRESARIAL,
-                value.NUNCM,
-                value.IDUND,
-                value.UND,
-                value.PRECOCUSTO,
-                value.PRECOVENDA,
-                value.IDSUBGRUPO,
-                value.IDFABRICANTE,
-                value.IDFORNECEDOR,
-                value.NUREFERENCIA,
-                value.IDCOR,
-                value.IDTAMANHO,
-                value.IDCATEGORIAPEDIDO,
-                value.IDTIPOTECIDO,
-                value.IDESTILO,
-                value.IDLOCALEXPOSICAO,
-                value.IDCATEGORIAS,
-                value.IDTIPOPRODUTOFISCAL,
-                value.IDFONTEPRODUTOFISCAL,
-                value.STECOMMERCE,
-                value.STREDESOCIAL
-            );
+            const response = await produtosServices.createProdutoAvulso({
+                DSNOME: value.DSNOME,
+                IDGRUPOEMPRESARIAL: value.IDGRUPOEMPRESARIAL,
+                NUNCM: value.NUNCM,
+                IDUND: value.IDUND,
+                UND: value.UND,
+                PRECOCUSTO: value.PRECOCUSTO,
+                PRECOVENDA: value.PRECOVENDA,
+                IDSUBGRUPO: value.IDSUBGRUPO,
+                IDFABRICANTE: value.IDFABRICANTE,
+                IDFORNECEDOR: value.IDFORNECEDOR,
+                NUREFERENCIA: value.NUREFERENCIA,
+                IDCOR: value.IDCOR,
+                IDTAMANHO: value.IDTAMANHO,
+                IDCATEGORIAPEDIDO: value.IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO: value.IDTIPOTECIDO,
+                IDESTILO: value.IDESTILO,
+                IDLOCALEXPOSICAO: value.IDLOCALEXPOSICAO,
+                IDCATEGORIAS: value.IDCATEGORIAS,
+                IDTIPOPRODUTOFISCAL: value.IDTIPOPRODUTOFISCAL,
+                IDFONTEPRODUTOFISCAL: value.IDFONTEPRODUTOFISCAL,
+                STECOMMERCE: value.STECOMMERCE,
+                STREDESOCIAL: value.STREDESOCIAL
+            });
 
             return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ProdutoControllers  postProdutoAvulso:", error);
+            res.status(500).json({ error: 'Erro ao cadastrar produto avulso' });
             throw error;
         }
     }
@@ -537,22 +548,23 @@ class ProdutoControllers {
                 });
             }
 
-            const response = await produtosServices.createAlteracoesPrecoProduto(
-                value.IDPRODUTO,
-                value.IDEMPRESA,
-                value.IDLISTAPRECO,
-                value.PRECOVENDAANTIGO,
-                value.PRECOVENDANOVO,
-                value.IDUSER,
-                value.STAGENDAMENTOPADRAO,
-                value.STAGENDAMENTOIMEDIATO,
-                value.STAGENDAMENTOPERSONALIZADO,
-                value.DTAGENDAMENTOPERSONALIZADO
-            );
+            const response = await produtosServices.createAlteracoesPrecoProduto({
+                IDPRODUTO: value.IDPRODUTO,
+                IDEMPRESA: value.IDEMPRESA,
+                IDLISTAPRECO: value.IDLISTAPRECO,
+                PRECOVENDAANTIGO: value.PRECOVENDAANTIGO,
+                PRECOVENDANOVO: value.PRECOVENDANOVO,
+                IDUSER: value.IDUSER,
+                STAGENDAMENTOPADRAO: value.STAGENDAMENTOPADRAO,
+                STAGENDAMENTOIMEDIATO: value.STAGENDAMENTOIMEDIATO,
+                STAGENDAMENTOPERSONALIZADO: value.STAGENDAMENTOPERSONALIZADO,
+                DTAGENDAMENTOPERSONALIZADO: value.DTAGENDAMENTOPERSONALIZADO
+            });
 
             return res.status(200).json(response);
         } catch (error) {
             console.error("erro no ProdutoControllers  putAlteracoesPrecoProduto:", error);
+            res.status(500).json({ error: 'Erro ao cadastrar alteração de preço' });
             throw error;
         }
     }

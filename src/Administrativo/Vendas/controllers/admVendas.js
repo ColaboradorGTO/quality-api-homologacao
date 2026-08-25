@@ -403,6 +403,7 @@ class AdmVendasControllers {
             throw error;
         }
     }
+    
     async getVendaVendedorAction(req, res) {
         let { idEmpresa, idGrupo, dataPesquisaInicio, dataPesquisaFim, page, pageSize, uf, byId } = req.query;
 
