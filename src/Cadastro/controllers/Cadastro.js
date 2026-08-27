@@ -399,6 +399,47 @@ class CadastroControllers  {
         }
        
     }
+
+    async postFinalizarCadastro(req, res) {
+        try {
+            const { 
+                IDRESUMOPEDIDO,
+                IDANDAMENTO
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/finalizar-pedido.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDANDAMENTO
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.postFinalizarCadastro:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
+    async postValidarPedidoParaAjusteCompras(req, res) {
+        try {
+            const { 
+                IDRESUMOPEDIDO,
+                IDFUNCIONARIO
+            } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/valida-dados-pedido-para-ajuste-compras.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDFUNCIONARIO
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.postFinalizarCadastro:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
 }
 
 export default new CadastroControllers();

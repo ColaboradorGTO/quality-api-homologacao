@@ -312,7 +312,7 @@ class DashBoardVendasControllers {
             pageSize = pageSize ? pageSize : '';
             page = page ? page : '';
             try {
-                const apiUrl = `${url}/api/dashboard/venda/vendedor.xsjs?page=${page}&pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataFechamento=${dataFechamento}`
+                const apiUrl = `${url}/api/dashboard/venda/vendedor.xsjs?idEmpresa=${idEmpresa}&dataFechamento=${dataFechamento}&page=${page}&pagesize=${pageSize}`
                 const response = await axios.get(apiUrl)
 
                 return res.json(response.data); // Retorna

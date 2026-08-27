@@ -28,6 +28,7 @@ import atualizarTransportadorSchema from "../schema/atualizarTransportador.js";
 import atualizarImagemSchema from "../schema/atualizarImagem.js";
 import atualizarImagemProdutoSchema from "../schema/atualizarImagemProduto.js";
 import atualizarDistribuicaoHistoricoADMSchema from "../schema/atualizarDistribuicaoHistoricoADM.js";
+import atualizarAndamentoPedidoSchema from "../schema/atualizarAndamentoPedido.js";
 
 import criarDetalhePedidoSchema from "../schema/criarDetalhePedido.js";
 import criarEstiloSchema from "../schema/criarEstilo.js";
@@ -1990,6 +1991,38 @@ class ComprasControllers {
         }
     }
 
+    async putAndamentoPedido(req, res) {
+        try {
+            const { error, value } = await atualizarAndamentoPedidoSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+            })
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+          
+            const response = await comprasService.updateAndamentoPedido(
+                IDRESUMOPEDIDO,
+                IDANDAMENTO,
+                TXTOBSDEVPEDIDO
+            );
+     
+          
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("error no ComprasControllers.putAndamentoPedido:", error);
+            throw error;
+        }
+    }
+
     // CREATE
     async postSubGrupoEstrutura(req, res) {
         try {
@@ -2752,7 +2785,7 @@ class ComprasControllers {
             throw error;
         }
     }
-
+ 
     async postListaPromocao(req, res) {
         try {
             const { error, value } = await criarPromocaoSchema.validate(req.body, {

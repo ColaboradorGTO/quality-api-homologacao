@@ -813,6 +813,20 @@ export class ComprasService {
         return response.data;
     }
 
+    async updateAndamentoPedido(
+        IDRESUMOPEDIDO,
+        IDANDAMENTO,
+        TXTOBSDEVPEDIDO
+    ) {
+        
+        const response = await this.client.atualizarAndamentoPedido(
+            IDRESUMOPEDIDO,
+            IDANDAMENTO,
+            TXTOBSDEVPEDIDO
+        );
+        return response.data;
+    }
+
     async createDetalhePedido(
         IDRESUMOPEDIDO,
         IDCOR,

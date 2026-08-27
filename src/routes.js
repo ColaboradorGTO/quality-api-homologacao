@@ -940,6 +940,7 @@ routes.put('/distribuicao-compras-historico-adm/:id', ComprasControllers.putDist
 routes.put('/lista-pedidos/:id', ComprasControllers.putListaPedidos)
 routes.put('/detalhe-pedido/:id', ComprasControllers.putDetalhePedido)
 routes.put('/lista-promocao/:id', ComprasControllers.putListaPromocao)
+routes.put('/andamento-pedido/:id', ComprasControllers.putAndamentoPedido)
 
 // POST
 routes.post('/cadastrarCondicaoPagamento', ComprasControllers.postCondicaoPagamento)
@@ -989,6 +990,8 @@ routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
 routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
 
 routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
+routes.post('/finalizar-pedido-cadastro', CadastroControllers.postFinalizarCadastro)
+routes.post('/validar-pedido-ajuste-compras', CadastroControllers.postValidarPedidoParaAjusteCompras)
 
 // Movimento Caixa
 

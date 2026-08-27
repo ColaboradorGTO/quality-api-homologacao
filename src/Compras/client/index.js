@@ -760,6 +760,20 @@ export class ComprasClient {
         return response.data;
     }
 
+    async atualizarAndamentoPedido(
+        IDRESUMOPEDIDO,
+        IDANDAMENTO,
+        TXTOBSDEVPEDIDO
+    ) {
+        
+        const response = await this.api.put(`${url}/api/compras/atualizacao-andamento-pedido.xsjs`, [{
+            IDRESUMOPEDIDO,
+            IDANDAMENTO,
+            TXTOBSDEVPEDIDO
+        }]);
+        return response.data;
+    }
+
     async criarFornecedorFabricante(
         IDFABRICANTE,
         IDFORNECEDOR,
