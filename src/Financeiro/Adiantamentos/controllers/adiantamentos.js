@@ -105,7 +105,27 @@ class AdiantamentosControllers {
     page = page ? page : ''
     pageSize = pageSize ? pageSize : ''
     try {
-      const apiUrl = `${url}/api/financeiro/adiantamento-departamento.xsjs?id=${idAdiantamento}&idEmpres=${idEmpresa}&status=${status}&departamento=${departamento}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
+      const apiUrl = `${url}/api/financeiro/adiantamento-departamento.xsjs?id=${idAdiantamento}&idEmpresa=${idEmpresa}&status=${status}&departamento=${departamento}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
+      const response = await axios.get(apiUrl)
+      
+      return res.json(response.data);
+    } catch (error) {
+      console.error("AdiantamentosControllers.getListaAdiantamentoDepartamentos:", error);
+      throw error;
+    }
+  }
+
+  async getListaPagamentoAdiantamento(req, res) {
+    let { idPagamento, idAdiantamento,  status, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+      idPagamento = idPagamento ? idPagamento : '';
+      idAdiantamento = idAdiantamento ? idAdiantamento : '';   
+      status = status ? status : '';
+      dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+      dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+      page = page ? page : ''
+      pageSize = pageSize ? pageSize : ''
+    try {
+      const apiUrl = `${url}/api/financeiro/pagamento-adiantamento.xsjs?id=${idPagamento}&idAdiantamento=${idAdiantamento}&status=${status}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
       const response = await axios.get(apiUrl)
 
       return res.json(response.data);
