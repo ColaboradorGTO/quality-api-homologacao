@@ -43,6 +43,7 @@ import ConsultaNfeController from './Informatica/ConsultaNFCE/controllers/consul
 import GnreProcessoController from './Informatica/ConsultaNFCE/controllers/gnreProcesso.js'
 // Financeiro Início
 import AdiantamentosControllers from './Financeiro/Adiantamentos/controllers/adiantamentos.js'
+import { uploadAnexo } from './middlewares/uploadAnexo.js'
 import DepositosControllers from './Financeiro/Depositos/controllers/depositos.js'
 import CaixasControllers from './Financeiro/Caixas/controllers/caixas.js'
 import DescontoControllers from './Financeiro/Desconto/controllers/desconto.js'
@@ -459,6 +460,14 @@ routes.get('/vendaPagamento', FinanceiroControllers.getListaVendasTransacoesEmpr
 routes.get('/vendaTotalEmpresa', FinanceiroVendasControllers.getListaVendasEmpresa)
 routes.get('/detalheFechamento', DetalhesControllers.getListaDetalheFechamento)
 routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
+routes.get('/lista-adiantamento-departamento', AdiantamentosControllers.getListaAdiantamentoDepartamentos)
+routes.put('/adiantamento-departamento/:id', AdiantamentosControllers.putAdiantamentoDepartamento)
+routes.put('/pagamento-departamento/:id', AdiantamentosControllers.putPagamentoDepartamento)
+routes.post('/adiantamento-departamento', AdiantamentosControllers.postAdiantamentoDepartamento)
+routes.post('/upload-anexo-adiantamento', uploadAnexo.single('arquivo'), AdiantamentosControllers.postUploadAnexoAdiantamento)
+routes.post('/pagamento-departamento', AdiantamentosControllers.postPagamentoDepartamento)
+routes.get('/download-anexo-adiantamento', AdiantamentosControllers.getDownloadAnexoAdiantamento)
+
 //routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroControllers.getListaVendasMarcaFinanceiro)
 routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroVendasControllers.getListaVendasMarcaFinanceiro)
 //routes.get('/vendaMarcaRob', FinanceiroControllers.getListaVendasMarcaROB)
