@@ -1178,7 +1178,7 @@ routes.post('/migrar-produto-avulso', ServiceLayerControllers.postMigrarProdutoA
 routes.post('/integrar-despesa', ServiceLayerControllers.postIntegrarDespesaSAP)
 routes.post('/incluir-atualizar-produto', ServiceLayerControllers.postMigrarProdutoSAP)
 routes.post('/por-codigo-pedido-compra', ServiceLayerControllers.postMigrarPedidoSAP)
-
+ 
 
 // // Logs
 // routes.get('/log-web', LogsControllers.getListaLogsUsuario)
