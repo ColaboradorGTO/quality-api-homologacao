@@ -7,7 +7,7 @@ export class AdiantamentoService {
         IDADIANTAMENTOSALARIO,
         STATIVO
     ) {
-        console.log(IDADIANTAMENTOSALARIO, 'IDADIANTAMENTOSALARIO');
+      
         if (!IDADIANTAMENTOSALARIO) {
             throw new Error("IDADIANTAMENTOSALARIO is required, services");
         }

@@ -459,15 +459,7 @@ routes.get('/resumoVendaFinanceiro', FinanceiroVendasControllers.getListaVendasR
 routes.get('/vendaPagamento', FinanceiroControllers.getListaVendasTransacoesEmpresa)
 routes.get('/vendaTotalEmpresa', FinanceiroVendasControllers.getListaVendasEmpresa)
 routes.get('/detalheFechamento', DetalhesControllers.getListaDetalheFechamento)
-routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
-routes.get('/lista-adiantamento-departamento', AdiantamentosControllers.getListaAdiantamentoDepartamentos)
-routes.get('/download-anexo-adiantamento', AdiantamentosControllers.getDownloadAnexoAdiantamento)
-routes.get('/pagamento-adiantamento', AdiantamentosControllers.getListaPagamentoAdiantamento)
-routes.put('/adiantamento-departamento/:id', AdiantamentosControllers.putAdiantamentoDepartamento)
-routes.put('/pagamento-departamento/:id', AdiantamentosControllers.putPagamentoDepartamento)
-routes.post('/adiantamento-departamento', AdiantamentosControllers.postAdiantamentoDepartamento)
-routes.post('/upload-anexo-adiantamento', uploadAnexo.single('arquivo'), AdiantamentosControllers.postUploadAnexoAdiantamento)
-routes.post('/pagamento-departamento', AdiantamentosControllers.postPagamentoDepartamento)
+
 
 //routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroControllers.getListaVendasMarcaFinanceiro)
 routes.get('/vendaMarcaPeriodoFinanceiro', FinanceiroVendasControllers.getListaVendasMarcaFinanceiro)
@@ -585,6 +577,16 @@ routes.get('/desconto-vendas-simplificado', DescontoControllers.getListaDesconto
 
 //  Adiantamentos 
 routes.get('/adiantamento-salarial', AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro)
+routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
+routes.get('/lista-adiantamento-departamento', AdiantamentosControllers.getListaAdiantamentoDepartamentos)
+routes.get('/download-anexo-adiantamento', AdiantamentosControllers.getDownloadAnexoAdiantamento)
+routes.get('/pagamento-adiantamento', AdiantamentosControllers.getListaPagamentoAdiantamento)
+routes.put('/adiantamento-departamento/:id', AdiantamentosControllers.putAdiantamentoDepartamento)
+routes.put('/pagamento-departamento/:id', AdiantamentosControllers.putPagamentoDepartamento)
+routes.post('/adiantamento-departamento', AdiantamentosControllers.postAdiantamentoDepartamento)
+routes.post('/upload-anexo-adiantamento', uploadAnexo.single('arquivo'), AdiantamentosControllers.postUploadAnexoAdiantamento)
+routes.post('/pagamento-departamento', AdiantamentosControllers.postPagamentoDepartamento)
+
 
 // Caixas
 routes.get('/lista-caixas-movimento', CaixasControllers.getListaCaixasMovmentoFinanceiro)
@@ -990,18 +992,23 @@ routes.get('/pedidos-sem-vinculo-nfe', CadastroControllers.getListaPedidosSemVin
 routes.get('/desvincular-pedidos-nfe', CadastroControllers.getListaDesVincularPedidosNFE)
 routes.get('/produto-nf-pedidos', CadastroControllers.getListaProdutoNFPedido)
 routes.get('/produtoAvulso', CadastroControllers.getListaProdutosAvulso)
+routes.get('/verifica-codBarras-produto', CadastroControllers.getListaVerificaCodBarrasProdutos)
+routes.get('/detalhe-produto-pedidos', CadastroControllers.getListaDetalheProdutoPedido)
+routes.get('/item-pedido', CadastroControllers.getListaItemPedidoPedido)
 
-
-// routes.put('/produtoAvulso/:id', CadastroControllers.getListaTipoFiscalProdutos)
 routes.put('/status-produto-avulso/:id', CadastroControllers.putStatusProdutoAvulso)
 routes.put('/incluir-produto-avulso/:id', CadastroControllers.putIncluirProdutoAvulso)
 routes.put('/nf-avulsa/:id', CadastroControllers.putNFAvulsa)
 routes.put('/desvincular-nf-pedido', CadastroControllers.putDesvincularNFPedido)
 routes.put('/cancelar-nf-entrada', CadastroControllers.putCancelarNFEntrada)
+routes.put('/remover-item-referencia-pedido', CadastroControllers.putRemoverItemReferenciaPedido)
+routes.put('/atualizar-linhas-pedido-sap/:id', CadastroControllers.putAtualizarPedidoSap)
+routes.put('/item-pedido/:id', CadastroControllers.putItemPedido)
 
 routes.post('/vincular-nf-pedido', CadastroControllers.postVincularNFPedido)
 routes.post('/finalizar-pedido-cadastro', CadastroControllers.postFinalizarCadastro)
 routes.post('/validar-pedido-ajuste-compras', CadastroControllers.postValidarPedidoParaAjusteCompras)
+routes.post('/incluir-produtos-pdv', CadastroControllers.postIncluirProdutosPDV)
 
 // Movimento Caixa
 
@@ -1169,6 +1176,8 @@ routes.post('/quebras-de-caixas-integracao', ServiceLayerControllers.postIntegra
 routes.post('/pix-integracao', ServiceLayerControllers.postIntegrarPagamentoPixSAP)
 routes.post('/migrar-produto-avulso', ServiceLayerControllers.postMigrarProdutoAvulso)
 routes.post('/integrar-despesa', ServiceLayerControllers.postIntegrarDespesaSAP)
+routes.post('/incluir-atualizar-produto', ServiceLayerControllers.postMigrarProdutoSAP)
+routes.post('/por-codigo-pedido-compra', ServiceLayerControllers.postMigrarPedidoSAP)
 
 
 // // Logs

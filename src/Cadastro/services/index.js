@@ -46,6 +46,30 @@ export class CadastroService {
         return response.data;
     }
 
+    async updateRemoverItemReferenciaPedido(
+        IDRESUMOPEDIDO,
+        IDDETALHEPEDIDO,
+        STCANCELADO,
+        IDRESPCANCELAMENTO,
+        TXTOBSCANCELAMENTO,
+        STPEDIDOPRIMARIO
+    ) {
+        if (!IDRESUMOPEDIDO) {
+            throw new Error('ID do Resumo do pedido é obrigatório.');
+        }
+
+
+        const response = await this.client.atualizarRemoverItemReferenciaPedido(
+           IDRESUMOPEDIDO,
+            IDDETALHEPEDIDO,
+            STCANCELADO,
+            IDRESPCANCELAMENTO,
+            TXTOBSCANCELAMENTO,
+            STPEDIDOPRIMARIO
+        );
+        return response.data;
+    }
+
     async createVinculoNFPedido(
         IDRESUMOPEDIDO,
         IDRESUMOENTRADA,
@@ -65,4 +89,3 @@ export class CadastroService {
     }
 
 }
-

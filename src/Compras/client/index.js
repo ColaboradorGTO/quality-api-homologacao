@@ -766,11 +766,11 @@ export class ComprasClient {
         TXTOBSDEVPEDIDO
     ) {
         
-        const response = await this.api.put(`${url}/api/compras/atualizacao-andamento-pedido.xsjs`, [{
+        const response = await this.api.put(`${url}/api/compras/atualizacao-andamento-pedido.xsjs`, {
             IDRESUMOPEDIDO,
             IDANDAMENTO,
             TXTOBSDEVPEDIDO
-        }]);
+        });
         return response.data;
     }
 

@@ -5,6 +5,7 @@ const url = process.env.API_URL;
 import atualizarStatusProdutoAvulsoSchema from "../schema/atualizarStatusProdutoAvulso.js";
 import atualizarDesvincularNFPedidoSchema from "../schema/atualizarDesvincularNFPedido.js";
 import criarVinculoNFPedidoSchema  from "../schema/criarVinculoNFPedido.js";
+import removeItemReferenciaPedidoSchema from "../schema/removeItemReferenciaPedido.js";
 
 import { CadastroClient } from "../client/index.js";
 import { CadastroService } from "../services/index.js";
@@ -256,7 +257,123 @@ class CadastroControllers  {
             throw error;
         } 
     }
+
+    async getListaVerificaCodBarrasProdutos(req, res) {
+        let { codBarras, excludeSemGtin,  page, pageSize } = req.query;
+            codBarras = codBarras ? codBarras : ''
+            excludeSemGtin =  excludeSemGtin ?  excludeSemGtin : ''
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/verifica_codbarras_produto.xsjs?codbarras=${codBarras}&excludeSemGtin=${excludeSemGtin}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaVerificaCodBarrasProdutos:", error);
+            throw error;
+        } 
+    }
     
+    async getListaDetalheProdutoPedido(req, res) {
+        let { idResumoPedido, stCadastrado, stReposicao, stMigradoSap,  page, pageSize } = req.query;
+            idResumoPedido = idResumoPedido ? idResumoPedido : '';
+            stCadastrado = stCadastrado ? stCadastrado : '';
+            stReposicao = stReposicao ? stReposicao : '';
+            stMigradoSap = stMigradoSap ? stMigradoSap : '';
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/lista_detalheprodutopedidos.xsjs?idpedido=${idResumoPedido}&stcadastrado=${stCadastrado}&streposicao=${stReposicao}&stmigradosap=${stMigradoSap}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaDetalheProdutoPedido:", error);
+            throw error;
+        } 
+    }
+
+    async getListaItemPedidoPedido(req, res) {
+        let { idDetalhePedido, page, pageSize } = req.query;
+            idDetalhePedido = idDetalhePedido ? idDetalhePedido : '';
+
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+        try {
+           
+            const apiUrl = `${url}/api/cadastro/editar-item-pedido.xsjs?iddetPedido=${idDetalhePedido}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+          
+            return res.json(response.data); // Retorna
+        } catch(error) {
+            console.error("Erro no CadastroControllers.getListaItemPedidoPedido:", error);
+            throw error;
+        } 
+    }
+    
+    async putItemPedido(req, res) {
+        try {
+            const {
+                IDRESUMOPEDIDO,
+                IDDETALHEPEDIDO,
+                IDCOR,
+                IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO,
+                IDLOCALEXPOSICAO,
+                NUREF,
+                DSPRODUTO,
+                QTDTOTAL,
+                NUCAIXA,
+                UND,
+                VRUNITBRUTO,
+                VRUNITLIQUIDO,
+                VRVENDA,
+                VRTOTAL,
+                STECOMMERCE,
+                STREDESOCIAL,
+                IDCATEGORIAS,
+                STPEDIDOPRIMARIO,
+                DETALHEGRADE
+            } = req.body
+            
+            if(!IDRESUMOPEDIDO) {
+                return res.status(400).json({ error: "IDRESUMOPEDIDO é obrigatório" });
+            }
+            
+            const response = await axios.put(`${url}/api/cadastro/editar-item-pedido.xsjs`, [{
+                IDRESUMOPEDIDO,
+                IDDETALHEPEDIDO,
+                IDCOR,
+                IDCATEGORIAPEDIDO,
+                IDTIPOTECIDO,
+                IDLOCALEXPOSICAO,
+                NUREF,
+                DSPRODUTO,
+                QTDTOTAL,
+                NUCAIXA,
+                UND,
+                VRUNITBRUTO,
+                VRUNITLIQUIDO,
+                VRVENDA,
+                VRTOTAL,
+                STECOMMERCE,
+                STREDESOCIAL,
+                IDCATEGORIAS,
+                STPEDIDOPRIMARIO,
+                DETALHEGRADE
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putStatusProdutoAvulso:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
     async putStatusProdutoAvulso(req, res) {
         try {
             const {
@@ -379,6 +496,57 @@ class CadastroControllers  {
         }
        
     }
+   
+    async putAtualizarPedidoSap(req, res) {
+        try {
+            const {  IDRESUMOPEDIDO } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/atualizar-linhas-pedido-sap.xsjs`, [{
+                IDRESUMOPEDIDO,
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putAtualizarPedidoSap:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+   
+    async putRemoverItemReferenciaPedido(req, res) {
+        try {
+            const { error, value } = await removeItemReferenciaPedidoSchema.validate(req.body, {
+                abortEarly: false, 
+                stripUnknown: true,
+            });
+            
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });  
+            }
+
+
+            const response = await cadastroService.updateRemoverItemReferenciaPedido(
+                value.IDRESUMOPEDIDO,
+                value.IDDETALHEPEDIDO,
+                value.STCANCELADO,
+                value.IDRESPCANCELAMENTO,
+                value.TXTOBSCANCELAMENTO,
+                value.STPEDIDOPRIMARIO
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.putRemoverItemReferenciaPedido:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
 
     async postVincularNFPedido(req, res) {
         try {
@@ -434,7 +602,23 @@ class CadastroControllers  {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("Erro no CadastroControllers.postFinalizarCadastro:", error);
+            console.error("Erro no CadastroControllers.postValidarPedidoParaAjusteCompras:", error);
+            return res.status(500).json({ error: error.message });
+        }
+       
+    }
+
+    async postIncluirProdutosPDV(req, res) {
+        try {
+            const { IDRESUMOPEDIDO } =  req.body; 
+
+            const response = await axios.post(`${url}/api/cadastro/incluir_todos_produtos_pdv.xsjs`, [{
+                IDRESUMOPEDIDO
+            }]);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no CadastroControllers.postIncluirProdutosPDV:", error);
             return res.status(500).json({ error: error.message });
         }
        

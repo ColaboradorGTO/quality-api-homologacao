@@ -2010,9 +2010,9 @@ class ComprasControllers {
 
           
             const response = await comprasService.updateAndamentoPedido(
-                IDRESUMOPEDIDO,
-                IDANDAMENTO,
-                TXTOBSDEVPEDIDO
+                value.IDRESUMOPEDIDO,
+                value.IDANDAMENTO,
+                value.TXTOBSDEVPEDIDO
             );
      
           

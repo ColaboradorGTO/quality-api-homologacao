@@ -42,6 +42,26 @@ export class CadastroClient {
         return response.data;
     }
   
+    async atualizarRemoverItemReferenciaPedido(
+        IDRESUMOPEDIDO,
+        IDDETALHEPEDIDO,
+        STCANCELADO,
+        IDRESPCANCELAMENTO,
+        TXTOBSCANCELAMENTO,
+        STPEDIDOPRIMARIO
+    ) {
+        const response = await this.api.put(`${url}/api/cadastro/remover-item-referencia-pedido.xsjs`, [{       
+            IDRESUMOPEDIDO,
+            IDDETALHEPEDIDO,
+            STCANCELADO,
+            IDRESPCANCELAMENTO,
+            TXTOBSCANCELAMENTO,
+            STPEDIDOPRIMARIO
+    }]);
+      
+        return response.data;
+    }
+  
     async criarVinculoNFPedido(
         IDRESUMOPEDIDO,
         IDRESUMOENTRADA
@@ -55,4 +75,3 @@ export class CadastroClient {
     }
 
 }
-

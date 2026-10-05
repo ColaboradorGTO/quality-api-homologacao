@@ -123,6 +123,38 @@ class ServiceLayerControllers {
             return res.status(400).json({ error: error.message });
         }
     }
+    
+    async postMigrarProdutoSAP(req, res) {
+        try {
+          
+            let { IDRESUMOPEDIDO } = req.body;
+   
+            const response = await axios.post(`${url}/api/service-layer/pedido-compra/por-codigo/incluir-atualizar/produtos.xsjs`, [{
+                IDRESUMOPEDIDO
+            }])
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Erro no ServiceLayerControllers.postMigrarProdutoSAP:", error);
+            return res.status(400).json({ error: error.message });
+        }
+    }
+   
+    async postMigrarPedidoSAP(req, res) {
+        try {
+          
+            let { IDRESUMOPEDIDO } = req.body;
+   
+            const response = await axios.post(`${url}/api/service-layer/pedido-compra/por-codigo/pedido-compra.xsjs`, [{
+                IDRESUMOPEDIDO
+            }])
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("Erro no ServiceLayerControllers.postMigrarPedidoSAP:", error);
+            return res.status(400).json({ error: error.message });
+        }
+    }
 }
 
 export default new ServiceLayerControllers();
