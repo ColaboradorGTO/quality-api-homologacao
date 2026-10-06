@@ -28,6 +28,11 @@ const atualizarResumoVoucherSchema = Joi.object({
         "any.required": "O campo STSTATUS é obrigatório",
     }),
 
+    STTIPOTROCA: Joi.string().messages({
+        "number.base": "STTIPOTROCA deve ser uma string",
+        "any.required": "O campo STTIPOTROCA é obrigatório",
+    }),
+
     IDVOUCHER: Joi.number().messages({
         "number.base": "IDVOUCHER deve ser um número",
         "any.required": "O campo IDVOUCHER é obrigatório",

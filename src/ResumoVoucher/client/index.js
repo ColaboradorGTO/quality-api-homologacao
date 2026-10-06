@@ -78,7 +78,7 @@ export class ResumoVoucherClient {
         return response.data;
     }
 
-    async criarAuthAutorizarExecaoVenda({ 
+    async criarAuthAutorizarExecaoVenda({
         MATRICULA,
         SENHA,
     }) {
@@ -94,36 +94,30 @@ export class ResumoVoucherClient {
         IDGRUPOEMPRESARIAL,
         IDEMPRESAORIGEM,
         IDCAIXAORIGEM,
-        IDNFEDEVOLUCAO,
         IDUSRINVOUCHER,
         IDVENDEDOR,
         IDCLIENTE,
         NUCPF,
-        VRVOUCHER,
         IDRESUMOVENDAWEB,
         STTIPOTROCA,
         MOTIVOTROCA,
         IDUSRLIBERACAOCRIACAO,
-        detVoucher,
-        produtosVoucher,
+        DETALHEVOUCHER
     }) {
 
         const response = await this.api.post(`${url}/api/resumo-voucher/todos-web.xsjs`, [{
             IDGRUPOEMPRESARIAL,
             IDEMPRESAORIGEM,
             IDCAIXAORIGEM,
-            IDNFEDEVOLUCAO,
             IDUSRINVOUCHER,
             IDVENDEDOR,
             IDCLIENTE,
             NUCPF,
-            VRVOUCHER,
             IDRESUMOVENDAWEB,
             STTIPOTROCA,
             MOTIVOTROCA,
             IDUSRLIBERACAOCRIACAO,
-            detVoucher,
-            produtosVoucher,
+            DETALHEVOUCHER
         }]);
         return response.data;
     }
