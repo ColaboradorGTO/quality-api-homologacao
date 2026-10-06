@@ -523,7 +523,7 @@ class AdmVendasControllers {
 
         try {
 
-             const apiUrl = `${url}/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
+            const apiUrl = `${url}/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
             //const apiUrl = `http://164.152.245.77:8000/quality/concentrador_homologacao/api/venda/lista-venda-cliente.xsjs?id=${idVenda}&dtInicio=${dataPesquisaInicio}&dtFim=${dataPesquisaFim}&idSubgrupoEmpresarial=${idSubGrupoEmpresarial}&idEmpresa=${idEmpresa}&cpfouIdVenda=${cpfOUidVenda}&nnf=${nnf}&serie=${serie}&pageSize=${pageSize}&page=${page}`;
             const response = await axios.get(apiUrl)
 
@@ -534,6 +534,26 @@ class AdmVendasControllers {
         }
 
     }
+
+    async getListaProdutosVenda(req, res) {
+        let { idProduto, page, pageSize } = req.query;
+        idProduto = idProduto ? idProduto : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/resumo-voucher/lista-produtos-venda.xsjs?id=${idProduto}&pageSize=${pageSize}&page=${page}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Error no AdmVendasControllers.getListaProdutosVenda:", error);
+            throw error;
+        }
+
+    }
+
 
     async putAlterarVendasPagamento(req, res) {
         try {

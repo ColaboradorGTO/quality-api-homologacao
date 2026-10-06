@@ -10,6 +10,20 @@ const detalheVoucherSchema = Joi.object({
             "string.empty": "O campo IDPRODUTO é obrigatório"
         }),
 
+    IDVENDA: Joi.string().trim().required()
+        .messages({
+            "any.required": "O campo IDVENDA é obrigatório",
+            "string.base": "O campo IDVENDA deve ser uma string",
+            "string.empty": "O campo IDVENDA é obrigatório"
+        }),
+
+    IDVENDADETALHE: Joi.string().trim().required()
+        .messages({
+            "any.required": "O campo IDVENDADETALHE é obrigatório",
+            "string.base": "O campo IDVENDADETALHE deve ser uma string",
+            "string.empty": "O campo IDVENDADETALHE é obrigatório"
+        }),
+
     QTD: Joi.number().positive().required()
         .messages({
             "any.required": "O campo QTD é obrigatório",
@@ -21,42 +35,10 @@ const detalheVoucherSchema = Joi.object({
         "any.required": "O campo VRUNIT é obrigatório",
         "number.base": "O campo VRUNIT deve ser um número",
         "number.min": "O campo VRUNIT não pode ser negativo"
-    }),
-
-    VRTOTALBRUTO: valorMonetario.messages({
-        "any.required": "O campo VRTOTALBRUTO é obrigatório",
-        "number.base": "O campo VRTOTALBRUTO deve ser um número",
-        "number.min": "O campo VRTOTALBRUTO não pode ser negativo"
-    }),
-
-    VRDESCONTO: valorMonetario.messages({
-        "any.required": "O campo VRDESCONTO é obrigatório",
-        "number.base": "O campo VRDESCONTO deve ser um número",
-        "number.min": "O campo VRDESCONTO não pode ser negativo"
-    }),
-
-    VRTOTALLIQUIDO: valorMonetario.messages({
-        "any.required": "O campo VRTOTALLIQUIDO é obrigatório",
-        "number.base": "O campo VRTOTALLIQUIDO deve ser um número",
-        "number.min": "O campo VRTOTALLIQUIDO não pode ser negativo"
-    }),
-
-    STATIVO: Joi.string().valid('True', 'False').required()
-        .messages({
-            "any.required": "O campo STATIVO é obrigatório",
-            "string.base": "O campo STATIVO deve ser uma string",
-            "any.only": "O campo STATIVO deve ser True ou False"
-        }),
-
-    STCANCELADO: Joi.string().valid('True', 'False').required()
-        .messages({
-            "any.required": "O campo STCANCELADO é obrigatório",
-            "string.base": "O campo STCANCELADO deve ser uma string",
-            "any.only": "O campo STCANCELADO deve ser True ou False"
-        })
+    })
 });
 
-const produtoVoucherSchema = Joi.object({
+/* const produtoVoucherSchema = Joi.object({
     IDVENDADETALHE: Joi.string().trim().required()
         .messages({
             "any.required": "O campo IDVENDADETALHE é obrigatório",
@@ -95,7 +77,7 @@ const produtoVoucherSchema = Joi.object({
         "number.base": "O campo VRTOTALLIQUIDO deve ser um número",
         "number.min": "O campo VRTOTALLIQUIDO não pode ser negativo"
     })
-});
+}); */
 
 const criarResumoVoucherSchema = Joi.object({
     IDGRUPOEMPRESARIAL: Joi.number().integer().positive().required()
@@ -122,14 +104,6 @@ const criarResumoVoucherSchema = Joi.object({
             "number.positive": "O campo IDCAIXAORIGEM deve ser maior que zero"
         }),
 
-    IDNFEDEVOLUCAO: Joi.number().integer().min(0).required()
-        .messages({
-            "any.required": "O campo IDNFEDEVOLUCAO é obrigatório",
-            "number.base": "O campo IDNFEDEVOLUCAO deve ser um número",
-            "number.integer": "O campo IDNFEDEVOLUCAO deve ser um número inteiro",
-            "number.min": "O campo IDNFEDEVOLUCAO não pode ser negativo"
-        }),
-
     IDUSRINVOUCHER: Joi.number().integer().positive().required()
         .messages({
             "any.required": "O campo IDUSRINVOUCHER é obrigatório",
@@ -154,12 +128,13 @@ const criarResumoVoucherSchema = Joi.object({
             "number.positive": "O campo IDCLIENTE deve ser maior que zero"
         }),
 
-    NUCPF: Joi.string().trim().pattern(/^\d{11}$/).required()
+    NUCPF: Joi.string().trim().max(14).min(11).required()
         .messages({
             "any.required": "O campo NUCPF é obrigatório",
             "string.base": "O campo NUCPF deve ser uma string",
             "string.empty": "O campo NUCPF é obrigatório",
-            "string.pattern.base": "O campo NUCPF deve conter 11 dígitos"
+            "string.max": "O campo NUCPF deve ter no.maxcdn 14 caracteres",
+            "string.min": "O campo NUCPF deve ter no.minimo 11 caracteres"
         }),
 
     VRVOUCHER: Joi.number().positive().required()
@@ -196,19 +171,19 @@ const criarResumoVoucherSchema = Joi.object({
             "number.positive": "O campo IDUSRLIBERACAOCRIACAO deve ser maior que zero"
         }),
 
-    detVoucher: Joi.array().items(detalheVoucherSchema).min(1).required()
+    DETALHEVOUCHER: Joi.array().items(detalheVoucherSchema).min(1).required()
         .messages({
             "any.required": "O campo detVoucher é obrigatório",
             "array.base": "O campo detVoucher deve ser um array",
             "array.min": "O campo detVoucher deve possuir pelo menos um produto"
         }),
 
-    produtosVoucher: Joi.array().items(produtoVoucherSchema).min(1).required()
-        .messages({
-            "any.required": "O campo produtosVoucher é obrigatório",
-            "array.base": "O campo produtosVoucher deve ser um array",
-            "array.min": "O campo produtosVoucher deve possuir pelo menos um produto"
-        })
+    /*     produtosVoucher: Joi.array().items(produtoVoucherSchema).min(1).required()
+            .messages({
+                "any.required": "O campo produtosVoucher é obrigatório",
+                "array.base": "O campo produtosVoucher deve ser um array",
+                "array.min": "O campo produtosVoucher deve possuir pelo menos um produto"
+            }) */
 });
 
 export default criarResumoVoucherSchema;
