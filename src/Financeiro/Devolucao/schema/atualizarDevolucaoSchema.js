@@ -8,10 +8,15 @@ const atualizarDevolucaoSchema = Joi.object({
         'string.max': 'Descrição do motivo de devolução deve ter no máximo 500 caracteres',
         'any.required': 'Descrição do motivo de devolução é um campo obrigatório'
     }),
-    STATIVO: Joi.string().valid('True', 'False').required()
+/*     STATIVO: Joi.string().valid('True', 'False').required()
     .messages({
         'string.base': 'Status deve ser um texto',
         'any.only': 'Status deve ser True ou False',
+        'any.required': 'Status é um campo obrigatório'
+    }), */
+        STATIVO: Joi.string().required()
+    .messages({
+        'string.base': 'Status deve ser um texto',
         'any.required': 'Status é um campo obrigatório'
     }),
     IDUSUARIO: Joi.number().integer().positive().required()
