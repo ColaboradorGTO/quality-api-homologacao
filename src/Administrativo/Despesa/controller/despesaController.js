@@ -1,6 +1,5 @@
 import axios from "axios";
 import 'dotenv/config';
-import { dataFormatada } from "../../../utils/dataFormatada.js";
 import { DespesaClient } from "../client/despesaClient.js";
 import { DespesaService } from "../service/despesaService.js";
 
@@ -16,7 +15,7 @@ class DespesasControllersADM {
         if (!isNaN(idEmpresa)) {
             idEmpresa = Number(idEmpresa) ? Number(idEmpresa) : '';
             pageSize = pageSize ? pageSize : '';
-            dataPesquisa = dataFormatada(dataPesquisa) ? dataPesquisa : '';
+            dataPesquisa = dataPesquisa ? dataPesquisa : '';
 
             try {
                 const apiUrl = `${url}/api/administrativo/despesa-loja.xsjs?idEmpresa=${idEmpresa}&dataPesquisa=${dataPesquisa}`;
@@ -32,15 +31,14 @@ class DespesasControllersADM {
 
     async getDetalheDespesas(req, res) {
 
-        let { idEmpresa, pageNumber, datapesq } = req.query;
+        let { idEmpresa, pageSize,  dataPesquisa } = req.query;
         if (!isNaN(idEmpresa)) {
-            idEmpresa = Number(idEmpresa);
-            const pageSize = 100;
-            const offset = (pageNumber - 1) * pageSize;
-            datapesq = dataFormatada(datapesq)
+            idEmpresa = idEmpresa ? Number(idEmpresa) : '';
+            dataPesquisa = dataPesquisa ? dataPesquisa : '';
+            pageSize = pageSize ? pageSize : '';
 
             try {
-                const apiUrl = `${url}/api/administrativo/detalhe-despesa.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataPesquisa=${datapesq}`
+                const apiUrl = `${url}/api/administrativo/detalhe-despesa.xsjs?pagesize=${pageSize}&idEmpresa=${idEmpresa}&dataPesquisa=${dataPesquisa}`
                 const response = await axios.get(apiUrl)
 
                 return res.json(response.data);

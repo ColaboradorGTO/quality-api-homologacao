@@ -12,6 +12,7 @@ export class DespesasServices {
         NUNOTAFISCAL,
         IDUSRCACELAMENTO,
         DSMOTIVOCANCELAMENTO,
+        DTDESPESA,
         IDDESPESASLOJA
 
     ) {
@@ -33,6 +34,7 @@ export class DespesasServices {
             NUNOTAFISCAL,
             IDUSRCACELAMENTO,
             DSMOTIVOCANCELAMENTO,
+            DTDESPESA,
             IDDESPESASLOJA
 
         )

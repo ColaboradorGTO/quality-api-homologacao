@@ -26,16 +26,15 @@ class ServiceLayerControllers {
         
         try {
 
-            let {IDDEPOSITOLOJA} = req.body;
+            let { IDDEPOSITOLOJA } = req.body;
 
-            if (Array.isArray(req.body) && req.body.length > 0) {
-                IDDEPOSITOLOJA = req.body[0].IDDEPOSITOLOJA;
-            } else {
-                IDDEPOSITOLOJA = req.body.IDDEPOSITOLOJA;
-            }
+     
             
-            const message = await depositoService.integrarDeposito([{ IDDEPOSITOLOJA }]);
-            res.status(200).json({ message });
+            const response = await axios.post(`${url}/api/service-layer/deposito/jobs/depositos-integracao.xsjs?`, [{
+                IDDEPOSITOLOJA
+            }])
+          
+            res.status(200).json(response.data);
         } catch (error) {
             console.error('Erro ao integrar depósito no SAP:', error);
             res.status(500).json({ message: 'Erro ao integrar depósito no SAP.' });

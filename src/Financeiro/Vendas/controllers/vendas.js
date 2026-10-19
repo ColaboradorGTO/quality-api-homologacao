@@ -271,19 +271,21 @@ class FinanceiroVendasControllers {
   }
 
   async getListaVendasMarca(req, res) {
-    let { idMarca, dataPesquisaInicio, dataPesquisaFim, idEmpresa, page, pageSize } = req.query;
+    let { idMarca, dataPesquisaInicio, dataPesquisaFim, idEmpresa, idLojaPesquisa, page, pageSize } = req.query;
 
     idMarca = idMarca ? idMarca : '';
     idEmpresa = idEmpresa ? idEmpresa : '';
+    idLojaPesquisa = idLojaPesquisa ? idLojaPesquisa : '';
     dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
     dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
     page = page ? page : '';
     pageSize = pageSize ? pageSize : '';
 
     try {
-      const apiUrl = `${url}/api/financeiro/venda-marca-periodo.xsjs?pageSize=1000&idMarca=${idMarca}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}`
+      const apiUrl = `${url}/api/financeiro/venda-marca-periodo.xsjs?idMarca=${idMarca}&idLoja=${idEmpresa}&idLojasPesq=${idLojaPesquisa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
       const response = await axios.get(apiUrl)
-
+     
+     
       return res.json(response.data);
     } catch (error) {
       console.error("Unable to connect to the database:", error);

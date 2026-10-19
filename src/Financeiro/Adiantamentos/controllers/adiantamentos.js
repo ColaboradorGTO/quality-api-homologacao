@@ -34,7 +34,7 @@ class AdiantamentosControllers {
     }
   }
 
-  async getListaCaixasMovmentoFinanceiro(req, res) {
+  async getListaCaixasMovmentoFinanceiroAdiantamento(req, res) {
     let { idMarca, dataPesquisaInicio, dataPesquisaFim, idLoja, idLojaPesquisa, page, pageSize } = req.query;
 
     idMarca = idMarca ? idMarca : '';

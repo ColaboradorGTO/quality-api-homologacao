@@ -98,6 +98,77 @@ class MetasControllers {
 
     }
 
+    async getListaMetasVendasLojas(req, res) {
+        let { idEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/lista-meta-vendas-lojas.xsjs?idEmpresa=${idEmpresa}&dataInicio=${dataPesquisaInicio}&dataFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaDetalheMetasLojas(req, res) {
+        let { idEmpresa, idMetaEmpresa, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idMetaEmpresa = idMetaEmpresa ? idMetaEmpresa : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/detalhe-meta-lojas.xsjs?idEmpresa=${idEmpresa}&idMetaEmpresa=${idMetaEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaDetalheMetasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaMetasColaborador(req, res) {
+        let { idEmpresa, idMetaLoja, idMetaColab, idFuncao, noSecaoMetaLoja, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idMetaLoja = idMetaLoja ? idMetaLoja : '';
+        idMetaColab = idMetaColab ? idMetaColab : '';
+        idFuncao = idFuncao ? idFuncao : '';
+        noSecaoMetaLoja = noSecaoMetaLoja ? noSecaoMetaLoja : '';
+        dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+        dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/cadastrar-metas-colaborador.xsjs?idEmp=${idEmpresa}&idMetaLoja=${idMetaLoja}&idMetaColab=${idMetaColab}&idFunc=${idFuncao}&noSecaoMetaLoja=${noSecaoMetaLoja}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
     async putDeleteMeta(req, res) {
         try {
             let {
@@ -121,6 +192,31 @@ class MetasControllers {
             return res.json(response.data);
         } catch(error) {
             console.error("Erro no ComercialControllers.putDeleteMeta:", error);
+            throw error;
+        }
+    }
+    
+    async putDeleteMetaColaborador(req, res) {
+        try {
+            let {
+                IDMETASLOJA,
+                IDMETASCOLABORADOR,
+                DSMOTIVOCANCELAMENTO,
+                NOSECAO,
+                STATIVO,
+            } = req.body
+
+            const response = await axios.put(`${url}/api/comercial/del-metas-colaborador.xsjs`, {
+                IDMETASLOJA,
+                IDMETASCOLABORADOR,
+                DSMOTIVOCANCELAMENTO,
+                NOSECAO,
+                STATIVO,
+            })
+            
+            return res.json(response.data);
+        } catch(error) {
+            console.error("Erro no ComercialControllers.putDeleteMetaColaborador:", error);
             throw error;
         }
     }

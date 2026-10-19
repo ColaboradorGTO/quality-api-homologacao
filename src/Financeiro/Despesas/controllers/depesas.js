@@ -53,7 +53,6 @@ class DespesasControllers {
       }
 
       const response = await despesasServices.updateDespesasLoja(
-
         value.IDCATEGORIARECEITADESPESA,
         value.VRDESPESA,
         value.DSPAGOA,
@@ -62,6 +61,7 @@ class DespesasControllers {
         value.NUNOTAFISCAL,
         value.IDUSRCACELAMENTO,
         value.DSMOTIVOCANCELAMENTO,
+        value.DTDESPESA,
         value.IDDESPESASLOJA,
 
       );

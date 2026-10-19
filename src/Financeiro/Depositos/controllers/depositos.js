@@ -16,20 +16,20 @@ class DepositosControllers {
     pageSize = pageSize ? pageSize : '';
     page = page ? page : '';
     idConta = idConta ? idConta : '';
-    dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
-    dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
-    dataCompInicio = dataFormatada(dataCompInicio) ? dataFormatada(dataCompInicio) : '';
-    dataCompFim = dataFormatada(dataCompFim) ? dataFormatada(dataCompFim) : '';
-    dataMovInicio = dataFormatada(dataMovInicio) ? dataFormatada(dataMovInicio) : '';
-    dataMovFim = dataFormatada(dataMovFim) ? dataFormatada(dataMovFim) : '';
-    dataCompensacaoInicio = dataFormatada(dataCompensacaoInicio) ? dataFormatada(dataCompensacaoInicio) : '';
-    dataCompensacaoFim = dataFormatada(dataCompensacaoFim) ? dataFormatada(dataCompensacaoFim) : '';
-    dataMovimentoFim = dataFormatada(dataMovimentoFim) ? dataFormatada(dataMovimentoFim) : '';
+    dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
+    dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
+    dataCompInicio = dataCompInicio ? dataCompInicio : '';
+    dataCompFim = dataCompFim ? dataCompFim : '';
+    dataMovInicio = dataMovInicio ? dataMovInicio : '';
+    dataMovFim = dataMovFim ? dataMovFim : '';
+    dataCompensacaoInicio = dataCompensacaoInicio ? dataCompensacaoInicio : '';
+    dataCompensacaoFim = dataCompensacaoFim ? dataCompensacaoFim : '';
+    dataMovimentoFim = dataMovimentoFim ? dataMovimentoFim : '';
 
     try {
-      const apiUrl = `${url}/api/financeiro/deposito-loja.xsjs?page=1&idDaConta=${idConta}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&dataCompInicio=${dataCompensacaoInicio}&dataCompFim=${dataCompensacaoFim}&dataMovInicio=${dataMovimentoInicio}&dataMovFim=${dataMovimentoFim}`
+      const apiUrl = `${url}/api/financeiro/deposito-loja.xsjs?idConta=${idConta}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&dataCompInicio=${dataCompensacaoInicio}&dataCompFim=${dataCompensacaoFim}&dataMovInicio=${dataMovimentoInicio}&dataMovFim=${dataMovimentoFim}&page=${page}&pageSize=${pageSize}`
       const response = await axios.get(apiUrl);
-
+     
       return res.json(response.data);
     } catch (error) {
       console.error("Unable to connect to the database:", error);

@@ -577,7 +577,7 @@ routes.get('/desconto-vendas-simplificado', DescontoControllers.getListaDesconto
 
 //  Adiantamentos 
 routes.get('/adiantamento-salarial', AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro)
-routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiro)
+routes.get('/listaCaixasMovimentoFinanceiro', AdiantamentosControllers.getListaCaixasMovmentoFinanceiroAdiantamento)
 routes.get('/lista-adiantamento-departamento', AdiantamentosControllers.getListaAdiantamentoDepartamentos)
 routes.get('/download-anexo-adiantamento', AdiantamentosControllers.getDownloadAnexoAdiantamento)
 routes.get('/pagamento-adiantamento', AdiantamentosControllers.getListaPagamentoAdiantamento)
@@ -848,8 +848,12 @@ routes.get('/listaMetaVendas', MetasControllers.getListaMetasGrupo)
 routes.get('/meta-vendas', MetasControllers.getListaMetasVendas)
 routes.get('/meta-vendas-resumida', MetasControllers.getListaMetasVendasResumida)
 routes.get('/meta-vendas-estrutura', MetasControllers.getListaMetasVendasEstrutura)
+routes.get('/meta-vendas-lojas', MetasControllers.getListaMetasVendasLojas)
+routes.get('/metas-colaborador', MetasControllers.getListaMetasColaborador)
+routes.get('/detalhe-metas-loja', MetasControllers.getListaDetalheMetasLojas)
 
 routes.put('/delete-meta/:id', MetasControllers.putDeleteMeta)
+routes.put('/delete-meta-colaborador/:id', MetasControllers.putDeleteMetaColaborador)
 routes.post('/cadastrar-metas-lojas', MetasControllers.postCadastrarMetasLoja)
 
 routes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)

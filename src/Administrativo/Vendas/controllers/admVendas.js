@@ -55,7 +55,7 @@ class AdmVendasControllers {
 
             const apiUrl = `${url}/api/administrativo/venda-total-recebido-periodo.xsjs?pageSize=${pageSize}&page=${page}&idEmpresa=${idEmpresa}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&idFunc=${idFuncionario}&dSFormaPag=${dsFormaPagamento}&dSParc=${dsParcela}&idEmpGrupo=${idMarca}`;
             const response = await axios.get(apiUrl)
-
+            
             return res.json(response.data); // Retorna
         } catch (error) {
             console.error("Unable to connect to the database:", error);
