@@ -409,18 +409,16 @@ class ResumoVoucherControllers {
                 IDGRUPOEMPRESARIAL: value.IDGRUPOEMPRESARIAL,
                 IDEMPRESAORIGEM: value.IDEMPRESAORIGEM,
                 IDCAIXAORIGEM: value.IDCAIXAORIGEM,
-                IDNFEDEVOLUCAO: value.IDNFEDEVOLUCAO,
                 IDUSRINVOUCHER: value.IDUSRINVOUCHER,
                 IDVENDEDOR: value.IDVENDEDOR,
                 IDCLIENTE: value.IDCLIENTE,
                 NUCPF: value.NUCPF,
-                VRVOUCHER: value.VRVOUCHER,
                 IDRESUMOVENDAWEB: value.IDRESUMOVENDAWEB,
                 STTIPOTROCA: value.STTIPOTROCA,
                 MOTIVOTROCA: value.MOTIVOTROCA,
                 IDUSRLIBERACAOCRIACAO: value.IDUSRLIBERACAOCRIACAO,
-                detVoucher: value.detVoucher,
-                produtosVoucher: value.produtosVoucher
+                DETALHEVOUCHER: value.DETALHEVOUCHER,
+               
 
             });
 

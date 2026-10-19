@@ -150,7 +150,7 @@ export class ResumoVoucherService {
         const result = await this.client.criarAuthAutorizarExecaoVenda({
             MATRICULA,
             SENHA,
-    })
+        })
         return result;
     }
 
@@ -158,18 +158,15 @@ export class ResumoVoucherService {
         IDGRUPOEMPRESARIAL,
         IDEMPRESAORIGEM,
         IDCAIXAORIGEM,
-        IDNFEDEVOLUCAO,
         IDUSRINVOUCHER,
         IDVENDEDOR,
         IDCLIENTE,
         NUCPF,
-        VRVOUCHER,
         IDRESUMOVENDAWEB,
         STTIPOTROCA,
         MOTIVOTROCA,
         IDUSRLIBERACAOCRIACAO,
-        detVoucher,
-        produtosVoucher,
+        DETALHEVOUCHER
     }) {
         if (!IDGRUPOEMPRESARIAL) {
             throw new Error("IDGRUPOEMPRESARIAL is required, services");
@@ -183,18 +180,15 @@ export class ResumoVoucherService {
             IDGRUPOEMPRESARIAL,
             IDEMPRESAORIGEM,
             IDCAIXAORIGEM,
-            IDNFEDEVOLUCAO,
             IDUSRINVOUCHER,
             IDVENDEDOR,
             IDCLIENTE,
             NUCPF,
-            VRVOUCHER,
             IDRESUMOVENDAWEB,
             STTIPOTROCA,
             MOTIVOTROCA,
             IDUSRLIBERACAOCRIACAO,
-            detVoucher,
-            produtosVoucher,
+            DETALHEVOUCHER
         })
         return result;
     }

@@ -11,26 +11,16 @@ export class VendasClient {
     }
 
     async atualizarVendaPixStatusConferido(
-        DSHISTORIO,
-        VRDEBITO,
-        VRCREDITO,
-        IDOPERADOR,
-        DATACADASTRO,
-        STATIVO,
-        STCANCELADO,
-        IDAJUSTEEXTRATO,
+        STCONFERIDO,
+        DATA_COMPENSACAO,
+        IDVENDA,
 
     ) {
 
         const response = await this.api.put(`${url}/api/financeiro/venda-pix-periodo-status-conferido.xsjs`, [{
-            DSHISTORIO,
-            VRDEBITO,
-            VRCREDITO,
-            IDOPERADOR,
-            DATACADASTRO,
-            STATIVO,
-            STCANCELADO,
-            IDAJUSTEEXTRATO,
+            STCONFERIDO,
+            DATA_COMPENSACAO,
+            IDVENDA,
         }]);
         return response.data;
     }

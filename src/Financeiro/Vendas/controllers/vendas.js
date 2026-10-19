@@ -201,7 +201,7 @@ class FinanceiroVendasControllers {
       page = page ? page : '';
       pageSize = pageSize ? pageSize : '';
 
-      const apiUrl = `${url}/api/financeiro/venda-pix-periodo.xsjs?pageSize=${pageSize}&idMarca=${idMarca}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&lojas=${idLoja}&empresasList=${empresaLista}&page=${page}`
+      const apiUrl = `${url}/api/financeiro/venda-pix-periodo.xsjs?pageSize=${pageSize}&idMarca=${idMarca}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&dataCompInicio=${dataCompInicio}&dataCompFim=${dataCompFim}&lojas=${idLoja}&empresasList=${empresaLista}&page=${page}`
       const response = await axios.get(apiUrl)
 
       return res.json(response.data);

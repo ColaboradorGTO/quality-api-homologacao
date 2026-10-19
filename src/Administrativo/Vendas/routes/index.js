@@ -5,6 +5,7 @@ import AdmVendasControllers from '../controllers/admVendas.js';
 const admVendasRoutes = new Router();
 
 admVendasRoutes.get('/lista-venda-cliente', AdmVendasControllers.getListaVendaCliente);
+admVendasRoutes.get('/lista-produtos-venda', AdmVendasControllers.getListaProdutosVenda);
 admVendasRoutes.get('/lista-venda/:id', AdmVendasControllers.getListaVendasById)
 admVendasRoutes.get('/alterar-venda-pagamento', AdmVendasControllers.getListaAlterarVendasPagamento);
 admVendasRoutes.get('/venda-ativa', AdmVendasControllers.getListaVendaAtiva);
