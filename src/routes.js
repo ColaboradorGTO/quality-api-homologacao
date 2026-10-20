@@ -356,6 +356,8 @@ routes.put('/confirmar-consolidar-balanco/:id', AdmBalancoControllers.putConfirm
 routes.put('/preparar-primeiro-balanco-loja/:id', AdmBalancoControllers.putListaPrepararPrimeiroBalancoLoja)
 routes.put('/detalhe-balanco/:id', AdmBalancoControllers.putListaDetalheBalanco)
 routes.put('/detalhe-balanco-avulso/:id', AdmBalancoControllers.putListaDetalheBalancoAvulso)
+routes.put('/atualizar-status-balanco/:id', AdmBalancoControllers.putAtualizarStatusBalanco)
+
 routes.post('/criar-detalhe-balanco-avulso', AdmBalancoControllers.postDetalheBalancoAvulso)
 
 //routes.get('/despesasLojaADM', AdministrativoControllers.getListaDespesasLojaADM)

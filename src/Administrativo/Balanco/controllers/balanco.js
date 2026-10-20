@@ -332,6 +332,32 @@ class AdmBalancoControllers {
         }
     }
 
+    async putAtualizarStatusBalanco(req, res) {
+        let {
+            IDRESUMOBALANCO,
+            IDFUNCIONARIOINATIVACAO,
+            DSMOTIVOINATIVACAO,
+            STINATIVO,
+            STATIVO
+        } = req.body;
+
+        try {
+            const response = await axios.put(`${url}/api/administrativo/atualiza-status-inativo-balanco.xsjs`, [{
+                IDRESUMOBALANCO,
+                IDFUNCIONARIOINATIVACAO,
+                DSMOTIVOINATIVACAO,
+                STINATIVO,
+                STATIVO
+            }]);
+
+            
+            return res.status(200).json(response.data);
+        } catch(error) {
+            console.error("Erro no AdmBalancoControllers.atualizarStatusBalanco")
+            throw error;
+        }
+    }
+
     async postDetalheBalancoAvulso(req, res) {
         try {
             const bodyArray = Array.isArray(req.body) ? req.body : [req.body];
