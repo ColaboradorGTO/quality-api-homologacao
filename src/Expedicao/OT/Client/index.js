@@ -11,7 +11,6 @@ export class OTClient {
         });
     }
     async criarOT(
-        IDRESUMOOT,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
         IDOPERADOREXPEDICAO,
@@ -37,13 +36,10 @@ export class OTClient {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
-        CONFEREITENS,
-        IDROTINA,
-        DATAENTREGA,
         dadosdetalheot,
     ) {
-        const response = await this.api.post(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
-            IDRESUMOOT,
+        const response = await this.api.post(`${url}/api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
+
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
             IDOPERADOREXPEDICAO,
@@ -69,11 +65,8 @@ export class OTClient {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
-            CONFEREITENS,
-            IDROTINA,
-            DATAENTREGA,
             dadosdetalheot,
-        });
+        }]);
         return response.data;
     }
 
@@ -110,7 +103,8 @@ export class OTClient {
         dadosdetalheot
     ) {
 
-        const response = await this.api.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, {
+        //const response = await this.api.put(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs`, [{
+        const response = await this.api.put(`${url}/api/conferencia-cega/resumo-ordem-transferencia.xsjs`, [{
             IDRESUMOOT,
             IDPRODUTO,
             IDEMPRESAORIGEM,
@@ -139,7 +133,7 @@ export class OTClient {
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
             dadosdetalheot
-        });
+        }]);
         return response.data;
     }
 

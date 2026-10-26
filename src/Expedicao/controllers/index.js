@@ -34,8 +34,8 @@ class ExpedicaoControllers {
     }
 
     async getListaOrdemTransferencia(req, res,) {
-        let { idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
-
+        let { id, idEmpresaDestino, idEmpresaOrigem, idTipoFiltro, dataPesquisaInicio, dataPesquisaFim, pageSize, page } = req.query;
+        id = id ? id : '';
         idEmpresaDestino = Number(idEmpresaDestino) ? Number(idEmpresaDestino) : Number(idEmpresaDestino);
         idEmpresaOrigem = Number(idEmpresaOrigem) ? Number(idEmpresaOrigem) : Number(idEmpresaOrigem);
         idTipoFiltro = Number(idTipoFiltro) ? Number(idTipoFiltro) : Number(idTipoFiltro)
@@ -46,7 +46,7 @@ class ExpedicaoControllers {
 
         try {
 
-            const apiUrl = `${url}/api/expedicao/resumo-ordem-transferencia.xsjs?idtipofiltro=${Number(idTipoFiltro)}&idEmpresaOrigem=${Number(idEmpresaOrigem)}&idEmpresaDestino=${Number(idEmpresaDestino)}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}`
+            const apiUrl = `${url}/api/expedicao/resumo-ordem-transferencia.xsjs?id=${id}&idtipofiltro=${Number(idTipoFiltro)}&idEmpresaOrigem=${Number(idEmpresaOrigem)}&idEmpresaDestino=${Number(idEmpresaDestino)}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}`
             const response = await axios.get(apiUrl)
 
 
@@ -553,7 +553,8 @@ class ExpedicaoControllers {
             }
 
             const response = await otService.createOT(
-                value.IDRESUMOOT,
+
+
                 value.IDEMPRESAORIGEM,
                 value.IDEMPRESADESTINO,
                 value.IDOPERADOREXPEDICAO,
@@ -579,9 +580,6 @@ class ExpedicaoControllers {
                 value.IDUSRAJUSTE,
                 value.DTAJUSTE,
                 value.QTDTOTALITENSAJUSTE,
-                value.CONFEREITENS,
-                value.IDROTINA,
-                value.DATAENTREGA,
                 value.dadosdetalheot,
             );
 
@@ -600,6 +598,8 @@ class ExpedicaoControllers {
 
         }
     }
+
+
 
     /*     async putProcessar(req, res) {
             try {

@@ -4,7 +4,6 @@ export class OTService {
     }
 
     async createOT(
-        IDRESUMOOT,
         IDEMPRESAORIGEM,
         IDEMPRESADESTINO,
         IDOPERADOREXPEDICAO,
@@ -30,14 +29,10 @@ export class OTService {
         IDUSRAJUSTE,
         DTAJUSTE,
         QTDTOTALITENSAJUSTE,
-        CONFEREITENS,
-        IDROTINA,
-        DATAENTREGA,
         dadosdetalheot,
     ) {
 
         const result = await this.client.criarOT(
-            IDRESUMOOT,
             IDEMPRESAORIGEM,
             IDEMPRESADESTINO,
             IDOPERADOREXPEDICAO,
@@ -63,9 +58,6 @@ export class OTService {
             IDUSRAJUSTE,
             DTAJUSTE,
             QTDTOTALITENSAJUSTE,
-            CONFEREITENS,
-            IDROTINA,
-            DATAENTREGA,
             dadosdetalheot,
         )
         return result;
