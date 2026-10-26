@@ -129,6 +129,10 @@ const criarPerfilUsuarioMenuSchema = Joi.object({
         .messages({
             "string.base": "IDMODULOPROMOCAO deve ser um string"
         }),
+    IDMODULOPROVISAOFINANCEIRA: Joi.string().allow('')
+        .messages({
+            "string.base": "IDMODULOPROVISAOFINANCEIRA deve ser um string"
+        }),
 })
 
 export default criarPerfilUsuarioMenuSchema;
