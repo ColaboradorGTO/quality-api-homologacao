@@ -40,6 +40,7 @@ export class PermissaoClient {
         IDMENU,
         IDMENUFILHO,
         IDMODULOPROMOCAO,
+        IDMODULOPROVISAOFINANCEIRA
     ) {
 
         const response = await this.api.post(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, [{
@@ -73,6 +74,7 @@ export class PermissaoClient {
             IDMENU,
             IDMENUFILHO,
             IDMODULOPROMOCAO,
+            IDMODULOPROVISAOFINANCEIRA
         }]);
         return response.data;
     }
@@ -181,6 +183,7 @@ export class PermissaoClient {
         IDPERMISSAO,
         IDMODULORESUMOVENDAS,
         IDMODULOPROMOCAO,
+        IDMODULOPROVISAOFINANCEIRA,
         ADMINISTRADOR,
         N4,
         N3,
@@ -217,6 +220,7 @@ export class PermissaoClient {
             IDPERMISSAO,
             IDMODULORESUMOVENDAS,
             IDMODULOPROMOCAO,
+            IDMODULOPROVISAOFINANCEIRA,
             ADMINISTRADOR,
             N4,
             N3,

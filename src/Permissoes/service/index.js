@@ -47,7 +47,8 @@ export class PermissaoService {
         N1,
         IDMENU,
         IDMENUFILHO,
-        IDMODULOPROMOCAO
+        IDMODULOPROMOCAO,
+        IDMODULOPROVISAOFINANCEIRA
     ) {
 
         if (!IDUSUARIO)
@@ -87,6 +88,7 @@ export class PermissaoService {
             IDMENU,
             IDMENUFILHO,
             IDMODULOPROMOCAO,
+            IDMODULOPROVISAOFINANCEIRA
         )
 
         return result;
@@ -120,6 +122,7 @@ export class PermissaoService {
         IDPERMISSAO,
         IDMODULORESUMOVENDAS,
         IDMODULOPROMOCAO,
+        IDMODULOPROVISAOFINANCEIRA,
         ADMINISTRADOR,
         N4,
         N3,
@@ -163,6 +166,7 @@ export class PermissaoService {
             IDPERMISSAO,
             IDMODULORESUMOVENDAS,
             IDMODULOPROMOCAO,
+            IDMODULOPROVISAOFINANCEIRA,
             ADMINISTRADOR,
             N4,
             N3,
@@ -171,7 +175,7 @@ export class PermissaoService {
             IDMENU,
             IDMENUFILHO
         )
-        //console.log("RESULT:", result);
+     
 
 
         return result;
