@@ -854,10 +854,17 @@ routes.get('/meta-vendas-estrutura', MetasControllers.getListaMetasVendasEstrutu
 routes.get('/meta-vendas-lojas', MetasControllers.getListaMetasVendasLojas)
 routes.get('/metas-colaborador', MetasControllers.getListaMetasColaborador)
 routes.get('/detalhe-metas-loja', MetasControllers.getListaDetalheMetasLojas)
+routes.get('/meta-secao-calcado', MetasControllers.getListaMetasCalcados)
+routes.get('/meta-secao-cmb', MetasControllers.getListaMetasCMB)
+routes.get('/meta-secao-feminino', MetasControllers.getListaMetasFeminino)
+routes.get('/meta-secao-infantil', MetasControllers.getListaMetasInfantil)
+routes.get('/meta-secao-masculino', MetasControllers.getListaMetasMasculino)
+routes.get('/funcionario-metas', MetasControllers.getListaFuncionarioMetas)
 
 routes.put('/delete-meta/:id', MetasControllers.putDeleteMeta)
 routes.put('/delete-meta-colaborador/:id', MetasControllers.putDeleteMetaColaborador)
 routes.post('/cadastrar-metas-lojas', MetasControllers.postCadastrarMetasLoja)
+routes.post('/cadastrar-metas-colaborador', MetasControllers.postCadastrarMetasColaborador)
 
 routes.get('/listaPremiacoes', PremiacaoControllers.getListaPremiacoesPeriodo)
 routes.get('/lista-premios-gerente', PremiacaoControllers.getListaPremiosGerente)

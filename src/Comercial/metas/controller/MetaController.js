@@ -168,6 +168,126 @@ class MetasControllers {
         }
 
     }
+   
+    async getListaMetasCalcados(req, res) {
+        let { idMeta, page, pageSize } = req.query;
+
+        idMeta = idMeta ? idMeta : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/meta-secao-calcado.xsjs?idmeta=${idMeta}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaMetasCMB(req, res) {
+        let { idMeta, page, pageSize } = req.query;
+
+        idMeta = idMeta ? idMeta : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/meta-secao-cmb.xsjs?idmeta=${idMeta}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaMetasFeminino(req, res) {
+        let { idMeta, page, pageSize } = req.query;
+
+        idMeta = idMeta ? idMeta : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/meta-secao-feminino.xsjs?idmeta=${idMeta}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaMetasInfantil(req, res) {
+        let { idMeta, page, pageSize } = req.query;
+
+        idMeta = idMeta ? idMeta : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/meta-secao-infantil.xsjs?idmeta=${idMeta}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+    async getListaMetasMasculino(req, res) {
+        let { idMeta, page, pageSize } = req.query;
+
+        idMeta = idMeta ? idMeta : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/meta-secao-masculino.xsjs?idmeta=${idMeta}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
+
+    async getListaFuncionarioMetas(req, res) {
+        let { idEmpresa, dsFuncao, status, page, pageSize } = req.query;
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        dsFuncao = dsFuncao ? dsFuncao : '';
+        status = status ? status : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/comercial/funcionario-metas.xsjs?idEmpresa=${idEmpresa}&dsfuncao=${dsFuncao}&stativo=${status}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+           
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ComercialControllers.getListaMetasVendasLojas:", error);
+            throw error;
+        }
+
+    }
 
     async putDeleteMeta(req, res) {
         try {
@@ -246,6 +366,43 @@ class MetasControllers {
             return res.json(response.data);
         } catch(error) {
             console.error("Erro no ComercialControllers.postCadastrarMetasLoja:", error);
+            throw error;
+        }
+    }
+
+    async postCadastrarMetasColaborador(req, res) {
+        let {
+            IDMETASLOJA,
+            DTMETAINICIO,
+            DTMETAFIM,
+            IDEMPRESA,
+            METASDETALHE,
+            NOSECAO,
+            VRMETAVENDAGERAL,
+            PERCMETAVENDAGERAL,
+            VRMETACOLABORADOR,
+            PERCMETACOLABORADOR,
+            STATIVO,
+        } = req.body
+        try {
+
+            const response = await axios.post(`${url}/api/comercial/cadastrar-metas-colaborador.xsjs`, [{
+                IDMETASLOJA,
+                DTMETAINICIO,
+                DTMETAFIM,
+                IDEMPRESA,
+                METASDETALHE,
+                NOSECAO,
+                VRMETAVENDAGERAL,
+                PERCMETAVENDAGERAL,
+                VRMETACOLABORADOR,
+                PERCMETACOLABORADOR,
+                STATIVO,
+            }])
+
+            return res.json(response.data);
+        } catch(error) {
+            console.error("Erro no ComercialControllers.postCadastrarMetasColaborador:", error);
             throw error;
         }
     }
