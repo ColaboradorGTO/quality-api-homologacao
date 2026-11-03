@@ -56,24 +56,24 @@ jobs:
             "41898282+github-actions[bot]@users.noreply.github.com"
 
           # Atualiza a referencia da branch principal de producao.
-          git -C producao fetch origin main
+          git -C producao fetch origin develope
 
           # Busca os commits de homologacao pelo repositorio
           # local ja baixado, sem precisar de outro token.
           git -C producao fetch ../homologacao \
-            main:refs/remotes/homologacao/main
+            develope:refs/remotes/homologacao/develope
 
           # Recria a branch automatica a partir da main
           # atual de producao.
-          git -C producao checkout -B "$SYNC_BRANCH" origin/main
+          git -C producao checkout -B "$SYNC_BRANCH" origin/develope
 
           # Incorpora o historico e as alteracoes de homologacao.
           # Se houver conflitos, a execucao falha sem criar PR.
           git -C producao merge --no-ff --no-edit \
-            refs/remotes/homologacao/main
+            refs/remotes/homologacao/develope
 
           # Evita criar PR quando nao ha diferenca de conteudo.
-          if git -C producao diff --quiet origin/main HEAD; then
+          if git -C producao diff --quiet origin/develope HEAD; then
             echo "Nao ha alteracoes para enviar a producao."
             exit 0
           fi
@@ -93,7 +93,7 @@ jobs:
 
           PR_URL=$(gh pr list \
             --repo "$PRODUCTION_REPO" \
-            --base main \
+            --base develope \
             --head "$SYNC_BRANCH" \
             --state open \
             --json url \
@@ -104,7 +104,7 @@ jobs:
           else
             gh pr create \
               --repo "$PRODUCTION_REPO" \
-              --base main \
+              --base develope \
               --head "$SYNC_BRANCH" \
               --title "Sincronizacao: homologacao para producao" \
               --body "PR criado automaticamente apos merge em homologacao.
