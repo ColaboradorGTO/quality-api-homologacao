@@ -144,7 +144,7 @@ class ExpedicaoControllers {
         dataFimFatura = dataFimFatura ? dataFimFatura : '';
         idStatusOt = idStatusOt ? idStatusOt : '';
         try {
-            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=1&idEmpresaOrigem=${idLojaOrigem}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idstatusot=${idStatusOt}&dtinifat=${dataInicioFatura}&dtfimfat=${dataFimFatura}`)
+            
             const response = await axios.get(`${url}/api/expedicao/resumo-ordem-transferencia.xsjs?page=1&idtipofiltro=1&idEmpresaOrigem=${idLojaOrigem}&idEmpresaDestino=${idLojaDestino}&datapesqinicio=${dataPesquisaInicio}&datapesqfim=${dataPesquisaFim}&idstatusot=${idStatusOt}&dtinifat=${dataInicioFatura}&dtfimfat=${dataFimFatura}`)
 
             return res.json(response.data);
@@ -161,8 +161,6 @@ class ExpedicaoControllers {
         idTipoFiltro = idTipoFiltro ? idTipoFiltro : '';
         dataPesquisaInicio = dataFormatada(dataPesquisaInicio) ? dataFormatada(dataPesquisaInicio) : '';
         dataPesquisaFim = dataFormatada(dataPesquisaFim) ? dataFormatada(dataPesquisaFim) : '';
-        // dataInicioEntrega = dataInicioEntrega ? dataInicioEntrega : '';
-        // dataFimEntrega = dataFimEntrega ? dataFimEntrega : '';
         idRotina = idRotina ? idRotina : '';
         pageSize = pageSize ? pageSize : '';
         page = page ? page : '';
@@ -214,8 +212,7 @@ class ExpedicaoControllers {
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/impressao-etiqueta-ot.xsjs?id=${idResumoOT}&stAtivo=${stAtivo}&pageSize=${pageSize}&page=${page}`)
-            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador/api/expedicao/impressao-etiqueta-ot.xsjs?id=${idResumoOT}&stAtivo=${stAtivo}&pageSize=${pageSize}&page=${page}`)
-
+           
             return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database:", error);
@@ -232,8 +229,7 @@ class ExpedicaoControllers {
         pageSize = pageSize ? pageSize : '';
         try {
             const response = await axios.get(`${url}/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
-            //const response = await axios.get(`http://164.152.245.77:8000/quality/concentrador_homologacao/api/expedicao/impressao-entrega.xsjs?id=${idResumoOT}&pageSize=${pageSize}&page=${page}`)
-
+          
             return res.json(response.data);
         } catch (error) {
             console.error("Unable to connect to the database getListaImpressaoEntrega:", error);
@@ -302,7 +298,7 @@ class ExpedicaoControllers {
                 IDRESUMOOT
             })
 
-            return res.status(200).json({ message: 'Ordem de transferência atualizada com sucesso!' });
+            return res.status(200).json(response.data);
         } catch (error) {
             console.log('Erro ao atualizar ordem de transferência:', error);
             throw error;

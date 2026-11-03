@@ -1,8 +1,6 @@
-import { dataFormatada } from "../../utils/dataFormatada.js";
 import axios from 'axios';
 import 'dotenv/config';
 const url = process.env.API_URL;
-
 class VendasControllers {
 
     async getListaVendas(req, res) {
