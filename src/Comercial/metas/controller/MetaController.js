@@ -406,6 +406,6 @@ class MetasControllers {
             throw error;
         }
     }
-}
+} 
 
 export default new MetasControllers();
