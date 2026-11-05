@@ -36,42 +36,12 @@ export class AdiantamentoService {
         return result;
     }
 
-    async updateAdiantamentoDepartamento(
-        IDADIANTAMENTO,
-        DEPARTAMENTO,
-        IDEMPRESA,
-        NUCNPJEMPRESA,
-        POSSUINOTAFISCAL,
-        CNPJFATURAMENTO,
-        VRSOLICITADO,
-        DESCRICAO,
-        ANEXOORCAMENTO,
-        ANEXONOTAFISCAL,
-        RAZAOSOCIALFATURAMENTO,
-        STATUS,
-        DSJUSTIFICATIVA,
-        IDUSUARIOALTERACAO
-    ) {
-        if (!IDEMPRESA) {
+    async updateAdiantamentoDepartamento(dadosAdiantamento) {
+        if (!dadosAdiantamento?.IDEMPRESA) {
             throw new Error("IDEMPRESA is required, services");
         }
 
-        const result = await this.client.atualizarAdiantamentoDepartamento(
-            IDADIANTAMENTO,
-            DEPARTAMENTO,
-            IDEMPRESA,
-            NUCNPJEMPRESA,
-            POSSUINOTAFISCAL,
-            CNPJFATURAMENTO,
-            VRSOLICITADO,
-            DESCRICAO,
-            ANEXOORCAMENTO,
-            ANEXONOTAFISCAL,
-            RAZAOSOCIALFATURAMENTO,
-            STATUS,
-            DSJUSTIFICATIVA,
-            IDUSUARIOALTERACAO
-        )
+        const result = await this.client.atualizarAdiantamentoDepartamento(dadosAdiantamento);
         return result;
     }
 
@@ -104,38 +74,12 @@ export class AdiantamentoService {
         return result;
     }
 
-    async createAdiantamentoDepartamento(
-        DEPARTAMENTO,
-        IDEMPRESA,
-        NUCNPJEMPRESA,
-        POSSUINOTAFISCAL,
-        CNPJFATURAMENTO,
-        VRSOLICITADO,
-        DESCRICAO,
-        ANEXOORCAMENTO,
-        ANEXONOTAFISCAL,
-        RAZAOSOCIALFATURAMENTO,
-        DSJUSTIFICATIVA,
-        IDUSUARIOCRIACAO
-    ) {
-        if (!IDEMPRESA) {
+    async createAdiantamentoDepartamento(dadosAdiantamento) {
+        if (!dadosAdiantamento?.IDEMPRESA) {
             throw new Error("IDEMPRESA is required, services");
         }
 
-        const result = await this.client.criarAdiantamentoDepartamento(
-            DEPARTAMENTO,
-            IDEMPRESA,
-            NUCNPJEMPRESA,
-            POSSUINOTAFISCAL,
-            CNPJFATURAMENTO,
-            VRSOLICITADO,
-            DESCRICAO,
-            ANEXOORCAMENTO,
-            ANEXONOTAFISCAL,
-            RAZAOSOCIALFATURAMENTO,
-            DSJUSTIFICATIVA,
-            IDUSUARIOCRIACAO
-        )
+        const result = await this.client.criarAdiantamentoDepartamento(dadosAdiantamento);
         return result;
     }
 
