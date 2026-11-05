@@ -115,7 +115,8 @@ class ServiceLayerControllers {
                 IDDESPESASLOJA,
                 IDFUNCIONARIO,
             }])
-
+ 
+            console.log(response.data, 'response')
             return res.status(200).json(response.data);
         } catch (error) {
             console.error("Erro no ServiceLayerControllers.postIntegrarDespesaSAP:", error);

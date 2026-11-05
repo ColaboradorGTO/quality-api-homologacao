@@ -30,39 +30,9 @@ export class AdiantamentosClient {
         return response.data;
     }
 
-    async atualizarAdiantamentoDepartamento(
-        IDADIANTAMENTO,
-        DEPARTAMENTO,
-        IDEMPRESA,
-        NUCNPJEMPRESA,
-        POSSUINOTAFISCAL,
-        CNPJFATURAMENTO,
-        VRSOLICITADO,
-        DESCRICAO,
-        ANEXOORCAMENTO,
-        ANEXONOTAFISCAL,
-        RAZAOSOCIALFATURAMENTO,
-        STATUS,
-        DSJUSTIFICATIVA,
-        IDUSUARIOALTERACAO
-    ) {
+    async atualizarAdiantamentoDepartamento(dadosAdiantamento) {
 
-        const response = await this.api.put(`/api/financeiro/adiantamento-departamento.xsjs`, [{
-            IDADIANTAMENTO,
-            DEPARTAMENTO,
-            IDEMPRESA,
-            NUCNPJEMPRESA,
-            POSSUINOTAFISCAL,
-            CNPJFATURAMENTO,
-            VRSOLICITADO,
-            DESCRICAO,
-            ANEXOORCAMENTO,
-            ANEXONOTAFISCAL,
-            RAZAOSOCIALFATURAMENTO,
-            STATUS,
-            DSJUSTIFICATIVA,
-            IDUSUARIOALTERACAO
-        }]);
+        const response = await this.api.put(`/api/financeiro/adiantamento-departamento.xsjs`, [dadosAdiantamento]);
 
         return response.data;
     }

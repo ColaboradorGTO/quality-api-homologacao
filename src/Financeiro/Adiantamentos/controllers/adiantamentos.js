@@ -213,22 +213,8 @@ class AdiantamentosControllers {
         });
       }
 
-      const response = await adiantamentoService.updateAdiantamentoDepartamento(
-        value.IDADIANTAMENTO,
-        value.DEPARTAMENTO,
-        value.IDEMPRESA,
-        value.NUCNPJEMPRESA,
-        value.POSSUINOTAFISCAL,
-        value.CNPJFATURAMENTO,
-        value.VRSOLICITADO,
-        value.DESCRICAO,
-        value.ANEXOORCAMENTO,
-        value.ANEXONOTAFISCAL,
-        value.RAZAOSOCIALFATURAMENTO,
-        value.STATUS,
-        value.DSJUSTIFICATIVA,
-        value.IDUSUARIOALTERACAO
-      );
+      // `value` já vem filtrado pelo Joi (stripUnknown), então só campos conhecidos seguem adiante.
+      const response = await adiantamentoService.updateAdiantamentoDepartamento(value);
 
       return res.status(200).json(response);
     } catch (error) {
@@ -307,6 +293,7 @@ class AdiantamentosControllers {
         value.RAZAOSOCIALFATURAMENTO,
         value.DSJUSTIFICATIVA,
         value.IDUSUARIOCRIACAO
+        
       );
 
       return res.status(200).json(response);
