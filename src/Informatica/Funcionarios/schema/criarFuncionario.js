@@ -133,6 +133,12 @@ const CriarFuncionarioSchema = Joi.object({
             'any.required': 'ID do funcionario é obrigatório'
         }),
 
+    SENHAHASH: Joi.string().allow('', null)
+        .messages({
+            'string.base': 'SENHAHASH deve ser uma string',
+            'any.required': 'SENHAHASH do funcionario é obrigatório'
+        }),
+
 })
 export default CriarFuncionarioSchema;
 
