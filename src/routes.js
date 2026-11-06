@@ -251,7 +251,10 @@ routes.get('/ping', ApiPing.index);
 
 routes.post('/login', AuthentiCationController.login);
 routes.post('/login2', AuthentiCationController.login);
+routes.post('/hash-senha', AuthentiCationController.criarHashSenha);
 routes.post('/gerar-danfe', DanfeControllers.gerarDanfeLocal);
+
+routes.put('/cadastrar-hash', FuncionarioController.putCadastrarHashFuncionario);
 
 // routes.use(authMiddleware)
 

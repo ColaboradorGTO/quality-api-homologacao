@@ -8,6 +8,7 @@ import funcionarioSchemaPut from '../schema/index.js';
 import CriarFuncionarioSchema from '../schema/criarFuncionario.js';
 import { funcionarioDescontoSchema } from '../schema/funcionarioDescontoSchema.js';
 import { dataFormatada } from "../../../utils/dataFormatada.js";
+import { cadastroHashSchema } from "../schema/hashFuncionarioShema.js";
 
 const url = process.env.API_URL;
 const funcionarioClient = new FuncionarioClient(url)
@@ -82,6 +83,38 @@ class FuncionarioController {
 
   }
 
+   async putCadastrarHashFuncionario(req, res) {
+
+    try {
+      const { error, value } = cadastroHashSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      });
+
+      if (error) {
+        return res.status(400).json({
+          message: 'Dados inválidos',
+          errors: error.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message
+          }))
+        });
+      }
+
+      const response = await funcionarioService.updateHash(
+
+        value.SENHAHASH,
+        value.ID
+
+      );
+
+      return res.status(200).json(response);
+    } catch (error) {
+      console.error("Erro no FuncionarioController.putCadastrarHashFuncionario:", error);
+      return res.status(500).json({ error: "Erro no servidor" });
+    }
+  }
+
   async putFuncionarioLoja(req, res) {
 
     try {
@@ -121,8 +154,10 @@ class FuncionarioController {
         value.STLOJA,
         value.DATA_ADMISSAO,
         value.TELEFONE,
+        value.STATIVO,
         value.DEPARTAMENTO,
-        value.ID
+        value.ID,
+        value.SENHAHASH
 
       );
 
@@ -171,7 +206,8 @@ class FuncionarioController {
         value.STLOJA,
         value.DATA_ADMISSAO,
         value.TELEFONE,
-        value.DEPARTAMENTO
+        value.DEPARTAMENTO,
+        value.SENHAHASH
       );
 
       return res.status(201).json(response);

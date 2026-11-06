@@ -115,6 +115,12 @@ const funcionarioSchemaPut = Joi.object({
             'any.required': 'TELEFONE é obrigatório'
         }),
 
+    STATIVO: Joi.string().required()
+        .messages({
+            'string.base': 'STATIVO deve ser uma string',
+            'any.required': 'STATIVO é obrigatório'
+        }),
+
     DEPARTAMENTO: Joi.string().required()
         .messages({
             'string.base': 'DEPARTAMENTO deve ser uma string',
@@ -125,6 +131,12 @@ const funcionarioSchemaPut = Joi.object({
         .messages({
             'number.base': 'ID deve ser um número',
             'any.required': 'ID do funcionario é obrigatório'
+        }),
+
+    SENHAHASH: Joi.string().allow('', null)
+        .messages({
+            'string.base': 'SENHAHASH deve ser uma string',
+            'any.required': 'SENHAHASH do funcionario é obrigatório'
         }),
 
 })
