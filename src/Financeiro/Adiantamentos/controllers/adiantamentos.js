@@ -198,25 +198,84 @@ class AdiantamentosControllers {
   async putAdiantamentoDepartamento(req, res) {
 
     try {
-      const { error, value } = schemaAtualizarAdiantamentoDepartamento.validate(req.body, {
-        abortEarly: false,
-        stripUnknown: true
-      });
+       let {
+        IDADIANTAMENTO,
+        DEPARTAMENTO,
+        IDEMPRESA,
+        NUCNPJEMPRESA,
+        RAZAOSOCIALEMPRESA,
+        TPBENEFICIARIO,
+        NUCPFBENEFICIARIO,
+        NOBENEFICIARIO,
+        NURGBENEFICIARIO,
+        EMAILBENEFICIARIO,
+        NUCEPBENEFICIARIO,
+        ENDERECOBENEFICIARIO,
+        TELEFONEBENEFICIARIO,
+        DTNASCIMENTOBENEFICIARIO,
+        TPDESPESA,
+        NOFAVORECIDO,
+        FORMAPAGAMENTO,
+        CHAVEPIX,
+        IDBANCO,
+        NUAGENCIA,
+        NUCONTA,
+        NUDIGITOCONTA,
+        UNIDADENEGOCIO,
+        CENTROCUSTO,
+        DTPAGAMENTO,
+        CNPJFATURAMENTO,
+        VRSOLICITADO,
+        DESCRICAO,
+        POSSUINOTAFISCAL,
+        ANEXOORCAMENTO,
+        ANEXONOTAFISCAL,
+        RAZAOSOCIALFATURAMENTO,
+        DSJUSTIFICATIVA,
+        STATUS,
+        IDUSUARIOALTERACAO,
+        MATRICULASOLICITANTE
+      } = req.body
 
-      if (error) {
-        return res.status(400).json({
-          message: 'Dados inválidos',
-          errors: error.details.map(detail => ({
-            field: detail.path.join('.'),
-            message: detail.message
-          }))
-        });
-      }
+      const response = await axios.put(`${url}/api/financeiro/adiantamento-departamento.xsjs`, [{
+        IDADIANTAMENTO,
+        DEPARTAMENTO,
+        IDEMPRESA,
+        NUCNPJEMPRESA,
+        RAZAOSOCIALEMPRESA,
+        TPBENEFICIARIO,
+        NUCPFBENEFICIARIO,
+        NOBENEFICIARIO,
+        NURGBENEFICIARIO,
+        EMAILBENEFICIARIO,
+        NUCEPBENEFICIARIO,
+        ENDERECOBENEFICIARIO,
+        TELEFONEBENEFICIARIO,
+        DTNASCIMENTOBENEFICIARIO,
+        TPDESPESA,
+        NOFAVORECIDO,
+        FORMAPAGAMENTO,
+        CHAVEPIX,
+        IDBANCO,
+        NUAGENCIA,
+        NUCONTA,
+        NUDIGITOCONTA,
+        UNIDADENEGOCIO,
+        CENTROCUSTO,
+        DTPAGAMENTO,
+        CNPJFATURAMENTO,
+        VRSOLICITADO,
+        DESCRICAO,
+        POSSUINOTAFISCAL,
+        ANEXOORCAMENTO,
+        ANEXONOTAFISCAL,
+        RAZAOSOCIALFATURAMENTO,
+        DSJUSTIFICATIVA,
+        STATUS,
+        IDUSUARIOALTERACAO,
+      }]);
 
-      // `value` já vem filtrado pelo Joi (stripUnknown), então só campos conhecidos seguem adiante.
-      const response = await adiantamentoService.updateAdiantamentoDepartamento(value);
-
-      return res.status(200).json(response);
+      return res.status(200).json(response.data);
     } catch (error) {
       console.log('Erro no AdiantamentosControllers.putAdiantamentoDepartamento', error);
       return res.status(500).json({ message: 'Erro ao criar Adiantamento Departamento.' });
@@ -256,7 +315,7 @@ class AdiantamentosControllers {
 
       return res.status(200).json(response);
     } catch (error) {
-      console.log('Erro no AdiantamentosControllers.postAdiantamentoDepartamento', error);
+      console.log('Erro no AdiantamentosControllers.putPagamentoDepartamento', error);
       return res.status(500).json({ message: 'Erro ao criar Adiantamento Departamento.' });
 
     }
@@ -265,38 +324,87 @@ class AdiantamentosControllers {
   async postAdiantamentoDepartamento(req, res) {
 
     try {
-      const { error, value } = schemaCriarAdiantamentoDepartamento.validate(req.body, {
-        abortEarly: false,
-        stripUnknown: true
-      });
+      let {
+        DEPARTAMENTO,
+        DATACRIACAO,
+        IDEMPRESA,
+        NUCNPJEMPRESA,
+        RAZAOSOCIALEMPRESA,
+        TPBENEFICIARIO,
+        NUCPFBENEFICIARIO,
+        NOBENEFICIARIO,
+        NURGBENEFICIARIO,
+        EMAILBENEFICIARIO,
+        NUCEPBENEFICIARIO,
+        ENDERECOBENEFICIARIO,
+        TELEFONEBENEFICIARIO,
+        DTNASCIMENTOBENEFICIARIO,
+        TPDESPESA,
+        NOFAVORECIDO,
+        FORMAPAGAMENTO,
+        CHAVEPIX,
+        IDBANCO,
+        NUAGENCIA,
+        NUCONTA,
+        NUDIGITOCONTA,
+        UNIDADENEGOCIO,
+        CENTROCUSTO,
+        DTPAGAMENTO,
+        CNPJFATURAMENTO,
+        VRSOLICITADO,
+        DESCRICAO,
+        POSSUINOTAFISCAL,
+        ANEXOORCAMENTO,
+        ANEXONOTAFISCAL,
+        RAZAOSOCIALFATURAMENTO,
+        DSJUSTIFICATIVA,
+        IDUSUARIOCRIACAO,
+        MATRICULASOLICITANTE,
+        NOMESOLICITANTE
 
-      if (error) {
-        return res.status(400).json({
-          message: 'Dados inválidos',
-          errors: error.details.map(detail => ({
-            field: detail.path.join('.'),
-            message: detail.message
-          }))
-        });
-      }
+      } = req.body;
 
-      const response = await adiantamentoService.createAdiantamentoDepartamento(
-        value.DEPARTAMENTO,
-        value.IDEMPRESA,
-        value.NUCNPJEMPRESA,
-        value.POSSUINOTAFISCAL,
-        value.CNPJFATURAMENTO,
-        value.VRSOLICITADO,
-        value.DESCRICAO,
-        value.ANEXOORCAMENTO,
-        value.ANEXONOTAFISCAL,
-        value.RAZAOSOCIALFATURAMENTO,
-        value.DSJUSTIFICATIVA,
-        value.IDUSUARIOCRIACAO
-        
-      );
 
-      return res.status(200).json(response);
+      const response = await axios.post(`${url}/api/financeiro/adiantamento-departamento.xsjs`, [{
+        DEPARTAMENTO,
+        DATACRIACAO,
+        IDEMPRESA,
+        NUCNPJEMPRESA,
+        RAZAOSOCIALEMPRESA,
+        TPBENEFICIARIO,
+        NUCPFBENEFICIARIO,
+        NOBENEFICIARIO,
+        NURGBENEFICIARIO,
+        EMAILBENEFICIARIO,
+        NUCEPBENEFICIARIO,
+        ENDERECOBENEFICIARIO,
+        TELEFONEBENEFICIARIO,
+        DTNASCIMENTOBENEFICIARIO,
+        TPDESPESA,
+        NOFAVORECIDO,
+        FORMAPAGAMENTO,
+        CHAVEPIX,
+        IDBANCO,
+        NUAGENCIA,
+        NUCONTA,
+        NUDIGITOCONTA,
+        UNIDADENEGOCIO,
+        CENTROCUSTO,
+        DTPAGAMENTO,
+        CNPJFATURAMENTO,
+        VRSOLICITADO,
+        DESCRICAO,
+        POSSUINOTAFISCAL,
+        ANEXOORCAMENTO,
+        ANEXONOTAFISCAL,
+        RAZAOSOCIALFATURAMENTO,
+        DSJUSTIFICATIVA,
+        IDUSUARIOCRIACAO,
+        MATRICULASOLICITANTE,
+        NOMESOLICITANTE
+      }])
+      
+      return res.status(200).json(response.data);
     } catch (error) {
       console.log('Erro no AdiantamentosControllers.postAdiantamentoDepartamento', error);
       return res.status(500).json({ message: 'Erro ao criar Adiantamento Departamento.' });
