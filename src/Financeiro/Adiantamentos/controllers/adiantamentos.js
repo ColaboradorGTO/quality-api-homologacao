@@ -234,7 +234,7 @@ class AdiantamentosControllers {
         DSJUSTIFICATIVA,
         STATUS,
         IDUSUARIOALTERACAO,
-        MATRICULASOLICITANTE
+        STATIVO,
       } = req.body
 
       const response = await axios.put(`${url}/api/financeiro/adiantamento-departamento.xsjs`, [{
@@ -273,6 +273,7 @@ class AdiantamentosControllers {
         DSJUSTIFICATIVA,
         STATUS,
         IDUSUARIOALTERACAO,
+        STATIVO,
       }]);
 
       return res.status(200).json(response.data);
