@@ -413,35 +413,31 @@ class AdiantamentosControllers {
   }
 
   async postPagamentoDepartamento(req, res) {
-
+    let {
+      IDADIANTAMENTO,
+      VLPAGAMENTO,
+      DATAPAGAMENTO,
+      FORMAPAGAMENTO,
+      ANEXOCOMPROVANTE,
+      DSOBSERVACAO,
+      STATUS,
+      IDUSUARIOCRIACAO
+    } = req.body
     try {
-      const { error, value } = schemaCriarPagamentoDepartamento.validate(req.body, {
-        abortEarly: false,
-        stripUnknown: true
-      });
+    
 
-      if (error) {
-        return res.status(400).json({
-          message: 'Dados inválidos',
-          errors: error.details.map(detail => ({
-            field: detail.path.join('.'),
-            message: detail.message
-          }))
-        });
-      }
+      const response = await axios.post(`${url}/api/financeiro/pagamento-adiantamento.xsjs`, [{
+        IDADIANTAMENTO,
+        VLPAGAMENTO,
+        DATAPAGAMENTO,
+        FORMAPAGAMENTO,
+        ANEXOCOMPROVANTE,
+        DSOBSERVACAO,
+        STATUS,
+        IDUSUARIOCRIACAO
+      }]);
 
-      const response = await adiantamentoService.createPagamentoDepartamento(
-        value.IDADIANTAMENTO,
-        value.VLPAGAMENTO,
-        value.DATAPAGAMENTO,
-        value.FORMAPAGAMENTO,
-        value.ANEXOCOMPROVANTE,
-        value.DSOBSERVACAO,
-        value.STATUS,
-        value.IDUSUARIOCRIACAO
-      );
-
-      return res.status(200).json(response);
+      return res.status(200).json(response.data);
     } catch (error) {
       console.log('Erro no AdiantamentosControllers.postAdiantamentoDepartamento', error);
       return res.status(500).json({ message: 'Erro ao criar Adiantamento Departamento.' });
