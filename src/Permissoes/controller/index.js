@@ -7,6 +7,7 @@ import atualizarFuncionarioDepartamentoSchema from "../schema/atualizarFuncionar
 import criarPerfilUsuarioMenuSchema from "../schema/criarPerfilUsuarioMenuSchema.js";
 import criarMenuFilhoSchema from "../schema/criarMenuFilhoSchema.js";
 import atualizarMenuFilhoSchema from "../schema/atualizarMenuFilhoSchema.js";
+import atualizarPerfilUsuarioSchema from "../schema/atualizarPerfilUsuarioSchema.js";
 
 const url = process.env.API_URL;
 const permissaoClient = new PermissaoClient(url);
@@ -53,9 +54,7 @@ class PermissaoControllers {
                 abortEarly: false,
                 stripUnknown: true
             });
-            console.log("IDMENU:", value.IDMENU);
-            console.log("IDMENUFILHO:", value.IDMENUFILHO);
-            console.log(value);
+         
             if (error) {
                 return res.status(400).json({
                     message: 'Dados inválidos',
@@ -72,36 +71,35 @@ class PermissaoControllers {
                 value.CRIAR,
                 value.ALTERAR,
                 value.STATIVO,
-                value.DATAULTIMAALTERACAO,
-                value.DATA_CRIACAO,
                 value.IDMODULO,
-                String(value.IDMODULOADMINISTRATIVO),
-                String(value.IDMODULOCOMERCIAL),
-                String(value.IDMODULOCONTABILIDADE),
-                String(value.IDMODULOFINANCEIRO),
-                String(value.IDMODULOGERENCIA),
-                String(value.IDMODULOINFORMATICA),
-                String(value.IDMODULOMARKETING),
-                String(value.IDMODULOCOMPRAS),
-                String(value.IDMODULOCADASTRO),
-                String(value.IDMODULOEXPEDICAO),
-                String(value.IDMODULOCOMPRASADM),
-                String(value.IDMODULOETIQUETAGEM),
-                String(value.IDMODULOCONFERENCIACEGA),
-                String(value.IDMODULOVOUCHER),
-                String(value.IDMODULOMALOTE),
-                String(value.IDMODULORH),
-                String(value.IDUSERULTIMAALTERACAO),
-                String(value.IDPERMISSAO),
-                String(value.IDMODULORESUMOVENDAS),
-                String(value.IDMODULOPROMOCAO),
-                String(value.ADMINISTRADOR),
+                value.IDMODULOADMINISTRATIVO,
+                value.IDMODULOCOMERCIAL,
+                value.IDMODULOCONTABILIDADE,
+                value.IDMODULOFINANCEIRO,
+                value.IDMODULOGERENCIA,
+                value.IDMODULOINFORMATICA,
+                value.IDMODULOMARKETING,
+                value.IDMODULOCOMPRAS,
+                value.IDMODULOCADASTRO,
+                value.IDMODULOEXPEDICAO,
+                value.IDMODULOCOMPRASADM,
+                value.IDMODULOETIQUETAGEM,
+                value.IDMODULOCONFERENCIACEGA,
+                value.IDMODULOVOUCHER,
+                value.IDMODULOMALOTE,
+                value.IDMODULORH,
+                value.IDUSERULTIMAALTERACAO,
+                value.IDPERMISSAO,
+                value.IDMODULORESUMOVENDAS,
+                value.IDMODULOPROMOCAO,
+                value.IDMODULOPROVISAOFINANCEIRA,
+                value.ADMINISTRADOR,
                 value.N4,
                 value.N3,
                 value.N2,
                 value.N1,
                 value.IDMENU,
-                value.IDMENUFILHO
+                value.IDMENUFILHO,
             );
 
             return res.status(200).json(response);
@@ -141,6 +139,46 @@ class PermissaoControllers {
         }
     }
 
+
+
+    async putUpdatePerfilUsuario(req, res) {
+        try {
+            const { error, value } = atualizarPerfilUsuarioSchema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            if (error) {
+                return res.status(400).json({
+                    message: 'Dados inválidos',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                });
+            }
+
+            const response = await permissaoService.updatePerfilusuario(
+                value.ADMINISTRADOR,
+                value.CRIAR,
+                value.ALTERAR,
+                value.N1,
+                value.N2,
+                value.N3,
+                value.N4,
+                value.STATIVO,
+                value.IDPERFIL
+            );
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log('Erro no PermissaoControllers.putFuncionarioDepartamento:', error);
+            return res.status(500).json({ message: 'Erro no PermissaoControllers.putFuncionarioDepartamento' });
+        }
+    }
+
+
+
     async postPerfilUsuarioMenu(req, res) {
         try {
             const { error, value } = criarPerfilUsuarioMenuSchema.validate(req.body, {
@@ -157,7 +195,7 @@ class PermissaoControllers {
                     }))
                 });
             }
-           
+
             const response = await permissaoService.createPerfilUsuarioMenu(
 
                 value.IDUSUARIO,

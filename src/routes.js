@@ -280,6 +280,7 @@ routes.get('/listaMenusFilhos', PermissaoControllers.getListaMenusFilhos)
 
 //routes.put('/perfil-usuario/:id', ModulosControllers.putPerfilUsuarioMenu)
 routes.put('/perfil-usuario/:id', PermissaoControllers.putPerfilUsuarioMenu)
+routes.put('/perfil-update/:id', PermissaoControllers.putUpdatePerfilUsuario)
 //routes.put('/funcionario-departamento/:id', ModulosControllers.putFuncionarioDepartamento)
 routes.put('/funcionario-departamento/:id', PermissaoControllers.putFuncionarioDepartamento)
 routes.put('/menu-filho/:id', PermissaoControllers.putAtualizarMenuFilho)

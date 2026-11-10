@@ -9,7 +9,7 @@ export class PermissaoService {
     ) {
         if (!ID)
             throw new Error("ID is required, services");
-    
+
         const result = await this.client.atualizarFuncionarioDepartamento(
             ID,
             DEPARTAMENTO,
@@ -94,13 +94,40 @@ export class PermissaoService {
         return result;
     }
 
+
+    async updatePerfilusuario(
+        ADMINISTRADOR,
+        CRIAR,
+        ALTERAR,
+        N1,
+        N2,
+        N3,
+        N4,
+        STATIVO,
+        IDPERFIL,
+    ) {
+        if (!IDPERFIL)
+            throw new Error("IDUSUARIO is required, services");
+        const result = await this.client.atualizarPerfilUsuario(
+            ADMINISTRADOR,
+            CRIAR,
+            ALTERAR,
+            N1,
+            N2,
+            N3,
+            N4,
+            STATIVO,
+            IDPERFIL
+        )
+        return result;
+    }
+
+
     async updatePerfilUsuarioMenu(
         IDUSUARIO,
         CRIAR,
         ALTERAR,
         STATIVO,
-        DATAULTIMAALTERACAO,
-        DATA_CRIACAO,
         IDMODULO,
         IDMODULOADMINISTRATIVO,
         IDMODULOCOMERCIAL,
@@ -130,6 +157,7 @@ export class PermissaoService {
         N1,
         IDMENU,
         IDMENUFILHO
+
     ) {
         if (!IDUSUARIO)
             throw new Error("IDUSUARIO is required, services");
@@ -143,8 +171,6 @@ export class PermissaoService {
             CRIAR,
             ALTERAR,
             STATIVO,
-            DATAULTIMAALTERACAO,
-            DATA_CRIACAO,
             IDMODULO,
             IDMODULOADMINISTRATIVO,
             IDMODULOCOMERCIAL,
@@ -175,7 +201,7 @@ export class PermissaoService {
             IDMENU,
             IDMENUFILHO
         )
-     
+
 
 
         return result;
@@ -227,3 +253,8 @@ export class PermissaoService {
     }
 
 }
+
+
+
+
+

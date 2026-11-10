@@ -78,44 +78,8 @@ export class PermissaoClient {
         }]);
         return response.data;
     }
-/* 
-    async atualizarPerfilUsuarioMenu(
-        IDUSUARIO,
-        CRIAR,
-        ALTERAR,
-        STATIVO,
-        DATAULTIMAALTERACAO,
-        DATA_CRIACAO,
-        IDMODULO,
-        IDMODULOADMINISTRATIVO,
-        IDMODULOCOMERCIAL,
-        IDMODULOCONTABILIDADE,
-        IDMODULOFINANCEIRO,
-        IDMODULOGERENCIA,
-        IDMODULOINFORMATICA,
-        IDMODULOMARKETING,
-        IDMODULOCOMPRAS,
-        IDMODULOCADASTRO,
-        IDMODULOEXPEDICAO,
-        IDMODULOCOMPRASADM,
-        IDMODULOETIQUETAGEM,
-        IDMODULOCONFERENCIACEGA,
-        IDMODULOVOUCHER,
-        IDMODULOMALOTE,
-        IDMODULORH,
-        IDUSERULTIMAALTERACAO,
-        IDPERMISSAO,
-        IDMODULORESUMOVENDAS,
-        IDMODULOPROMOCAO,
-        ADMINISTRADOR,
-        N4,
-        N3,
-        N2,
-        N1,
-        IDMENU,
-        IDMENUFILHO,
-    ) {
-        const response = await this.api.put(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, [{
+    /* 
+        async atualizarPerfilUsuarioMenu(
             IDUSUARIO,
             CRIAR,
             ALTERAR,
@@ -150,18 +114,52 @@ export class PermissaoClient {
             N1,
             IDMENU,
             IDMENUFILHO,
-        }])
-        return response.data;
-    } */
+        ) {
+            const response = await this.api.put(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, [{
+                IDUSUARIO,
+                CRIAR,
+                ALTERAR,
+                STATIVO,
+                DATAULTIMAALTERACAO,
+                DATA_CRIACAO,
+                IDMODULO,
+                IDMODULOADMINISTRATIVO,
+                IDMODULOCOMERCIAL,
+                IDMODULOCONTABILIDADE,
+                IDMODULOFINANCEIRO,
+                IDMODULOGERENCIA,
+                IDMODULOINFORMATICA,
+                IDMODULOMARKETING,
+                IDMODULOCOMPRAS,
+                IDMODULOCADASTRO,
+                IDMODULOEXPEDICAO,
+                IDMODULOCOMPRASADM,
+                IDMODULOETIQUETAGEM,
+                IDMODULOCONFERENCIACEGA,
+                IDMODULOVOUCHER,
+                IDMODULOMALOTE,
+                IDMODULORH,
+                IDUSERULTIMAALTERACAO,
+                IDPERMISSAO,
+                IDMODULORESUMOVENDAS,
+                IDMODULOPROMOCAO,
+                ADMINISTRADOR,
+                N4,
+                N3,
+                N2,
+                N1,
+                IDMENU,
+                IDMENUFILHO,
+            }])
+            return response.data;
+        } */
 
 
-     async atualizarPerfilUsuarioMenu(
+    async atualizarPerfilUsuarioMenu(
         IDUSUARIO,
         CRIAR,
         ALTERAR,
         STATIVO,
-        DATAULTIMAALTERACAO,
-        DATA_CRIACAO,
         IDMODULO,
         IDMODULOADMINISTRATIVO,
         IDMODULOCOMERCIAL,
@@ -192,13 +190,11 @@ export class PermissaoClient {
         IDMENU,
         IDMENUFILHO,
     ) {
-        const response = await this.api.post(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, [{
+        const response = await this.api.put(`${url}/api/perfilUsuario/perfilUsuarioMenu.xsjs`, {
             IDUSUARIO,
             CRIAR,
             ALTERAR,
             STATIVO,
-            DATAULTIMAALTERACAO,
-            DATA_CRIACAO,
             IDMODULO,
             IDMODULOADMINISTRATIVO,
             IDMODULOCOMERCIAL,
@@ -228,9 +224,35 @@ export class PermissaoClient {
             N1,
             IDMENU,
             IDMENUFILHO,
+        })
+        return response.data;
+    }
+
+    async atualizarPerfilUsuario(
+        ADMINISTRADOR,
+        CRIAR,
+        ALTERAR,
+        N1,
+        N2,
+        N3,
+        N4,
+        STATIVO,
+        IDPERFIL,
+
+    ) {
+        const response = await this.api.put(`${url}/api/perfilUsuario/perfilUsuarioUpdate.xsjs`, [{
+            ADMINISTRADOR,
+            CRIAR,
+            ALTERAR,
+            N1,
+            N2,
+            N3,
+            N4,
+            STATIVO,
+            IDPERFIL,
         }])
         return response.data;
-    } 
+    }
 
     async atualizarFuncionarioDepartamento(
         ID,
