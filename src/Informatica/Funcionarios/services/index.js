@@ -3,6 +3,25 @@ export class FuncionarioService {
     this.client = client;
   }
 
+  async updateHash(
+
+    SENHAHASH,
+    ID
+
+  ) {
+
+    if (!ID) {
+      throw new Error('ID é obrigatório.');
+    }
+
+    const result = await this.client.atualizarHash(
+      SENHAHASH,
+      ID
+    );
+
+    return result;
+  }
+
   async updateFuncionario(
     NOFUNCIONARIO,
     NUCPF,
@@ -23,8 +42,10 @@ export class FuncionarioService {
     STLOJA,
     DATA_ADMISSAO,
     TELEFONE,
+    STATIVO,
     DEPARTAMENTO,
-    ID
+    ID,
+    SENHAHASH
 
   ) {
 
@@ -52,8 +73,10 @@ export class FuncionarioService {
       STLOJA,
       DATA_ADMISSAO,
       TELEFONE,
+      STATIVO,
       DEPARTAMENTO,
-      ID
+      ID,
+      SENHAHASH
     );
 
     return result;
@@ -80,7 +103,8 @@ export class FuncionarioService {
     STLOJA,
     DATA_ADMISSAO,
     TELEFONE,
-    DEPARTAMENTO
+    DEPARTAMENTO,
+    SENHAHASH
 
   ) {
 
@@ -108,7 +132,8 @@ export class FuncionarioService {
       STLOJA,
       DATA_ADMISSAO,
       TELEFONE,
-      DEPARTAMENTO
+      DEPARTAMENTO,
+      SENHAHASH
     );
 
     return result;

@@ -10,6 +10,20 @@ export class FuncionarioClient {
         });
     }
 
+    async atualizarHash(
+
+        SENHAHASH,
+        ID
+    ) {
+        const response = await this.api.put(`${url}/api/informatica/hash-funcionario.xsjs`, [{
+
+            SENHAHASH,
+            ID
+        }])
+        return response.data;
+    }
+
+
     async atualizarFuncionario(
         NOFUNCIONARIO,
         NUCPF,
@@ -30,8 +44,10 @@ export class FuncionarioClient {
         STLOJA,
         DATA_ADMISSAO,
         TELEFONE,
+        STATIVO,
         DEPARTAMENTO,
-        ID
+        ID,
+        SENHAHASH
     ) {
         const response = await this.api.put(`${url}/api/informatica/funcionario-loja.xsjs`, [{
             NOFUNCIONARIO,
@@ -53,8 +69,10 @@ export class FuncionarioClient {
             STLOJA,
             DATA_ADMISSAO,
             TELEFONE,
+            STATIVO,
             DEPARTAMENTO,
-            ID
+            ID,
+            SENHAHASH
         }])
         return response.data;
     }
@@ -79,7 +97,8 @@ export class FuncionarioClient {
         STLOJA,
         DATA_ADMISSAO,
         TELEFONE,
-        DEPARTAMENTO
+        DEPARTAMENTO,
+        SENHAHASH
     ) {
         const response = await this.api.post(`${url}/api/informatica/funcionario-loja.xsjs`, [{
             ID,
@@ -101,7 +120,8 @@ export class FuncionarioClient {
             STLOJA,
             DATA_ADMISSAO,
             TELEFONE,
-            DEPARTAMENTO
+            DEPARTAMENTO,
+            SENHAHASH
         }]);
         return response.data;
     }
