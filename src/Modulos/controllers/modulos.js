@@ -25,13 +25,14 @@ class ModulosControllers  {
     }
 
     async getListaMenusPorUsuario(req, res) {
-        let { idUsuario, idMenuFilho } = req.query;
+        let { idUsuario, idMenuFilho, idPerfil } = req.query;
       
         idUsuario = idUsuario ? idUsuario : '';
         idMenuFilho = idMenuFilho ? idMenuFilho : '';
+        idPerfil = idPerfil ? idPerfil : '';
         try {
        
-            const apiUrl = `${url}/api/perfilUsuario/menus-usuario-exececao.xsjs?idUsuario=${idUsuario}&idMenuFilho=${idMenuFilho}`;
+            const apiUrl = `${url}/api/perfilUsuario/menus-usuario-exececao.xsjs?idUsuario=${idUsuario}&idMenuFilho=${idMenuFilho}&idPerfil=${idPerfil}`;
             const response = await axios.get(apiUrl);
       
             
