@@ -2,7 +2,7 @@ import axios from "axios";
 import 'dotenv/config';
 const url = process.env.API_URL;
 import argon2 from "argon2";
-import { type } from "node:os";
+
 
 async function gerarHashSenha(senha) {
   return await argon2.hash(senha, {
