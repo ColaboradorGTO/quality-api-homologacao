@@ -408,7 +408,7 @@ class AdiantamentosControllers {
       return res.status(500).json({ message: 'Erro ao criar Adiantamento Departamento.' });
 
     }
-  }
+  } 
 
   async postPagamentoDepartamento(req, res) {
     let {
