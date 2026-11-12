@@ -422,7 +422,7 @@ class AdiantamentosControllers {
       IDUSUARIOCRIACAO
     } = req.body
     try {
-    
+     
 
       const response = await axios.post(`${url}/api/financeiro/pagamento-adiantamento.xsjs`, [{
         IDADIANTAMENTO,
