@@ -557,6 +557,87 @@ class ProdutoControllers {
         }
     }
 
-}
+    async getProdutoPrecoClubePromocao(req, res) {
+        let { idProduto, page, pageSize } = req.query;
+        idProduto = idProduto ? idProduto : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+            const apiUrl = `${url}/api/produtos/produto-preco-clube-promocao.xsjs?idProduto=${encodeURIComponent(idProduto)}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl);
+            
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.getProdutoPrecoClubePromocao:", error);
+            return res.status(500).json({ error: "Erro no servidor ao buscar produtos do clube." });
+        }
+    }
+
+    async getProdutoPrecoClube(req, res) {
+        let { idEmpresa, idProduto, page, pageSize } = req.query;
+        idEmpresa = idEmpresa ? idEmpresa : '';
+        idProduto = idProduto ? idProduto : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+            const apiUrl = `${url}/api/produtos/produto-preco-clube.xsjs?idEmpresa=${idEmpresa}&idProduto=${encodeURIComponent(idProduto)}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl);
+            
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.getProdutoPrecoClube:", error);
+            return res.status(500).json({ error: "Erro no servidor ao buscar produtos do clube." });
+        }
+    }
+
+    // Aceita um único registro (objeto) ou um lote (array) de registros
+    montarRegistrosProdutoClube(body) {
+        const lista = Array.isArray(body) ? body : [body];
+        return lista.map(item => ({
+            IDPRODUTO: item?.IDPRODUTO,
+            PRECO_VENDA: item?.PRECO_VENDA,
+            DTHORAINICIOVIGENCIA: item?.DTHORAINICIOVIGENCIA,
+            DTHORAFIMVIGENCIA: item?.DTHORAFIMVIGENCIA,
+            IDSUBGRUPOEMPRESARIAL: item?.IDSUBGRUPOEMPRESARIAL,
+            IDEMPRESA: item?.IDEMPRESA,
+        }));
+    }
+
+    putAlteracoesPrecoProdutoClube = async (req, res) => {
+        try {
+            const registros = this.montarRegistrosProdutoClube(req.body);
+
+            if (registros.length === 0 || registros.some(r => !r.IDPRODUTO || !r.IDEMPRESA)) {
+                return res.status(400).json({ error: "Os parâmetros IDPRODUTO e IDEMPRESA são obrigatórios em todos os registros." });
+            }
+
+            const response = await axios.put(`${url}/api/produtos/produto-preco-clube.xsjs`, registros);
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.putAlteracoesPrecoProdutoClube:", error?.response?.data || error);
+            return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao atualizar produtos do clube." });
+        }
+    }
+
+    postAlteracoesPrecoProdutoClube = async (req, res) => {
+        try {
+            const registros = this.montarRegistrosProdutoClube(req.body);
+
+            if (registros.length === 0 || registros.some(r => !r.IDPRODUTO || !r.IDEMPRESA)) {
+                return res.status(400).json({ error: "Os parâmetros IDPRODUTO e IDEMPRESA são obrigatórios em todos os registros." });
+            }
+
+            const response = await axios.post(`${url}/api/produtos/produto-preco-clube.xsjs`, registros);
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.postAlteracoesPrecoProdutoClube:", error?.response?.data || error);
+            return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao cadastrar produtos do clube." });
+        }
+    }
+}   
 
 export default new ProdutoControllers();
