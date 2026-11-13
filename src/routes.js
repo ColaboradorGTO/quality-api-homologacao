@@ -978,10 +978,14 @@ routes.get('/subgrupo-estrutura-mercadologica', ProdutoControllers.getProdutosSu
 routes.get('/busca-produtos-para-alterar', ProdutoControllers.getListaProdutosParaAlterar)
 routes.get('/produtos-cadastrados-avulso', ProdutoControllers.getListaProdutosCadastradosAvulso)
 
+routes.get('/produto-preco-clube', ProdutoControllers.getProdutoPrecoClube)
+routes.get('/produto-preco-clube-promocao', ProdutoControllers.getProdutoPrecoClubePromocao)
+routes.put('/produto-preco-clube/:id', ProdutoControllers.putAlteracoesPrecoProdutoClube)
 routes.put('/produto-avulso/:id', ProdutoControllers.putProdutoAvulso) 
 routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
 routes.post('/criar-produto-avulso', ProdutoControllers.postProdutoAvulso) 
 routes.post('/alteracao-preco-produto', ProdutoControllers.postAlteracoesPrecoProduto)
+routes.post('/produto-preco-clube', ProdutoControllers.postAlteracoesPrecoProdutoClube)
 
 //  Depositos Loja
 routes.get('/depositosLoja', DepositosLojaControllers.getListaDepositosLojaEmpresa)
