@@ -136,7 +136,7 @@ class AuthentiCationController {
       const loginResponse = await axios.post(
         `${url}/api/login-tst.xsjs`,
         {
-          timeout: 10000,
+          timeout: 100000,
           usuario: usuario,
           senha: senha,
           modulo: modulo,
