@@ -249,9 +249,24 @@ class ResumoVoucherControllers {
 
             return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no ResumoVoucherControllers.autorizacaoEditarStatusVoucher:", error);
-            res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
-            throw error;
+            if (error.response) {
+                return res.status(error.response.status).json({
+                    error: error.response.data.error
+                });
+            }
+
+            if (error.request) {
+                return res.status(502).json({
+                    error: 'Falha ao se comunicar com o serviço de voucher'
+                });
+            }
+
+            return res.status(500).json({
+                error: 'Erro interno no servidor'
+            });
+            // console.error("Erro no ResumoVoucherControllers.autorizacaoEditarStatusVoucher:", error);
+            // res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
+            // throw error;
         }
     }
 
@@ -283,9 +298,25 @@ class ResumoVoucherControllers {
 
             return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no ResumoVoucherControllers.postAuthFuncionarioCreateVoucher:", error);
-            res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
-            throw error;
+            if (error.response) {
+                return res.status(error.response.status).json({
+                    error: error.response.data.error
+                });
+            }
+
+            if (error.request) {
+                return res.status(502).json({
+                    error: 'Falha ao se comunicar com o serviço de voucher'
+                });
+            }
+
+            return res.status(500).json({
+                error: 'Erro interno no servidor'
+            });
+
+            //console.error("Erro no ResumoVoucherControllers.postAuthFuncionarioCreateVoucher:", error);
+            //res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
+            //throw error;
         }
     }
 
@@ -316,9 +347,24 @@ class ResumoVoucherControllers {
 
             return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no ResumoVoucherControllers.postAuthFuncionarioPrintVoucher:", error);
-            res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
-            throw error;
+            if (error.response) {
+                return res.status(error.response.status).json({
+                    error: error.response.data.error
+                });
+            }
+
+            if (error.request) {
+                return res.status(502).json({
+                    error: 'Falha ao se comunicar com o serviço de voucher'
+                });
+            }
+
+            return res.status(500).json({
+                error: 'Erro interno no servidor'
+            });
+            // console.error("Erro no ResumoVoucherControllers.postAuthFuncionarioPrintVoucher:", error);
+            //res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
+            //throw error;
         }
     }
 
@@ -347,12 +393,26 @@ class ResumoVoucherControllers {
                 IDGRUPOEMPRESARIAL: value.IDGRUPOEMPRESARIAL,
                 IDVOUCHER: value.IDVOUCHER
             });
-            
+
             return res.status(200).json(response);
         } catch (error) {
-            console.error("Erro no ResumoVoucherControllers.postAuthFuncionarioUpdateVoucher:", error);
-            res.status(500).json({ error: "Falha ao se comunicar com o serviço de voucher" });
-            throw error;
+
+            if (error.response) {
+                return res.status(error.response.status).json({
+                    error: error.response.data.error
+                });
+            }
+
+            if (error.request) {
+                return res.status(502).json({
+                    error: 'Falha ao se comunicar com o serviço de voucher'
+                });
+            }
+
+            return res.status(500).json({
+                error: 'Erro interno no servidor'
+
+            });
         }
     }
 
@@ -418,7 +478,7 @@ class ResumoVoucherControllers {
                 MOTIVOTROCA: value.MOTIVOTROCA,
                 IDUSRLIBERACAOCRIACAO: value.IDUSRLIBERACAOCRIACAO,
                 DETALHEVOUCHER: value.DETALHEVOUCHER,
-               
+
 
             });
 
