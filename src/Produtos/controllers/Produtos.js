@@ -592,28 +592,53 @@ class ProdutoControllers {
         }
     }
 
-    // Aceita um único registro (objeto) ou um lote (array) de registros
+    // Aceita uma promoção (objeto) ou uma lista (array) de promoções, cada uma com seus PRODUTOS
     montarRegistrosProdutoClube(body) {
         const lista = Array.isArray(body) ? body : [body];
+        console.log(lista, 'lista')
         return lista.map(item => ({
-            IDPRODUTO: item?.IDPRODUTO,
-            PRECO_VENDA: item?.PRECO_VENDA,
+            IDPROMOCAO: item?.IDPROMOCAO,
+            DSPROMOCAO: item?.DSPROMOCAO,
             DTHORAINICIOVIGENCIA: item?.DTHORAINICIOVIGENCIA,
             DTHORAFIMVIGENCIA: item?.DTHORAFIMVIGENCIA,
-            IDSUBGRUPOEMPRESARIAL: item?.IDSUBGRUPOEMPRESARIAL,
-            IDEMPRESA: item?.IDEMPRESA,
+            STATIVO: item?.STATIVO,
+            PRODUTOS: (Array.isArray(item?.PRODUTOS) ? item.PRODUTOS : []).map(produto => ({
+                IDPRODUTO: produto?.IDPRODUTO,
+                PRECO_VENDA: produto?.PRECO_VENDA,
+                IDSUBGRUPOEMPRESARIAL: produto?.IDSUBGRUPOEMPRESARIAL,
+                IDEMPRESA: produto?.IDEMPRESA,
+            })),
         }));
     }
 
-    putAlteracoesPrecoProdutoClube = async (req, res) => {
+    produtosClubeInvalidos(registros) {
+        return registros.length === 0 || registros.some(r =>
+            r.PRODUTOS.length === 0 || r.PRODUTOS.some(p => !p.IDPRODUTO || !p.IDEMPRESA)
+        );
+    }
+
+    async putAlteracoesPrecoProdutoClube (req, res) {
         try {
-            const registros = this.montarRegistrosProdutoClube(req.body);
+            let {
+                IDPROMOCAO,
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                STATIVO,
+                PRODUTOS
 
-            if (registros.length === 0 || registros.some(r => !r.IDPRODUTO || !r.IDEMPRESA)) {
-                return res.status(400).json({ error: "Os parâmetros IDPRODUTO e IDEMPRESA são obrigatórios em todos os registros." });
-            }
+            } = req.body;
 
-            const response = await axios.put(`${url}/api/produtos/produto-preco-clube.xsjs`, registros);
+            
+
+            const response = await axios.put(`${url}/api/produtos/produto-preco-clube.xsjs`, {
+                IDPROMOCAO,
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                STATIVO,
+                PRODUTOS
+            });
 
             return res.status(200).json(response.data);
         } catch (error) {
@@ -622,16 +647,24 @@ class ProdutoControllers {
         }
     }
 
-    postAlteracoesPrecoProdutoClube = async (req, res) => {
+    async postAlteracoesPrecoProdutoClube (req, res) {
         try {
-            const registros = this.montarRegistrosProdutoClube(req.body);
+             let {
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                STATIVO,
+                PRODUTOS
+            } = req.body;
 
-            if (registros.length === 0 || registros.some(r => !r.IDPRODUTO || !r.IDEMPRESA)) {
-                return res.status(400).json({ error: "Os parâmetros IDPRODUTO e IDEMPRESA são obrigatórios em todos os registros." });
-            }
-
-            const response = await axios.post(`${url}/api/produtos/produto-preco-clube.xsjs`, registros);
-
+            const response = await axios.post(`${url}/api/produtos/produto-preco-clube.xsjs`, {
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                STATIVO,
+                PRODUTOS
+            });
+            
             return res.status(200).json(response.data);
         } catch (error) {
             console.error("erro no ProdutoControllers.postAlteracoesPrecoProdutoClube:", error?.response?.data || error);
