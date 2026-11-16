@@ -1,5 +1,9 @@
 import axios from "axios";
 import { put, get as getBlob } from '@vercel/blob';
+import { handleUpload } from '@vercel/blob/client';
+
+const TIPOS_ANEXO_PERMITIDOS = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+const TAMANHO_MAXIMO_ANEXO = 10 * 1024 * 1024; // 10 MB
 import { Readable } from 'stream';
 import 'dotenv/config';
 import schemaAdiantamentoStatus from "../schema/schemaAdiantamentoStatus.js";
@@ -461,6 +465,33 @@ class AdiantamentosControllers {
     } catch (error) {
       console.log('Erro no AdiantamentosControllers.postUploadAnexoAdiantamento', error);
       return res.status(500).json({ message: 'Erro ao enviar o anexo.' });
+    }
+  }
+
+  // Gera um token temporário para o navegador enviar o arquivo direto ao Vercel Blob.
+  // O arquivo não passa pela função, então não esbarra no limite de 4,5 MB da Vercel.
+  async postTokenUploadAnexoAdiantamento(req, res) {
+    try {
+      const resposta = await handleUpload({
+        request: req,
+        body: req.body,
+        onBeforeGenerateToken: async (pathname) => {
+          if (!pathname.startsWith('adiantamentos/') || pathname.includes('..')) {
+            throw new Error('Caminho de arquivo inválido.');
+          }
+
+          return {
+            allowedContentTypes: TIPOS_ANEXO_PERMITIDOS,
+            maximumSizeInBytes: TAMANHO_MAXIMO_ANEXO,
+            addRandomSuffix: true,
+          };
+        },
+      });
+
+      return res.status(200).json(resposta);
+    } catch (error) {
+      console.log('Erro no AdiantamentosControllers.postTokenUploadAnexoAdiantamento', error);
+      return res.status(400).json({ message: error.message || 'Erro ao autorizar o envio do anexo.' });
     }
   }
 
