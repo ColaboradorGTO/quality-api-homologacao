@@ -983,7 +983,11 @@ routes.put('/produto-avulso/:id', ProdutoControllers.putProdutoAvulso)
 routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
 routes.post('/criar-produto-avulso', ProdutoControllers.postProdutoAvulso) 
 routes.post('/alteracao-preco-produto', ProdutoControllers.postAlteracoesPrecoProduto)
-routes.post('/produto-preco-clube', ProdutoControllers.postAlteracoesPrecoProdutoClube)
+routes.get('/promocao-produto-clube', ProdutoControllers.getPromocaoProdutoClube)
+routes.get('/produto-preco-clube-produtos', ProdutoControllers.getProdutoPrecoClube)
+routes.get('/produto-preco-clube-promocao', ProdutoControllers.getProdutoPrecoClubePromocao)
+routes.post('/criar-promocao-produto-clube', ProdutoControllers.postAlteracoesPrecoProdutoClube)
+routes.post('/produto-preco-clube-produtos', ProdutoControllers.postProdutosPrecoClube)
  
 //  Depositos Loja
 routes.get('/depositosLoja', DepositosLojaControllers.getListaDepositosLojaEmpresa)

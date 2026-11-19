@@ -558,13 +558,14 @@ class ProdutoControllers {
     }
 
     async getProdutoPrecoClubePromocao(req, res) {
-        let { idProduto, page, pageSize } = req.query;
+        let { idProduto, idPromocao, page, pageSize } = req.query;
         idProduto = idProduto ? idProduto : '';
+        idPromocao = idPromocao ? idPromocao : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
         try {
-            const apiUrl = `${url}/api/produtos/produto-preco-clube-promocao.xsjs?idProduto=${encodeURIComponent(idProduto)}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/produtos/produto-preco-clube-produtos.xsjs?idProduto=${encodeURIComponent(idProduto)}&idPromocao=${idPromocao}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl);
             
             return res.json(response.data);
@@ -574,15 +575,39 @@ class ProdutoControllers {
         }
     }
 
+    async getPromocaoProdutoClube(req, res) {
+        let { idPromocao, dataInicio, dataFim, status, page, pageSize } = req.query;
+            idPromocao = idPromocao ? idPromocao : '';
+            status = status ? status : '';
+            dataInicio = dataInicio ? dataInicio : '';
+            dataFim = dataFim ? dataFim : '';
+            page = page ? page : '';
+            pageSize = pageSize ? pageSize : '';
+
+        try {
+            const apiUrl = `${url}/api/produtos/promocao-produto-clube.xsjs?idPromocao=${idPromocao}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl);
+
+            return res.json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.getPromocaoProdutoClube:", error);
+            return res.status(500).json({ error: "Erro no servidor ao buscar promoções do clube." });
+        }
+    }
+
     async getProdutoPrecoClube(req, res) {
-        let { idEmpresa, idProduto, page, pageSize } = req.query;
+        let { idEmpresa, idProduto, idPromocao, dataInicio, dataFim, status, page, pageSize } = req.query;
         idEmpresa = idEmpresa ? idEmpresa : '';
         idProduto = idProduto ? idProduto : '';
+        idPromocao = idPromocao ? idPromocao : '';
+        dataInicio = dataInicio ? dataInicio : '';
+        dataFim = dataFim ? dataFim : '';
+        status = status ? status : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
         try {
-            const apiUrl = `${url}/api/produtos/produto-preco-clube.xsjs?idEmpresa=${idEmpresa}&idProduto=${encodeURIComponent(idProduto)}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/produtos/produto-preco-clube.xsjs?idEmpresa=${idEmpresa}&idProduto=${encodeURIComponent(idProduto)}&idPromocao=${idPromocao}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl);
             
             return res.json(response.data);
@@ -592,30 +617,7 @@ class ProdutoControllers {
         }
     }
 
-    // Aceita uma promoção (objeto) ou uma lista (array) de promoções, cada uma com seus PRODUTOS
-    montarRegistrosProdutoClube(body) {
-        const lista = Array.isArray(body) ? body : [body];
-        console.log(lista, 'lista')
-        return lista.map(item => ({
-            IDPROMOCAO: item?.IDPROMOCAO,
-            DSPROMOCAO: item?.DSPROMOCAO,
-            DTHORAINICIOVIGENCIA: item?.DTHORAINICIOVIGENCIA,
-            DTHORAFIMVIGENCIA: item?.DTHORAFIMVIGENCIA,
-            STATIVO: item?.STATIVO,
-            PRODUTOS: (Array.isArray(item?.PRODUTOS) ? item.PRODUTOS : []).map(produto => ({
-                IDPRODUTO: produto?.IDPRODUTO,
-                PRECO_VENDA: produto?.PRECO_VENDA,
-                IDSUBGRUPOEMPRESARIAL: produto?.IDSUBGRUPOEMPRESARIAL,
-                IDEMPRESA: produto?.IDEMPRESA,
-            })),
-        }));
-    }
 
-    produtosClubeInvalidos(registros) {
-        return registros.length === 0 || registros.some(r =>
-            r.PRODUTOS.length === 0 || r.PRODUTOS.some(p => !p.IDPRODUTO || !p.IDEMPRESA)
-        );
-    }
 
     async putAlteracoesPrecoProdutoClube (req, res) {
         try {
@@ -647,27 +649,56 @@ class ProdutoControllers {
         }
     }
 
+    // Cria somente a promoção (PROMOCAOPRODUTOCLUEBEPRECO) e retorna o IDPROMOCAO gerado
     async postAlteracoesPrecoProdutoClube (req, res) {
         try {
-             let {
+            let {
                 DSPROMOCAO,
                 DTHORAINICIOVIGENCIA,
                 DTHORAFIMVIGENCIA,
-                STATIVO,
                 PRODUTOS
             } = req.body;
 
-            const response = await axios.post(`${url}/api/produtos/produto-preco-clube.xsjs`, {
+            const response = await axios.post(`${url}/api/produtos/promocao-produto-clube.xsjs`, [{
                 DSPROMOCAO,
                 DTHORAINICIOVIGENCIA,
                 DTHORAFIMVIGENCIA,
-                STATIVO,
                 PRODUTOS
-            });
-            
+        }]);
+
             return res.status(200).json(response.data);
         } catch (error) {
             console.error("erro no ProdutoControllers.postAlteracoesPrecoProdutoClube:", error?.response?.data || error);
+            return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao cadastrar a promoção do clube." });
+        }
+    }
+
+    // Grava os produtos (PRODUTOPRECOCLUBE) vinculados a uma promoção já criada
+    async postProdutosPrecoClube (req, res) {
+        try {
+            let {
+                IDPROMOCAO,
+                PRODUTOS
+            } = req.body;
+
+            if (!IDPROMOCAO) {
+                return res.status(400).json({ error: "IDPROMOCAO não informado." });
+            }
+            if (!Array.isArray(PRODUTOS) || PRODUTOS.length === 0) {
+                return res.status(400).json({ error: "Nenhum produto informado." });
+            }
+
+            const response = await axios.post(`${url}/api/produtos/produto-preco-clube-produtos.xsjs`, {
+                IDPROMOCAO,
+                PRODUTOS
+            }, {
+                maxBodyLength: Infinity,
+                maxContentLength: Infinity
+            });
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.postProdutosPrecoClube:", error?.response?.data || error);
             return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao cadastrar produtos do clube." });
         }
     }
