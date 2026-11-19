@@ -618,30 +618,25 @@ class ProdutoControllers {
     }
 
 
-
-    async putAlteracoesPrecoProdutoClube (req, res) {
+    async putAlteracoesProdutoPrecoClube(req, res) {
         try {
             let {
-                IDPROMOCAO,
-                DSPROMOCAO,
-                DTHORAINICIOVIGENCIA,
                 DTHORAFIMVIGENCIA,
                 STATIVO,
-                PRODUTOS
+                IDPROMOCAO,
+                IDPRODUTO
 
             } = req.body;
 
             
 
-            const response = await axios.put(`${url}/api/produtos/produto-preco-clube.xsjs`, {
-                IDPROMOCAO,
-                DSPROMOCAO,
-                DTHORAINICIOVIGENCIA,
+            const response = await axios.put(`${url}/api/produtos/produto-preco-clube.xsjs`, [{
                 DTHORAFIMVIGENCIA,
                 STATIVO,
-                PRODUTOS
-            });
-
+                IDPROMOCAO,
+                IDPRODUTO
+            }]);
+            
             return res.status(200).json(response.data);
         } catch (error) {
             console.error("erro no ProdutoControllers.putAlteracoesPrecoProdutoClube:", error?.response?.data || error);
@@ -649,7 +644,7 @@ class ProdutoControllers {
         }
     }
 
-    // Cria somente a promoção (PROMOCAOPRODUTOCLUEBEPRECO) e retorna o IDPROMOCAO gerado
+
     async postAlteracoesPrecoProdutoClube (req, res) {
         try {
             let {
