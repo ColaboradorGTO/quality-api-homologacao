@@ -99,17 +99,18 @@ class AdiantamentosControllers {
   }
 
   async getListaAdiantamentoDepartamentos(req, res) {
-    let { idAdiantamento, idEmpresa, status, departamento, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
+    let { idAdiantamento, idEmpresa, status, statusPagamento, departamento, dataPesquisaInicio, dataPesquisaFim, page, pageSize } = req.query;
     idAdiantamento = idAdiantamento ? idAdiantamento : '';
     idEmpresa = idEmpresa ? idEmpresa : '';
     status = status ? status : '';
+    statusPagamento = statusPagamento ? statusPagamento : '';
     departamento = departamento ? departamento : '';
     dataPesquisaInicio = dataPesquisaInicio ? dataPesquisaInicio : '';
     dataPesquisaFim = dataPesquisaFim ? dataPesquisaFim : '';
     page = page ? page : ''
     pageSize = pageSize ? pageSize : ''
     try {
-      const apiUrl = `${url}/api/financeiro/adiantamento-departamento.xsjs?id=${idAdiantamento}&idEmpresa=${idEmpresa}&status=${status}&departamento=${departamento}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
+      const apiUrl = `${url}/api/financeiro/adiantamento-departamento.xsjs?id=${idAdiantamento}&idEmpresa=${idEmpresa}&status=${status}&statusPagamento=${statusPagamento}&departamento=${departamento}&dataPesquisaInicio=${dataPesquisaInicio}&dataPesquisaFim=${dataPesquisaFim}&page=${page}&pageSize=${pageSize}`
       const response = await axios.get(apiUrl)
       
       return res.json(response.data);

@@ -981,12 +981,14 @@ routes.get('/produtos-cadastrados-avulso', ProdutoControllers.getListaProdutosCa
 
 
 routes.get('/promocao-produto-clube', ProdutoControllers.getPromocaoProdutoClube)
+routes.get('/detalhe-promocao-produto-clube', ProdutoControllers.getListaDetalhePromocaoPrecoClube)
 routes.get('/produto-preco-clube-produtos', ProdutoControllers.getProdutoPrecoClube)
 routes.get('/produto-preco-clube-promocao', ProdutoControllers.getProdutoPrecoClubePromocao)
 
 routes.put('/produto-avulso/:id', ProdutoControllers.putProdutoAvulso) 
 routes.put('/alteracoes-de-precos-resumo/:id', ProdutoControllers.putAlteracoesPrecoProduto)
 routes.put('/produto-preco-clube/:id', ProdutoControllers.putAlteracoesProdutoPrecoClube) 
+routes.put('/promocao-produto-clube/:id', ProdutoControllers.putPromocoesPrecoProdutoClube)
 
 routes.post('/criar-produto-avulso', ProdutoControllers.postProdutoAvulso) 
 routes.post('/alteracao-preco-produto', ProdutoControllers.postAlteracoesPrecoProduto)

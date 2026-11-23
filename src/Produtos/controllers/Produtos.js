@@ -390,6 +390,29 @@ class ProdutoControllers {
             throw error;
         }
     }
+  
+    async getListaDetalhePromocaoPrecoClube(req, res) {
+        let { 
+            idPromocao,
+            page, 
+            pageSize 
+        } = req.query;
+
+        idPromocao = idPromocao ? idPromocao : '';
+        page = page ? page : '';
+        pageSize = pageSize ? pageSize : '';
+
+        try {
+
+            const apiUrl = `${url}/api/produtos/detalhe-promocao-produto-clube.xsjs?idPromocao=${idPromocao}&page=${page}&pageSize=${pageSize}`;
+            const response = await axios.get(apiUrl)
+            
+            return res.json(response.data);
+        } catch (error) {
+            console.error("Erro no ProdutoControllers.getListaDetalhePromocaoPrecoClube:", error);
+            throw error;
+        }
+    }
 
     async putAlteracoesPrecoProduto(req, res) {
 
@@ -664,6 +687,29 @@ class ProdutoControllers {
             return res.status(200).json(response.data);
         } catch (error) {
             console.error("erro no ProdutoControllers.postAlteracoesPrecoProdutoClube:", error?.response?.data || error);
+            return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao cadastrar a promoção do clube." });
+        }
+    }
+
+    async putPromocoesPrecoProdutoClube(req, res) {
+        try {
+            let {
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                PRODUTOS
+            } = req.body;
+
+            const response = await axios.put(`${url}/api/produtos/promocao-produto-clube.xsjs`, [{
+                DSPROMOCAO,
+                DTHORAINICIOVIGENCIA,
+                DTHORAFIMVIGENCIA,
+                PRODUTOS
+        }]);
+
+            return res.status(200).json(response.data);
+        } catch (error) {
+            console.error("erro no ProdutoControllers.putPromocoesPrecoProdutoClube:", error?.response?.data || error);
             return res.status(500).json({ error: error?.response?.data?.message || "Erro no servidor ao cadastrar a promoção do clube." });
         }
     }
