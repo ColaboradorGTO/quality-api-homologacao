@@ -20,10 +20,9 @@ const updateFuncionarioDescontoSchema = Joi.object({
             "any.required": "PERCDESCUSUAUTORIZADO is required field"
         }),
 
-    TXTMOTIVODESCONTO: Joi.string().required()
+    TXTMOTIVODESCONTO: Joi.string().allow('')
         .messages({
             "string.base": "TXTMOTIVODESCONTO must be a string",
-            "any.required": "TXTMOTIVODESCONTO is required field"
         }),
 
     IDFUNCALTERACAO: Joi.number().required()

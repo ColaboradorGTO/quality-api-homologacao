@@ -697,6 +697,8 @@ class ProdutoControllers {
                 DSPROMOCAO,
                 DTHORAINICIOVIGENCIA,
                 DTHORAFIMVIGENCIA,
+                STATIVO,
+                IDPROMOCAO,
                 PRODUTOS
             } = req.body;
 
@@ -704,6 +706,8 @@ class ProdutoControllers {
                 DSPROMOCAO,
                 DTHORAINICIOVIGENCIA,
                 DTHORAFIMVIGENCIA,
+                STATIVO,
+                IDPROMOCAO,
                 PRODUTOS
         }]);
 
