@@ -394,17 +394,23 @@ class ProdutoControllers {
     async getListaDetalhePromocaoPrecoClube(req, res) {
         let { 
             idPromocao,
+            dataInicio,
+            dataFim,
+            status,
             page, 
             pageSize 
         } = req.query;
 
         idPromocao = idPromocao ? idPromocao : '';
+        dataInicio = dataInicio ? dataInicio : '';
+        dataFim = dataFim ? dataFim : '';
+        status = status ? status : '';
         page = page ? page : '';
         pageSize = pageSize ? pageSize : '';
 
         try {
 
-            const apiUrl = `${url}/api/produtos/detalhe-promocao-produto-clube.xsjs?idPromocao=${idPromocao}&page=${page}&pageSize=${pageSize}`;
+            const apiUrl = `${url}/api/produtos/detalhe-promocao-produto-clube.xsjs?idPromocao=${idPromocao}&dataInicio=${dataInicio}&dataFim=${dataFim}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             
             return res.json(response.data);
