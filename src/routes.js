@@ -79,6 +79,8 @@ import ClienteControllers from './Gerencia/cliente/controller/clienteController.
 import ContaControllers from './Administrativo/Conta/controller/contaController.js'
 import DespesasControllersADM from './Administrativo/Despesa/controller/despesaController.js'
 import FaturaControllers from './Administrativo/Fatura/controller/faturaController.js'
+import AdmVouchersControllers from './Administrativo/Vouchers/controllers/index.js'
+
 
 import GERAlteracaoPrecoControllers from './Gerencia/AlteracaoPreco/controllers/index.js'
 //  Comercial
@@ -368,7 +370,7 @@ routes.post('/criar-detalhe-balanco-avulso', AdmBalancoControllers.postDetalheBa
 routes.get('/despesasLojaADM', DespesasControllersADM.getListaDespesasLojaADM)
 
 routes.put('/alterarVendaVendedor', AdministrativoControllers.updateAlterarVendaVendedor)
-routes.put('/editar-voucher/:id', AdministrativoControllers.putEditarVoucher)
+routes.put('/editar-voucher/:id', AdmVouchersControllers.putEditarVoucher)
 
 // routes.get('/estoqueAtual', AdministrativoControllers.getEstoqueAtual)
 routes.get('/estoqueAtual', EstoqueControllers.getEstoqueAtual)
