@@ -77,8 +77,11 @@ class AdmVendasControllers {
 
                 return res.json(response.data); // Retorna
             } catch (error) {
-                console.error("Unable to connect to the database:", error);
-                throw error;
+                console.error("AdmVendasControllers.getVendaVendedor:", error.code || '', error.message);
+
+                return res.status(500).json({
+                    message: 'Erro interno ao buscar vendas vendedor.',
+                });
             }
         }
     }
@@ -228,8 +231,10 @@ class AdmVendasControllers {
 
                 return res.json(response.data); // Retorna
             } catch (error) {
-                console.error("Unable to connect to the database:", error);
-                throw error;
+                console.error("AdmVendasControllers.getResumoVendaConvenio:", error.code || '', error.message);
+                return res.status(500).json({
+                    message: 'Erro interno ao buscar FinanceiroVendasControllers.getResumoVendaConvenio.',
+                });
             }
         }
     }
@@ -446,16 +451,16 @@ class AdmVendasControllers {
         pageSize = pageSize ? pageSize : '';
 
         try {
-
-
             const apiUrl = `${url}/api/administrativo/venda-ativa.xsjs?cpfCliente=${cpfCliente}&ufVenda=${ufVenda}&idMarca=${idGrupo}&idEmpresa=${idEmpresa}&dataFechamento=${dataPesquisaInicio}&dataFechamentoFim=${dataPesquisaFim}&statusContingencia=${statusContingencia}&status=${statusCancelado}&stCanceladoWeb=${statusCanceladoWeb}&stCanceladoPDVEmitida=${stCanceladoPDVEmitida}&stCanceladoApos30Min=${statusCanceladoDepois30Minutos}&stCanceladoPDVEmTela=${stCanceladoPDVEmTela}&page=${page}&pageSize=${pageSize}`;
             const response = await axios.get(apiUrl)
             
 
             return res.json(response.data);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("AdmVendasControllers.getListaVendaAtiva:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar getListaVendaAtiva.',
+            });
         }
     }
 
