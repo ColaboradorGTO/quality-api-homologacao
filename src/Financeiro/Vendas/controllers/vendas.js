@@ -43,8 +43,10 @@ class FinanceiroVendasControllers {
       const response = await axios.get(apiUrl)
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("FinanceiroVendasControllers.getListaVendasDigital:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaVendasDigital.',
+      });
     }
   }
 
@@ -61,8 +63,10 @@ class FinanceiroVendasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Erro no FinanceiroVendasControllers.getListaVendasDigitalMarca:", error);
-      throw error;
+      console.error("FinanceiroVendasControllers.getListaVendasDigitalMarca:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaVendasDigitalMarca.',
+      });
     }
 
   }
@@ -82,8 +86,10 @@ class FinanceiroVendasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("FinanceiroVendasControllers.getListaVendasConciliar:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaVendasConciliar.',
+      });
     }
 
   }
@@ -99,8 +105,10 @@ class FinanceiroVendasControllers {
       const response = await axios.get(apiUrl)
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("FinanceiroVendasControllers.getListaVendasTotal:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaVendasTotal.',
+      });
     }
   }
 
@@ -119,8 +127,10 @@ class FinanceiroVendasControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("FinanceiroVendasControllers.getListaRemessaVendas:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaRemessaVendas.',
+      });
     }
 
   }
@@ -138,8 +148,10 @@ class FinanceiroVendasControllers {
 
       return res.json(response.data);
     } catch (err) {
-      console.error('Controller Erro ao buscar Vendas Loja Por Periodo:', err);
-      throw err;
+      console.error("FinanceiroVendasControllers.getListaVendasPagamentos:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaVendasPagamentos.',
+      });
     }
   }
 
@@ -288,8 +300,11 @@ class FinanceiroVendasControllers {
      
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("VendasControllers.getListaVendasMarca:", error.code || '', error.message);
+
+      return res.status(500).json({
+        message: 'Erro interno ao buscar vendas por marca.',
+      });
     }
   }
 

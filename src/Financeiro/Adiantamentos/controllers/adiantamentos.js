@@ -33,8 +33,10 @@ class AdiantamentosControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaAdiantamentoSalarialFinanceiro.',
+      });
     }
   }
 
@@ -54,8 +56,10 @@ class AdiantamentosControllers {
 
       return res.json(response.data); // Retorna
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaCaixasMovmentoFinanceiroAdiantamento:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaCaixasMovmentoFinanceiroAdiantamento.',
+      });
     }
   }
 
@@ -74,8 +78,10 @@ class AdiantamentosControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaCaixaStatus:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaCaixaStatus.',
+      });
     }
   }
 
@@ -93,8 +99,10 @@ class AdiantamentosControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaCaixaZerados:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaCaixaZerados.',
+      });
     }
   }
 
@@ -115,8 +123,10 @@ class AdiantamentosControllers {
       
       return res.json(response.data);
     } catch (error) {
-      console.error("AdiantamentosControllers.getListaAdiantamentoDepartamentos:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaAdiantamentoDepartamentos:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaAdiantamentoDepartamentos.',
+      });
     }
   }
 
@@ -135,8 +145,10 @@ class AdiantamentosControllers {
 
       return res.json(response.data);
     } catch (error) {
-      console.error("AdiantamentosControllers.getListaAdiantamentoDepartamentos:", error);
-      throw error;
+      console.error("AdiantamentosControllers.getListaPagamentoAdiantamento:", error.code || '', error.message);
+      return res.status(500).json({
+          message: 'Erro interno ao buscar AdiantamentosControllers.getListaPagamentoAdiantamento.',
+      });
     }
   }
 

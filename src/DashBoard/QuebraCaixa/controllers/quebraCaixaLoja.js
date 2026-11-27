@@ -26,8 +26,10 @@ class QuebraCaixaControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("QuebraCaixaControllers.getListaQuebraCaixaResumoADM:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar quebra caixa adm resumo.',
+            });
         }
     }
 
@@ -52,8 +54,10 @@ class QuebraCaixaControllers {
 
             return res.json(response.data);
         } catch (error) {
-            console.error("Erro no QuebraCaixaControllers.getListaQuebraCaixa:", error);
-            throw error;
+            console.error("QuebraCaixaControllers.getListaQuebraCaixa:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar quebra caixa .',
+            });
         }
 
     }

@@ -185,8 +185,10 @@ class ProdutoControllers {
 
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("ProdutoControllers.getListaGrupoProdutoSap:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar FinanceiroVendasControllers.getListaGrupoProdutoSap.',
+            });
         }
     }
 
@@ -200,8 +202,10 @@ class ProdutoControllers {
 
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("ProdutoControllers.ListaProdutosEtiqueta:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar FinanceiroVendasControllers.ListaProdutosEtiqueta.',
+            });
         }
     }
 
@@ -280,8 +284,10 @@ class ProdutoControllers {
            
             return res.json(response.data); 
         } catch (error) {
-            console.error("Erro no ProdutoControllers.ListaProdutosEtiquetagem:", error);
-            throw error;
+            console.error("ProdutoControllers.ListaProdutosEtiquetagem:", error.code || '', error.message);
+            return res.status(500).json({
+                message: 'Erro interno ao buscar ProdutoControllers.ListaProdutosEtiquetagem.',
+            });
         }
     }
 

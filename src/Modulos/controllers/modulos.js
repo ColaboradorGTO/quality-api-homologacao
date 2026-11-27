@@ -19,8 +19,11 @@ class ModulosControllers  {
    
             return res.json(response.data); 
         } catch (error) {
-            console.error("Unable to connect to the database:", error);
-            throw error;
+            console.error("ModulosControllers.getListaPerfilUsuario:", error.code || '', error.message);
+
+            return res.status(500).json({
+                message: 'Erro interno ao buscar menus do usuário.',
+            });
         }
     }
 
@@ -38,8 +41,11 @@ class ModulosControllers  {
             
             return res.json(response.data); // Retorna
         } catch (error) {
-            console.error("Erro no ModulosControllers.getListaMenusPorUsuario:", error);
-            throw error;
+            console.error("ModulosControllers.getListaMenusPorUsuario:", error.code || '', error.message);
+
+            return res.status(500).json({
+                message: 'Erro interno ao buscar menus do usuário.',
+            });
         }
     }
 
