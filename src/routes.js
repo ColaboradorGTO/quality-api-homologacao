@@ -38,9 +38,9 @@ import RelatorioBiController from './Informatica/RelatorioBI/controller/index.js
 
 import CredSystemInformaticaControllers from './Informatica/CredSystem/controller/index.js'
 import clientesInformaticaController from './Informatica/Clientes/controller/index.js'
-import ConsultaStatusNfeController from './Informatica/ConsultaNFCE/controllers/statusNfce.js'
+
 import ConsultaNfeController from './Informatica/ConsultaNFCE/controllers/consulta.js'
-import GnreProcessoController from './Informatica/ConsultaNFCE/controllers/gnreProcesso.js'
+
 // Financeiro Início
 import AdiantamentosControllers from './Financeiro/Adiantamentos/controllers/adiantamentos.js'
 import { uploadAnexo } from './middlewares/uploadAnexo.js'
@@ -690,9 +690,6 @@ routes.put('/funcionarios-loja/:id', FuncionarioController.putFuncionarioLoja)
 routes.post('/criar-funcionarios-loja', FuncionarioController.postFuncionarioLoja)
 routes.put('/funcionarios-desconto/:id', FuncionarioController.putFuncionarioDesconto)
 routes.put('/valida-venda-contingencia/:id', ConsultaNfeController.putValidarVendaContigencia);
-routes.post('/gnre/processar', GnreProcessoController.processar);
-routes.post('/gnre/pdf', GnreProcessoController.gerarPdf);
-routes.get('/validarConsulta', ConsultaStatusNfeController.validarConsulta);
 
 // FIM Informática
 
